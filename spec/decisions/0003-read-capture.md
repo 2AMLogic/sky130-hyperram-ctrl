@@ -21,8 +21,8 @@ Option 2 is taken only if the monotonicity experiment (target-spec open
 question b) fails; that would supersede this record.
 
 Margin: setup and hold at the capturing flop each at least 20 % of the half
-period (1 ns at 50 MHz) at the worst corner after adding the full pad delay
-spread on both RWDS and DQ paths. The 20 % is a proposal; ratification may
+period (2 ns at 50 MHz, 4 ns at the 25 MHz fallback) at the worst corner after
+adding the full pad delay spread on both RWDS and DQ paths. The 20 % is a proposal; ratification may
 change it, agents may not.
 
 Calibration failure: v1 has no calibration, so none can fail. The tap
