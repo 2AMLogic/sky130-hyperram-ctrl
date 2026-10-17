@@ -1,0 +1,8 @@
+{
+  "schema": "sky130-hyperram-ctrl.toolchain/1",
+  "note": "klt commands the runners in this repo invoke; each is a gap-surfacing path under the friction protocol (CLAUDE.md).",
+  "klt_commands": [
+    {"command": "klt synthesize", "used_by": "make smoke-synth", "request": "flow/synthesize-smoke.json"},
+    {"command": "klt sta", "used_by": "make smoke-sta", "request": "flow/sta-smoke.json"}
+  ]
+}
