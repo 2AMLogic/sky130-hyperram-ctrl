@@ -1,0 +1,33 @@
+name: ci
+
+# All checks live in scripts/check_ci.sh so this gate and `npm run check:ci`
+# run the same commands. klt is pinned there (KLT_VERSION); keep the pip pin
+# below in step with it.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install pinned klt
+        run: pip install klayout-tools==0.7.0
+
+      # RTL lint and the cocotb smoke test are wired in with the toolchain
+      # skeleton (issue #3).
+      - name: JSON, README links, klt signoff record
+        run: scripts/check_ci.sh
