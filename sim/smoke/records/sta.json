@@ -1,0 +1,339 @@
+{
+  "schema_version": 2,
+  "engine": "openroad",
+  "engine_version": "26Q3-1510-g6cb3f2b704",
+  "hdl_toplevel": "smoke_counter",
+  "status": "ok",
+  "def_path": null,
+  "verilog_path": {
+    "path": "sim/smoke/records/smoke_counter.netlist.v",
+    "scope": "repo"
+  },
+  "geometry_source": "netlist_estimate",
+  "wire_load_model": null,
+  "wire_load_mode": null,
+  "clock_mode": "ideal",
+  "spef_path": null,
+  "provenance": {
+    "klt_version": "0.7.1.dev1765+gb61f753d0369",
+    "klayout_version": "0.30.12",
+    "pdk": {
+      "name": "sky130A",
+      "source": "search root: ~/.ciel",
+      "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7",
+      "ambiguous_sources": [
+        "search root: ~/.volare"
+      ]
+    },
+    "deck": null,
+    "input": {
+      "content_hash": "sha256:8ba036dacca630d500d03fd8f4cbd25c91b01a2171f234492a484919404656cf",
+      "role": "netlist"
+    }
+  },
+  "corners": [
+    {
+      "corner": "tt_025C_1v80",
+      "engine_log": {
+        "invocation_id": "09e978e936764bce9e25f81228d5fce2",
+        "script_name": "sta_smoke_counter.netlist__tt_025C_1v80.tcl",
+        "script_path": {
+          "path": "flow/.klt/sta/sta_smoke_counter.netlist__tt_025C_1v80.tcl",
+          "scope": "repo"
+        },
+        "script_sha256": "a6f0108b1ec220c9a304aac18e97f8d560f4150017e5c0af37e16e9d7459e59a",
+        "metrics_path": {
+          "path": "flow/.klt/sta/smoke_counter.netlist__tt_025C_1v80_metrics.json",
+          "scope": "repo"
+        },
+        "outcome": "exited",
+        "returncode": 0,
+        "directory": {
+          "path": "flow/.klt/sta/openroad-logs/09e978e936764bce9e25f81228d5fce2",
+          "scope": "repo"
+        },
+        "stdout_path": {
+          "path": "flow/.klt/sta/openroad-logs/09e978e936764bce9e25f81228d5fce2/stdout.log",
+          "scope": "repo"
+        },
+        "stderr_path": {
+          "path": "flow/.klt/sta/openroad-logs/09e978e936764bce9e25f81228d5fce2/stderr.log",
+          "scope": "repo"
+        },
+        "metadata_path": {
+          "path": "flow/.klt/sta/openroad-logs/09e978e936764bce9e25f81228d5fce2/invocation.json",
+          "scope": "repo"
+        },
+        "retention_errors": []
+      },
+      "worst_slack_ns": 19.002,
+      "total_negative_slack_ns": 0,
+      "worst_hold_slack_ns": 0.42447,
+      "total_negative_hold_slack_ns": 0,
+      "fmax_mhz": 1002.03,
+      "timing_status": "constrained",
+      "constraint_completeness": {
+        "status": "incomplete",
+        "unconstrained_endpoints": {
+          "status": "ok",
+          "count": 8,
+          "sample": [
+            "count[0]",
+            "count[1]",
+            "count[2]",
+            "count[3]",
+            "count[4]",
+            "count[5]",
+            "count[6]",
+            "count[7]"
+          ],
+          "truncated": false,
+          "reason": null
+        },
+        "unclocked_registers": {
+          "status": "ok",
+          "count": 0,
+          "sample": [],
+          "truncated": false,
+          "reason": null
+        },
+        "sample_limit": 20
+      },
+      "setup_violation_count": 0,
+      "hold_violation_count": 0,
+      "worst_setup_path": {
+        "status": "ok",
+        "check_type": "setup",
+        "engine_check_role": "setup",
+        "startpoint": "_22_/Q",
+        "endpoint": "_29_/D",
+        "slack_ns": 19.00202,
+        "consistent_with_aggregate": true,
+        "reason": null
+      },
+      "worst_hold_path": {
+        "status": "ok",
+        "check_type": "hold",
+        "engine_check_role": "hold",
+        "startpoint": "_29_/Q",
+        "endpoint": "_29_/D",
+        "slack_ns": 0.42447,
+        "consistent_with_aggregate": true,
+        "reason": null
+      },
+      "clock_skew_ns": 0,
+      "estimated_power_mw": 0.0165,
+      "spef_annotation": null,
+      "electrical_checks": null,
+      "clock_propagation": null,
+      "sdf": null,
+      "deck": {
+        "name": "sky130_fd_sc_hd__tt_025C_1v80",
+        "content_hash": "sha256:8e78e14442062dba34d414fca6490b2f6b96038d4510d1438ca44fee31487135",
+        "released": false
+      }
+    },
+    {
+      "corner": "ss_100C_1v60",
+      "engine_log": {
+        "invocation_id": "40f455959fd546ee9521363457128ea6",
+        "script_name": "sta_smoke_counter.netlist__ss_100C_1v60.tcl",
+        "script_path": {
+          "path": "flow/.klt/sta/sta_smoke_counter.netlist__ss_100C_1v60.tcl",
+          "scope": "repo"
+        },
+        "script_sha256": "6480d4e24e6a7fa14916cd5c0b83aebbbcdc706bffd789c50b22acbeb34a0517",
+        "metrics_path": {
+          "path": "flow/.klt/sta/smoke_counter.netlist__ss_100C_1v60_metrics.json",
+          "scope": "repo"
+        },
+        "outcome": "exited",
+        "returncode": 0,
+        "directory": {
+          "path": "flow/.klt/sta/openroad-logs/40f455959fd546ee9521363457128ea6",
+          "scope": "repo"
+        },
+        "stdout_path": {
+          "path": "flow/.klt/sta/openroad-logs/40f455959fd546ee9521363457128ea6/stdout.log",
+          "scope": "repo"
+        },
+        "stderr_path": {
+          "path": "flow/.klt/sta/openroad-logs/40f455959fd546ee9521363457128ea6/stderr.log",
+          "scope": "repo"
+        },
+        "metadata_path": {
+          "path": "flow/.klt/sta/openroad-logs/40f455959fd546ee9521363457128ea6/invocation.json",
+          "scope": "repo"
+        },
+        "retention_errors": []
+      },
+      "worst_slack_ns": 17.8458,
+      "total_negative_slack_ns": 0,
+      "worst_hold_slack_ns": 0.87226,
+      "total_negative_hold_slack_ns": 0,
+      "fmax_mhz": 464.209,
+      "timing_status": "constrained",
+      "constraint_completeness": {
+        "status": "incomplete",
+        "unconstrained_endpoints": {
+          "status": "ok",
+          "count": 8,
+          "sample": [
+            "count[0]",
+            "count[1]",
+            "count[2]",
+            "count[3]",
+            "count[4]",
+            "count[5]",
+            "count[6]",
+            "count[7]"
+          ],
+          "truncated": false,
+          "reason": null
+        },
+        "unclocked_registers": {
+          "status": "ok",
+          "count": 0,
+          "sample": [],
+          "truncated": false,
+          "reason": null
+        },
+        "sample_limit": 20
+      },
+      "setup_violation_count": 0,
+      "hold_violation_count": 0,
+      "worst_setup_path": {
+        "status": "ok",
+        "check_type": "setup",
+        "engine_check_role": "setup",
+        "startpoint": "_22_/Q",
+        "endpoint": "_29_/D",
+        "slack_ns": 17.8458,
+        "consistent_with_aggregate": true,
+        "reason": null
+      },
+      "worst_hold_path": {
+        "status": "ok",
+        "check_type": "hold",
+        "engine_check_role": "hold",
+        "startpoint": "_29_/Q",
+        "endpoint": "_29_/D",
+        "slack_ns": 0.87226,
+        "consistent_with_aggregate": true,
+        "reason": null
+      },
+      "clock_skew_ns": 0,
+      "estimated_power_mw": 0.0135,
+      "spef_annotation": null,
+      "electrical_checks": null,
+      "clock_propagation": null,
+      "sdf": null,
+      "deck": {
+        "name": "sky130_fd_sc_hd__ss_100C_1v60",
+        "content_hash": "sha256:9b24f0db3967ac67b4cae1f74bb480fd47922d18d0ed577e3c121739b412c361",
+        "released": false
+      }
+    },
+    {
+      "corner": "ff_n40C_1v95",
+      "engine_log": {
+        "invocation_id": "73d3aff2ad6a4031be5e8f5c21b8c7a9",
+        "script_name": "sta_smoke_counter.netlist__ff_n40C_1v95.tcl",
+        "script_path": {
+          "path": "flow/.klt/sta/sta_smoke_counter.netlist__ff_n40C_1v95.tcl",
+          "scope": "repo"
+        },
+        "script_sha256": "3682335f72b1e251ae6ece18b7d75212108ff6d6820bac6f82fc52eb8612d9d5",
+        "metrics_path": {
+          "path": "flow/.klt/sta/smoke_counter.netlist__ff_n40C_1v95_metrics.json",
+          "scope": "repo"
+        },
+        "outcome": "exited",
+        "returncode": 0,
+        "directory": {
+          "path": "flow/.klt/sta/openroad-logs/73d3aff2ad6a4031be5e8f5c21b8c7a9",
+          "scope": "repo"
+        },
+        "stdout_path": {
+          "path": "flow/.klt/sta/openroad-logs/73d3aff2ad6a4031be5e8f5c21b8c7a9/stdout.log",
+          "scope": "repo"
+        },
+        "stderr_path": {
+          "path": "flow/.klt/sta/openroad-logs/73d3aff2ad6a4031be5e8f5c21b8c7a9/stderr.log",
+          "scope": "repo"
+        },
+        "metadata_path": {
+          "path": "flow/.klt/sta/openroad-logs/73d3aff2ad6a4031be5e8f5c21b8c7a9/invocation.json",
+          "scope": "repo"
+        },
+        "retention_errors": []
+      },
+      "worst_slack_ns": 19.3942,
+      "total_negative_slack_ns": 0,
+      "worst_hold_slack_ns": 0.26641,
+      "total_negative_hold_slack_ns": 0,
+      "fmax_mhz": 1650.59,
+      "timing_status": "constrained",
+      "constraint_completeness": {
+        "status": "incomplete",
+        "unconstrained_endpoints": {
+          "status": "ok",
+          "count": 8,
+          "sample": [
+            "count[0]",
+            "count[1]",
+            "count[2]",
+            "count[3]",
+            "count[4]",
+            "count[5]",
+            "count[6]",
+            "count[7]"
+          ],
+          "truncated": false,
+          "reason": null
+        },
+        "unclocked_registers": {
+          "status": "ok",
+          "count": 0,
+          "sample": [],
+          "truncated": false,
+          "reason": null
+        },
+        "sample_limit": 20
+      },
+      "setup_violation_count": 0,
+      "hold_violation_count": 0,
+      "worst_setup_path": {
+        "status": "ok",
+        "check_type": "setup",
+        "engine_check_role": "setup",
+        "startpoint": "_22_/Q",
+        "endpoint": "_29_/D",
+        "slack_ns": 19.39416,
+        "consistent_with_aggregate": true,
+        "reason": null
+      },
+      "worst_hold_path": {
+        "status": "ok",
+        "check_type": "hold",
+        "engine_check_role": "hold",
+        "startpoint": "_29_/Q",
+        "endpoint": "_29_/D",
+        "slack_ns": 0.26641,
+        "consistent_with_aggregate": true,
+        "reason": null
+      },
+      "clock_skew_ns": 0,
+      "estimated_power_mw": 0.0191,
+      "spef_annotation": null,
+      "electrical_checks": null,
+      "clock_propagation": null,
+      "sdf": null,
+      "deck": {
+        "name": "sky130_fd_sc_hd__ff_n40C_1v95",
+        "content_hash": "sha256:fb61d91c55a7f85b1989e8149d040b13ba5e7f5478f5bf0c3c16c5da30720139",
+        "released": false
+      }
+    }
+  ]
+}
