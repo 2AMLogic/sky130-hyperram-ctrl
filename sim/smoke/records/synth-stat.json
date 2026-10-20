@@ -1,0 +1,31 @@
+{
+  "engine": "yosys",
+  "engine_version": "0.68",
+  "hdl_toplevel": "smoke_counter",
+  "instance_count": 22,
+  "area_um2": 296.5344,
+  "sequential_area_um2": 200.192,
+  "instance_counts_by_type": {
+    "sky130_fd_sc_hd__a31oi_1": 1,
+    "sky130_fd_sc_hd__and4_4": 1,
+    "sky130_fd_sc_hd__dfrtp_1": 8,
+    "sky130_fd_sc_hd__inv_1": 1,
+    "sky130_fd_sc_hd__nand2_1": 2,
+    "sky130_fd_sc_hd__nand3_1": 1,
+    "sky130_fd_sc_hd__nand4_1": 1,
+    "sky130_fd_sc_hd__nor2_1": 1,
+    "sky130_fd_sc_hd__xnor2_1": 4,
+    "sky130_fd_sc_hd__xor2_1": 2
+  },
+  "leakage_power_nw": 0.1289111995,
+  "structural": {
+    "latches": 0,
+    "expected_latches": 0,
+    "unexpected_latches": 0,
+    "comb_loops": 0,
+    "multi_driven": 0,
+    "has_critical": false
+  },
+  "pdk": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7",
+  "klt_version": "0.7.1.dev1765+gb61f753d0369"
+}

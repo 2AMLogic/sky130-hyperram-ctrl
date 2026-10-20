@@ -19,6 +19,16 @@ most often [klayout-tools](https://github.com/2AMLogic/klayout-tools) — that
 friction is filed as a public issue against the tool itself, so the fix
 benefits everyone using sky130, not just this repo.
 
+## Setup and smoke flow
+
+```bash
+./scripts/setup-env.sh   # pinned klt, Yosys, cocotb, sky130A + sky130_fd_sc_hd; checks host tools
+make smoke               # lint, cocotb sim, synthesis, three-corner STA on rtl/smoke/ (not the design)
+```
+
+Pins and the flow steps are in [docs/environment.md](docs/environment.md);
+the run record lands in `sim/smoke/records/`.
+
 ## Why this block, on this node
 
 The interface is small — chip select, a clock, eight DQ lines, a strobe
