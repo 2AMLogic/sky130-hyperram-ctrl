@@ -60,7 +60,7 @@ Any source-synchronous DDR interface on sky130 meets the same seam.
 - **Not in scope**: the memory device. Verification uses a behavioural
   device model written here from the public interface definition.
 
-## Target specification (DRAFT — engineering to ratify, see issue #1)
+## Target specification (DRAFT — engineering to ratify, see issue #2)
 
 | Parameter | Target | Fallback | Stretch |
 |---|---|---|---|
@@ -88,6 +88,18 @@ sim/           I/O timing studies + PVT corner results (ngspice)
 layout/        GDS + DRC/LVS reports (klayout-tools driven)
 measurements/  silicon characterization (empty until tape-out)
 ```
+
+## Reproduce
+
+```
+npm run check:ci      # the CI gate: JSON validity, README links, klt signoff record
+```
+
+This runs `scripts/check_ci.sh`, the same script `.github/workflows/ci.yml`
+runs. It uses `klt` pinned to `klayout-tools==0.7.0` (falling back to
+`uvx --from klayout-tools==0.7.0 klt` if the installed `klt` differs). The
+tier verdict of record is `manifests/sky130-hyperram-ctrl.signoff.json`; see
+[manifests/README.md](manifests/README.md).
 
 ## License
 
