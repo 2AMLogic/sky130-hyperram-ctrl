@@ -39,7 +39,7 @@ timing across the set; that is item 5.
 |---|---|
 | `hyperram_ctrl.gds` | routed GDS, bound by `evidence/item2.json` |
 | `hyperram_ctrl.def` | routed DEF |
-| `hyperram_ctrl.routed.v` | as-built gate-level netlist (CTS buffers, antenna diodes); this one, not the pre-CTS netlist, goes to LVS (#17) |
+| `hyperram_ctrl.routed.v` | as-built gate-level netlist (CTS buffers, antenna diodes); this one, not the pre-CTS netlist, goes to LVS (`layout/lvs/`) |
 | `hyperram_ctrl.spef` | post-route parasitics |
 | `place-and-route.response.json` | the `klt place-and-route --format json` response |
 | `area.json` | core area against row 17 |
@@ -74,3 +74,10 @@ From the committed response (`tt_025C_1v80` unless a corner is named):
   sit together. `klt place-and-route` offers no grouping or region control
   (2AMLogic/klayout-tools#4344), so placement of that path is
   whatever the tool chose.
+
+## LVS (T1 item 4)
+
+`layout/lvs/`: `extract.json` and `request.json` (the `klt extract` and
+`klt lvs` requests), `run.sh` (re-run, or `check` to re-hash), and `records/`
+(abstracted gate-level SPICE, extract response, LVS report). Details and
+warnings in `manifests/README.md` § "Item-4 LVS".

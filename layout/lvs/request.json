@@ -1,0 +1,20 @@
+{
+  "layout": {
+    "netlist": "records/hyperram_ctrl.gate.spice",
+    "top": "hyperram_ctrl"
+  },
+  "reference": {
+    "netlist": "../records/hyperram_ctrl.routed.v",
+    "top": "hyperram_ctrl",
+    "form": "gate-level-verilog",
+    "library": "sky130_fd_sc_hd"
+  },
+  "options": {
+    "power_connectivity": {
+      "expected_nets": {
+        "VPWR": "VDD",
+        "VGND": "VSS"
+      }
+    }
+  }
+}

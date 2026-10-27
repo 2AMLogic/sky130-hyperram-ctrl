@@ -1,0 +1,9 @@
+{
+  "schema": "klt.extract.request/1",
+  "file": "../records/hyperram_ctrl.gds",
+  "deck": "sky130",
+  "top": "hyperram_ctrl",
+  "output": "records/hyperram_ctrl.gate.spice",
+  "abstract_cells": "sky130_fd_sc_hd__*",
+  "def_net_names": true
+}
