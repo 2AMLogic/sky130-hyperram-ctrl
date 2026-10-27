@@ -12,7 +12,7 @@ both libraries and checks the tt/ss/ff liberty files and the LEF exist.
 |---|---|---|
 | sky130A PDK (open_pdks) | `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7` | `ciel enable`; `sky130A/SOURCES` must name it |
 | ciel | `2.6.1` | pip into `.venv` |
-| klayout-tools (`klt`) | `b61f753d036932a252329c9b6d4673d9ac2801e7` (`0.7.1.dev1765+gb61f753d0369`) | pip git install into `.venv` |
+| klayout-tools (`klt`) | `0.8.0` | pip into `.venv` |
 | Yosys (YoWASP wheel) | `0.68.0.0.post1208`, `yosys.wasm` sha256 `e37a7e65e3fa4efbbd64a9c1b0e906be16cdc6c4d5273109d17537f78449f38c` | hash checked, linked as `.venv/bin/yosys` |
 | cocotb | `2.0.1` | pip into `.venv` |
 | Icarus Verilog | `>= 12` (record names the exact version) | host; checked, not installed |

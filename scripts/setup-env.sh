@@ -25,8 +25,7 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${REPO_ROOT}" || exit 1
 
 # --- pinned versions -- keep in sync with docs/environment.md -------------
-KLT_REPO="https://github.com/2AMLogic/klayout-tools"
-KLT_REV="b61f753d036932a252329c9b6d4673d9ac2801e7"
+KLT_VERSION="0.8.0"
 COCOTB_VERSION="2.0.1"
 CIEL_VERSION="2.6.1"
 CIEL_PDK_FAMILY="sky130"
@@ -50,7 +49,7 @@ done
 
 fail() { echo "FATAL: $*" >&2; exit 1; }
 
-echo "== 1/4 python venv + klt @ ${KLT_REV:0:12} =="
+echo "== 1/4 python venv + klt ${KLT_VERSION} =="
 # Prefer uv (no python3-venv package needed); fall back to python -m venv + pip.
 if command -v uv >/dev/null 2>&1; then
   [ -d "${VENV_DIR}" ] || uv venv --quiet --python ">=3.10,<3.14" "${VENV_DIR}" || fail "uv venv failed."
@@ -69,8 +68,8 @@ else
   VENV_PY="${VENV_DIR}/bin/python3"
   pip_install() { "${VENV_DIR}/bin/pip" install --quiet "$@"; }
 fi
-pip_install "klayout-tools @ git+${KLT_REPO}@${KLT_REV}" "cocotb==${COCOTB_VERSION}" "ciel==${CIEL_VERSION}" \
-  || fail "pip install of klayout-tools/cocotb/ciel failed (network access to ${KLT_REPO}?)."
+pip_install "klayout-tools==${KLT_VERSION}" "cocotb==${COCOTB_VERSION}" "ciel==${CIEL_VERSION}" \
+  || fail "pip install of klayout-tools/cocotb/ciel failed (network access to PyPI?)."
 echo "klt: $("${VENV_DIR}/bin/klt" --version 2>&1)"
 
 echo
