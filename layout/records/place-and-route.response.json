@@ -1,0 +1,2210 @@
+{
+  "schema_version": 1,
+  "engine": "openroad",
+  "engine_version": "26Q3-1510-g6cb3f2b704",
+  "engine_logs": [
+    {
+      "invocation_id": "e9c518bbc52d4bc88168fbb5a5c42d80",
+      "script_name": "pnr_hyperram_ctrl_floorplan.tcl",
+      "script_sha256": "48444470512ba215687807871b0f6dd8bfd8c86ebdf7c02b84bf929c25c6cf7c",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "84d089614427485d9bcdcddd6b2ba3f9",
+      "script_name": "pnr_hyperram_ctrl_place.tcl",
+      "script_sha256": "8972c1228fd607df47689fa0ae8f7d86f6db9e50a7160b399dca3a019aac2a6d",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "c79e2a85960e4f3bbdf55d49847e44e3",
+      "script_name": "pnr_hyperram_ctrl_cts.tcl",
+      "script_sha256": "4ba207e11acdeead13f0d5f2b6cf17d1c587d5c8824bea54d2f25718c906c5ca",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "6653edad6d9e46d5afad4fe0b4f06731",
+      "script_name": "pnr_hyperram_ctrl_route.tcl",
+      "script_sha256": "90a472da49c7fa704070568d1a16aba7b3ceb7b37749012f1f5cbacbeea464ae",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "7a409587df76470c9a0da92f54d0a67e",
+      "script_name": "pnr_hyperram_ctrl_route_corners.tcl",
+      "script_sha256": "f040ef0bcf9cab61257f8ad2ddf5e7ce45a613d2baaa875ed4b5a67e3308f34c",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "ea9d1586f8724c949cddfb24637f5149",
+      "script_name": "pnr_hyperram_ctrl_route_corner_ff_100C_1v65.tcl",
+      "script_sha256": "14c5c2b6088de6ed4efff4a5de9f2c8c614eea4bb379cfa30dc0d28d5a242109",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "328a297690214fdeabddb7daad6aa527",
+      "script_name": "pnr_hyperram_ctrl_route_corner_ff_100C_1v95.tcl",
+      "script_sha256": "0cb34151c5e812f32a7a9579f94af329abd4f72a11f21d2a0d15c9fa27a38b92",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "049e45844f4240f9b8ab77d63a7a891c",
+      "script_name": "pnr_hyperram_ctrl_route_corner_ff_n40C_1v56.tcl",
+      "script_sha256": "3eb1f5119a3564339041a4b8341715a2d914b5430b1ef8fb63685f9cb659ed7d",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "106006d0bd014422a835aaf33aa650d2",
+      "script_name": "pnr_hyperram_ctrl_route_corner_ff_n40C_1v65.tcl",
+      "script_sha256": "be60565bc3031db7ab38e116a7aa3094ec69831d863d61d3d93bcac73fd9702c",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "04d6d050c7c04d8a9e7c41bdcbff61bd",
+      "script_name": "pnr_hyperram_ctrl_route_corner_ff_n40C_1v76.tcl",
+      "script_sha256": "5712f4391053faaa63c038cc3d8f9189d24605a55bff35dee0d4b33a15b33c43",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "223eeced398a42c7825dceb7b20409d2",
+      "script_name": "pnr_hyperram_ctrl_route_corner_ff_n40C_1v95.tcl",
+      "script_sha256": "efefaef803475e5d3549c92394de06c4fec59ed19ce2a489f127be4275356567",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "e433fbaf13dc433c93879f14fd4b64dc",
+      "script_name": "pnr_hyperram_ctrl_route_corner_ss_100C_1v40.tcl",
+      "script_sha256": "891b2ee12a50eedefe9732781d5b73ac4f506a56721b416e3da69ddbd85cbe46",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "ed11cf1f6c014ad4936309cd8a3bf620",
+      "script_name": "pnr_hyperram_ctrl_route_corner_ss_100C_1v60.tcl",
+      "script_sha256": "94e31abb5791de5fad2487928620c6c5b9da052e30f64154bf4f945bdba0aeae",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "056e4c48c807466a883e5881c633a907",
+      "script_name": "pnr_hyperram_ctrl_route_corner_ss_n40C_1v28.tcl",
+      "script_sha256": "08a59f50c0c4f47c1fd16162495b93d6886edc3fffd15c4757d2fdea3b099c66",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "fd5b63532b564ff3b82437794b76c195",
+      "script_name": "pnr_hyperram_ctrl_route_corner_ss_n40C_1v35.tcl",
+      "script_sha256": "853f259f15c779485b00a0ac49ad68d1e69c252fdb59f77a75874eadc5e248ed",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "0f1d45ccf5804341aef0bf00611dc813",
+      "script_name": "pnr_hyperram_ctrl_route_corner_ss_n40C_1v40.tcl",
+      "script_sha256": "092fd2daa9f293d650e8cb4b2ec31a8995a142b0b98bc501b00efaad2d9a193e",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "2ef2c3576b8942e6b703b4c40fe1bc26",
+      "script_name": "pnr_hyperram_ctrl_route_corner_ss_n40C_1v44.tcl",
+      "script_sha256": "fc6708076d728a6e9cc9995e87bef89616e71a6898fdbef6eee9c2e9be245759",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "f80c06f715f74f20b25f0ceef97fd635",
+      "script_name": "pnr_hyperram_ctrl_route_corner_ss_n40C_1v60.tcl",
+      "script_sha256": "6c2b30736a0862093546b5080207d0d97d84a5903116192b2de01b53ac0e759a",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "7b0706916bca40aebf6baa2fcda17f6d",
+      "script_name": "pnr_hyperram_ctrl_route_corner_ss_n40C_1v76.tcl",
+      "script_sha256": "771e6ac5251e2ed9e03cdc6c358fa948f15c103bb763e14a750f22aaff1eaf46",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "2345191e55b94d24a0b40d70ea4993e0",
+      "script_name": "pnr_hyperram_ctrl_route_corner_tt_025C_1v80.tcl",
+      "script_sha256": "a7ab65981b126372c5cf264936f2def9b29139be0cedd2a0c025e3586ff27b19",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "d7cc002df75d4b39a4160ff2e532baae",
+      "script_name": "pnr_hyperram_ctrl_route_corner_tt_100C_1v80.tcl",
+      "script_sha256": "84e143aaf70453f7637c8c3f6ceee25f6cb3dc2f0488fc100e3ba3107bc6cc6c",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    },
+    {
+      "invocation_id": "18e10319d16449849d2d06205b1b41b7",
+      "script_name": "pnr_hyperram_ctrl_route_spef.tcl",
+      "script_sha256": "dfe1af9272ecf8379388fdbeb8083e27e0f959bf933bfa4bcc7ea6e0cc836f86",
+      "outcome": "exited",
+      "returncode": 0,
+      "retention_errors": []
+    }
+  ],
+  "hdl_toplevel": "hyperram_ctrl",
+  "netlist": {
+    "path": "sim/hyperram/records/hyperram_ctrl.netlist.v",
+    "scope": "repo"
+  },
+  "status": "ok",
+  "stage_reached": "route",
+  "seed": 1,
+  "coverage": {
+    "metal_density_fill": {
+      "status": "unsupported",
+      "inserted": false,
+      "reason": "no metal density fill is inserted at any stage; standard-cell gap fillers are not metal fill"
+    },
+    "density_compliance": {
+      "status": "unsupported",
+      "evaluated": false,
+      "reason": "metal density rules are not evaluated by place-and-route; a zero route_drc_violation_count does not imply density compliance"
+    }
+  },
+  "interconnect_corner": "nom",
+  "die_area_um2": 90462.6,
+  "core_area_um2": 83687.8,
+  "utilization_pct": 32.7946,
+  "wirelength_um": 82534,
+  "worst_slack_ns": 9.53783,
+  "total_negative_slack_ns": 0,
+  "fmax_mhz": 190.286,
+  "setup_violation_count": 0,
+  "hold_violation_count": 0,
+  "nominal_hold_slack_ns": 0.33121,
+  "antenna_violation_count": 0,
+  "route_drc_violation_count": 0,
+  "estimated_power_mw": 2.9255,
+  "clock_skew_ns": 0.41329,
+  "worst_setup_slack_ns": -24.2925,
+  "worst_hold_slack_ns": 0.20706,
+  "corners": [
+    {
+      "name": "ff_100C_1v65",
+      "setup_slack_ns": 9.62883,
+      "hold_slack_ns": 0.27997,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "ff_100C_1v95",
+      "setup_slack_ns": 9.70907,
+      "hold_slack_ns": 0.22277,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "ff_n40C_1v56",
+      "setup_slack_ns": 9.54057,
+      "hold_slack_ns": 0.31626,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "ff_n40C_1v65",
+      "setup_slack_ns": 9.59958,
+      "hold_slack_ns": 0.27974,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "ff_n40C_1v76",
+      "setup_slack_ns": 9.65135,
+      "hold_slack_ns": 0.24574,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "ff_n40C_1v95",
+      "setup_slack_ns": 9.71125,
+      "hold_slack_ns": 0.20706,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "ss_100C_1v40",
+      "setup_slack_ns": 3.83934,
+      "hold_slack_ns": 0.99263,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "ss_100C_1v60",
+      "setup_slack_ns": 8.99898,
+      "hold_slack_ns": 0.68508,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 439,
+      "max_capacitance_violation_count": 9,
+      "max_transition_violation_count_vs_library": 439,
+      "max_capacitance_violation_count_vs_library": 9
+    },
+    {
+      "name": "ss_n40C_1v28",
+      "setup_slack_ns": -24.2925,
+      "hold_slack_ns": 2.03269,
+      "total_negative_setup_slack_ns": -3011.32,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 466,
+      "max_capacitance_violation_count": 11,
+      "max_transition_violation_count_vs_library": 466,
+      "max_capacitance_violation_count_vs_library": 11
+    },
+    {
+      "name": "ss_n40C_1v35",
+      "setup_slack_ns": -9.35131,
+      "hold_slack_ns": 1.46805,
+      "total_negative_setup_slack_ns": -651.509,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "ss_n40C_1v40",
+      "setup_slack_ns": -3.43052,
+      "hold_slack_ns": 1.2123,
+      "total_negative_setup_slack_ns": -47.2297,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "ss_n40C_1v44",
+      "setup_slack_ns": -0.0162,
+      "hold_slack_ns": 1.06742,
+      "total_negative_setup_slack_ns": -0.0162,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "ss_n40C_1v60",
+      "setup_slack_ns": 7.7332,
+      "hold_slack_ns": 0.69865,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 732,
+      "max_capacitance_violation_count": 19,
+      "max_transition_violation_count_vs_library": 732,
+      "max_capacitance_violation_count_vs_library": 19
+    },
+    {
+      "name": "ss_n40C_1v76",
+      "setup_slack_ns": 9.21776,
+      "hold_slack_ns": 0.52644,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 439,
+      "max_capacitance_violation_count": 7,
+      "max_transition_violation_count_vs_library": 439,
+      "max_capacitance_violation_count_vs_library": 7
+    },
+    {
+      "name": "tt_025C_1v80",
+      "setup_slack_ns": 9.53783,
+      "hold_slack_ns": 0.33581,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    },
+    {
+      "name": "tt_100C_1v80",
+      "setup_slack_ns": 9.54177,
+      "hold_slack_ns": 0.34417,
+      "total_negative_setup_slack_ns": 0,
+      "total_negative_hold_slack_ns": 0,
+      "timing_status": "constrained",
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "max_transition_violation_count_vs_library": 0,
+      "max_capacitance_violation_count_vs_library": 0
+    }
+  ],
+  "congestion": {
+    "global_route": {
+      "total_overflow": 0,
+      "max_horizontal_overflow": 0,
+      "max_vertical_overflow": 0,
+      "usage_pct": 13.69,
+      "max_layer_usage_pct": 24.18,
+      "overflow_per_layer": {
+        "li1": {
+          "resource": 0,
+          "demand": 0,
+          "usage_pct": 0.0,
+          "max_horizontal_overflow": 0,
+          "max_vertical_overflow": 0,
+          "total_overflow": 0
+        },
+        "met1": {
+          "resource": 28235,
+          "demand": 4926,
+          "usage_pct": 17.45,
+          "max_horizontal_overflow": 0,
+          "max_vertical_overflow": 0,
+          "total_overflow": 0
+        },
+        "met2": {
+          "resource": 23896,
+          "demand": 5777,
+          "usage_pct": 24.18,
+          "max_horizontal_overflow": 0,
+          "max_vertical_overflow": 0,
+          "total_overflow": 0
+        },
+        "met3": {
+          "resource": 17671,
+          "demand": 662,
+          "usage_pct": 3.75,
+          "max_horizontal_overflow": 0,
+          "max_vertical_overflow": 0,
+          "total_overflow": 0
+        },
+        "met4": {
+          "resource": 11865,
+          "demand": 197,
+          "usage_pct": 1.66,
+          "max_horizontal_overflow": 0,
+          "max_vertical_overflow": 0,
+          "total_overflow": 0
+        },
+        "met5": {
+          "resource": 2814,
+          "demand": 0,
+          "usage_pct": 0.0,
+          "max_horizontal_overflow": 0,
+          "max_vertical_overflow": 0,
+          "total_overflow": 0
+        }
+      },
+      "routed_net_count": 2406,
+      "max_gcell_usage_pct": null
+    },
+    "detailed_route": {
+      "first_iteration_drc_violation_count": 2217,
+      "iteration_count": 9,
+      "drc_violations_per_iteration": [
+        2217,
+        1275,
+        1171,
+        191,
+        23,
+        12,
+        1,
+        1,
+        0
+      ],
+      "converged": true
+    },
+    "completeness": {
+      "signal_net_count": 2259,
+      "unrouted_net_count": 0,
+      "partially_routed_net_count": null
+    },
+    "placement": {
+      "total_routing_overflow": 0.0,
+      "overflowed_tile_count": 0,
+      "final_weighted_congestion": 0.7386
+    },
+    "null_reasons": {
+      "global_route.max_gcell_usage_pct": "OpenROAD's global router reports usage per routing layer, not per GCell",
+      "completeness.partially_routed_net_count": "OpenROAD exposes no per-net connectivity check; only nets with no routed wire at all are counted"
+    }
+  },
+  "max_transition_violation_count": 732,
+  "max_capacitance_violation_count": 20,
+  "max_transition_violation_count_vs_library": 732,
+  "max_capacitance_violation_count_vs_library": 20,
+  "timing_status": "constrained",
+  "stages": [
+    {
+      "name": "floorplan",
+      "die_area_um2": 90462.6,
+      "core_area_um2": 83687.8,
+      "utilization_pct": 32.0037,
+      "worst_slack_ns": 9.55587,
+      "total_negative_slack_ns": 0,
+      "timing_status": "constrained"
+    },
+    {
+      "name": "place",
+      "die_area_um2": 90462.6,
+      "core_area_um2": 83687.8,
+      "utilization_pct": 31.4999,
+      "worst_slack_ns": 9.55261,
+      "total_negative_slack_ns": 0,
+      "wirelength_um": 58202.3,
+      "fmax_mhz": 194.176,
+      "estimated_power_mw": 2.3269,
+      "setup_violation_count": 0,
+      "hold_violation_count": 0,
+      "nominal_hold_slack_ns": 0.33248,
+      "timing_status": "constrained"
+    },
+    {
+      "name": "cts",
+      "die_area_um2": 90462.6,
+      "core_area_um2": 83687.8,
+      "utilization_pct": 32.7169,
+      "worst_slack_ns": 9.69459,
+      "total_negative_slack_ns": 0,
+      "wirelength_um": 62249.4,
+      "fmax_mhz": 194.517,
+      "estimated_power_mw": 2.8029,
+      "clock_skew_ns": 0.39546,
+      "setup_violation_count": 0,
+      "hold_violation_count": 0,
+      "nominal_hold_slack_ns": 0.34933,
+      "timing_status": "constrained"
+    },
+    {
+      "name": "route",
+      "die_area_um2": 90462.6,
+      "core_area_um2": 83687.8,
+      "utilization_pct": 32.7946,
+      "worst_slack_ns": 9.53783,
+      "total_negative_slack_ns": 0,
+      "wirelength_um": 82534,
+      "fmax_mhz": 190.286,
+      "estimated_power_mw": 2.9255,
+      "clock_skew_ns": 0.41329,
+      "setup_violation_count": 0,
+      "hold_violation_count": 0,
+      "nominal_hold_slack_ns": 0.33121,
+      "antenna_violation_count": 0,
+      "route_drc_violation_count": 0,
+      "worst_setup_slack_ns": -24.2925,
+      "worst_hold_slack_ns": 0.20706,
+      "corners": [
+        {
+          "name": "ff_100C_1v65",
+          "setup_slack_ns": 9.62883,
+          "hold_slack_ns": 0.27997,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "ff_100C_1v95",
+          "setup_slack_ns": 9.70907,
+          "hold_slack_ns": 0.22277,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "ff_n40C_1v56",
+          "setup_slack_ns": 9.54057,
+          "hold_slack_ns": 0.31626,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "ff_n40C_1v65",
+          "setup_slack_ns": 9.59958,
+          "hold_slack_ns": 0.27974,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "ff_n40C_1v76",
+          "setup_slack_ns": 9.65135,
+          "hold_slack_ns": 0.24574,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "ff_n40C_1v95",
+          "setup_slack_ns": 9.71125,
+          "hold_slack_ns": 0.20706,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "ss_100C_1v40",
+          "setup_slack_ns": 3.83934,
+          "hold_slack_ns": 0.99263,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "ss_100C_1v60",
+          "setup_slack_ns": 8.99898,
+          "hold_slack_ns": 0.68508,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 439,
+          "max_capacitance_violation_count": 9,
+          "max_transition_violation_count_vs_library": 439,
+          "max_capacitance_violation_count_vs_library": 9
+        },
+        {
+          "name": "ss_n40C_1v28",
+          "setup_slack_ns": -24.2925,
+          "hold_slack_ns": 2.03269,
+          "total_negative_setup_slack_ns": -3011.32,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 466,
+          "max_capacitance_violation_count": 11,
+          "max_transition_violation_count_vs_library": 466,
+          "max_capacitance_violation_count_vs_library": 11
+        },
+        {
+          "name": "ss_n40C_1v35",
+          "setup_slack_ns": -9.35131,
+          "hold_slack_ns": 1.46805,
+          "total_negative_setup_slack_ns": -651.509,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "ss_n40C_1v40",
+          "setup_slack_ns": -3.43052,
+          "hold_slack_ns": 1.2123,
+          "total_negative_setup_slack_ns": -47.2297,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "ss_n40C_1v44",
+          "setup_slack_ns": -0.0162,
+          "hold_slack_ns": 1.06742,
+          "total_negative_setup_slack_ns": -0.0162,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "ss_n40C_1v60",
+          "setup_slack_ns": 7.7332,
+          "hold_slack_ns": 0.69865,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 732,
+          "max_capacitance_violation_count": 19,
+          "max_transition_violation_count_vs_library": 732,
+          "max_capacitance_violation_count_vs_library": 19
+        },
+        {
+          "name": "ss_n40C_1v76",
+          "setup_slack_ns": 9.21776,
+          "hold_slack_ns": 0.52644,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 439,
+          "max_capacitance_violation_count": 7,
+          "max_transition_violation_count_vs_library": 439,
+          "max_capacitance_violation_count_vs_library": 7
+        },
+        {
+          "name": "tt_025C_1v80",
+          "setup_slack_ns": 9.53783,
+          "hold_slack_ns": 0.33581,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        },
+        {
+          "name": "tt_100C_1v80",
+          "setup_slack_ns": 9.54177,
+          "hold_slack_ns": 0.34417,
+          "total_negative_setup_slack_ns": 0,
+          "total_negative_hold_slack_ns": 0,
+          "timing_status": "constrained",
+          "max_transition_violation_count": 0,
+          "max_capacitance_violation_count": 0,
+          "max_transition_violation_count_vs_library": 0,
+          "max_capacitance_violation_count_vs_library": 0
+        }
+      ],
+      "max_transition_violation_count": 732,
+      "max_capacitance_violation_count": 20,
+      "max_transition_violation_count_vs_library": 732,
+      "max_capacitance_violation_count_vs_library": 20,
+      "congestion": {
+        "global_route": {
+          "total_overflow": 0,
+          "max_horizontal_overflow": 0,
+          "max_vertical_overflow": 0,
+          "usage_pct": 13.69,
+          "max_layer_usage_pct": 24.18,
+          "overflow_per_layer": {
+            "li1": {
+              "resource": 0,
+              "demand": 0,
+              "usage_pct": 0.0,
+              "max_horizontal_overflow": 0,
+              "max_vertical_overflow": 0,
+              "total_overflow": 0
+            },
+            "met1": {
+              "resource": 28235,
+              "demand": 4926,
+              "usage_pct": 17.45,
+              "max_horizontal_overflow": 0,
+              "max_vertical_overflow": 0,
+              "total_overflow": 0
+            },
+            "met2": {
+              "resource": 23896,
+              "demand": 5777,
+              "usage_pct": 24.18,
+              "max_horizontal_overflow": 0,
+              "max_vertical_overflow": 0,
+              "total_overflow": 0
+            },
+            "met3": {
+              "resource": 17671,
+              "demand": 662,
+              "usage_pct": 3.75,
+              "max_horizontal_overflow": 0,
+              "max_vertical_overflow": 0,
+              "total_overflow": 0
+            },
+            "met4": {
+              "resource": 11865,
+              "demand": 197,
+              "usage_pct": 1.66,
+              "max_horizontal_overflow": 0,
+              "max_vertical_overflow": 0,
+              "total_overflow": 0
+            },
+            "met5": {
+              "resource": 2814,
+              "demand": 0,
+              "usage_pct": 0.0,
+              "max_horizontal_overflow": 0,
+              "max_vertical_overflow": 0,
+              "total_overflow": 0
+            }
+          },
+          "routed_net_count": 2406,
+          "max_gcell_usage_pct": null
+        },
+        "detailed_route": {
+          "first_iteration_drc_violation_count": 2217,
+          "iteration_count": 9,
+          "drc_violations_per_iteration": [
+            2217,
+            1275,
+            1171,
+            191,
+            23,
+            12,
+            1,
+            1,
+            0
+          ],
+          "converged": true
+        },
+        "completeness": {
+          "signal_net_count": 2259,
+          "unrouted_net_count": 0,
+          "partially_routed_net_count": null
+        },
+        "placement": {
+          "total_routing_overflow": 0.0,
+          "overflowed_tile_count": 0,
+          "final_weighted_congestion": 0.7386
+        },
+        "null_reasons": {
+          "global_route.max_gcell_usage_pct": "OpenROAD's global router reports usage per routing layer, not per GCell",
+          "completeness.partially_routed_net_count": "OpenROAD exposes no per-net connectivity check; only nets with no routed wire at all are counted"
+        }
+      },
+      "timing_status": "constrained"
+    }
+  ],
+  "macros": [],
+  "def_path": {
+    "path": "layout/records/hyperram_ctrl.def",
+    "scope": "repo"
+  },
+  "pins": [
+    {
+      "name": "VDD",
+      "edge": "north",
+      "x_um": 150.19,
+      "y_um": 277.44,
+      "layer": "met5"
+    },
+    {
+      "name": "VSS",
+      "edge": "north",
+      "x_um": 150.19,
+      "y_um": 291.04,
+      "layer": "met5"
+    },
+    {
+      "name": "cfg_adr[0]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 38.42,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_adr[1]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 94.18,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_adr[2]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 151.3,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_rdata[0]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 152.66,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_rdata[10]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 62.9,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_rdata[11]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 148.58,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_rdata[12]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 92.82,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_rdata[13]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 49.3,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_rdata[14]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 158.1,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_rdata[15]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 147.22,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_rdata[1]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 159.46,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_rdata[2]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 91.46,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_rdata[3]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 162.18,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_rdata[4]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 145.86,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_rdata[5]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 129.54,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_rdata[6]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 164.9,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_rdata[7]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 90.1,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_rdata[8]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 61.54,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_rdata[9]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 122.74,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[0]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 141.78,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[10]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 170.34,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[11]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 88.74,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[12]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 171.7,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[13]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 173.06,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[14]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 174.42,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[15]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 134.98,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[1]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 87.38,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[2]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 177.14,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[3]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 178.5,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[4]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 60.18,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[5]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 179.86,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[6]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 86.02,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[7]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 42.5,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[8]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 139.06,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[9]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 47.94,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_we",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 185.3,
+      "layer": "met3"
+    },
+    {
+      "name": "clk",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 84.66,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_ck",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 137.7,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_cs_n",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 182.58,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_i[0]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 143.14,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_i[1]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 190.74,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_i[2]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 83.3,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_i[3]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 58.82,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_i[4]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 193.46,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_i[5]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 194.82,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_i[6]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 115.94,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_i[7]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 81.94,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_o[0]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 197.54,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_o[1]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 183.94,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_o[2]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 133.62,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_o[3]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 200.26,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_o[4]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 80.58,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_o[5]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 202.98,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_o[6]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 132.26,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_o[7]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 204.34,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_oe",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 205.7,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_reset_n",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 79.22,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_rwds_i",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 130.9,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_rwds_o",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 57.46,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_rwds_oe",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 209.78,
+      "layer": "met3"
+    },
+    {
+      "name": "rst_n",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 46.58,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_ack",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 77.86,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[0]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 192.1,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[10]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 156.74,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[11]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 215.22,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[12]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 128.18,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[13]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 216.58,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[14]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 76.5,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[15]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 56.1,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[16]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 126.82,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[17]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 114.58,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[18]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 222.02,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[19]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 223.38,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[1]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 125.46,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[20]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 75.14,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[21]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 224.74,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[22]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 226.1,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[23]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 124.1,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[24]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 227.46,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[25]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 217.94,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[26]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 154.02,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[27]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 54.74,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[28]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 71.06,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[29]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 231.54,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[2]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 73.78,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[30]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 121.38,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[3]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 232.9,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[4]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 201.62,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[5]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 234.26,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[6]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 120.02,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[7]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 196.18,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[8]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 235.62,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[9]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 236.98,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_cyc",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 118.66,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[0]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 186.66,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[10]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 220.66,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[11]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 72.42,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[12]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 117.3,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[13]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 238.34,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[14]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 175.78,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[15]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 45.22,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[16]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 53.38,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[17]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 144.5,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[18]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 166.26,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[19]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 100.98,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[1]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 41.14,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[20]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 39.78,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[21]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 242.42,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[22]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 155.38,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[23]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 113.22,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[24]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 207.06,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[25]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 149.94,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[26]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 239.7,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[27]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 111.86,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[28]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 140.42,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[29]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 69.7,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[2]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 52.02,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[30]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 110.5,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[31]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 245.14,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[3]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 213.86,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[4]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 249.22,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[5]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 109.14,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[6]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 230.18,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[7]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 228.82,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[8]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 189.38,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[9]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 107.78,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[0]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 247.86,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[10]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 253.3,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[11]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 68.34,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[12]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 106.42,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[13]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 167.62,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[14]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 208.42,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[15]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 250.58,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[16]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 105.06,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[17]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 43.86,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[18]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 219.3,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[19]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 241.06,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[1]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 103.7,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[20]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 66.98,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[21]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 256.02,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[22]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 257.38,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[23]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 102.34,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[24]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 181.22,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[25]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 168.98,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[26]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 163.54,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[27]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 50.66,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[28]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 160.82,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[29]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 258.74,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[2]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 65.62,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[30]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 99.62,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[31]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 211.14,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[3]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 212.5,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[4]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 260.1,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[5]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 98.26,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[6]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 198.9,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[7]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 254.66,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[8]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 136.34,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[9]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 96.9,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_sel[0]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 64.26,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_sel[1]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 251.94,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_sel[2]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 261.46,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_sel[3]",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 95.54,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_stall",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 188.02,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_stb",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 243.78,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_we",
+      "edge": "west",
+      "x_um": 0.4,
+      "y_um": 246.5,
+      "layer": "met3"
+    }
+  ],
+  "unrouted_def_path": null,
+  "gds_path": {
+    "path": "layout/records/hyperram_ctrl.gds",
+    "scope": "repo"
+  },
+  "layer_map": {
+    "path": "$PDK_ROOT/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.tech/klayout/tech/sky130A.map",
+    "resolution": "exact"
+  },
+  "def_net_names": {
+    "single_pin_markers": 17,
+    "unresolved_single_pin_nets": []
+  },
+  "min_area_repair": {
+    "status": "clean",
+    "reason": null,
+    "patches": 0,
+    "repaired": 0,
+    "remaining": 0,
+    "rules": [],
+    "unrepaired": []
+  },
+  "verilog_path": {
+    "path": "layout/records/hyperram_ctrl.routed.v",
+    "scope": "repo"
+  },
+  "spef_sta": {
+    "spef_path": {
+      "path": "layout/records/hyperram_ctrl.spef",
+      "scope": "repo"
+    },
+    "sdf_path": null,
+    "worst_slack_ns": 9.5284,
+    "total_negative_slack_ns": 0,
+    "timing_status": "constrained",
+    "setup_violation_count": 0,
+    "hold_violation_count": 0,
+    "nets_annotated": 2407,
+    "nets_total": 8733,
+    "design_nets_annotated": 2407,
+    "design_nets_total": 2425,
+    "annotation_complete": false,
+    "annotation_warning": "only 2407 of 2425 nets in the linked design are named by this SPEF -- the slack/violation values in this block are NOT a real-parasitics measurement to the extent annotation is missing, and should not be compared against the top-level estimate_parasitics-derived fields as if they were. See docs/cli/place-and-route.md's 'Net-name correlation' subsection."
+  },
+  "power": {
+    "preset": "sky130hd",
+    "pdn": true,
+    "global_connect": true,
+    "power_net": "VDD",
+    "ground_net": "VSS",
+    "tapcell_master": "sky130_fd_sc_hd__tapvpwrvgnd_1",
+    "endcap_master": null,
+    "tapcell_distance_um": 14,
+    "filler_masters": [
+      "sky130_fd_sc_hd__fill_1",
+      "sky130_fd_sc_hd__fill_2",
+      "sky130_fd_sc_hd__fill_4",
+      "sky130_fd_sc_hd__fill_8"
+    ],
+    "straps": [
+      {
+        "layer": "met1",
+        "spacing_um": null
+      },
+      {
+        "layer": "met4",
+        "spacing_um": null
+      },
+      {
+        "layer": "met5",
+        "spacing_um": null
+      }
+    ],
+    "connects": [
+      {
+        "layers": [
+          "met1",
+          "met4"
+        ],
+        "max_columns": null,
+        "ongrid": null,
+        "split_cuts": null
+      },
+      {
+        "layers": [
+          "met4",
+          "met5"
+        ],
+        "max_columns": null,
+        "ongrid": null,
+        "split_cuts": null
+      }
+    ],
+    "row_rail": {
+      "emitted": false,
+      "layer": null,
+      "power_net": null,
+      "ground_net": null,
+      "filler_masters": []
+    },
+    "placed": {
+      "evidence": "def",
+      "def_path": {
+        "path": "layout/records/hyperram_ctrl.def",
+        "scope": "repo"
+      },
+      "unavailable_reason": null,
+      "status": "complete",
+      "missing": [],
+      "components": 12361,
+      "tapcells": 1134,
+      "endcaps": 0,
+      "fillers": 8826,
+      "special_nets": [
+        {
+          "name": "VDD",
+          "use": "POWER",
+          "followpin_segments": 53,
+          "stripe_segments": 1710,
+          "other_segments": 1060,
+          "stripe_layers": [
+            "met5",
+            "met4",
+            "met3",
+            "met2",
+            "met1"
+          ],
+          "vias": 1690
+        },
+        {
+          "name": "VSS",
+          "use": "GROUND",
+          "followpin_segments": 54,
+          "stripe_segments": 1925,
+          "other_segments": 1188,
+          "stripe_layers": [
+            "met5",
+            "met4",
+            "met3",
+            "met2",
+            "met1"
+          ],
+          "vias": 1903
+        }
+      ]
+    }
+  },
+  "warnings": [],
+  "provenance": {
+    "klt_version": "0.8.1.dev66+gf0a8810efd57",
+    "klayout_version": "0.30.12",
+    "pdk": {
+      "name": "sky130A",
+      "source": "search root: ~/.ciel",
+      "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7",
+      "ambiguous_sources": [
+        "search root: ~/.volare"
+      ]
+    },
+    "deck": {
+      "name": "sky130_fd_sc_hd__tt_025C_1v80",
+      "content_hash": "sha256:8e78e14442062dba34d414fca6490b2f6b96038d4510d1438ca44fee31487135",
+      "released": false,
+      "path": {
+        "path": null,
+        "scope": "external"
+      }
+    },
+    "input": {
+      "content_hash": "sha256:c0f912a10e0dcc2d73e673b4bcf9a76fdac99a705e9dea63bffc3a5dd3d40d0f",
+      "role": "netlist"
+    }
+  }
+}

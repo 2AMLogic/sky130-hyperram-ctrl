@@ -1,6 +1,7 @@
 # Toolchain smoke flow on rtl/smoke/ (NOT the design). `make smoke` runs lint,
 # the cocotb test, synthesis and three-corner STA, then writes the record.
-# `make hyperram-lint | hyperram-synth | hyperram-check` cover the controller RTL.
+# `make hyperram-lint | hyperram-synth | hyperram-check` cover the controller RTL;
+# `make layout | layout-check` place-and-route its netlist (layout/).
 # Run scripts/setup-env.sh first; targets use .venv/bin tools when present.
 
 SHELL := /bin/bash
@@ -50,3 +51,13 @@ hyperram-synth:
 # re-synthesize and compare with the committed netlist (T1 item 1 freshness)
 hyperram-check:
 	python3 flow/hyperram.py check
+
+.PHONY: layout layout-check
+
+# klt place-and-route (50 MHz, PDN + tapcells) on the committed netlist; ~25 min.
+layout:
+	python3 flow/hyperram.py layout
+
+# cheap freshness check: request inputs vs the committed response, GDS vs item-2 envelope
+layout-check:
+	python3 flow/hyperram.py layout-check
