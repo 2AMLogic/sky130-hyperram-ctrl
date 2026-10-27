@@ -12,7 +12,9 @@
 #   2. README relative links resolve
 #   3. the committed item-10 attestation still reproduces (klt signoff
 #      --attest 10 --check; local_only commands such as `make smoke` are skipped)
-#   4. the committed klt signoff record equals a fresh render of the manifest
+#   4. the committed item-1 attestation still reproduces (hashes of RTL + netlist;
+#      the local_only re-synthesis check is skipped)
+#   5. the committed klt signoff record equals a fresh render of the manifest
 #
 # RTL lint and the cocotb smoke test are added with the toolchain skeleton
 # (issue #3), not here.
@@ -32,7 +34,7 @@ else
   KLT=(uvx --from "klayout-tools==${KLT_VERSION}" klt)
 fi
 
-echo "== 1/4 JSON validity =="
+echo "== 1/5 JSON validity =="
 shopt -s nullglob
 for f in layout/*.json manifests/*.json; do
   python3 -I -c 'import json,sys; json.load(open(sys.argv[1]))' "$f" \
@@ -40,16 +42,23 @@ for f in layout/*.json manifests/*.json; do
   echo "ok $f"
 done
 
-echo "== 2/4 README relative links =="
+echo "== 2/5 README relative links =="
 python3 -I scripts/check_links.py README.md
 
-echo "== 3/4 item-10 attestation is fresh =="
+echo "== 3/5 item-10 attestation is fresh =="
 # Hashes are raw bytes: any edit to README.md, LICENSE, ci.yml or
 # attest/item10.json is drift until this is re-run and the envelope committed:
 #   klt signoff --attest 10 --inventory attest/item10.json -o evidence/item10.json
 "${KLT[@]}" signoff --attest 10 --inventory attest/item10.json --check evidence/item10.json
 
-echo "== 4/4 klt signoff record is fresh =="
+echo "== 4/5 item-1 attestation is fresh =="
+# Per-file hashes of the RTL and netlist; the re-synthesis freshness command is
+# local_only (needs yosys + PDK) and is skipped here. After any RTL change run:
+#   make hyperram-synth
+#   klt signoff --attest 1 --inventory attest/item1.json -o evidence/item1.json
+"${KLT[@]}" signoff --attest 1 --inventory attest/item1.json --check evidence/item1.json
+
+echo "== 5/5 klt signoff record is fresh =="
 fresh="$(mktemp)"
 trap 'rm -f "$fresh"' EXIT
 rc=0

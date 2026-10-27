@@ -1,0 +1,19 @@
+{
+  "schema": "klt.synthesize.request/1",
+  "engine": "yosys",
+  "sources": [
+    "../rtl/hyperram_ctrl/hyperram_ctrl.v",
+    "../rtl/hyperram_ctrl/hr_cmd_fsm.v",
+    "../rtl/hyperram_ctrl/hr_dq_out.v",
+    "../rtl/hyperram_ctrl/hr_rd_capture.v",
+    "../rtl/hyperram_ctrl/synth/sky130_cells_bb.v"
+  ],
+  "hdl_toplevel": "hyperram_ctrl",
+  "pdk": {
+    "cell_library": "sky130_fd_sc_hd",
+    "corner": "tt_025C_1v80"
+  },
+  "constraints": {
+    "clock_period_ns": null
+  }
+}

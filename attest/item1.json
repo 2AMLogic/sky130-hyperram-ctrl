@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "kind": "t1-attestation-inventory",
+  "t1_item": 1,
+  "description": "Design sources: controller RTL plus the gate-level netlist klt synthesize derives from it. Freshness re-synthesizes and compares byte-for-byte; it needs yosys and the PDK, absent from the CI runner, so it is local_only (skipped, not passed, under --check; the per-file hashes still catch source or netlist drift).",
+  "sources": [
+    "rtl/hyperram_ctrl/hyperram_ctrl.v",
+    "rtl/hyperram_ctrl/hr_cmd_fsm.v",
+    "rtl/hyperram_ctrl/hr_dq_out.v",
+    "rtl/hyperram_ctrl/hr_rd_capture.v",
+    "rtl/hyperram_ctrl/synth/sky130_cells_bb.v",
+    "rtl/hyperram_ctrl/sim/sky130_cells_behav.v",
+    "flow/synthesize-hyperram.json"
+  ],
+  "derived": [
+    {
+      "path": "sim/hyperram/records/hyperram_ctrl.netlist.v",
+      "generator": "klt synthesize",
+      "check": {"argv": ["python3", "-I", "flow/hyperram.py", "check"], "local_only": true}
+    }
+  ]
+}
