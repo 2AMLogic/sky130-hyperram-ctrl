@@ -5,6 +5,12 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-10-27
 
+- **PR #28**: feat: add clean klt drc report for routed GDS as T1 item 3
+- **Issue #16** (closed): T1 item 3 (DRC clean): klt drc on the routed controller GDS
+- **PR #27**: feat: add gate-level LVS of the routed controller as T1 item 4 evidence
+- **Issue #17** (closed): T1 item 4 (LVS clean): klt lvs against the gate-level netlist with power_connectivity
+- **PR #25**: feat: add routed controller layout and T1 item 2 envelope via klt place-and-route
+- **Issue #15** (closed): T1 item 2 (Layout): klt place-and-route of the controller core with a PDN, committed routed GDS
 - **PR #23**: feat: add HyperBus-class controller RTL, synthesized netlist and T1 item 1 attestation
 - **Issue #13** (closed): T1 item 1 (Design sources): HyperBus controller RTL for the functional spec rows plus the synthesized netlist
 - **PR #21**: feat: add behavioural HyperBus-class device model with self-test
