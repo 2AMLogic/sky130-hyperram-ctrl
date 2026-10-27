@@ -10,6 +10,10 @@
       "file": "evidence/item2.json",
       "content_hash": "sha256:b23e5f6c85c6e8546bce2b5d4d6c7c38521c692e2f3603dba368e126aecd57d6"
     },
+    "3": {
+      "file": "layout/records/drc.report.json",
+      "content_hash": "sha256:b23e5f6c85c6e8546bce2b5d4d6c7c38521c692e2f3603dba368e126aecd57d6"
+    },
     "4": {
       "file": "layout/lvs/records/report.json",
       "content_hash": "sha256:2b042afda9828e3020d4e92239d887c8c6708739e7f9a935e969307aa46fed20"
