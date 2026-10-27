@@ -3,6 +3,11 @@
 Chronological record of merged PRs and closed issues, newest first.
 Maintained by the Guide triage role; entries are append-only.
 
+### 2026-10-27
+
+- **PR #20**: feat: attest T1 item 10 repo hygiene via klt signoff --attest (klt 0.8.0)
+- **Issue #18** (closed): T1 item 10 (Repo hygiene): attest README, LICENSE and CI with klt signoff --attest 10
+
 ### 2026-10-22
 
 - **PR #7**: ci: add CI gate script, graded klt signoff record, README reproduce section

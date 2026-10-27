@@ -26,19 +26,19 @@ _None._
 
 Human-approved issues ready for implementation (`loom:issue`).
 
-_None._
+- **#13**: T1 item 1 (Design sources): HyperBus controller RTL for the functional spec rows plus the synthesized netlist
 
 ## In Progress
 
 Issues currently being built (`loom:building`).
 
-_None._
+- **#14**: T1 item 9 (Testbenches shipped): behavioural device model and one cocotb test per CT spec row
 
 ## PRs Awaiting Review
 
 PRs waiting on Judge (`loom:review-requested`).
 
-_None._
+- **#21**: feat: add behavioural HyperBus-class device model with self-test
 
 ## Approved (Awaiting Merge)
 
@@ -68,9 +68,9 @@ _None._
 | Operator merge-risk holds | 0 |
 | Very important | 0 |
 | Important | 1 |
-| Ready (`loom:issue`) | 0 |
-| In Progress (`loom:building`) | 0 |
-| PRs awaiting review | 0 |
+| Ready (`loom:issue`) | 1 |
+| In Progress (`loom:building`) | 1 |
+| PRs awaiting review | 1 |
 | Approved PRs awaiting merge | 0 |
 | Curated | 2 |
 | Architect / Hermit proposals | 0 |
