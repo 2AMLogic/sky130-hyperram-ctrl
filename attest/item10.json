@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "kind": "t1-attestation-inventory",
+  "t1_item": 10,
+  "description": "Repo hygiene: README, license and CI exist; the commands CI runs succeed. make smoke needs the scripts/setup-env.sh toolchain, absent from the CI runner, so it is local_only (skipped, not passed, under --check).",
+  "hygiene": ["README.md", "LICENSE", ".github/workflows/ci.yml"],
+  "checks": [
+    {"name": "readme-links", "argv": ["python3", "-I", "scripts/check_links.py", "README.md"]},
+    {"name": "manifest-json", "argv": ["python3", "-I", "-c", "import glob,json; [json.load(open(f)) for f in glob.glob('manifests/*.json')]"]},
+    {"name": "smoke-flow", "argv": ["make", "smoke"], "local_only": true}
+  ]
+}

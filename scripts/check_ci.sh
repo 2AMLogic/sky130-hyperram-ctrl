@@ -10,13 +10,15 @@
 #   1. every layout/*.json and manifests/*.json that exists parses as JSON
 #      (a missing file is not an error; a malformed one is)
 #   2. README relative links resolve
-#   3. the committed klt signoff record equals a fresh render of the manifest
+#   3. the committed item-10 attestation still reproduces (klt signoff
+#      --attest 10 --check; local_only commands such as `make smoke` are skipped)
+#   4. the committed klt signoff record equals a fresh render of the manifest
 #
 # RTL lint and the cocotb smoke test are added with the toolchain skeleton
 # (issue #3), not here.
 set -euo pipefail
 
-KLT_VERSION="0.7.0"
+KLT_VERSION="0.8.0"
 BLOCK="sky130-hyperram-ctrl"
 MANIFEST="manifests/${BLOCK}.json"
 RECORD="manifests/${BLOCK}.signoff.json"
@@ -30,7 +32,7 @@ else
   KLT=(uvx --from "klayout-tools==${KLT_VERSION}" klt)
 fi
 
-echo "== 1/3 JSON validity =="
+echo "== 1/4 JSON validity =="
 shopt -s nullglob
 for f in layout/*.json manifests/*.json; do
   python3 -I -c 'import json,sys; json.load(open(sys.argv[1]))' "$f" \
@@ -38,10 +40,16 @@ for f in layout/*.json manifests/*.json; do
   echo "ok $f"
 done
 
-echo "== 2/3 README relative links =="
+echo "== 2/4 README relative links =="
 python3 -I scripts/check_links.py README.md
 
-echo "== 3/3 klt signoff record is fresh =="
+echo "== 3/4 item-10 attestation is fresh =="
+# Hashes are raw bytes: any edit to README.md, LICENSE, ci.yml or
+# attest/item10.json is drift until this is re-run and the envelope committed:
+#   klt signoff --attest 10 --inventory attest/item10.json -o evidence/item10.json
+"${KLT[@]}" signoff --attest 10 --inventory attest/item10.json --check evidence/item10.json
+
+echo "== 4/4 klt signoff record is fresh =="
 fresh="$(mktemp)"
 trap 'rm -f "$fresh"' EXIT
 rc=0
