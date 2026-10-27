@@ -5,6 +5,8 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-10-27
 
+- **PR #29**: feat: add klt erc supply report and cite it as T1 item 11
+- **Issue #19** (closed): T1 item 11 (Power delivery): klt erc supply spec, PDN response and LVS power match for the controller
 - **PR #28**: feat: add clean klt drc report for routed GDS as T1 item 3
 - **Issue #16** (closed): T1 item 3 (DRC clean): klt drc on the routed controller GDS
 - **PR #27**: feat: add gate-level LVS of the routed controller as T1 item 4 evidence
