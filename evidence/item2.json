@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "kind": "generic",
+  "status": "pass",
+  "t1_item": 2,
+  "summary": "T1 item 2 (Layout): routed GDS from klt place-and-route (stage route, power.pdn true, tapcell sky130_fd_sc_hd__tapvpwrvgnd_1) of the item-1 netlist; request layout/place-and-route.json",
+  "source": "layout/records/place-and-route.response.json",
+  "provenance": {
+    "klt_version": "0.8.1.dev66+gf0a8810efd57",
+    "klayout_version": "0.30.12",
+    "pdk": {
+      "name": "sky130A",
+      "source": "search root: ~/.ciel",
+      "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7",
+      "ambiguous_sources": [
+        "search root: ~/.volare"
+      ]
+    },
+    "deck": {
+      "name": "sky130_fd_sc_hd__tt_025C_1v80",
+      "content_hash": "sha256:8e78e14442062dba34d414fca6490b2f6b96038d4510d1438ca44fee31487135",
+      "released": false,
+      "path": {
+        "path": null,
+        "scope": "external"
+      }
+    },
+    "input": {
+      "path": {
+        "path": "layout/records/hyperram_ctrl.gds",
+        "scope": "repo"
+      },
+      "content_hash": "sha256:b23e5f6c85c6e8546bce2b5d4d6c7c38521c692e2f3603dba368e126aecd57d6"
+    }
+  }
+}

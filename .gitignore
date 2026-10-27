@@ -110,3 +110,6 @@ results.xml
 
 # klt scratch from flow/smoke.py
 flow/.klt/
+
+# klt place-and-route scratch (layout/records/ holds the committed outputs)
+layout/.klt/
