@@ -21,6 +21,20 @@
     "10": {
       "file": "evidence/item10.json",
       "content_hash": "sha256:d8c2d58bea0a67170fe2f7d5cbd426ce9f0002073d725d590de0ea5964bb9930"
-    }
+    },
+    "11": [
+      {
+        "file": "layout/records/erc.report.json",
+        "content_hash": "sha256:b23e5f6c85c6e8546bce2b5d4d6c7c38521c692e2f3603dba368e126aecd57d6"
+      },
+      {
+        "file": "layout/lvs/records/report.json",
+        "content_hash": "sha256:2b042afda9828e3020d4e92239d887c8c6708739e7f9a935e969307aa46fed20"
+      },
+      {
+        "file": "layout/records/place-and-route.response.json",
+        "content_hash": "sha256:c0f912a10e0dcc2d73e673b4bcf9a76fdac99a705e9dea63bffc3a5dd3d40d0f"
+      }
+    ]
   }
 }

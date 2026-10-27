@@ -6,7 +6,9 @@
   `klt signoff --attest 10` envelope for `attest/item10.json`;
   `evidence."3"` cites the `klt drc` report (see Item-3 DRC evidence below);
   `evidence."4"` cites the `klt lvs` report `layout/lvs/records/report.json`
-  directly (see "Item-4 LVS" below). Other T1 items are in the manifest as
+  directly (see "Item-4 LVS" below); `evidence."11"` cites the `klt erc` supply
+  report, the place-and-route response and the item-4 LVS report (see "Item-11
+  power delivery" below). Other T1 items are in the manifest as
   they land.
 - **`sky130-hyperram-ctrl.signoff.json`**: the committed verdict of record,
   the output of `klt signoff --manifest ... --format json`. CI re-renders it
@@ -127,3 +129,37 @@ Warnings, as reported:
   layers outside the deck's connectivity graph. Not investigated further here.
 - `power_pins` is `VGND, VPB, VPWR`; `VNB` is not in the checked universe
   because of the dropped substrate port above.
+
+## Item-11 power delivery
+
+`evidence."11"` cites three artifacts: `layout/records/erc.report.json` (`klt erc`
+at `klayout-tools==0.8.0`, spec `layout/erc/supply-spec.json`),
+`layout/records/place-and-route.response.json` (`power.pdn: true`, tapcell
+`sky130_fd_sc_hd__tapvpwrvgnd_1`, strap layers `met1`/`met4`/`met5`) and the
+item-4 LVS report (`power_connectivity.status: match`). The record renders item
+11 `met`. Re-run: `layout/erc/run.sh` (~15 s); cheap re-hash:
+`layout/erc/run.sh check`. After a re-run, copy the cited content hashes into
+`evidence."11"` and regenerate the signoff record (command above).
+
+Result as reported: `erc_status: clean`, 0 findings; `VPWR` and `VGND` each
+resolve to 1 island (expected 1); both ties checked, none skipped, none
+degenerate; `erc_coverage.layers_in_stream_without_declaration` is empty.
+
+What it does and does not say:
+
+- **Net names.** The spec uses the GDS label text `VPWR`/`VGND` (li1/met1
+  pins), not the `VDD`/`VSS` the P&R response names; the met5 pin text
+  `VDD`/`VSS` is not a declared net.
+- **Stackup.** `poly`, `li1`, `met1`..`met5` and every via between them, so the
+  `met2`/`met3` stripe layers and the `met1`-`met4`-`met5` straps are inside the
+  connectivity model.
+- **Substrate tie rests on an assertion.** The p-substrate tie (`psub_tap_vgnd`)
+  has no drawn well, so its region is `well_complement_of: 64/20` (the die minus
+  nwell), graded under `erc_coverage.checked_by_well_assertion`, not as a
+  marker-derived tie. The n-well tie is marker-derived (tap `65/44`, nwell `64/20`).
+- **Severed-rail negative not measured.** No supply declares `nets[].roles`,
+  because `VPWR` and `VGND` share `met1`, `met4` and `met5`, so neither owns a
+  role outright. `power_delivery.supply_unlabelled_islands` is therefore `{}`
+  ("not measured"), not zeros.
+- **Antenna half not run.** `--findings-only` is used; the report's `status` is
+  `not_checked` by design (exit 4). IR drop and EM are outside item 11.

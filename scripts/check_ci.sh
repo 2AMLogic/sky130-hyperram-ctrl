@@ -63,6 +63,8 @@ echo "== 5/6 DRC report is fresh =="
 # Input and deck hashes only (no --rerun: the full DRC is local). After any GDS change:
 #   make drc
 "${KLT[@]}" drc --check layout/records/drc.report.json
+# Item-11 ERC supply report: cheap re-hash of layout and spec (full re-run: layout/erc/run.sh)
+"${KLT[@]}" erc --check layout/records/erc.report.json
 
 echo "== 6/6 klt signoff record is fresh =="
 fresh="$(mktemp)"
