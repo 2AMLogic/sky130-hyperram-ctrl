@@ -92,14 +92,23 @@ measurements/  silicon characterization (empty until tape-out)
 ## Reproduce
 
 ```
-npm run check:ci      # the CI gate: JSON validity, README links, klt signoff record
+npm run check:ci      # the CI gate: JSON validity, README links, item-10 attestation, klt signoff record
 ```
 
 This runs `scripts/check_ci.sh`, the same script `.github/workflows/ci.yml`
-runs. It uses `klt` pinned to `klayout-tools==0.7.0` (falling back to
-`uvx --from klayout-tools==0.7.0 klt` if the installed `klt` differs). The
+runs. It uses `klt` pinned to `klayout-tools==0.8.0` (falling back to
+`uvx --from klayout-tools==0.8.0 klt` if the installed `klt` differs). The
 tier verdict of record is `manifests/sky130-hyperram-ctrl.signoff.json`; see
 [manifests/README.md](manifests/README.md).
+
+T1 item 10 (repo hygiene) is attested by `attest/item10.json` and the
+tool-produced envelope `evidence/item10.json`. CI re-checks it; after editing
+`README.md`, `LICENSE`, `.github/workflows/ci.yml` or the inventory, regenerate:
+
+```
+uvx --from klayout-tools==0.8.0 klt signoff --attest 10 \
+    --inventory attest/item10.json -o evidence/item10.json
+```
 
 ## License
 

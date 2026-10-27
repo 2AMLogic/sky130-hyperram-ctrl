@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "kind": "generic",
+  "status": "pass",
+  "t1_item": 10,
+  "summary": "T1 item 10 (Repo hygiene): 6/6 attestation checks passed (klt signoff --attest)",
+  "source": "attest/item10.json",
+  "attestation": {
+    "producer": "klt signoff --attest",
+    "inventory_schema_version": 1,
+    "hash_algorithm": "sha256-raw-bytes",
+    "check_count": 6,
+    "passed_count": 6,
+    "checks": [
+      {
+        "check": "present",
+        "role": "hygiene",
+        "path": ".github/workflows/ci.yml",
+        "passed": true,
+        "content_hash": "sha256:c57196a48c5e81697c0ad713ad2e6147f51847231b5979a266781b4148c1bae4"
+      },
+      {
+        "check": "present",
+        "role": "hygiene",
+        "path": "LICENSE",
+        "passed": true,
+        "content_hash": "sha256:cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      {
+        "check": "present",
+        "role": "hygiene",
+        "path": "README.md",
+        "passed": true,
+        "content_hash": "sha256:c0c56677eef2a4a68566a3d5fd95c44d9435185f7e3fd8da9f43e5d48105a736"
+      },
+      {
+        "check": "command",
+        "role": "audit",
+        "name": "readme-links",
+        "argv": [
+          "python3",
+          "-I",
+          "scripts/check_links.py",
+          "README.md"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true
+      },
+      {
+        "check": "command",
+        "role": "audit",
+        "name": "manifest-json",
+        "argv": [
+          "python3",
+          "-I",
+          "-c",
+          "import glob,json; [json.load(open(f)) for f in glob.glob('manifests/*.json')]"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true
+      },
+      {
+        "check": "command",
+        "role": "audit",
+        "name": "smoke-flow",
+        "argv": [
+          "make",
+          "smoke"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true,
+        "local_only": true
+      }
+    ]
+  },
+  "provenance": {
+    "klt_version": "0.8.0",
+    "klayout_version": null,
+    "pdk": null,
+    "deck": null,
+    "input": {
+      "path": {
+        "path": "attest/item10.json",
+        "scope": "repo"
+      },
+      "content_hash": "sha256:d8c2d58bea0a67170fe2f7d5cbd426ce9f0002073d725d590de0ea5964bb9930"
+    }
+  }
+}
