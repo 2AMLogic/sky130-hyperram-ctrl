@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "kind": "generic",
+  "status": "pass",
+  "t1_item": 1,
+  "summary": "T1 item 1 (Design sources): 9/9 attestation checks passed (klt signoff --attest)",
+  "source": "attest/item1.json",
+  "attestation": {
+    "producer": "klt signoff --attest",
+    "inventory_schema_version": 1,
+    "hash_algorithm": "sha256-raw-bytes",
+    "check_count": 9,
+    "passed_count": 9,
+    "checks": [
+      {
+        "check": "present",
+        "role": "source",
+        "path": "flow/synthesize-hyperram.json",
+        "passed": true,
+        "content_hash": "sha256:eb3f2374dbd10d6db17de539a9f2acb0192fbac8e9c9c2b9973f0bc4216e0164"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "rtl/hyperram_ctrl/hr_cmd_fsm.v",
+        "passed": true,
+        "content_hash": "sha256:cb953819983813ae2d6738edd2b133f505dbdbbbc4affdb8e3050788654a8660"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "rtl/hyperram_ctrl/hr_dq_out.v",
+        "passed": true,
+        "content_hash": "sha256:9724c0bf92d0a9fd9da957687b2f29bb996509f956f28cda166c0a26b3abd280"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "rtl/hyperram_ctrl/hr_rd_capture.v",
+        "passed": true,
+        "content_hash": "sha256:27fdde18609fc4efcb81fe6fcea33b6217add1a053cc94903008e8ed76c797ed"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "rtl/hyperram_ctrl/hyperram_ctrl.v",
+        "passed": true,
+        "content_hash": "sha256:ab9f1580785366e1d90915e15bd58635bb15f06b68c9ab40bf74d1e8e8c3dbfa"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "rtl/hyperram_ctrl/sim/sky130_cells_behav.v",
+        "passed": true,
+        "content_hash": "sha256:d358d263ef7b4072a00e8315423832ebafc542fdfb6f614ca552536f66df0d38"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "rtl/hyperram_ctrl/synth/sky130_cells_bb.v",
+        "passed": true,
+        "content_hash": "sha256:73f6e3049f91a1c66cfc48c4786c3879eac4de99d6120bdd80fe981c4b7c3e11"
+      },
+      {
+        "check": "present",
+        "role": "derived",
+        "path": "sim/hyperram/records/hyperram_ctrl.netlist.v",
+        "passed": true,
+        "content_hash": "sha256:c0f912a10e0dcc2d73e673b4bcf9a76fdac99a705e9dea63bffc3a5dd3d40d0f"
+      },
+      {
+        "check": "command",
+        "role": "freshness",
+        "target": "sim/hyperram/records/hyperram_ctrl.netlist.v",
+        "generator": "klt synthesize",
+        "argv": [
+          "python3",
+          "-I",
+          "flow/hyperram.py",
+          "check"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true,
+        "local_only": true
+      }
+    ]
+  },
+  "provenance": {
+    "klt_version": "0.8.1.dev55+g879d39bad82b",
+    "klayout_version": null,
+    "pdk": null,
+    "deck": null,
+    "input": {
+      "path": {
+        "path": "attest/item1.json",
+        "scope": "repo"
+      },
+      "content_hash": "sha256:cf4e1f8f42232d63b39c07d76e899a237929f11304074913b2f845c28db48f05"
+    }
+  }
+}

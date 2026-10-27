@@ -2,6 +2,10 @@
   "block": "sky130-hyperram-ctrl",
   "kind": "digital",
   "evidence": {
+    "1": {
+      "file": "evidence/item1.json",
+      "content_hash": "sha256:cf4e1f8f42232d63b39c07d76e899a237929f11304074913b2f845c28db48f05"
+    },
     "10": {
       "file": "evidence/item10.json",
       "content_hash": "sha256:d8c2d58bea0a67170fe2f7d5cbd426ce9f0002073d725d590de0ea5964bb9930"
