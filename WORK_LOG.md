@@ -5,6 +5,9 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-10-27
 
+- **PR #23**: feat: add HyperBus-class controller RTL, synthesized netlist and T1 item 1 attestation
+- **Issue #13** (closed): T1 item 1 (Design sources): HyperBus controller RTL for the functional spec rows plus the synthesized netlist
+- **PR #21**: feat: add behavioural HyperBus-class device model with self-test
 - **PR #20**: feat: attest T1 item 10 repo hygiene via klt signoff --attest (klt 0.8.0)
 - **Issue #18** (closed): T1 item 10 (Repo hygiene): attest README, LICENSE and CI with klt signoff --attest 10
 

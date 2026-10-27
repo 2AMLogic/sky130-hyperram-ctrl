@@ -21,24 +21,26 @@ _None._
 `loom:important`; taken before unlabelled work.
 
 - **#2**: Draft and ratify the target spec
+- **#14**: T1 item 9 (Testbenches shipped): behavioural device model and one cocotb test per CT spec row
+- **#15**: T1 item 2 (Layout): klt place-and-route of the controller core with a PDN, committed routed GDS
 
 ## Ready
 
 Human-approved issues ready for implementation (`loom:issue`).
 
-- **#13**: T1 item 1 (Design sources): HyperBus controller RTL for the functional spec rows plus the synthesized netlist
+- **#14**: T1 item 9 (Testbenches shipped): behavioural device model and one cocotb test per CT spec row
 
 ## In Progress
 
 Issues currently being built (`loom:building`).
 
-- **#14**: T1 item 9 (Testbenches shipped): behavioural device model and one cocotb test per CT spec row
+_None._
 
 ## PRs Awaiting Review
 
 PRs waiting on Judge (`loom:review-requested`).
 
-- **#21**: feat: add behavioural HyperBus-class device model with self-test
+_None._
 
 ## Approved (Awaiting Merge)
 
@@ -52,6 +54,7 @@ Issues carrying `loom:curated`.
 
 - **#2**: Draft and ratify the target spec *(curated)*
 - **#5**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
+- **#14**: T1 item 9 (Testbenches shipped): behavioural device model and one cocotb test per CT spec row *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -67,12 +70,12 @@ _None._
 |------|-------|
 | Operator merge-risk holds | 0 |
 | Very important | 0 |
-| Important | 1 |
+| Important | 3 |
 | Ready (`loom:issue`) | 1 |
-| In Progress (`loom:building`) | 1 |
-| PRs awaiting review | 1 |
+| In Progress (`loom:building`) | 0 |
+| PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 2 |
+| Curated | 3 |
 | Architect / Hermit proposals | 0 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
