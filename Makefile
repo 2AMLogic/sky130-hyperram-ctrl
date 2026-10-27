@@ -1,7 +1,8 @@
 # Toolchain smoke flow on rtl/smoke/ (NOT the design). `make smoke` runs lint,
 # the cocotb test, synthesis and three-corner STA, then writes the record.
 # `make hyperram-lint | hyperram-synth | hyperram-check` cover the controller RTL;
-# `make layout | layout-check` place-and-route its netlist (layout/).
+# `make layout | layout-check` place-and-route its netlist (layout/);
+# `make drc` runs klt drc on the routed GDS (T1 item 3).
 # Run scripts/setup-env.sh first; targets use .venv/bin tools when present.
 
 SHELL := /bin/bash
@@ -61,3 +62,9 @@ layout:
 # cheap freshness check: request inputs vs the committed response, GDS vs item-2 envelope
 layout-check:
 	python3 flow/hyperram.py layout-check
+
+.PHONY: drc
+
+# klt drc (curated sky130 deck, ~1 min, no PDK) on the routed GDS -> item-3 report
+drc:
+	uvx --from klayout-tools==0.8.0 klt drc --deck sky130 --format json layout/records/hyperram_ctrl.gds > layout/records/drc.report.json
