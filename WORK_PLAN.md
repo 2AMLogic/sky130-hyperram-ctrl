@@ -34,7 +34,7 @@ Human-approved issues ready for implementation (`loom:issue`).
 
 Issues currently being built (`loom:building`).
 
-_None._
+- **#15**: T1 item 2 (Layout): klt place-and-route of the controller core with a PDN, committed routed GDS
 
 ## PRs Awaiting Review
 
@@ -46,7 +46,7 @@ _None._
 
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
-_None._
+- **#25**: feat: add routed controller layout and T1 item 2 envelope via klt place-and-route
 
 ## Proposed
 
@@ -55,6 +55,7 @@ Issues carrying `loom:curated`.
 - **#2**: Draft and ratify the target spec *(curated)*
 - **#5**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
 - **#14**: T1 item 9 (Testbenches shipped): behavioural device model and one cocotb test per CT spec row *(curated)*
+- **#15**: T1 item 2 (Layout): klt place-and-route of the controller core with a PDN, committed routed GDS *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -72,10 +73,10 @@ _None._
 | Very important | 0 |
 | Important | 3 |
 | Ready (`loom:issue`) | 1 |
-| In Progress (`loom:building`) | 0 |
+| In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 0 |
-| Approved PRs awaiting merge | 0 |
-| Curated | 3 |
+| Approved PRs awaiting merge | 1 |
+| Curated | 4 |
 | Architect / Hermit proposals | 0 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
