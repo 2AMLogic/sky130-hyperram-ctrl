@@ -5,6 +5,8 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-10-27
 
+- **PR #34**: build: pin klayout-tools to PyPI 0.8.0 in setup-env
+- **Issue #32** (closed): Bump klayout-tools pin b61f753d0369 → 0.8.0
 - **PR #29**: feat: add klt erc supply report and cite it as T1 item 11
 - **Issue #19** (closed): T1 item 11 (Power delivery): klt erc supply spec, PDN response and LVS power match for the controller
 - **PR #28**: feat: add clean klt drc report for routed GDS as T1 item 3
