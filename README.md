@@ -8,7 +8,13 @@ including the I/O timing at the pads, designed by AI agents driving
 open-source flow: cocotb + Icarus, Yosys and OpenROAD for the controller,
 xschem + ngspice for the I/O timing path.
 
-**Status: just opened, specification phase.** Nothing is designed yet.
+**Status: controller synthesized, placed and routed; spec still DRAFT.** The
+controller RTL (`rtl/hyperram_ctrl/`), its synthesized netlist and a routed
+GDS exist. The klayout-tools tier record
+([`manifests/sky130-hyperram-ctrl.signoff.json`](manifests/sky130-hyperram-ctrl.signoff.json))
+grades **6 of 11** T1 items: items 1–4, 10 and 11 are `met`, against a
+**draft** spec (issue #2), not a ratified one. Items 5–9 (including pin-level
+timing across corners and the testbench against the device model) are not met.
 
 **Built agent-native.** Every specification, decision record, testbench, and
 line of documentation here is produced by AI agents working from a ratified
@@ -23,8 +29,11 @@ benefits everyone using sky130, not just this repo.
 
 ```bash
 ./scripts/setup-env.sh   # pinned klt, Yosys, cocotb, sky130A + sky130_fd_sc_hd; checks host tools
-make smoke               # lint, cocotb sim, synthesis, three-corner STA on rtl/smoke/ (not the design)
+make smoke               # toolchain smoke test: lint, cocotb sim, synthesis, three-corner STA on rtl/smoke/
 ```
+
+`rtl/smoke/` only proves the toolchain works; it is not the design. The
+controller is in `rtl/hyperram_ctrl/`; see [Reproduce](#reproduce) for its flow.
 
 Pins and the flow steps are in [docs/environment.md](docs/environment.md);
 the run record lands in `sim/smoke/records/`.
@@ -75,7 +84,9 @@ Any source-synchronous DDR interface on sky130 meets the same seam.
 Maturity ladder: spec ratified → controller verified against the device
 model → pin-level timing closed across corners, pads included → layout
 DRC/LVS-clean → shuttle seat → measured silicon. **Current position:
-pre-spec.**
+controller synthesized and routed, DRC/LVS/ERC clean at the tool's coverage,
+against a draft (not yet ratified) spec; device-model verification and
+pin-level timing are not done.**
 
 ## Repo layout
 
@@ -90,6 +101,21 @@ measurements/  silicon characterization (empty until tape-out)
 ```
 
 ## Reproduce
+
+Every `met` item in the tier record has a command below. Tools are pinned to
+`klayout-tools==0.8.0` (see the pin note further down). The full re-runs need
+the `./scripts/setup-env.sh` toolchain; the "cheap check" column only re-hashes
+the committed evidence and is what CI runs.
+
+| Item | Result | Full re-run | Cheap check |
+|---|---|---|---|
+| 1 | synthesized netlist (Yosys) | `make hyperram-synth` | `make hyperram-check` |
+| 2 | routed GDS (OpenROAD P&R) | `make layout` (~25 min; needs OpenROAD and the sky130A PDK) | `make layout-check` |
+| 3 | DRC | `make drc` (~1 min) | `uvx --from klayout-tools==0.8.0 klt drc --check layout/records/drc.report.json` |
+| 4 | LVS | `layout/lvs/run.sh` (~8 min) | `layout/lvs/run.sh check` |
+| 11 | ERC (power delivery) | `layout/erc/run.sh` (~15 s) | `layout/erc/run.sh check` |
+| 10 | this README, license, CI | see attestation below | `npm run check:ci` |
+| all | signoff re-grade | command in [manifests/README.md](manifests/README.md) | `npm run check:ci` |
 
 ```
 npm run check:ci      # the CI gate: JSON validity, README links, item-10 attestation, klt signoff record
