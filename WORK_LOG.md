@@ -3,6 +3,11 @@
 Chronological record of merged PRs and closed issues, newest first.
 Maintained by the Guide triage role; entries are append-only.
 
+### 2026-10-28
+
+- **PR #37**: docs: update README status and reproduce steps to match graded evidence
+- **Issue #36** (closed): T1 item 10 (repo hygiene): README says 'nothing is designed yet' and reproduces none of the graded results — update status and reproduce steps, re-attest
+
 ### 2026-10-27
 
 - **PR #34**: build: pin klayout-tools to PyPI 0.8.0 in setup-env
