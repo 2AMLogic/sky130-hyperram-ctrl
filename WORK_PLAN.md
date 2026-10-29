@@ -33,7 +33,7 @@ Human-approved issues ready for implementation (`loom:issue`).
 
 Issues currently being built (`loom:building`).
 
-- **#39**: Record the CLK/CLK90 timing requirement for the sky130-pll quadrature-output decision (sky130-pll#332, DR-010)
+_None._
 
 ## PRs Awaiting Review
 
@@ -54,7 +54,6 @@ Issues carrying `loom:curated`.
 - **#2**: Draft and ratify the target spec *(curated)*
 - **#5**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
 - **#14**: T1 item 9 (Testbenches shipped): behavioural device model and one cocotb test per CT spec row *(curated)*
-- **#39**: Record the CLK/CLK90 timing requirement for the sky130-pll quadrature-output decision (sky130-pll#332, DR-010) *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -72,10 +71,10 @@ _None._
 | Very important | 0 |
 | Important | 2 |
 | Ready (`loom:issue`) | 1 |
-| In Progress (`loom:building`) | 1 |
+| In Progress (`loom:building`) | 0 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 4 |
+| Curated | 3 |
 | Architect / Hermit proposals | 0 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->

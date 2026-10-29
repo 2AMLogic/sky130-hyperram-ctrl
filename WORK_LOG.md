@@ -5,6 +5,8 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-10-29
 
+- **PR #43**: docs: escape pipes in clock-phase table header cell
+- **Issue #42** (closed): spec: escape pipes in |e_nom| table header in clock-phase-requirement.md
 - **PR #41**: docs: add write-path CLK90 phase and jitter requirement
 - **Issue #39** (closed): Record the CLK/CLK90 timing requirement for the sky130-pll quadrature-output decision (sky130-pll#332, DR-010)
 
