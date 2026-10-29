@@ -3,6 +3,11 @@
 Chronological record of merged PRs and closed issues, newest first.
 Maintained by the Guide triage role; entries are append-only.
 
+### 2026-10-29
+
+- **PR #41**: docs: add write-path CLK90 phase and jitter requirement
+- **Issue #39** (closed): Record the CLK/CLK90 timing requirement for the sky130-pll quadrature-output decision (sky130-pll#332, DR-010)
+
 ### 2026-10-28
 
 - **PR #37**: docs: update README status and reproduce steps to match graded evidence
