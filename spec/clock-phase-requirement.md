@@ -58,7 +58,7 @@ added here; a margin policy is a ratification choice.
 With `e_pad = e_skew = e_jit = 0` (the best case; every unmeasured term only
 narrows this):
 
-| Bus clock | T | B = T/4 − tIS | Window for d (tIS ≤ d ≤ T/2 − tIH) | Phase window | Allowed `|e_nom|` | Per 1 ns of uncertainty the window loses |
+| Bus clock | T | B = T/4 − tIS | Window for d (tIS ≤ d ≤ T/2 − tIH) | Phase window | Allowed `\|e_nom\|` | Per 1 ns of uncertainty the window loses |
 |---|---|---|---|---|---|---|
 | 25 MHz (fallback) | 40 ns | 9.0 ns | 1.0 – 19.0 ns | 9° – 171° (90° ± 81°) | 9000 ps | 9° each side |
 | 50 MHz (target) | 20 ns | 4.0 ns | 1.0 – 9.0 ns | 18° – 162° (90° ± 72°) | 4000 ps | 18° each side |
