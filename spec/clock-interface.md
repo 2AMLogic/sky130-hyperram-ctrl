@@ -11,7 +11,7 @@ every other PLL figure below is a starting point.
 |---|---|---|---|
 | Frequency | 50 MHz (fallback 25, stretch 100) from the core clock | row 2 band 10–200 MHz, DRAFT, not re-derived | **fit if the band holds**; unproven |
 | Supply | 1.8 V ±10 % core | row 1 ratified 1.62–1.98 V | **fit** |
-| Phase / multi-phase | a 90° version of CK for write data centring, or a 2× clock to derive it | single output `CLK`; no 90° or 2× output in the spec | **gap**: the controller instead derives 90° with a delay element (target-spec row 14); a 4× or quadrature output would remove that |
+| Phase / multi-phase | a 90° version of CK for write data centring, or a 2× clock to derive it | single output `CLK`; no 90° or 2× output in the spec | **gap**: the controller instead derives 90° with a delay element (target-spec row 14); a 4× or quadrature output would remove that. Tolerance: [clock-phase-requirement.md](clock-phase-requirement.md) |
 | Duty cycle | 45–55 % | row 14, DRAFT | **fit if ratified** |
 | Jitter | period jitter small against the margin in target-spec row 12; proposal ≤ 1 % RMS | row 9 ratified ≤ 1.0 % RMS, DC-quiet supply | **fit**, with caveat: the PLL figure assumes a DC-quiet supply, and an I/O-switching core supply is not |
 | Output drive | drives clock tree buffer | row 15, DRAFT; open issue 2AMLogic/sky130-pll#232 reports `CLK` is the raw VCO node | **gap** until an output stage exists |
