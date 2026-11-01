@@ -3,6 +3,10 @@
 Chronological record of merged PRs and closed issues, newest first.
 Maintained by the Guide triage role; entries are append-only.
 
+### 2026-11-01
+
+- **PR #46**: Bump Repo Skills 0.24.7 -> 0.25.1
+
 ### 2026-10-29
 
 - **PR #43**: docs: escape pipes in clock-phase table header cell
