@@ -13,7 +13,7 @@ from model import (CR0_FIXED_LATENCY_BIT, REG_CR0, REG_ID0, REG_ID1,
 
 PLACEHOLDER = ModelParams(
     t_ck_min_ns=20.0, t_css_ns=2.0, t_csh_ns=2.0, t_cshi_ns=10.0,
-    t_csm_ns=400.0, t_ckd_ns=3.0, t_ckds_ns=3.0, initial_latency_clk=3,
+    t_csm_ns=400.0, t_ckd_ns=3.0, t_ckds_ns=3.0, initial_latency_clk=4,
     power_up_ns=1000.0, id0=0x0C81, id1=0x0001, cr0_reset=0x0000,
     cr1_reset=0x0002,
 )
@@ -53,7 +53,7 @@ class Host:
     def read(self, word, nwords, register=False):
         rwds_ca = self.begin(ca_bytes(word, True, register))
         lat = self.m.p.initial_latency_clk * (2 if rwds_ca else 1)
-        self.idle(2 * lat)
+        self.idle(2 * lat - 6)
         data = [self._edge().dq for _ in range(2 * nwords)]
         self.end()
         return bytes(data)
@@ -61,7 +61,7 @@ class Host:
     def write(self, word, data, mask=None, register=False):
         rwds_ca = self.begin(ca_bytes(word, False, register))
         lat = 0 if register else self.m.p.initial_latency_clk * (2 if rwds_ca else 1)
-        self.idle(2 * lat)
+        self.idle(2 * lat - 6 if lat else 0)
         for i, b in enumerate(data):
             self._edge(dq=b, rwds=(mask[i] if mask else 0))
         self.end()
@@ -86,7 +86,7 @@ class ModelSelfTest(unittest.TestCase):
     def test_read_rwds_edge_aligned_with_data(self):
         self.m.mem[0:4] = b"\xaa\xbb\xcc\xdd"
         self.h.begin(ca_bytes(0, True))
-        self.h.idle(2 * 3)
+        self.h.idle(2 * 4 - 6)
         outs = [self.h._edge() for _ in range(4)]
         self.assertEqual([o.rwds for o in outs], [1, 0, 1, 0])
         self.assertEqual([o.dq for o in outs], [0xAA, 0xBB, 0xCC, 0xDD])
@@ -97,18 +97,18 @@ class ModelSelfTest(unittest.TestCase):
         m = HyperRamModel(ModelParams(**{**PLACEHOLDER.__dict__, "dq_skew_ns": 1.5}))
         h = Host(m)
         h.begin(ca_bytes(0, True))
-        h.idle(6)
+        h.idle(2)
         out = h._edge()
         self.assertEqual(out.dq_delay_ns - out.rwds_delay_ns, 1.5)
 
     def test_latency_variable_normal_and_doubled(self):
         self.assertEqual(self.h.begin(ca_bytes(0, True)), 0)
         self.h.end()
-        self.assertEqual(self.m.transactions[-1].latency_clk, 3)
+        self.assertEqual(self.m.transactions[-1].latency_clk, 4)
         self.m.request_extra_latency = True
         self.assertEqual(self.h.begin(ca_bytes(0, True)), 1)
         self.h.end()
-        self.assertEqual(self.m.transactions[-1].latency_clk, 6)
+        self.assertEqual(self.m.transactions[-1].latency_clk, 8)
         self.assertTrue(self.m.transactions[-1].extra_latency)
 
     def test_doubled_latency_data_timing(self):
@@ -121,7 +121,7 @@ class ModelSelfTest(unittest.TestCase):
         self.assertTrue(self.m.fixed_latency)
         self.assertEqual(self.h.begin(ca_bytes(0, True)), 1)  # always doubled
         self.h.end()
-        self.assertEqual(self.m.transactions[-1].latency_clk, 6)
+        self.assertEqual(self.m.transactions[-1].latency_clk, 8)
 
     def test_write_mask(self):
         self.m.mem[0:4] = b"\x11\x22\x33\x44"
@@ -151,8 +151,8 @@ class ModelSelfTest(unittest.TestCase):
 
     def test_tcsm_flag_negative_control_and_boundary(self):
         # words so that CS# low stays within, then beyond, tCSM (400 ns).
-        # CS# low = 5 + 10*(6 CA + 6 latency + 2*n data edges) + 5.
-        ok = (400 - 10 - 120) // 20       # 13 words -> 5+10*(12+26)+5 = 390 ns
+        # CS# low = 5 + 10*(2*4 latency-and-CA edges + 2*n data edges) + 5.
+        ok = (400 - 10 - 80) // 20        # 15 words -> 5+10*(8+30)+5 = 390 ns
         self.h.read(0, ok)
         self.assertEqual(self.m.violations_of("tCSM"), [])
         self.h.read(0, ok + 2)            # 430 ns, beyond tCSM

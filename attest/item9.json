@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "kind": "t1-attestation-inventory",
+  "t1_item": 9,
+  "description": "Testbenches shipped: the behavioural device model and its self-test, the cocotb smoke test, and the controller benches (one module per CT row of spec/target-spec.md plus random traffic), with the one cold-start command and the pinned PDK and tool versions. The cold-start command needs the scripts/setup-env.sh toolchain, absent from the CI runner, so it is local_only (skipped, not passed, under --check; the per-file hashes still catch drift). Model timing values are placeholders (spec/device-model-params.md is TBD(src)); verification/README.md says so. Two benches are expect_fail against known RTL defects (issue 48).",
+  "testbenches": [
+    "verification/Makefile",
+    "verification/README.md",
+    "verification/hyperram_model/__init__.py",
+    "verification/hyperram_model/model.py",
+    "verification/hyperram_model/test_model.py",
+    "verification/smoke/Makefile",
+    "verification/smoke/test_smoke_counter.py",
+    "verification/ctrl/hrbench.py",
+    "verification/ctrl/test_all.py",
+    "verification/ctrl/test_random_traffic.py",
+    "verification/ctrl/test_row03_command_address.py",
+    "verification/ctrl/test_row04_latency.py",
+    "verification/ctrl/test_row05_bursts.py",
+    "verification/ctrl/test_row06_write_mask.py",
+    "verification/ctrl/test_row07_register_space.py",
+    "verification/ctrl/test_row08_power_up.py",
+    "verification/ctrl/test_row09_max_cs_low.py",
+    "verification/ctrl/test_row10_rwds_extra_latency.py",
+    "verification/ctrl/test_row13_no_calibration.py",
+    "verification/ctrl/test_row15_host_interface.py",
+    "verification/ctrl/test_row16_host_bursts.py",
+    "verification/ctrl/Makefile",
+    "flow/functional-verification-ctrl.json"
+  ],
+  "cold_start": {
+    "argv": [
+      "make",
+      "-C",
+      "verification"
+    ],
+    "local_only": true
+  },
+  "pins": {
+    "pdk": {
+      "name": "sky130A",
+      "revision": "f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
+    },
+    "tools": {
+      "cocotb": "2.0.1",
+      "icarus": "13.0",
+      "klayout-tools": "0.8.0",
+      "yosys": "0.68.0.0.post1208"
+    }
+  }
+}

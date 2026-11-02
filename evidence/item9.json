@@ -1,0 +1,224 @@
+{
+  "schema_version": 1,
+  "kind": "generic",
+  "status": "pass",
+  "t1_item": 9,
+  "summary": "T1 item 9 (Testbenches shipped): 26/26 attestation checks passed (klt signoff --attest)",
+  "source": "attest/item9.json",
+  "attestation": {
+    "producer": "klt signoff --attest",
+    "inventory_schema_version": 1,
+    "hash_algorithm": "sha256-raw-bytes",
+    "check_count": 26,
+    "passed_count": 26,
+    "checks": [
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "flow/functional-verification-ctrl.json",
+        "passed": true,
+        "content_hash": "sha256:a855eaf9f964aefed41a9ef03fea4eb0b8972eb60a9f59868f90177877d20345"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/Makefile",
+        "passed": true,
+        "content_hash": "sha256:d938655e61a5a10e00f5227a6ed4f6fccd878acc5ef3ec580eb2416818f37cd9"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/README.md",
+        "passed": true,
+        "content_hash": "sha256:99f096d71d5f6a86c85479aec8bd7ca21f7541c0e9d33645923e941d294fe9d1"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/ctrl/Makefile",
+        "passed": true,
+        "content_hash": "sha256:90d6725a3c3bbd0a6100bbc8a5a307037cabce50c0262eaddfef7117e5bf3a86"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/ctrl/hrbench.py",
+        "passed": true,
+        "content_hash": "sha256:361e5491666e207a0fb28fe57baf525b38dc0c9a7730514e7905dbdbe6a0fab4"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/ctrl/test_all.py",
+        "passed": true,
+        "content_hash": "sha256:667074f54f6f8f11662057d9f0872d40d36637e5a9c179629cba32c5ec62ec42"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/ctrl/test_random_traffic.py",
+        "passed": true,
+        "content_hash": "sha256:94b77fc73936747b8b9f26503d606e75d4195193124aa24f87dc655f6c2c37f4"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/ctrl/test_row03_command_address.py",
+        "passed": true,
+        "content_hash": "sha256:88982ccbbb230a6104aa66a1e4f6fdf4ed8c9d42d5f84c613a68ee3fd4020a89"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/ctrl/test_row04_latency.py",
+        "passed": true,
+        "content_hash": "sha256:95c4e3b12b8dbeb9aacf9f1520e4b6cfced4b844a83fa070ca40c479e948e3ed"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/ctrl/test_row05_bursts.py",
+        "passed": true,
+        "content_hash": "sha256:fbed46b53aeb56ce4045c4d3358775589c508e306a8b37365601c42182303566"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/ctrl/test_row06_write_mask.py",
+        "passed": true,
+        "content_hash": "sha256:8893e6a112f5183f8e9d65132499143e6886d4530c2fc011d024186bc7cc2993"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/ctrl/test_row07_register_space.py",
+        "passed": true,
+        "content_hash": "sha256:d0b3634858de813b2bdd73158da1bb5f954fadfbbb73b4020ceb1e581f6b4248"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/ctrl/test_row08_power_up.py",
+        "passed": true,
+        "content_hash": "sha256:50de6e07083883a0d348b86a25c24e2b0da5dbfc52b6b5d93862146037b8c4e0"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/ctrl/test_row09_max_cs_low.py",
+        "passed": true,
+        "content_hash": "sha256:e722fc4f85657c58c33e776fa2153477e479e0f566080781f59ad0bdc1c3aaa9"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/ctrl/test_row10_rwds_extra_latency.py",
+        "passed": true,
+        "content_hash": "sha256:d731fed1e5a6432cf6e3f1c17b79f20cf8a736f5f169b8a798d98be9647b7e7b"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/ctrl/test_row13_no_calibration.py",
+        "passed": true,
+        "content_hash": "sha256:8651b75dd5d61b8ebc265468521001547858680a8989b09b1ee53dbec6996058"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/ctrl/test_row15_host_interface.py",
+        "passed": true,
+        "content_hash": "sha256:13253a55746e31b59839d526c28074b14fd0f69fde6388a795ebbe87782bed5e"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/ctrl/test_row16_host_bursts.py",
+        "passed": true,
+        "content_hash": "sha256:2c061a68b9fcfc62430a885f8774dad3636157d05f71b39c9b55b7bf1f0ad739"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/hyperram_model/__init__.py",
+        "passed": true,
+        "content_hash": "sha256:eb682672cd14394e85cf09ad250433d26139bf487f02da10f90f61835b38cf64"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/hyperram_model/model.py",
+        "passed": true,
+        "content_hash": "sha256:c0f08d7fbb86c43ab9d1ed1aa4239017888c28e0b241c9b36e55894232cff23a"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/hyperram_model/test_model.py",
+        "passed": true,
+        "content_hash": "sha256:2fa9ac6c17294c8027534480f5ef948b9eed229c733ced16f181fb9a32ff8d5f"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/smoke/Makefile",
+        "passed": true,
+        "content_hash": "sha256:82b625c891e38630bdf8d99522152609d9908452b50e0e5a2ba4392f226624a0"
+      },
+      {
+        "check": "present",
+        "role": "testbench",
+        "path": "verification/smoke/test_smoke_counter.py",
+        "passed": true,
+        "content_hash": "sha256:0641f4827a99f0ba29dcba1270c33dffadce019178c72620a8dfe79630f7db40"
+      },
+      {
+        "check": "command",
+        "role": "cold_start",
+        "argv": [
+          "make",
+          "-C",
+          "verification"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true,
+        "local_only": true
+      },
+      {
+        "check": "pin",
+        "role": "pdk",
+        "passed": true,
+        "value": {
+          "name": "sky130A",
+          "revision": "f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
+        }
+      },
+      {
+        "check": "pin",
+        "role": "tools",
+        "passed": true,
+        "value": {
+          "cocotb": "2.0.1",
+          "icarus": "13.0",
+          "klayout-tools": "0.8.0",
+          "yosys": "0.68.0.0.post1208"
+        }
+      }
+    ]
+  },
+  "provenance": {
+    "klt_version": "0.8.0",
+    "klayout_version": null,
+    "pdk": null,
+    "deck": null,
+    "input": {
+      "path": {
+        "path": "attest/item9.json",
+        "scope": "repo"
+      },
+      "content_hash": "sha256:5359ea786bcf6816f01e93334bcea866345a04f96d65b7ec82a673a38e10c410"
+    }
+  }
+}
