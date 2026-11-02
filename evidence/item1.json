@@ -24,7 +24,7 @@
         "role": "source",
         "path": "rtl/hyperram_ctrl/hr_cmd_fsm.v",
         "passed": true,
-        "content_hash": "sha256:cb953819983813ae2d6738edd2b133f505dbdbbbc4affdb8e3050788654a8660"
+        "content_hash": "sha256:9d8d347b9497b68cb9e632b033b507ccc11dd97bc72262f3b8a20eb1aabe2dcd"
       },
       {
         "check": "present",
@@ -66,7 +66,7 @@
         "role": "derived",
         "path": "sim/hyperram/records/hyperram_ctrl.netlist.v",
         "passed": true,
-        "content_hash": "sha256:c0f912a10e0dcc2d73e673b4bcf9a76fdac99a705e9dea63bffc3a5dd3d40d0f"
+        "content_hash": "sha256:9a4302c6b5054f64ecda7794e8c80b3b121885b22e36e21a10141a82e1d40dfb"
       },
       {
         "check": "command",
@@ -87,7 +87,7 @@
     ]
   },
   "provenance": {
-    "klt_version": "0.8.1.dev55+g879d39bad82b",
+    "klt_version": "0.8.0",
     "klayout_version": null,
     "pdk": null,
     "deck": null,

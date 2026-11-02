@@ -31,7 +31,7 @@
         "role": "testbench",
         "path": "verification/README.md",
         "passed": true,
-        "content_hash": "sha256:99f096d71d5f6a86c85479aec8bd7ca21f7541c0e9d33645923e941d294fe9d1"
+        "content_hash": "sha256:5cf065bcdacfeaab4edb44c2845ce4d401ddca5b6c359078c114c1cf6d5090e7"
       },
       {
         "check": "present",
@@ -73,7 +73,7 @@
         "role": "testbench",
         "path": "verification/ctrl/test_row04_latency.py",
         "passed": true,
-        "content_hash": "sha256:95c4e3b12b8dbeb9aacf9f1520e4b6cfced4b844a83fa070ca40c479e948e3ed"
+        "content_hash": "sha256:b82d8ee07e87281ddb4fce6ed095e28fc8a9df7b6035fb807b082b8857e41771"
       },
       {
         "check": "present",
@@ -115,7 +115,7 @@
         "role": "testbench",
         "path": "verification/ctrl/test_row10_rwds_extra_latency.py",
         "passed": true,
-        "content_hash": "sha256:d731fed1e5a6432cf6e3f1c17b79f20cf8a736f5f169b8a798d98be9647b7e7b"
+        "content_hash": "sha256:174e80589ef48c4041787f7ba687cf150c937d0f93c40dfc6cf4d3a9aea04c61"
       },
       {
         "check": "present",
@@ -218,7 +218,7 @@
         "path": "attest/item9.json",
         "scope": "repo"
       },
-      "content_hash": "sha256:5359ea786bcf6816f01e93334bcea866345a04f96d65b7ec82a673a38e10c410"
+      "content_hash": "sha256:575a616a2f854f4ed058da8da4225138e46de32c27744b88f67650f4f2fdabb7"
     }
   }
 }

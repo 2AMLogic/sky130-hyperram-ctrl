@@ -49,13 +49,13 @@ They are not datasheet numbers. Results are model-relative until #2 lands.
 | Row | Module | Claim |
 |---|---|---|
 | 3 | `test_row03_command_address` | CA is 6 bytes over 3 CK cycles; every host address bit and the register-space bit reach the device |
-| 4 | `test_row04_latency` | variable latency 4..15, clamp below 4, doubling decision at the pins, fixed latency. **Read data under doubled/fixed latency is `expect_fail`: known RTL defect, #48** |
+| 4 | `test_row04_latency` | variable latency 4..15, clamp below 4, doubling decision at the pins, fixed latency. Read data under doubled and fixed latency is checked (was `expect_fail`, fixed in #48) |
 | 5 | `test_row05_bursts` | linear bursts of 1..16 beats, one transaction when it fits |
 | 6 | `test_row06_write_mask` | all 16 byte-lane patterns, inside a burst, register writes unmasked |
 | 7 | `test_row07_register_space` | ID0/CR0 read, CR0 write/readback, read-only ID0. ID1/CR1 are unreachable from the host (#48) |
 | 8 | `test_row08_power_up` | CS# high and pads quiet for the programmed interval, interval is a register, short interval flagged by the model |
 | 9 | `test_row09_max_cs_low` | bursts are split and re-issued, CS# low never exceeds tCSM across tCSM x latency, negative control (limit disabled) is flagged |
-| 10 | `test_row10_rwds_extra_latency` | extra latency decided on the controller clock (insensitive to CA-phase RWDS skew); doubled-latency write correct. Doubled-latency read data is `expect_fail` (#48) |
+| 10 | `test_row10_rwds_extra_latency` | extra latency decided on the controller clock (insensitive to CA-phase RWDS skew); doubled-latency write correct. Doubled-latency read data is checked (was `expect_fail`, fixed in #48) |
 | 13 | `test_row13_no_calibration` | absence check: no calibration port or status bit (spec: not applicable in v1) |
 | 15 | `test_row15_host_interface` | one ack per accepted beat, stall, pipelining, cyc drop does not cancel |
 | 16 | `test_row16_host_bursts` | long bursts with random host gaps lose nothing, split bursts |
@@ -84,6 +84,6 @@ by 4 clocks.
   is `TBD(src)`, so this is an assumption to confirm against the interface
   definition when #2 lands.
 - **RWDS after CA.** The model drops RWDS low after CA when it signalled extra
-  latency (public interface definition). The controller's capture does not
-  tolerate that edge; see #48.
+  latency (public interface definition). The controller discards that edge by
+  flushing the capture ring through `ST_LAT` (#48).
 - Wrapped bursts, the CR0 latency-field encoding and tIS/tIH are not modelled.

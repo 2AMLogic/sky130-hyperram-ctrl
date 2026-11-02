@@ -53,7 +53,7 @@ async def sampling_is_independent_of_rwds_skew_after_ck(dut):
         b.model.assert_clean()
 
 
-@cocotb.test(expect_fail=True)   # RTL defect, see verification/README.md
+@cocotb.test()
 async def doubled_latency_read_returns_correct_data(dut):
     b = await Bench(dut).start()
     await b.wait_ready()
