@@ -3,6 +3,13 @@
 Chronological record of merged PRs and closed issues, newest first.
 Maintained by the Guide triage role; entries are append-only.
 
+### 2026-11-02
+
+- **PR #51**: fix: flush read capture ring through ST_LAT for extra-latency reads
+- **PR #50**: test: add controller benches per CT row and T1 item-9 attestation
+- **Issue #48** (closed): RTL: extra-latency reads capture a spurious word (RWDS falls after CA)
+- **Issue #14** (closed): T1 item 9 (Testbenches shipped): behavioural device model and one cocotb test per CT spec row
+
 ### 2026-11-01
 
 - **PR #46**: Bump Repo Skills 0.24.7 -> 0.25.1
