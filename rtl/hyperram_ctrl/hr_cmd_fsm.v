@@ -155,8 +155,12 @@ module hr_cmd_fsm #(
                 endcase
             end
             ST_LAT: begin
-                cs_n_d = 1'b0;
-                ck_en  = 1'b1;
+                cs_n_d   = 1'b0;
+                ck_en    = 1'b1;
+                // With extra or fixed latency the device drops RWDS low after
+                // CA; that falling edge is captured as a junk word. Keep
+                // flushing through the latency wait so it is discarded.
+                rd_flush = 1'b1;
             end
             ST_WR: begin
                 cs_n_d = 1'b0;

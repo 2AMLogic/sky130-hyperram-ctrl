@@ -43,10 +43,9 @@ async def doubling_decision_at_the_pins(dut):
     assert b.model.transactions[-1].latency_clk == 12
 
 
-# Data-path check of doubled latency: FAILS on the current RTL, see the
-# "known RTL defect" note in verification/README.md. Remove expect_fail when
-# the defect issue is closed.
-@cocotb.test(expect_fail=True)
+# Data-path check of doubled latency (the junk word from the RWDS fall after CA
+# is flushed through ST_LAT, #48).
+@cocotb.test()
 async def variable_latency_doubled_by_rwds(dut):
     b = await Bench(dut).start()
     await b.wait_ready()
@@ -64,7 +63,7 @@ async def variable_latency_doubled_by_rwds(dut):
     b.model.assert_clean()
 
 
-@cocotb.test(expect_fail=True)   # same RTL defect: fixed latency is always doubled
+@cocotb.test()
 async def fixed_latency_configuration(dut):
     b = await Bench(dut).start()
     await b.wait_ready()

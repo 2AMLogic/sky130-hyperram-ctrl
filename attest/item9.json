@@ -2,7 +2,7 @@
   "schema_version": 1,
   "kind": "t1-attestation-inventory",
   "t1_item": 9,
-  "description": "Testbenches shipped: the behavioural device model and its self-test, the cocotb smoke test, and the controller benches (one module per CT row of spec/target-spec.md plus random traffic), with the one cold-start command and the pinned PDK and tool versions. The cold-start command needs the scripts/setup-env.sh toolchain, absent from the CI runner, so it is local_only (skipped, not passed, under --check; the per-file hashes still catch drift). Model timing values are placeholders (spec/device-model-params.md is TBD(src)); verification/README.md says so. Two benches are expect_fail against known RTL defects (issue 48).",
+  "description": "Testbenches shipped: the behavioural device model and its self-test, the cocotb smoke test, and the controller benches (one module per CT row of spec/target-spec.md plus random traffic), with the one cold-start command and the pinned PDK and tool versions. The cold-start command needs the scripts/setup-env.sh toolchain, absent from the CI runner, so it is local_only (skipped, not passed, under --check; the per-file hashes still catch drift). Model timing values are placeholders (spec/device-model-params.md is TBD(src)); verification/README.md says so. No bench is expect_fail: the doubled-latency read defect (issue 48) is fixed in RTL.",
   "testbenches": [
     "verification/Makefile",
     "verification/README.md",
