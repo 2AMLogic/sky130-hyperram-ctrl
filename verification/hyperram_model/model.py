@@ -24,8 +24,13 @@ Interface assumptions (public definition, restated so a reviewer can check):
     word address = {CA[44:16], CA[2:0]} (16-bit words).
   * The device drives RWDS during CA: high requests doubled initial latency.
     In fixed-latency mode (CR0[3] = 1) latency is always doubled.
-  * Latency is counted in CK cycles from the end of CA. Register writes have
-    zero latency; register reads and memory reads/writes use it.
+  * Latency is counted in CK cycles from the FIRST CA clock, CA included (so
+    the minimum is 3 and data starts ``latency - 3`` cycles after CA ends).
+    Doubling doubles the whole count. This is the reading of "clocks from CA
+    to data" in ``spec/device-model-params.md`` that matches the controller
+    (rtl/hyperram_ctrl/hr_cmd_fsm.v); that row is ``TBD(src)``, so the
+    convention is an assumption until #2 lands. Register writes have zero
+    latency; register reads and memory reads/writes use it.
   * Read data is edge-aligned with RWDS (RWDS high on the first byte of each
     word). Write data is centre-aligned; RWDS high on a write byte masks it
     (memory space only).
@@ -248,7 +253,11 @@ class HyperRamModel:
             latency = 0
         else:
             latency = self.p.initial_latency_clk * (2 if txn.extra else 1)
-        txn.data_start = CA_BYTES + 2 * latency
+        txn.data_start = 2 * latency if latency else CA_BYTES
+        if latency and txn.data_start < CA_BYTES:
+            self._flag("initial_latency", txn.last_edge_ns,
+                       f"latency {latency} clocks is shorter than the 3 CA clocks")
+            txn.data_start = CA_BYTES
         txn.byte_addr = word * 2
         txn.info = Transaction(is_read, is_reg, linear, word, latency, txn.extra,
                                txn.start_ns)

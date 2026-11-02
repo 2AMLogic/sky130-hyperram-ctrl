@@ -18,6 +18,10 @@
       "file": "layout/lvs/records/report.json",
       "content_hash": "sha256:2b042afda9828e3020d4e92239d887c8c6708739e7f9a935e969307aa46fed20"
     },
+    "9": {
+      "file": "evidence/item9.json",
+      "content_hash": "sha256:5359ea786bcf6816f01e93334bcea866345a04f96d65b7ec82a673a38e10c410"
+    },
     "10": {
       "file": "evidence/item10.json",
       "content_hash": "sha256:d8c2d58bea0a67170fe2f7d5cbd426ce9f0002073d725d590de0ea5964bb9930"

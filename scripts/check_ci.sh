@@ -16,6 +16,7 @@
 #      the local_only re-synthesis check is skipped)
 #   5. the committed klt drc report is bound to the cited GDS and deck (--check, no rerun)
 #   6. the committed klt signoff record equals a fresh render of the manifest
+#   (the item-9 testbench attestation is checked as step 3b)
 #
 # RTL lint and the cocotb smoke test are added with the toolchain skeleton
 # (issue #3), not here.
@@ -51,6 +52,15 @@ echo "== 3/6 item-10 attestation is fresh =="
 # attest/item10.json is drift until this is re-run and the envelope committed:
 #   klt signoff --attest 10 --inventory attest/item10.json -o evidence/item10.json
 "${KLT[@]}" signoff --attest 10 --inventory attest/item10.json --check evidence/item10.json
+
+echo "== 3b/6 item-9 attestation is fresh =="
+# Hashes are raw bytes of every testbench file listed in attest/item9.json
+# (model, benches, README, the functional-verification request): editing any of
+# them is drift until this is re-run and the envelope, the manifest hash and the
+# signoff record are regenerated, in this order and last:
+#   klt signoff --attest 9 --inventory attest/item9.json -o evidence/item9.json
+# The cold-start command (make -C verification) is local_only and is skipped here.
+"${KLT[@]}" signoff --attest 9 --inventory attest/item9.json --check evidence/item9.json
 
 echo "== 4/6 item-1 attestation is fresh =="
 # Per-file hashes of the RTL and netlist; the re-synthesis freshness command is

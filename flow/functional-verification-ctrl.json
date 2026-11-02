@@ -1,0 +1,16 @@
+{
+  "schema": "klt.functional_verification.request/1",
+  "engine": "icarus",
+  "sources": [
+    "../rtl/hyperram_ctrl/sim/sky130_cells_behav.v",
+    "../rtl/hyperram_ctrl/hr_dq_out.v",
+    "../rtl/hyperram_ctrl/hr_rd_capture.v",
+    "../rtl/hyperram_ctrl/hr_cmd_fsm.v",
+    "../rtl/hyperram_ctrl/hyperram_ctrl.v"
+  ],
+  "hdl_toplevel": "hyperram_ctrl",
+  "testbench": {
+    "module": "test_all",
+    "search_path": "../verification/ctrl"
+  }
+}
