@@ -21,13 +21,13 @@ _None._
 `loom:important`; taken before unlabelled work.
 
 - **#2**: Draft and ratify the target spec
-- **#14**: T1 item 9 (Testbenches shipped): behavioural device model and one cocotb test per CT spec row
+- **#52**: Regenerate place-and-route and layout-dependent evidence after rd_flush ST_LAT fix (#48)
 
 ## Ready
 
 Human-approved issues ready for implementation (`loom:issue`).
 
-- **#14**: T1 item 9 (Testbenches shipped): behavioural device model and one cocotb test per CT spec row
+_None._
 
 ## In Progress
 
@@ -53,7 +53,7 @@ Issues carrying `loom:curated`.
 
 - **#2**: Draft and ratify the target spec *(curated)*
 - **#5**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
-- **#14**: T1 item 9 (Testbenches shipped): behavioural device model and one cocotb test per CT spec row *(curated)*
+- **#52**: Regenerate place-and-route and layout-dependent evidence after rd_flush ST_LAT fix (#48) *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -70,7 +70,7 @@ _None._
 | Operator merge-risk holds | 0 |
 | Very important | 0 |
 | Important | 2 |
-| Ready (`loom:issue`) | 1 |
+| Ready (`loom:issue`) | 0 |
 | In Progress (`loom:building`) | 0 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |

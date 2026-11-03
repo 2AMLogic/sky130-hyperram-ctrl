@@ -3,6 +3,11 @@
 Chronological record of merged PRs and closed issues, newest first.
 Maintained by the Guide triage role; entries are append-only.
 
+### 2026-11-03
+
+- **PR #54**: docs: document register space as even-words-only (decision 0007)
+- **Issue #49** (closed): Odd device register words (ID1/CR1) unreachable from host: document or add addressing
+
 ### 2026-11-02
 
 - **PR #51**: fix: flush read capture ring through ST_LAT for extra-latency reads
