@@ -26,7 +26,7 @@ written analysis.
 | 4 | Latency | variable latency with RWDS-signalled extra latency (initial latency ×2 when RWDS high during CA); fixed latency selectable by configuration | fixed latency only | same | CT | functional + STA at 25/50 MHz |
 | 5 | Bursts | linear, any length up to the CS-low limit | single word | wrapped bursts | CT | functional |
 | 6 | Write mask | RWDS as per-byte mask on writes | whole-word writes only | same | CT | functional |
-| 7 | Register space | read/write of the device register space via the CA address-space bit | read only | same | CT | functional |
+| 7 | Register space | read/write of the even device register words (ID0, CR0) via the CA address-space bit; odd words (ID1, CR1) are not host-addressable (decision 0007) | read only | same | CT | functional |
 | 8 | Reset / power-up | controller holds RESET# and CS# deasserted for a configured power-up interval before the first access; interval is a register, not hardcoded | fixed interval | same | CT | functional |
 | 9 | Max CS-low time | controller splits or terminates transactions so CS# never stays low longer than the model's `tCSM`; enforced by a down-counter that ends the burst and re-issues the remainder | same | same | CT with model that flags violation | functional + clock period corners |
 | 10 | RWDS extra latency | controller samples RWDS during CA and doubles latency when asserted; sampling point is tied to CK, not the delayed strobe | same | same | CT | functional |
