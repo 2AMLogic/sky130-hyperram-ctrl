@@ -12,9 +12,19 @@ xschem + ngspice for the I/O timing path.
 controller RTL (`rtl/hyperram_ctrl/`), its synthesized netlist and a routed
 GDS exist. The klayout-tools tier record
 ([`manifests/sky130-hyperram-ctrl.signoff.json`](manifests/sky130-hyperram-ctrl.signoff.json))
-grades **6 of 11** T1 items: items 1–4, 10 and 11 are `met`, against a
-**draft** spec (issue #2), not a ratified one. Items 5–9 (including pin-level
-timing across corners and the testbench against the device model) are not met.
+grades **7 of 11** T1 items: items 1–4, 9, 10 and 11 are `met`, against a
+**draft** spec (issue #2), not a ratified one; the verdicts are provisional.
+Items 5–8 (including pin-level timing across corners) are not met.
+
+**Layout-dependent items are stale.** Items 2, 3, 4 and 11 are graded `met`
+from records generated from the netlist *before* the `rd_flush` ST_LAT fix
+(#48, PR #51). The committed place-and-route response was built from netlist
+`sha256:c0f912a1…3d40d0f`; the current
+`sim/hyperram/records/hyperram_ctrl.netlist.v` is `sha256:9a4302c6…1d40dfb`,
+so `make layout-check` reports STALE. The grader still shows `met` because the
+item-2 envelope binds only the GDS hash, not the netlist it came from. The
+routed layout is therefore of the older RTL until the records are regenerated
+in #52, which is held on 2AMLogic/2am#6416.
 
 **Built agent-native.** Every specification, decision record, testbench, and
 line of documentation here is produced by AI agents working from a ratified
