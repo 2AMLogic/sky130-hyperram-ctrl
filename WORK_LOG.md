@@ -3,6 +3,11 @@
 Chronological record of merged PRs and closed issues, newest first.
 Maintained by the Guide triage role; entries are append-only.
 
+### 2026-11-05
+
+- **PR #57**: docs: correct README status to 7 of 11 and flag stale layout records
+- **Issue #56** (closed): README status is stale: item 9 is met and layout evidence predates the #48 RTL fix
+
 ### 2026-11-03
 
 - **PR #54**: docs: document register space as even-words-only (decision 0007)
