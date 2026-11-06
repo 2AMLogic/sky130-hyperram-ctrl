@@ -31,14 +31,14 @@
         "role": "testbench",
         "path": "verification/README.md",
         "passed": true,
-        "content_hash": "sha256:5cf065bcdacfeaab4edb44c2845ce4d401ddca5b6c359078c114c1cf6d5090e7"
+        "content_hash": "sha256:d3c186328ad7948f2bbeb0e25f3ea1098c3c000734a8d44564c232036439beab"
       },
       {
         "check": "present",
         "role": "testbench",
         "path": "verification/ctrl/Makefile",
         "passed": true,
-        "content_hash": "sha256:90d6725a3c3bbd0a6100bbc8a5a307037cabce50c0262eaddfef7117e5bf3a86"
+        "content_hash": "sha256:8a0948ea7061385d03962ad474ba6ae311782b1740fc69ae5aecb50bf69e4c62"
       },
       {
         "check": "present",
