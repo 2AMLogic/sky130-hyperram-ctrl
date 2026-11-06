@@ -3,6 +3,11 @@
 Chronological record of merged PRs and closed issues, newest first.
 Maintained by the Guide triage role; entries are append-only.
 
+### 2026-11-06
+
+- **PR #60**: test: run controller benches on the committed gate-level netlist
+- **Issue #59** (closed): Run the controller benches on the committed gate-level netlist (zero delay, PDK cell models)
+
 ### 2026-11-05
 
 - **PR #57**: docs: correct README status to 7 of 11 and flag stale layout records
