@@ -66,6 +66,32 @@ low within tCSM at 50 MHz for tCSM 30..64 clocks and latency 4..10; the model
 first flags a violation at `+2` clocks over `tCSM / T`, so 3 is conservative
 by 4 clocks.
 
+## Gate-level run (`GL=1`)
+
+`make -C verification/ctrl GL=1` runs the same 43 tests, unchanged (same 5 ns
+sampling emulation), on the committed synthesized netlist
+`sim/hyperram/records/hyperram_ctrl.netlist.v` with the PDK's own
+`sky130_fd_sc_hd` functional models (`primitives.v`, `sky130_fd_sc_hd.v`, from
+`$PDK_ROOT`, default `~/.ciel`, `-DFUNCTIONAL -DUNIT_DELAY=#0`). It does not
+use `sky130_cells_behav.v`, so it also checks the hand stand-ins against the
+real cell functions. Zero delay: no timing claim (SDF re-run is item 7).
+
+- **Freshness guard**: before building, `flow/hyperram.py check` re-synthesizes
+  (about 4 s) and aborts with `STALE` if the netlist differs. Use the pinned
+  klt (`uvx --from "klayout-tools==0.8.0" ...` or the `.venv`); a newer klt
+  reports a false STALE.
+- **Negative control**: `make GL=1 GL_NETLIST=/tmp/bad.v` runs a substituted
+  netlist and skips the guard. With `nand2_1` rewritten to `nor2_1` in a temp
+  copy, tests fail from the first CA test on (run on this PR: failures, rc 2).
+- **Internal names**: no test needs RTL-internal signals; they touch only
+  top-level ports, which the netlist keeps.
+- **Record**: `flow/functional-verification-ctrl-gl.json` is the klt request
+  (absolute PDK model paths, since klt expands no variables; edit them if the
+  PDK lives elsewhere). Its report is
+  `sim/hyperram/records/functional-verification-ctrl-gl.report.json`, with the
+  `inputs` block (netlist sha256 `9a4302c6…`, PDK model hashes) added by hand.
+  Neither file is in `attest/item9.json`.
+
 ## What these benches do and do not claim
 
 - **Model values are placeholders.** `hrbench.PLACEHOLDER` (printed at the
