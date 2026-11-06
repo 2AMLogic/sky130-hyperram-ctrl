@@ -1,0 +1,22 @@
+{
+  "schema": "klt.functional_verification.request/1",
+  "engine": "icarus",
+  "sources": [
+    "../sim/hyperram/records/hyperram_ctrl.netlist.v",
+    "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/verilog/primitives.v",
+    "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/verilog/sky130_fd_sc_hd.v"
+  ],
+  "hdl_toplevel": "hyperram_ctrl",
+  "options": {
+    "defines": {
+      "FUNCTIONAL": null
+    },
+    "build_args": [
+      "-DUNIT_DELAY=#0"
+    ]
+  },
+  "testbench": {
+    "module": "test_all",
+    "search_path": "../verification/ctrl"
+  }
+}
