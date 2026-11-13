@@ -6,14 +6,6 @@ from cocotb.triggers import RisingEdge
 from hrbench import CFG_PU, CFG_STATUS, PERIOD_NS, Bench
 
 
-async def run_until_first_cs(b, limit_clk=3000):
-    for _ in range(limit_clk):
-        if not int(b.dut.hb_cs_n.value):
-            return
-        await RisingEdge(b.dut.clk)
-    raise AssertionError("CS# never asserted")
-
-
 @cocotb.test()
 async def interval_is_honoured_and_pads_quiet(dut):
     """Default interval (256 clocks = 5120 ns) exceeds the model's placeholder
@@ -45,13 +37,14 @@ async def interval_is_a_register(dut):
     b0 = None
     for pu in (40, 120):
         b = await (b0.restart(cfg={CFG_PU: pu}) if b0 else Bench(dut).start(cfg={CFG_PU: pu}))
-        await run_until_first_cs_after_access(b)
+        await first_access(b)
         times[pu] = b.cs_events[0][1] - b.t_rst_release
         b0 = b
     assert times[120] - times[40] == (120 - 40) * PERIOD_NS, times
 
 
-async def run_until_first_cs_after_access(b):
+async def first_access(b):
+    """Configure and issue one write: the first CS# fall is cs_events[0]."""
     await b.configure(lat=6)
     await b.write(0x0, [1])
 

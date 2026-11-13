@@ -5,6 +5,10 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-11-13
 
+- **PR #79**: refactor: derive device-model placeholder values from one shared constant
+- **PR #76**: refactor: resolve klt through one pinned wrapper script
+- **Issue #73** (closed): Consolidate the six klt version pins and three klt resolvers into one
+- **Issue #72** (closed): Consolidate the two divergent PLACEHOLDER device-model parameter sets into one
 - **PR #74**: docs: point layout README's STALE note at the current 2am#7142 hold
 - **Issue #71** (closed): layout/README.md still says #52 is held on 2AMLogic/2am#6416 (closed)
 

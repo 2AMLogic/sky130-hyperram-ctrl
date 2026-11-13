@@ -1,8 +1,7 @@
 """Row 3: 48-bit CA over 3 CK cycles (6 bytes, DDR); CT, functional."""
 import cocotb
-from cocotb.triggers import RisingEdge
 
-from hrbench import Bench, REG_SPACE
+from hrbench import Bench
 
 
 @cocotb.test()

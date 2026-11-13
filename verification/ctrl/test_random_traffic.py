@@ -1,10 +1,10 @@
 """Random traffic against a host-side reference memory (scoreboard).
 
 Mixes read and write bursts of random length, address, byte masks, host gaps,
-latency settings and device RWDS extra-latency requests, plus register-space
-reads. Reads are compared with the reference beat by beat; the model must stay
-violation-free (tCSM, tCSHI, ...). The seed is printed; set RANDOM_SEED to
-reproduce.
+latency settings and device RWDS extra-latency requests (on reads as much as
+writes), plus register-space reads. Reads are compared with the reference beat
+by beat; the model must stay violation-free (tCSM, tCSHI, ...). The seed is
+printed; set RANDOM_SEED to reproduce.
 """
 import os
 
@@ -41,12 +41,18 @@ async def random_traffic_scoreboard(dut):
         n = rnd.choice([1, 1, 2, 3, 5, 8, 13, 24])
         adr = base + rnd.randrange(WINDOW - n)
         gaps = [rnd.choice([0, 0, 0, 0, 1, 4]) for _ in range(n)] if rnd.random() < 0.4 else None
-        b.model.request_extra_latency = False  # doubled-latency reads: see README (RTL defect)
         kind = rnd.choice(["w", "w", "r", "r", "r", "reg"])
+        # Device-signalled extra latency (RWDS high during CA), on every op kind
+        # including reads. It was forced off here while the doubled-latency read
+        # defect (#48) was open; #48 is fixed (9de06e1) and rows 4 and 10 cover
+        # doubled-latency reads only at fixed addresses and burst lengths, so
+        # this is the one place it meets random burst lengths, byte masks, host
+        # gaps and CS#-low splits. A failure here is an RTL finding, not a
+        # reason to force it off again.
+        b.model.request_extra_latency = rnd.random() < 0.2
         if kind == "w":
             dats = [rnd.getrandbits(32) for _ in range(n)]
             sels = [rnd.choice([0xF, 0xF, 0xF, rnd.randrange(16)]) for _ in range(n)]
-            b.model.request_extra_latency = rnd.random() < 0.2
             await b.write(adr, dats, sels=sels, gaps=gaps)
             for k in range(n):
                 ref[adr + k] = merge(ref.get(adr + k, 0), dats[k], sels[k])
@@ -63,5 +69,14 @@ async def random_traffic_scoreboard(dut):
                 assert b.mem_beat(a) == v, f"op {op}: memory {a:#x} {b.mem_beat(a):#x} != {v:#x}"
     for a, v in ref.items():
         assert b.mem_beat(a) == v
-    print(f"{N_OPS} ops, {len(b.model.transactions)} bus transactions, {len(b.acks)} acks")
+    # The docstring's extra-latency claim, enforced rather than asserted in
+    # prose: this run must really have carried read data under device-signalled
+    # extra latency. Without it a future edit could switch that coverage off
+    # again -- as the #48 workaround did -- and every test would still pass.
+    extra_reads = [t for t in b.model.transactions
+                   if t.is_read and not t.is_register and t.extra_latency
+                   and t.bytes_transferred]
+    print(f"{N_OPS} ops, {len(b.model.transactions)} bus transactions, "
+          f"{len(b.acks)} acks, {len(extra_reads)} extra-latency memory reads")
+    assert extra_reads, "no read ran under extra latency: that coverage is lost"
     b.model.assert_clean()
