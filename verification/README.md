@@ -35,7 +35,10 @@ Written here from the public interface definition cited in
 named. It implements CA decode, variable latency with RWDS-signalled doubling,
 fixed latency (CR0[3]), linear bursts, RWDS write masking, the register space
 (ID0/ID1 read-only, CR0/CR1 writable), reset/power-up, and records a named
-violation for tCSM, tCSHI, tCSS, tCSH, tCK, power-up and array bounds.
+violation for tCSM, tCSHI, tCSS, tCSH, tCK, power-up, array bounds and CK
+phase (`ck_phase`: CA must be launched on a rising CK edge and the level
+alternate from there, once per transaction -- #86; both bench suites are
+clean, so the controller's gated CK does hold that phase).
 Skew knobs (`dq_skew_ns`, `rwds_skew_ns`) support the read-capture margin
 sweep. Not modelled: wrapped bursts, the CR0 latency-field encoding, tIS/tIH.
 
