@@ -13,7 +13,10 @@ ASSUMPTIONS stated here because the bench output depends on them:
   * Read strobe: the model's RWDS is placed ``RWDS_EYE_NS`` after its DQ so
     the zero-delay capture chain sees RWDS mid-eye. Same caveat.
   * Model timing values are PLACEHOLDERS (spec/device-model-params.md rows are
-    TBD(src), #2). ``PLACEHOLDER`` is printed by every bench that starts.
+    TBD(src), #2). The device values are the single set defined beside the
+    model, ``hyperram_model.model.PLACEHOLDER``; ``BENCH_PARAMS`` below is
+    that set plus the RWDS bench stimulus, and is printed by every bench that
+    starts.
 """
 from __future__ import annotations
 
@@ -29,7 +32,7 @@ from cocotb.triggers import RisingEdge, Timer
 from cocotb.utils import get_sim_time
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "hyperram_model"))
-from model import HyperRamModel, ModelParams  # noqa: E402
+from model import PLACEHOLDER, HyperRamModel, ModelParams  # noqa: E402
 
 PERIOD_NS = 20
 SAMPLE_NS = PERIOD_NS // 4
@@ -37,12 +40,10 @@ RWDS_EYE_NS = 5.0
 TCSM_MARGIN_CLK = 3          # cfg_tcsm = floor(tCSM / T) - this; see test_row09
 MEM_BYTES = 1 << 24          # 16 MiB: host word addresses < 0x400000
 
-PLACEHOLDER = ModelParams(
-    t_ck_min_ns=20.0, t_css_ns=2.0, t_csh_ns=2.0, t_cshi_ns=10.0,
-    t_csm_ns=1000.0, t_ckd_ns=6.0, t_ckds_ns=6.0, initial_latency_clk=6,
-    power_up_ns=2000.0, id0=0x0C81, id1=0x0001, cr0_reset=0x0000,
-    cr1_reset=0x0002, rwds_skew_ns=RWDS_EYE_NS,
-)
+# Device values come from the one placeholder set (hyperram_model/model.py);
+# only the RWDS placement is added here, because it is bench stimulus rather
+# than a device value: the zero-delay capture chain needs RWDS mid-eye.
+BENCH_PARAMS = dataclasses.replace(PLACEHOLDER, rwds_skew_ns=RWDS_EYE_NS)
 
 # cfg_adr values (hyperram_ctrl.v header)
 CFG_CTRL, CFG_LAT, CFG_TCSM, CFG_PU, CFG_CS_HI, CFG_TAPS, CFG_STATUS = range(7)
@@ -57,18 +58,12 @@ def now_ns() -> float:
     return round(get_sim_time("ps") / 1000.0, 1)
 
 
-def word_bytes(dat: int) -> bytes:
-    """Bytes a host beat puts into memory: word 0 = dat[15:0] upper byte
-    first, then word 1 = dat[31:16] (hr_cmd_fsm.v conventions)."""
-    return bytes([(dat >> 8) & 0xFF, dat & 0xFF, (dat >> 24) & 0xFF, (dat >> 16) & 0xFF])
-
-
 def beat_from_bytes(b: bytes) -> int:
     return (b[1]) | (b[0] << 8) | (b[3] << 16) | (b[2] << 24)
 
 
 class Bench:
-    def __init__(self, dut, params: ModelParams = PLACEHOLDER, ca_rwds_skew_ns: float = 0.0):
+    def __init__(self, dut, params: ModelParams = BENCH_PARAMS, ca_rwds_skew_ns: float = 0.0):
         self.dut = dut
         self.params = params
         self.model = HyperRamModel(params, MEM_BYTES)
