@@ -39,10 +39,16 @@ violation for tCSM, tCSHI, tCSS, tCSH, tCK, power-up and array bounds.
 Skew knobs (`dq_skew_ns`, `rwds_skew_ns`) support the read-capture margin
 sweep. Not modelled: wrapped bursts, the CR0 latency-field encoding, tIS/tIH.
 
-**Parameters are placeholders.** The rows of `spec/device-model-params.md`
-are still `TBD(src)` (#2), so `ModelParams` has no defaults and the self-test
-passes values chosen for functional coverage, printing them on every run.
-They are not datasheet numbers. Results are model-relative until #2 lands.
+**Parameters are placeholders, defined in one place.** Every row of
+`spec/device-model-params.md` except tCKD/tCKDS is still `TBD(src)` (#2), so
+`ModelParams` has no defaults and callers pass values chosen for functional
+coverage, printing them on every run. There is one such set,
+`hyperram_model.model.PLACEHOLDER`, used by the self-test and (as
+`hrbench.BENCH_PARAMS`) by every controller bench; a value ratified by #2 is
+entered there once and reaches both. Anything that needs a variant derives it
+with `dataclasses.replace`. They are not datasheet numbers, and tCKD/tCKDS are
+currently 6.0 ns, above the sourced 1.00-5.50 ns row — picking the real value
+is #2's call. Results are model-relative until #2 lands.
 
 ## Controller benches: what each module claims
 
@@ -94,10 +100,13 @@ real cell functions. Zero delay: no timing claim (SDF re-run is item 7).
 
 ## What these benches do and do not claim
 
-- **Model values are placeholders.** `hrbench.PLACEHOLDER` (printed at the
-  start of every bench) is chosen for functional coverage, not taken from a
-  datasheet (`spec/device-model-params.md` rows are `TBD(src)`, #2). Results are
-  model-relative until #2 lands. tCSM is 1000 ns here.
+- **Model values are placeholders.** `hrbench.BENCH_PARAMS` (printed at the
+  start of every bench) is `hyperram_model.model.PLACEHOLDER` — the one
+  placeholder set, shared with the model self-test — plus the RWDS bench
+  stimulus below. It is chosen for functional coverage, not taken from a
+  datasheet (every `spec/device-model-params.md` row but tCKD/tCKDS is
+  `TBD(src)`, #2). Results are model-relative until #2 lands. tCSM is
+  1000 ns here.
 - **No pad or CK timing.** The RTL runs with zero-delay cells, so the CK
   quarter-period shift (row 14) and the RWDS capture delay (rows 11, 12) are
   emulated by the bench: DQ/RWDS are sampled 5 ns after each CK edge and the

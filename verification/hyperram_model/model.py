@@ -11,9 +11,11 @@ for the controller benches. The caller supplies the simulation time in ns on
 every pin event; the model never reads a wall clock.
 
 Timing values are *inputs*: ``ModelParams`` has no defaults for them. While
-the rows of ``spec/device-model-params.md`` read ``TBD(src)``, benches pass
-placeholder values chosen for functional coverage and must say so in their
-output (``ModelParams.describe``). Every check names its parameter; a
+rows of ``spec/device-model-params.md`` still read ``TBD(src)`` (every row but
+tCKD/tCKDS, as of this commit), benches pass placeholder values chosen for
+functional coverage and must say so in their output (``ModelParams.describe``).
+There is one such set, ``PLACEHOLDER`` below, and benches derive any variant
+from it with ``dataclasses.replace``. Every check names its parameter; a
 violation is recorded in ``HyperRamModel.violations`` and a bench fails on any
 it did not expect (``assert_clean``).
 
@@ -80,6 +82,30 @@ class ModelParams:
 
     def describe(self) -> str:
         return "\n".join(f"  {f.name} = {getattr(self, f.name)}" for f in fields(self))
+
+
+# The single placeholder parameter set: every bench and the self-test build
+# their parameters from this one object, so a value ratified by #2 is entered
+# here once and reaches all of them.
+#
+# NOT datasheet values. Except for tCKD/tCKDS the rows of
+# ``spec/device-model-params.md`` these stand in for are still ``TBD(src)``
+# (#2), so the numbers are chosen for functional coverage only and every
+# bench prints them (``ModelParams.describe``). Results are model-relative.
+#
+# Known gap, left for #2 (choosing values is out of scope here): tCKD/tCKDS
+# are 6.0 ns, above the sourced 100 MHz column of
+# ``spec/device-model-params.md`` (tCKD/tCKDS 1.00-5.50 ns, Table 9.4 p. 37).
+#
+# ``dq_skew_ns`` / ``rwds_skew_ns`` stay at zero: they are bench stimulus, not
+# device values. A bench that needs them derives its own set with
+# ``dataclasses.replace`` (see ``verification/ctrl/hrbench.BENCH_PARAMS``).
+PLACEHOLDER = ModelParams(
+    t_ck_min_ns=20.0, t_css_ns=2.0, t_csh_ns=2.0, t_cshi_ns=10.0,
+    t_csm_ns=1000.0, t_ckd_ns=6.0, t_ckds_ns=6.0, initial_latency_clk=6,
+    power_up_ns=2000.0, id0=0x0C81, id1=0x0001, cr0_reset=0x0000,
+    cr1_reset=0x0002,
+)
 
 
 @dataclass(frozen=True)

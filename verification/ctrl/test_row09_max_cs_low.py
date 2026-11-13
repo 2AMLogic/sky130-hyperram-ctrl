@@ -12,7 +12,7 @@ import dataclasses
 
 import cocotb
 
-from hrbench import PERIOD_NS, PLACEHOLDER, TCSM_MARGIN_CLK, Bench
+from hrbench import BENCH_PARAMS, PERIOD_NS, TCSM_MARGIN_CLK, Bench
 
 
 def data(n, seed=1):
@@ -50,7 +50,7 @@ async def margin_holds_across_tcsm_and_latency(dut):
     b = await Bench(dut).start()
     for t_csm_clk in (30, 36, 48, 64):
         for lat in (4, 6, 10):
-            p = dataclasses.replace(PLACEHOLDER, t_csm_ns=float(t_csm_clk * PERIOD_NS))
+            p = dataclasses.replace(BENCH_PARAMS, t_csm_ns=float(t_csm_clk * PERIOD_NS))
             await b.restart(params=p)
             await b.wait_ready()
             await b.configure(lat=lat)
