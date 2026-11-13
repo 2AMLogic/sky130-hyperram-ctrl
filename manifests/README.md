@@ -35,10 +35,17 @@
 `scripts/klt.sh`. That script is also the one rule for choosing which `klt`
 runs (the `klt` on `$PATH` when its version is the pin, else `uvx`), and
 `scripts/klt.sh --pin` prints the pin. `scripts/check_ci.sh`,
-`layout/erc/run.sh`, `layout/lvs/run.sh` and the `Makefile` `drc` target call
-it; `scripts/setup-env.sh` and the install step of
-`.github/workflows/ci.yml` read the pin from it. Bump that one line, the
+`layout/erc/run.sh`, `layout/lvs/run.sh`, the `Makefile` `drc` target and the
+flow runners (`flow/hyperram.py` and `flow/smoke.py`, through the shared
+`flow/klt_run.py` helper) call it; `scripts/setup-env.sh` and the install step
+of `.github/workflows/ci.yml` read the pin from it. Bump that one line, the
 vendored doc and the signoff record together.
+
+Because the runners call the script rather than a bare `klt`, `klt synthesize`
+and `klt place-and-route` run at the pin even when the caller does not put
+`.venv/bin` first on `PATH` — `attest/item1.json` (the item-1 freshness check)
+and `verification/ctrl/Makefile` (`GL=1`) both invoke `flow/hyperram.py`
+directly, bypassing the top-level `Makefile`'s `PATH`.
 
 Two consecutive local runs at 0.8.0 produced byte-identical output.
 

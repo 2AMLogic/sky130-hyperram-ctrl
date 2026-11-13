@@ -5,7 +5,9 @@
   smoke.py sta      run `klt sta` at tt/ss/ff on that netlist, fail unless setup+hold slack >= 0
   smoke.py record   write sim/smoke/records/RECORD.md (tool versions, PDK revision)
 
-Records dir: sim/smoke/records/. Invoked by the Makefile; needs .venv/bin on PATH.
+Records dir: sim/smoke/records/. Invoked by the Makefile. klt runs through
+scripts/klt.sh (the pin and the resolution rule); the other tools whose
+versions the record quotes still come from PATH (.venv/bin first).
 """
 
 import json
@@ -15,22 +17,15 @@ import subprocess
 import sys
 from pathlib import Path
 
-REPO = Path(__file__).resolve().parent.parent
+# flow/klt_run.py is the only way this runner reaches klt; `python3 -I` keeps
+# flow/ off sys.path, so put it there from __file__ before importing.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from klt_run import KLT, REPO, klt_json  # noqa: E402
+
 REC = REPO / "sim/smoke/records"
 NETLIST = REC / "smoke_counter.netlist.v"
 SYNTH_REQ = REPO / "flow/synthesize-smoke.json"
 STA_REQ = REPO / "flow/sta-smoke.json"
-
-
-def klt_json(*args):
-    proc = subprocess.run(["klt", *args, "--format", "json"], capture_output=True, text=True)
-    try:
-        doc = json.loads(proc.stdout)
-    except json.JSONDecodeError:
-        sys.exit(f"FATAL: klt {args[0]} gave no JSON (rc={proc.returncode}): {proc.stderr.strip()[:500]}")
-    if proc.returncode != 0 or "error" in doc:
-        sys.exit(f"FATAL: klt {args[0]} failed: {json.dumps(doc.get('error', doc))[:500]}")
-    return doc
 
 
 def tool_version(cmd):
@@ -76,7 +71,7 @@ def record():
     stat = json.loads((REC / "synth-stat.json").read_text())
     sta_doc = json.loads((REC / "sta.json").read_text())
     versions = {
-        "klt": tool_version(["klt", "--version"]),
+        "klt": tool_version([str(KLT), "--version"]),
         "yosys (klt synthesize)": f"{stat['engine']} {stat['engine_version']}",
         "yosys binary on PATH": tool_version(["yosys", "-V"]),
         "iverilog": tool_version(["iverilog", "-V"]),

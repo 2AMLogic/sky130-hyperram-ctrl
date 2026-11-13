@@ -15,19 +15,23 @@
                       (netlist and liberty hashes) and the item-2 envelope
                       against the committed GDS; no OpenROAD run
 
-Needs yosys and the PDK on the path (scripts/setup-env.sh); .venv/bin first.
+klt runs through scripts/klt.sh (the pin and the resolution rule), so it does
+not depend on $PATH; yosys and the PDK still do (scripts/setup-env.sh).
 """
 
 import hashlib
 import json
 import os
 import shutil
-import subprocess
 import sys
-import tempfile
 from pathlib import Path
 
-REPO = Path(__file__).resolve().parent.parent
+# flow/klt_run.py is the only way this runner reaches klt; `python3 -I` (how
+# attest/item1.json runs the freshness check) keeps flow/ off sys.path, so put
+# it there from __file__ before importing.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from klt_run import REPO, klt, klt_json  # noqa: E402
+
 REC = REPO / "sim/hyperram/records"
 NETLIST = REC / "hyperram_ctrl.netlist.v"
 STAT = REC / "synth-stat.json"
@@ -52,13 +56,7 @@ KEYS = ("engine", "engine_version", "hdl_toplevel", "instance_count", "area_um2"
 
 
 def run_synth():
-    proc = subprocess.run(["klt", "synthesize", str(REQ), "--format", "json"], capture_output=True, text=True)
-    try:
-        doc = json.loads(proc.stdout)
-    except json.JSONDecodeError:
-        sys.exit(f"FATAL: klt synthesize gave no JSON (rc={proc.returncode}): {proc.stderr.strip()[:500]}")
-    if proc.returncode != 0 or "error" in doc:
-        sys.exit(f"FATAL: klt synthesize failed: {json.dumps(doc.get('error', doc))[:500]}")
+    doc = klt_json("synthesize", str(REQ))
     netlist = (REPO / doc["netlist_path"]["path"]).read_bytes()
     shutil.rmtree(REPO / "flow/.klt", ignore_errors=True)
     return doc, netlist
@@ -85,6 +83,11 @@ def check():
     print("netlist is fresh")
 
 
+def pdk_env():
+    """The layout commands need PDK set; default it the way the Makefile does."""
+    return dict(os.environ, PDK=os.environ.get("PDK", "sky130A"))
+
+
 def sha256(path):
     return "sha256:" + hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
@@ -109,15 +112,7 @@ def remap(node):
 
 def layout():
     shutil.rmtree(LAYOUT / ".klt", ignore_errors=True)
-    env = dict(os.environ, PDK=os.environ.get("PDK", "sky130A"))
-    proc = subprocess.run(["klt", "place-and-route", str(LREQ), "--format", "json"],
-                          capture_output=True, text=True, env=env)
-    try:
-        doc = json.loads(proc.stdout)
-    except json.JSONDecodeError:
-        sys.exit(f"FATAL: klt place-and-route gave no JSON (rc={proc.returncode}): {proc.stderr.strip()[:500]}")
-    if proc.returncode != 0 or "error" in doc:
-        sys.exit(f"FATAL: klt place-and-route failed: {json.dumps(doc.get('error', doc))[:800]}")
+    doc = klt_json("place-and-route", str(LREQ), env=pdk_env())
     publish(doc)
 
 
@@ -156,8 +151,7 @@ def layout_check():
     for p in (RESPONSE, ITEM2, LREC / "hyperram_ctrl.gds"):
         if not p.exists():
             sys.exit(f"FATAL: {rel(p)} missing; run `make layout`")
-    proc = subprocess.run(["klt", "place-and-route", str(LREQ), "--check", str(RESPONSE)],
-                          capture_output=True, text=True, env=dict(os.environ, PDK=os.environ.get("PDK", "sky130A")))
+    proc = klt("place-and-route", str(LREQ), "--check", str(RESPONSE), env=pdk_env())
     sys.stdout.write(proc.stdout)
     if proc.returncode != 0:
         print(f"STALE: {rel(RESPONSE)} no longer matches the request inputs; run `make layout`")
