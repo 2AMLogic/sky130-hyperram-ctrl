@@ -24,7 +24,10 @@ from records generated from the netlist *before* the `rd_flush` ST_LAT fix
 so `make layout-check` reports STALE. The grader still shows `met` because the
 item-2 envelope binds only the GDS hash, not the netlist it came from. The
 routed layout is therefore of the older RTL until the records are regenerated
-in #52, which is held on 2AMLogic/2am#6416.
+in #52, which is held on 2AMLogic/2am#7142: the batch image that can run
+place-and-route off the dispatch host now launches (2AMLogic/2am#6416, closed
+2026-11-12), but magic, netgen and the sky130 PDK, which the DRC/LVS/ERC half
+of the flow needs, were not found in it.
 
 **Built agent-native.** Every specification, decision record, testbench, and
 line of documentation here is produced by AI agents working from a ratified
