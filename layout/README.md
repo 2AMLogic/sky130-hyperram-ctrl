@@ -43,7 +43,9 @@ timing across the set; that is item 5.
 > `make layout-check` reports `drifted` / STALE (`provenance.input.content_hash`).
 > T1 items 2, 3, 4 and 11 rest on these records and stay `met` only because the
 > item-2 envelope binds the GDS hash, not the source netlist. Regeneration is
-> #52, held on 2AMLogic/2am#6416; P&R is not re-run on the dispatch worker.
+> #52, held on 2AMLogic/2am#7142 (the batch image lacks magic, netgen and the
+> sky130 PDK for the DRC/LVS/ERC half; 2AMLogic/2am#6416 closed 2026-11-12);
+> P&R is not re-run on the dispatch worker.
 
 | File | What |
 |---|---|
