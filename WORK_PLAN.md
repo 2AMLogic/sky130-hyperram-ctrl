@@ -22,19 +22,19 @@ _None._
 
 - **#2**: Draft and ratify the target spec
 - **#52**: Regenerate place-and-route and layout-dependent evidence after rd_flush ST_LAT fix (#48)
+- **#81**: Committed gate-level netlist does not reproduce under the pinned yosys, but item 1 records the freshness check as passed
 
 ## Ready
 
 Human-approved issues ready for implementation (`loom:issue`).
 
-- **#72**: Consolidate the two divergent PLACEHOLDER device-model parameter sets into one
-- **#73**: Consolidate the six klt version pins and three klt resolvers into one
+_None._
 
 ## In Progress
 
 Issues currently being built (`loom:building`).
 
-_None._
+- **#81**: Committed gate-level netlist does not reproduce under the pinned yosys, but item 1 records the freshness check as passed
 
 ## PRs Awaiting Review
 
@@ -55,10 +55,14 @@ Issues carrying `loom:curated`.
 - **#2**: Draft and ratify the target spec *(curated)*
 - **#5**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
 - **#52**: Regenerate place-and-route and layout-dependent evidence after rd_flush ST_LAT fix (#48) *(curated)*
+- **#81**: Committed gate-level netlist does not reproduce under the pinned yosys, but item 1 records the freshness check as passed *(curated)*
 
 ## Proposed (Architect / Hermit)
 
 - **#70**: Remove drifted layout/toolchain.json inventory and stale bring-up stubs *(hermit)*
+- **#78**: Trim the 175k-line dead_metal list from the committed klt extract record *(hermit)*
+- **#84**: Remove vendored design-evidence-tiers.md: the pinned klt wheel ships a byte-identical copy *(hermit)*
+- **#86**: Device model ignores the CK level it is passed: check edge polarity or drop the parameter *(hermit)*
 
 ## Epics
 
@@ -70,12 +74,12 @@ _None._
 |------|-------|
 | Operator merge-risk holds | 0 |
 | Very important | 0 |
-| Important | 2 |
-| Ready (`loom:issue`) | 2 |
-| In Progress (`loom:building`) | 0 |
+| Important | 3 |
+| Ready (`loom:issue`) | 0 |
+| In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 3 |
-| Architect / Hermit proposals | 1 |
+| Curated | 4 |
+| Architect / Hermit proposals | 4 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->

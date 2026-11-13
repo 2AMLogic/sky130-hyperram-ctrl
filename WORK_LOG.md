@@ -5,6 +5,10 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-11-13
 
+- **PR #82**: test: randomize RWDS extra latency on random-traffic reads, drop can't-fail checks
+- **PR #83**: refactor: run flow/ synthesis and place-and-route through scripts/klt.sh
+- **Issue #77** (closed): Remove stale extra-latency workaround, can't-fail assertions and dead helpers from the controller benches
+- **Issue #80** (closed): Route flow/ runners through scripts/klt.sh: synthesis and place-and-route still use unpinned klt
 - **PR #79**: refactor: derive device-model placeholder values from one shared constant
 - **PR #76**: refactor: resolve klt through one pinned wrapper script
 - **Issue #73** (closed): Consolidate the six klt version pins and three klt resolvers into one
