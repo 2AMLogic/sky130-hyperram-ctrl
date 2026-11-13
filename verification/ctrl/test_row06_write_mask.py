@@ -1,7 +1,7 @@
 """Row 6: RWDS as a per-byte write mask; CT, functional."""
 import cocotb
 
-from hrbench import Bench, beat_from_bytes
+from hrbench import Bench
 
 OLD = 0x11223344
 NEW = 0xA1B2C3D4
@@ -45,5 +45,4 @@ async def register_writes_are_not_masked(dut):
     await b.wait_ready()
     await b.write(0x400, [0x1234], sels=[0x0], reg=True)  # sel ignored in register space
     assert b.model.regs[0x800] == 0x1234
-    assert beat_from_bytes(b"\0\0\0\0") == 0
     b.model.assert_clean()

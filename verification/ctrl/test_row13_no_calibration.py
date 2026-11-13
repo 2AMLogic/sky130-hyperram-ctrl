@@ -9,6 +9,13 @@ import cocotb
 
 from hrbench import CFG_STATUS, Bench
 
+# cfg_adr -> the bits the port header documents as readable fields
+# (hyperram_ctrl.v, "Configuration port"). CTRL[1] (restart) is self-clearing
+# and reads back 0; TAPS reads {9'd0, ck_tap, 1'b0, rd_tap}, so bit 3 is a
+# hardwired zero between the two tap fields; STATUS is read-only [2:0];
+# address 7 is unmapped and reads 0.
+CFG_FIELD_MASK = (0x0001, 0x000F, 0xFFFF, 0xFFFF, 0x000F, 0x0077, 0x0007, 0x0000)
+
 
 @cocotb.test()
 async def no_calibration_port_or_status_bit(dut):
@@ -18,8 +25,16 @@ async def no_calibration_port_or_status_bit(dut):
     b = await Bench(dut).start()
     await b.wait_ready()
     # STATUS defines bits [2:0] (ready, tcsm_small, busy); nothing above.
-    for adr in range(8):
-        v = await b.cfg_read(adr)
-        assert v < (1 << 16)
     assert (await b.cfg_read(CFG_STATUS)) >> 3 == 0
     assert (await b.cfg_read(7)) == 0
+    # No spare config bit holds state: write all-ones everywhere, then every bit
+    # outside the documented field must still read 0. A calibration or training
+    # field smuggled into the spare bits of an existing register would show up
+    # here as a bit that latched. (This replaces a `v < (1 << 16)` loop that a
+    # 16-bit cfg_rdata port could never fail.)
+    for adr in range(len(CFG_FIELD_MASK)):
+        await b.cfg_write(adr, 0xFFFF)
+    for adr, mask in enumerate(CFG_FIELD_MASK):
+        v = await b.cfg_read(adr)
+        assert v & ~mask == 0, \
+            f"cfg {adr}: {v:#06x} has bits set outside documented field {mask:#06x}"
