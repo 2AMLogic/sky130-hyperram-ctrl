@@ -62,10 +62,10 @@ is #2's call. Results are model-relative until #2 lands.
 | 8 | `test_row08_power_up` | CS# high and pads quiet for the programmed interval, interval is a register, short interval flagged by the model |
 | 9 | `test_row09_max_cs_low` | bursts are split and re-issued, CS# low never exceeds tCSM across tCSM x latency, negative control (limit disabled) is flagged |
 | 10 | `test_row10_rwds_extra_latency` | extra latency decided on the controller clock (insensitive to CA-phase RWDS skew); doubled-latency write correct. Doubled-latency read data is checked (was `expect_fail`, fixed in #48) |
-| 13 | `test_row13_no_calibration` | absence check: no calibration port or status bit (spec: not applicable in v1) |
+| 13 | `test_row13_no_calibration` | absence check: no calibration port or status bit (spec: not applicable in v1); and no spare config bit holds state -- all-ones written to every `cfg_adr`, every bit outside the documented field reads back 0 |
 | 15 | `test_row15_host_interface` | one ack per accepted beat, stall, pipelining, cyc drop does not cancel |
 | 16 | `test_row16_host_bursts` | long bursts with random host gaps lose nothing, split bursts |
-| - | `test_random_traffic` | 120 random ops against a reference memory (seed printed, `RANDOM_SEED` / `RANDOM_OPS`) |
+| - | `test_random_traffic` | 120 random ops against a reference memory (seed printed, `RANDOM_SEED` / `RANDOM_OPS`). Device RWDS extra latency is randomized on reads as well as writes; the run asserts it really carried extra-latency read data (19 such reads at the default seed) |
 
 Row 9 relation, as verified: `cfg_tcsm = floor(tCSM / T) - 3` clocks keeps CS#
 low within tCSM at 50 MHz for tCSM 30..64 clocks and latency 4..10; the model
