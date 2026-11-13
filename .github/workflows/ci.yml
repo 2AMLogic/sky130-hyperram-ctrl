@@ -1,8 +1,8 @@
 name: ci
 
 # All checks live in scripts/check_ci.sh so this gate and `npm run check:ci`
-# run the same commands. klt is pinned there (KLT_VERSION); keep the pip pin
-# below in step with it.
+# run the same commands. The klt pin lives in scripts/klt.sh and is read from
+# it below, so this workflow holds no copy of the version.
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
           python-version: "3.10"
 
       - name: Install pinned klt
-        run: pip install klayout-tools==0.8.0
+        run: pip install "klayout-tools==$(scripts/klt.sh --pin)"
 
       # RTL lint and the cocotb smoke test are wired in with the toolchain
       # skeleton (issue #3).

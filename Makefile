@@ -67,4 +67,4 @@ layout-check:
 
 # klt drc (curated sky130 deck, ~1 min, no PDK) on the routed GDS -> item-3 report
 drc:
-	uvx --from klayout-tools==0.8.0 klt drc --deck sky130 --format json layout/records/hyperram_ctrl.gds > layout/records/drc.report.json
+	scripts/klt.sh drc --deck sky130 --format json layout/records/hyperram_ctrl.gds > layout/records/drc.report.json
