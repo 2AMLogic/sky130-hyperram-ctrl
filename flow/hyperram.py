@@ -17,11 +17,17 @@
 
 klt runs through scripts/klt.sh (the pin and the resolution rule), so it does
 not depend on $PATH; yosys and the PDK still do (scripts/setup-env.sh).
+
+`synth` and `check` both refuse to answer unless the yosys that actually ran is
+the pinned one (exit 4, distinct from 3/STALE): klt resolves yosys from $PATH,
+so without .venv/bin first it silently synthesizes with the host yosys, and a
+netlist or freshness result minted that way does not reproduce (issue #81).
 """
 
 import hashlib
 import json
 import os
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -31,6 +37,11 @@ from pathlib import Path
 # it there from __file__ before importing.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from klt_run import REPO, klt, klt_json  # noqa: E402
+
+SETUP_ENV = REPO / "scripts/setup-env.sh"
+# Exit status for "the wrong yosys answered". Deliberately not 3: 3 means the
+# committed netlist was compared and differs, and here it was never compared.
+WRONG_YOSYS_EXIT = 4
 
 REC = REPO / "sim/hyperram/records"
 NETLIST = REC / "hyperram_ctrl.netlist.v"
@@ -55,10 +66,56 @@ KEYS = ("engine", "engine_version", "hdl_toplevel", "instance_count", "area_um2"
         "instance_counts_by_type", "leakage_power_nw", "blackbox_modules", "structural")
 
 
+def pinned_yosys():
+    """(wheel version, engine version) of the pinned yosys, read from the one pin.
+
+    scripts/setup-env.sh is the only place this repo writes the yosys pin -- it
+    installs that wheel and verifies its yosys.wasm sha256 -- so read it from
+    there instead of keeping a second copy here. The two strings differ: the pin
+    is the *wheel* version (`0.68.0.0.post1208`), while `klt synthesize` reports
+    the *engine* version the binary itself prints (`0.68`). YoWASP numbers its
+    wheels `<upstream yosys version>.<build>.<n>.post<n>`, so the upstream
+    version is the leading two components. If YoWASP ever renumbers, this stops
+    the flow with a mismatch instead of letting an unverified yosys through.
+    """
+    m = re.search(r'^YOWASP_YOSYS_VERSION="([^"]+)"$', SETUP_ENV.read_text(), re.M)
+    if not m:
+        sys.exit(f"FATAL: no YOWASP_YOSYS_VERSION= pin in {rel(SETUP_ENV)}; "
+                 "cannot tell which yosys is the pinned one")
+    wheel = m.group(1)
+    parts = wheel.split(".")
+    if len(parts) < 2 or not all(p.isdigit() for p in parts[:2]):
+        sys.exit(f"FATAL: cannot read an engine version out of the yosys pin "
+                 f"{wheel!r} in {rel(SETUP_ENV)}")
+    return wheel, ".".join(parts[:2])
+
+
+def require_pinned_yosys(doc):
+    """Stop unless the yosys that answered this run is the pinned one.
+
+    klt takes yosys from $PATH and reports which one answered only afterwards,
+    in the response, so this is the first point at which the identity is
+    knowable -- and the last before the result is committed or compared.
+    Without it, a run whose $PATH lacks .venv/bin synthesizes with the host
+    yosys and the result looks ordinary; that is how a 0.67+post netlist was
+    committed and recorded as a passing freshness check (issue #81).
+    """
+    wheel, want = pinned_yosys()
+    engine, got = doc.get("engine"), doc.get("engine_version")
+    if engine != "yosys" or got != want:
+        print(f"WRONG TOOL: this synthesis ran {engine} {got}, but the pin is "
+              f"yowasp-yosys {wheel} (reports {want}); a netlist or freshness "
+              f"result from {engine} {got} does not reproduce under the pin.\n"
+              f"  Put .venv/bin first on $PATH (the Makefiles do) or re-run "
+              f"{rel(SETUP_ENV)}.", file=sys.stderr)
+        sys.exit(WRONG_YOSYS_EXIT)
+
+
 def run_synth():
     doc = klt_json("synthesize", str(REQ))
     netlist = (REPO / doc["netlist_path"]["path"]).read_bytes()
     shutil.rmtree(REPO / "flow/.klt", ignore_errors=True)
+    require_pinned_yosys(doc)
     return doc, netlist
 
 

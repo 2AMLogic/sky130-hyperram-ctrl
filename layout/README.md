@@ -39,7 +39,7 @@ timing across the set; that is item 5.
 > `rd_flush` ST_LAT fix (#48, PR #51). The response was built from netlist
 > `sha256:c0f912a10e0dcc2d73e673b4bcf9a76fdac99a705e9dea63bffc3a5dd3d40d0f`;
 > the current `sim/hyperram/records/hyperram_ctrl.netlist.v` is
-> `sha256:9a4302c6b5054f64ecda7794e8c80b3b121885b22e36e21a10141a82e1d40dfb`.
+> `sha256:038c7e9a13aff7062aa1a0e5303707865c423f28995dc347cf0189c206409ca3`.
 > `make layout-check` reports `drifted` / STALE (`provenance.input.content_hash`).
 > T1 items 2, 3, 4 and 11 rest on these records and stay `met` only because the
 > item-2 envelope binds the GDS hash, not the source netlist. Regeneration is

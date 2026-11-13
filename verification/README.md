@@ -83,9 +83,13 @@ use `sky130_cells_behav.v`, so it also checks the hand stand-ins against the
 real cell functions. Zero delay: no timing claim (SDF re-run is item 7).
 
 - **Freshness guard**: before building, `flow/hyperram.py check` re-synthesizes
-  (about 4 s) and aborts with `STALE` if the netlist differs. Use the pinned
-  klt (`uvx --from "klayout-tools==0.8.0" ...` or the `.venv`); a newer klt
-  reports a false STALE.
+  (about 4 s) and aborts with `STALE` if the netlist differs. It runs klt
+  through `scripts/klt.sh` (the pin), but takes yosys from `$PATH`, so put
+  `.venv/bin` first — `make -C verification/ctrl` needs it there anyway to find
+  `cocotb-config`. If an off-pin yosys answers, `check` stops with a `WRONG
+  TOOL` identity error (exit 4) naming the expected and actual version instead
+  of comparing: a netlist minted by one yosys and compared against another is
+  not a freshness result (#81).
 - **Negative control**: `make GL=1 GL_NETLIST=/tmp/bad.v` runs a substituted
   netlist and skips the guard. With `nand2_1` rewritten to `nor2_1` in a temp
   copy, tests fail from the first CA test on (run on this PR: failures, rc 2).
@@ -95,7 +99,7 @@ real cell functions. Zero delay: no timing claim (SDF re-run is item 7).
   (absolute PDK model paths, since klt expands no variables; edit them if the
   PDK lives elsewhere). Its report is
   `sim/hyperram/records/functional-verification-ctrl-gl.report.json`, with the
-  `inputs` block (netlist sha256 `9a4302c6…`, PDK model hashes) added by hand.
+  `inputs` block (netlist sha256 `038c7e9a…`, PDK model hashes) added by hand.
   Neither file is in `attest/item9.json`.
 
 ## What these benches do and do not claim
