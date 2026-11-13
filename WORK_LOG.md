@@ -3,6 +3,11 @@
 Chronological record of merged PRs and closed issues, newest first.
 Maintained by the Guide triage role; entries are append-only.
 
+### 2026-11-13
+
+- **PR #74**: docs: point layout README's STALE note at the current 2am#7142 hold
+- **Issue #71** (closed): layout/README.md still says #52 is held on 2AMLogic/2am#6416 (closed)
+
 ### 2026-11-12
 
 - **PR #66**: Bump Repo Skills 0.25.10 -> 0.26.1
