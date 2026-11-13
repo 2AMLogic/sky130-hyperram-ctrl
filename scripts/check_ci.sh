@@ -2,9 +2,9 @@
 # The one CI command set: called by .github/workflows/ci.yml and by
 # `npm run check:ci`, so the two cannot drift.
 #
-# klt is pinned to KLT_VERSION. Locally, if the installed klt is not that
-# version this script uses `uvx --from klayout-tools==KLT_VERSION klt`
-# (never touches the host tool install).
+# klt runs through scripts/klt.sh, which holds the only klt version pin and
+# the only rule for choosing which klt binary runs (never touches the host
+# tool install).
 #
 # Steps:
 #   1. every layout/*.json and manifests/*.json that exists parses as JSON
@@ -22,7 +22,6 @@
 # (issue #3), not here.
 set -euo pipefail
 
-KLT_VERSION="0.8.0"
 BLOCK="sky130-hyperram-ctrl"
 MANIFEST="manifests/${BLOCK}.json"
 RECORD="manifests/${BLOCK}.signoff.json"
@@ -30,11 +29,7 @@ TIERS_DOC="manifests/design-evidence-tiers.md"
 
 cd "$(dirname "$0")/.."
 
-if command -v klt >/dev/null 2>&1 && [ "$(klt --version 2>/dev/null | awk '{print $NF}')" = "$KLT_VERSION" ]; then
-  KLT=(klt)
-else
-  KLT=(uvx --from "klayout-tools==${KLT_VERSION}" klt)
-fi
+KLT=(scripts/klt.sh)
 
 echo "== 1/6 JSON validity =="
 shopt -s nullglob
@@ -89,7 +84,7 @@ if [ "$rc" -ne 0 ] && [ "$rc" -ne 3 ]; then
 fi
 if ! cmp -s "$fresh" "$RECORD"; then
   echo "::error::fresh klt signoff output differs from committed $RECORD; regenerate it in this PR:"
-  echo "  uvx --from klayout-tools==${KLT_VERSION} klt signoff --manifest $MANIFEST \\"
+  echo "  scripts/klt.sh signoff --manifest $MANIFEST \\"
   echo "      --tiers-doc $TIERS_DOC --format json > $RECORD"
   diff <(python3 -m json.tool "$fresh") <(python3 -m json.tool "$RECORD") || true
   exit 1

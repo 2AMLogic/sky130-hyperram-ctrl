@@ -25,7 +25,8 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${REPO_ROOT}" || exit 1
 
 # --- pinned versions -- keep in sync with docs/environment.md -------------
-KLT_VERSION="0.8.0"
+# klt's pin is not repeated here: scripts/klt.sh is its only definition.
+KLT_VERSION="$("${REPO_ROOT}/scripts/klt.sh" --pin)" || exit 1
 COCOTB_VERSION="2.0.1"
 CIEL_VERSION="2.6.1"
 CIEL_PDK_FAMILY="sky130"

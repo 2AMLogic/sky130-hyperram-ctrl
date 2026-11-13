@@ -31,9 +31,14 @@
 
 ## klt pin
 
-`klayout-tools==0.8.0`, set in `scripts/check_ci.sh` (`KLT_VERSION`) and in
-the install step of `.github/workflows/ci.yml`. Bump both, the vendored doc
-and the signoff record together.
+`klayout-tools==0.8.0`, set in exactly one place: `KLT_VERSION` in
+`scripts/klt.sh`. That script is also the one rule for choosing which `klt`
+runs (the `klt` on `$PATH` when its version is the pin, else `uvx`), and
+`scripts/klt.sh --pin` prints the pin. `scripts/check_ci.sh`,
+`layout/erc/run.sh`, `layout/lvs/run.sh` and the `Makefile` `drc` target call
+it; `scripts/setup-env.sh` and the install step of
+`.github/workflows/ci.yml` read the pin from it. Bump that one line, the
+vendored doc and the signoff record together.
 
 Two consecutive local runs at 0.8.0 produced byte-identical output.
 

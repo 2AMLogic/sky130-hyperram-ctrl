@@ -4,13 +4,13 @@
 #                              names), compare against the as-built routed
 #                              netlist, write layout/lvs/records/
 #   layout/lvs/run.sh check    cheap: klt lvs --check on the committed report
-# klt is pinned to the version in scripts/check_ci.sh (KLT_VERSION). After a
-# re-run commit layout/lvs/records/, then follow manifests/README.md.
+# klt runs through scripts/klt.sh, which holds the only klt pin and resolver.
+# After a re-run commit layout/lvs/records/, then follow manifests/README.md.
 set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")"
-KLT_VERSION=0.8.0
+REPO_ROOT="$(cd ../.. && pwd)"
 export PDK="${PDK:-sky130A}"
-klt() { uvx --from "klayout-tools==${KLT_VERSION}" klt "$@"; }
+klt() { "${REPO_ROOT}/scripts/klt.sh" "$@"; }
 
 if [[ "${1:-}" == check ]]; then
   klt lvs --check records/report.json

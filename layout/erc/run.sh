@@ -3,12 +3,12 @@
 #   layout/erc/run.sh          run klt erc on the routed GDS, write
 #                              layout/records/erc.report.json
 #   layout/erc/run.sh check    cheap: klt erc --check on the committed report
-# klt is pinned to the version in scripts/check_ci.sh (KLT_VERSION). After a
-# re-run commit layout/records/erc.report.json, then follow manifests/README.md.
+# klt runs through scripts/klt.sh, which holds the only klt pin and resolver.
+# After a re-run commit layout/records/erc.report.json, then follow
+# manifests/README.md.
 set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/../.."
-KLT_VERSION=0.8.0
-klt() { uvx --from "klayout-tools==${KLT_VERSION}" klt "$@"; }
+klt() { scripts/klt.sh "$@"; }
 
 if [[ "${1:-}" == check ]]; then
   klt erc --check layout/records/erc.report.json
