@@ -13,259 +13,259 @@
       "name": "random_traffic_scoreboard",
       "status": "passed",
       "sim_time_ns": 96680.0,
-      "real_time_s": 1.9623923301696777
+      "real_time_s": 1.8305282592773438
     },
     {
       "name": "ca_is_six_bytes_and_decodes",
       "status": "passed",
       "sim_time_ns": 5860.0,
-      "real_time_s": 0.04246640205383301
+      "real_time_s": 0.04089188575744629
     },
     {
       "name": "ca_address_bits_walk",
       "status": "passed",
       "sim_time_ns": 17720.0,
-      "real_time_s": 0.2770400047302246
+      "real_time_s": 0.24265050888061523
     },
     {
       "name": "ca_register_space_bit",
       "status": "passed",
       "sim_time_ns": 5880.0,
-      "real_time_s": 0.04210972785949707
+      "real_time_s": 0.03934192657470703
     },
     {
       "name": "ca_spans_three_ck_cycles",
       "status": "passed",
       "sim_time_ns": 5379.999999999985,
-      "real_time_s": 0.03429126739501953
+      "real_time_s": 0.035095930099487305
     },
     {
       "name": "variable_latency_normal",
       "status": "passed",
       "sim_time_ns": 10040.0,
-      "real_time_s": 0.1274125576019287
+      "real_time_s": 0.11750245094299316
     },
     {
       "name": "doubling_decision_at_the_pins",
       "status": "passed",
       "sim_time_ns": 5940.0,
-      "real_time_s": 0.04120779037475586
+      "real_time_s": 0.032607078552246094
     },
     {
       "name": "variable_latency_doubled_by_rwds",
       "status": "passed",
       "sim_time_ns": 7220.0,
-      "real_time_s": 0.062151432037353516
+      "real_time_s": 0.057877302169799805
     },
     {
       "name": "fixed_latency_configuration",
       "status": "passed",
       "sim_time_ns": 7260.0,
-      "real_time_s": 0.06485986709594727
+      "real_time_s": 0.06312799453735352
     },
     {
       "name": "controller_latency_shorter_than_device_is_caught",
       "status": "passed",
       "sim_time_ns": 5540.0,
-      "real_time_s": 0.0364527702331543
+      "real_time_s": 0.035657644271850586
     },
     {
       "name": "clamp_below_four",
       "status": "passed",
       "sim_time_ns": 6000.0,
-      "real_time_s": 0.04598236083984375
+      "real_time_s": 0.043749332427978516
     },
     {
       "name": "linear_bursts_of_many_lengths",
       "status": "passed",
       "sim_time_ns": 14460.0,
-      "real_time_s": 0.23565268516540527
+      "real_time_s": 0.26796627044677734
     },
     {
       "name": "single_word_register_style_beat_at_odd_addresses",
       "status": "passed",
       "sim_time_ns": 8820.0,
-      "real_time_s": 0.08836054801940918
+      "real_time_s": 0.08871078491210938
     },
     {
       "name": "burst_is_one_transaction_when_it_fits",
       "status": "passed",
       "sim_time_ns": 6320.0,
-      "real_time_s": 0.057216644287109375
+      "real_time_s": 0.04873967170715332
     },
     {
       "name": "every_byte_lane_pattern",
       "status": "passed",
       "sim_time_ns": 22080.0,
-      "real_time_s": 0.3290233612060547
+      "real_time_s": 0.35590505599975586
     },
     {
       "name": "mask_inside_a_burst",
       "status": "passed",
       "sim_time_ns": 6000.0,
-      "real_time_s": 0.046930551528930664
+      "real_time_s": 0.040802717208862305
     },
     {
       "name": "register_writes_are_not_masked",
       "status": "passed",
       "sim_time_ns": 5380.0,
-      "real_time_s": 0.028530120849609375
+      "real_time_s": 0.031148433685302734
     },
     {
       "name": "read_id_and_config_registers",
       "status": "passed",
       "sim_time_ns": 5880.0,
-      "real_time_s": 0.03966379165649414
+      "real_time_s": 0.05108022689819336
     },
     {
       "name": "write_then_read_back_register",
       "status": "passed",
       "sim_time_ns": 5960.0,
-      "real_time_s": 0.03876924514770508
+      "real_time_s": 0.04899311065673828
     },
     {
       "name": "read_only_register_ignores_write",
       "status": "passed",
       "sim_time_ns": 5740.0,
-      "real_time_s": 0.03808403015136719
+      "real_time_s": 0.03498482704162598
     },
     {
       "name": "register_access_does_not_touch_memory",
       "status": "passed",
       "sim_time_ns": 5920.0,
-      "real_time_s": 0.03795218467712402
+      "real_time_s": 0.0348052978515625
     },
     {
       "name": "interval_is_honoured_and_pads_quiet",
       "status": "passed",
       "sim_time_ns": 5920.0,
-      "real_time_s": 0.0416257381439209
+      "real_time_s": 0.03858208656311035
     },
     {
       "name": "interval_is_a_register",
       "status": "passed",
       "sim_time_ns": 3800.0,
-      "real_time_s": 0.03168058395385742
+      "real_time_s": 0.029547691345214844
     },
     {
       "name": "too_short_interval_is_flagged_by_the_model",
       "status": "passed",
       "sim_time_ns": 700.0,
-      "real_time_s": 0.007578372955322266
+      "real_time_s": 0.0070226192474365234
     },
     {
       "name": "long_bursts_are_split_and_never_exceed_tcsm",
       "status": "passed",
       "sim_time_ns": 10320.0,
-      "real_time_s": 0.15992045402526855
+      "real_time_s": 0.17659521102905273
     },
     {
       "name": "margin_holds_across_tcsm_and_latency",
       "status": "passed",
       "sim_time_ns": 115500.0,
-      "real_time_s": 1.5519042015075684
+      "real_time_s": 1.6126244068145752
     },
     {
       "name": "margin_is_tight_not_loose",
       "status": "passed",
       "sim_time_ns": 53280.0,
-      "real_time_s": 0.7362582683563232
+      "real_time_s": 0.7780835628509521
     },
     {
       "name": "negative_control_limit_disabled_is_flagged",
       "status": "passed",
       "sim_time_ns": 9040.0,
-      "real_time_s": 0.12744998931884766
+      "real_time_s": 0.1635293960571289
     },
     {
       "name": "budget_too_small_sets_status_bit",
       "status": "passed",
       "sim_time_ns": 6181.0,
-      "real_time_s": 0.045221805572509766
+      "real_time_s": 0.046012163162231445
     },
     {
       "name": "doubles_only_when_rwds_high",
       "status": "passed",
       "sim_time_ns": 9500.0,
-      "real_time_s": 0.0895698070526123
+      "real_time_s": 0.09331536293029785
     },
     {
       "name": "sampling_is_independent_of_rwds_skew_after_ck",
       "status": "passed",
       "sim_time_ns": 16800.0,
-      "real_time_s": 0.10416388511657715
+      "real_time_s": 0.11372041702270508
     },
     {
       "name": "doubled_latency_read_returns_correct_data",
       "status": "passed",
       "sim_time_ns": 6060.0,
-      "real_time_s": 0.04144859313964844
+      "real_time_s": 0.04168391227722168
     },
     {
       "name": "doubled_latency_write_is_correct",
       "status": "passed",
       "sim_time_ns": 5620.0,
-      "real_time_s": 0.03861546516418457
+      "real_time_s": 0.03807234764099121
     },
     {
       "name": "no_calibration_port_or_status_bit",
       "status": "passed",
       "sim_time_ns": 5211.0,
-      "real_time_s": 0.0290377140045166
+      "real_time_s": 0.02813243865966797
     },
     {
       "name": "one_ack_per_accepted_beat_and_none_unasked",
       "status": "passed",
       "sim_time_ns": 6940.0,
-      "real_time_s": 0.05473136901855469
+      "real_time_s": 0.05581259727478027
     },
     {
       "name": "stall_back_pressures_and_data_is_not_lost",
       "status": "passed",
       "sim_time_ns": 8400.0,
-      "real_time_s": 0.10519528388977051
+      "real_time_s": 0.1200399398803711
     },
     {
       "name": "pipelined_reads_overlap",
       "status": "passed",
       "sim_time_ns": 6139.999999999942,
-      "real_time_s": 0.0432889461517334
+      "real_time_s": 0.06731510162353516
     },
     {
       "name": "dropping_cyc_does_not_cancel_an_accepted_beat",
       "status": "passed",
       "sim_time_ns": 6480.0,
-      "real_time_s": 0.0335538387298584
+      "real_time_s": 0.04397106170654297
     },
     {
       "name": "reads_see_earlier_writes_in_order",
       "status": "passed",
       "sim_time_ns": 8540.0,
-      "real_time_s": 0.0809938907623291
+      "real_time_s": 0.08440494537353516
     },
     {
       "name": "long_write_burst_with_random_host_gaps",
       "status": "passed",
       "sim_time_ns": 29600.0,
-      "real_time_s": 0.4043419361114502
+      "real_time_s": 0.3938472270965576
     },
     {
       "name": "long_read_burst_with_random_host_gaps",
       "status": "passed",
       "sim_time_ns": 19800.0,
-      "real_time_s": 0.40082740783691406
+      "real_time_s": 0.43878841400146484
     },
     {
       "name": "burst_longer_than_cs_low_budget_loses_nothing",
       "status": "passed",
       "sim_time_ns": 16040.0,
-      "real_time_s": 0.30125999450683594
+      "real_time_s": 0.28719639778137207
     },
     {
       "name": "non_sequential_beats_start_new_transactions",
       "status": "passed",
       "sim_time_ns": 6140.0,
-      "real_time_s": 0.04210257530212402
+      "real_time_s": 0.0392305850982666
     }
   ],
   "coverage": null,
@@ -277,17 +277,17 @@
     "results_xml": "results_icarus.xml",
     "test_log": "test_icarus.log",
     "build_log": "build_icarus.log",
-    "random_seed": 1793987941,
+    "random_seed": 1794590639,
     "source_defines": {},
     "initial_state": null,
     "sdf": null
   },
   "inputs": {
-    "note": "added by the committer, not emitted by klt: hashes of the exact files the run read",
+    "note": "added by the committer, not emitted by klt: hashes of the exact files the run read. environment.results_xml/test_log/build_log are reduced to the file names klt wrote; klt reports them as absolute paths in its own scratch dir, which is machine-local.",
     "request": "flow/functional-verification-ctrl-gl.json",
     "netlist": {
       "path": "sim/hyperram/records/hyperram_ctrl.netlist.v",
-      "sha256": "sha256:9a4302c6b5054f64ecda7794e8c80b3b121885b22e36e21a10141a82e1d40dfb"
+      "sha256": "sha256:038c7e9a13aff7062aa1a0e5303707865c423f28995dc347cf0189c206409ca3"
     },
     "pdk_models": {
       "pdk": "sky130A f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7",

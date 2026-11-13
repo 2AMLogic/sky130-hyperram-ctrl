@@ -20,7 +20,7 @@ Items 5–8 (including pin-level timing across corners) are not met.
 from records generated from the netlist *before* the `rd_flush` ST_LAT fix
 (#48, PR #51). The committed place-and-route response was built from netlist
 `sha256:c0f912a1…3d40d0f`; the current
-`sim/hyperram/records/hyperram_ctrl.netlist.v` is `sha256:9a4302c6…1d40dfb`,
+`sim/hyperram/records/hyperram_ctrl.netlist.v` is `sha256:038c7e9a…06409ca3`,
 so `make layout-check` reports STALE. The grader still shows `met` because the
 item-2 envelope binds only the GDS hash, not the netlist it came from. The
 routed layout is therefore of the older RTL until the records are regenerated

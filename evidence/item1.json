@@ -66,7 +66,7 @@
         "role": "derived",
         "path": "sim/hyperram/records/hyperram_ctrl.netlist.v",
         "passed": true,
-        "content_hash": "sha256:9a4302c6b5054f64ecda7794e8c80b3b121885b22e36e21a10141a82e1d40dfb"
+        "content_hash": "sha256:038c7e9a13aff7062aa1a0e5303707865c423f28995dc347cf0189c206409ca3"
       },
       {
         "check": "command",
