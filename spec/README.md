@@ -13,8 +13,10 @@ to make later results pass; a change to a row is a new decision record.
 | [device-model-params.md](device-model-params.md) | Behavioural device-model timing parameters and their sources |
 | [decisions/](decisions/) | One record per choice |
 
-Decision records: 0001 bus clock and clock output, 0002 I/O voltage class,
-0003 read capture, 0004 PVT corner set, 0005 protocol coverage, 0006 CLK90 requirement.
+Decision records (this list must match `ls spec/decisions/` exactly): 0001 bus
+clock and clock output, 0002 I/O voltage class, 0003 read capture, 0004 PVT
+corner set, 0005 protocol coverage, 0006 CLK90 requirement, 0007 register-space
+even words.
 
 HyperBus and HyperRAM only name the interface. Nothing here claims
 conformance to any device.
