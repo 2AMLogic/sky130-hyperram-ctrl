@@ -7,8 +7,10 @@
 # tool install).
 #
 # Steps:
-#   1. every layout/*.json and manifests/*.json that exists parses as JSON
-#      (a missing file is not an error; a malformed one is)
+#   1. every flow/*.json, layout/*.json and manifests/*.json that exists parses
+#      as JSON (a missing file is not an error; a malformed one is). flow/ holds
+#      the klt request documents; a malformed one is only otherwise discovered
+#      by a local run that needs the PDK, which CI does not have.
 #   2. README relative links resolve
 #   3. flow/hyperram.py's pinned-yosys gate rejects an unpinned yosys build
 #      (the synthesis it guards is local_only; the gate itself is not)
@@ -35,7 +37,7 @@ KLT=(scripts/klt.sh)
 
 echo "== 1/7 JSON validity =="
 shopt -s nullglob
-for f in layout/*.json manifests/*.json; do
+for f in flow/*.json layout/*.json manifests/*.json; do
   python3 -I -c 'import json,sys; json.load(open(sys.argv[1]))' "$f" \
     || { echo "::error file=$f::malformed JSON"; exit 1; }
   echo "ok $f"
