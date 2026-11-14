@@ -4,6 +4,15 @@
 # timing are rows 11, 12 and 14, proved by SPICE and STA, not here).
 # `make` runs everything; `make COCOTB_TEST_MODULES=test_row09_max_cs_low`
 # runs one module.
+#
+# The bench list is not written out here. It is derived from this directory by
+# the one controller-bench rule, applied identically in the three places that
+# need it (issue #93): every `test_*.py` beside this Makefile except
+# `test_all.py` is a bench module. test_all.py (the aggregator cited by
+# flow/functional-verification-ctrl.json) globs with the same rule, and
+# scripts/check_bench_coverage.py asserts attest/item9.json declares every file
+# the rule can see -- so a bench added on disk cannot be missing from one list
+# while present in another, and cannot be silently unattested.
 SIM            ?= icarus
 TOPLEVEL_LANG  ?= verilog
 RTL             = $(abspath ../../rtl/hyperram_ctrl)
@@ -22,7 +31,18 @@ VERILOG_SOURCES = $(RTL)/sim/sky130_cells_behav.v $(RTL)/hr_dq_out.v \
                   $(RTL)/hr_rd_capture.v $(RTL)/hr_cmd_fsm.v $(RTL)/hyperram_ctrl.v
 endif
 COCOTB_TOPLEVEL = hyperram_ctrl
-COCOTB_TEST_MODULES ?= test_row03_command_address,test_row04_latency,test_row05_bursts,test_row06_write_mask,test_row07_register_space,test_row08_power_up,test_row09_max_cs_low,test_row10_rwds_extra_latency,test_row13_no_calibration,test_row15_host_interface,test_row16_host_bursts,test_random_traffic
+# The controller-bench rule (see the header): every test_*.py in this directory
+# except the test_all.py aggregator, as a comma-separated module list. `?=`, so
+# `make COCOTB_TEST_MODULES=test_row09_max_cs_low` still selects one module.
+BENCH_DIR      := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+BENCH_MODULES  := $(sort $(basename $(filter-out test_all.py,$(notdir $(wildcard $(BENCH_DIR)test_*.py)))))
+empty          :=
+space          := $(empty) $(empty)
+comma          := ,
+ifeq ($(strip $(BENCH_MODULES)),)
+$(error no controller bench matched test_*.py in $(BENCH_DIR): the glob or the benches moved)
+endif
+COCOTB_TEST_MODULES ?= $(subst $(space),$(comma),$(BENCH_MODULES))
 export PYTHONPATH := $(abspath .):$(abspath ../hyperram_model):$(PYTHONPATH)
 include $(shell cocotb-config --makefiles)/Makefile.sim
 
