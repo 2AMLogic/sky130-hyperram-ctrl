@@ -1,0 +1,7 @@
+{
+  "schema": "corner-matrix/1",
+  "description": "Decision 0004 ngspice corner set for the delay-chain campaign (spec open question b): process tt/ff/ss/fs/sf, temperature -40/27/125 C, core supply 1.62/1.80/1.98 V. The vrwds entry is the stimulus rail, swept in lockstep with vdd by supply_waveforms.",
+  "process": ["tt", "ff", "ss", "fs", "sf"],
+  "temperature_c": [-40, 27, 125],
+  "supply_v": { "vdd": [1.62, 1.80, 1.98], "vrwds": [1.62, 1.80, 1.98] }
+}

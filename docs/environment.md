@@ -18,6 +18,7 @@ both libraries and checks the tt/ss/ff liberty files and the LEF exist.
 | Icarus Verilog | `>= 12` (record names the exact version) | host; checked, not installed |
 | Verilator | `>= 5` (lint only; record names the exact version) | host; checked, not installed |
 | OpenROAD | must run (`openroad -version`); `klt sta` records the engine version | host; checked, not installed |
+| ngspice | must run (`ngspice --version`); the delay-chain record names the version from its run report (`environment.engine_version`/`engine_build`), the batch worker's | host; checked, not installed |
 
 Host tools are never installed by the script. `openroad` on the dispatch
 workers is a Docker wrapper; it needs access to the Docker daemon. A wrapper
