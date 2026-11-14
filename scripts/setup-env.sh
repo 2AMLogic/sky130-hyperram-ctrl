@@ -7,9 +7,10 @@
 #   2. Installs the pinned Yosys build (YoWASP wheel) into .venv and verifies
 #      its WebAssembly module's sha256 (the mapper identity `yosys -V` does
 #      not report), exposing it as .venv/bin/yosys.
-#   3. Provisions the pinned sky130A PDK via `ciel` with BOTH sky130_fd_pr and
-#      sky130_fd_sc_hd enabled, verifies the open_pdks revision from SOURCES,
-#      and FAILS LOUDLY if the sky130_fd_sc_hd liberty/LEF is missing.
+#   3. Provisions the pinned sky130A PDK via `ciel` with sky130_fd_pr,
+#      sky130_fd_sc_hd and sky130_fd_io enabled, verifies the open_pdks
+#      revision from SOURCES, and FAILS LOUDLY if the sky130_fd_sc_hd
+#      liberty/LEF or the sky130_fd_io pad liberty/LEF is missing.
 #   4. Checks iverilog, verilator and openroad are on $PATH and records their
 #      versions (they are host tools: this script never installs them).
 #
@@ -101,7 +102,7 @@ if pdk_ok; then
 else
   mkdir -p "${PDK_ROOT}" || fail "cannot create ${PDK_ROOT}."
   "${VENV_DIR}/bin/ciel" enable --pdk-root "${PDK_ROOT}" --pdk-family "${CIEL_PDK_FAMILY}" \
-      -l sky130_fd_pr -l sky130_fd_sc_hd "${CIEL_SKY130_VERSION}" \
+      -l sky130_fd_pr -l sky130_fd_sc_hd -l sky130_fd_io "${CIEL_SKY130_VERSION}" \
     || fail "'ciel enable' failed for sky130 ${CIEL_SKY130_VERSION:0:12} (network, or GitHub rate limit: set GITHUB_TOKEN)."
 fi
 [ -f "${PDK_ROOT}/sky130A/SOURCES" ] || fail "${PDK_ROOT}/sky130A/SOURCES missing; cannot verify the open_pdks revision."
@@ -116,7 +117,18 @@ for f in "libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib" \
 done
 ls "${PDK_ROOT}"/sky130A/libs.ref/sky130_fd_sc_hd/lef/*.lef >/dev/null 2>&1 \
   || fail "sky130_fd_sc_hd LEF is missing under ${PDK_ROOT}/sky130A/libs.ref/sky130_fd_sc_hd/lef/."
-echo "sky130A ready (open_pdks ${CIEL_SKY130_VERSION:0:12} verified via SOURCES; sky130_fd_sc_hd present)"
+# sky130_fd_io is enabled because the pad-liberty STA evidence
+# (sim/pad-sta/, spec/target-spec.md open question (a)) reads its liberty
+# and LEF; a provision without it cannot reproduce that record. Verified on
+# a fresh provision: `ciel enable ... -l sky130_fd_pr -l sky130_fd_sc_hd`
+# yields ONLY those two libraries -- sky130_fd_io ships in the PDK but is
+# not linked unless named (docs/environment.md).
+for f in "libs.ref/sky130_fd_io/lib/sky130_fd_io__top_gpiov2_tt_tt_025C_1v80_3v30.lib" \
+         "libs.ref/sky130_fd_io/lef/sky130_fd_io.lef"; do
+  [ -s "${PDK_ROOT}/sky130A/${f}" ] \
+    || fail "sky130_fd_io is missing (${PDK_ROOT}/sky130A/${f}). Re-run 'ciel enable ... -l sky130_fd_io ${CIEL_SKY130_VERSION}'."
+done
+echo "sky130A ready (open_pdks ${CIEL_SKY130_VERSION:0:12} verified via SOURCES; sky130_fd_sc_hd and sky130_fd_io present)"
 
 echo
 echo "== 4/4 host tools (iverilog, verilator, openroad) =="

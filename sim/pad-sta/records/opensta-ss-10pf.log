@@ -1,0 +1,140 @@
+OpenROAD 26Q3-1510-g6cb3f2b704 
+Features included (+) or not (-): +GPU +GUI +Python
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+[INFO ODB-0227] LEF file: /home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/techlef/sky130_fd_sc_hd__nom.tlef, created 14 layers, 25 vias
+[WARNING ODB-0220] WARNING (LEFPARS-2008): NOWIREEXTENSIONATPIN statement is obsolete in version 5.6 or later.
+The NOWIREEXTENSIONATPIN statement will be ignored. See file /home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef at line 2.
+
+[INFO ODB-0227] LEF file: /home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef, created 437 library cells
+[WARNING ODB-0220] WARNING (LEFPARS-2008): NOWIREEXTENSIONATPIN statement is obsolete in version 5.6 or later.
+The NOWIREEXTENSIONATPIN statement will be ignored. See file /home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_io/lef/sky130_fd_io.lef at line 2.
+
+[INFO ODB-0227] LEF file: /home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_io/lef/sky130_fd_io.lef, created 32 library cells
+[WARNING STA-1171] /home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_io/lib/sky130_fd_io__top_gpiov2_ss_ss_100C_1v60_3v00.lib line 33, default_fanout_load is 0.0.
+BEGIN-REPORT
+Startpoint: pad_ipad (input port clocked by clk)
+Endpoint: u_rx (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+      Cap      Slew     Delay      Time   Description
+-------------------------------------------------------------------------------
+             0.0000    0.0000    0.0000   clock clk (rise edge)
+                       0.0000    0.0000   clock network delay (ideal)
+                       0.0000    0.0000 ^ input external delay
+   1.1630    0.0000    0.0000    0.0000 ^ pad_ipad (inout)
+                                          pad_ipad (net)
+             0.0000    0.0000    0.0000 ^ u_ipad/PAD (sky130_fd_io__top_gpiov2)
+   0.0015    0.1094    1.7975    1.7975 ^ u_ipad/IN (sky130_fd_io__top_gpiov2)
+                                          rx_d (net)
+             0.1094    0.0000    1.7975 ^ u_rx/D (sky130_fd_sc_hd__dfxtp_1)
+                                 1.7975   data arrival time
+
+             0.0000    0.0000    0.0000   clock clk (rise edge)
+                       0.0000    0.0000   clock network delay (ideal)
+                       0.0000    0.0000   clock reconvergence pessimism
+                                 0.0000 ^ u_rx/CLK (sky130_fd_sc_hd__dfxtp_1)
+                      -0.0923   -0.0923   library hold time
+                                -0.0923   data required time
+-------------------------------------------------------------------------------
+                                -0.0923   data required time
+                                -1.7975   data arrival time
+-------------------------------------------------------------------------------
+                                 1.8898   slack (MET)
+
+
+Startpoint: u_tx (rising edge-triggered flip-flop clocked by clk)
+Endpoint: pad_opad (output port clocked by clk)
+Path Group: clk
+Path Type: min
+
+      Cap      Slew     Delay      Time   Description
+-------------------------------------------------------------------------------
+             0.0000    0.0000    0.0000   clock clk (rise edge)
+                       0.0000    0.0000   clock network delay (ideal)
+             0.0000    0.0000    0.0000 ^ u_tx/CLK (sky130_fd_sc_hd__dfxtp_1)
+   0.0360    0.3201    0.7602    0.7602 v u_tx/Q (sky130_fd_sc_hd__dfxtp_1)
+                                          tx_q (net)
+             0.3201    0.0000    0.7602 v u_opad/OUT (sky130_fd_io__top_gpiov2)
+  11.1630    0.0000    7.2719    8.0321 v u_opad/PAD (sky130_fd_io__top_gpiov2)
+                                          pad_opad (net)
+             0.0000    0.0000    8.0321 v pad_opad (inout)
+                                 8.0321   data arrival time
+
+             0.0000    0.0000    0.0000   clock clk (rise edge)
+                       0.0000    0.0000   clock network delay (ideal)
+                       0.0000    0.0000   clock reconvergence pessimism
+                       0.0000    0.0000   output external delay
+                                 0.0000   data required time
+-------------------------------------------------------------------------------
+                                 0.0000   data required time
+                                -8.0321   data arrival time
+-------------------------------------------------------------------------------
+                                 8.0321   slack (MET)
+
+
+Startpoint: u_tx (rising edge-triggered flip-flop clocked by clk)
+Endpoint: pad_opad (output port clocked by clk)
+Path Group: clk
+Path Type: max
+
+      Cap      Slew     Delay      Time   Description
+-------------------------------------------------------------------------------
+             0.0000    0.0000    0.0000   clock clk (rise edge)
+                       0.0000    0.0000   clock network delay (ideal)
+             0.0000    0.0000    0.0000 ^ u_tx/CLK (sky130_fd_sc_hd__dfxtp_1)
+   0.0371    0.5561    0.9472    0.9472 ^ u_tx/Q (sky130_fd_sc_hd__dfxtp_1)
+                                          tx_q (net)
+             0.5561    0.0000    0.9472 ^ u_opad/OUT (sky130_fd_io__top_gpiov2)
+  11.1630   95.2615    7.1329    8.0801 ^ u_opad/PAD (sky130_fd_io__top_gpiov2)
+                                          pad_opad (net)
+            95.2615    0.0000    8.0801 ^ pad_opad (inout)
+                                 8.0801   data arrival time
+
+             0.0000   20.0000   20.0000   clock clk (rise edge)
+                       0.0000   20.0000   clock network delay (ideal)
+                       0.0000   20.0000   clock reconvergence pessimism
+                       0.0000   20.0000   output external delay
+                                20.0000   data required time
+-------------------------------------------------------------------------------
+                                20.0000   data required time
+                                -8.0801   data arrival time
+-------------------------------------------------------------------------------
+                                11.9199   slack (MET)
+
+
+Startpoint: pad_ipad (input port clocked by clk)
+Endpoint: u_rx (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: max
+
+      Cap      Slew     Delay      Time   Description
+-------------------------------------------------------------------------------
+             0.0000    0.0000    0.0000   clock clk (rise edge)
+                       0.0000    0.0000   clock network delay (ideal)
+                       0.0000    0.0000 v input external delay
+   1.1630    0.0000    0.0000    0.0000 v pad_ipad (inout)
+                                          pad_ipad (net)
+             0.0000    0.0000    0.0000 v u_ipad/PAD (sky130_fd_io__top_gpiov2)
+   0.0016    0.1546    2.0770    2.0770 v u_ipad/IN (sky130_fd_io__top_gpiov2)
+                                          rx_d (net)
+             0.1546    0.0000    2.0770 v u_rx/D (sky130_fd_sc_hd__dfxtp_1)
+                                 2.0770   data arrival time
+
+             0.0000   20.0000   20.0000   clock clk (rise edge)
+                       0.0000   20.0000   clock network delay (ideal)
+                       0.0000   20.0000   clock reconvergence pessimism
+                                20.0000 ^ u_rx/CLK (sky130_fd_sc_hd__dfxtp_1)
+                      -0.3231   19.6770   library setup time
+                                19.6770   data required time
+-------------------------------------------------------------------------------
+                                19.6770   data required time
+                                -2.0770   data arrival time
+-------------------------------------------------------------------------------
+                                17.5999   slack (MET)
+
+
+worst slack max 11.9199
+worst slack min 1.8898
+END-REPORT

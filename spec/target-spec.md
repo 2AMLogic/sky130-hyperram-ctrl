@@ -43,16 +43,23 @@ written analysis.
 
 ## Open questions (answers or experiments)
 
-**(a) Does OpenROAD STA see through the pad cells?** *Unresolved, evidence
-needed.* Experiment: load the I/O library's shipped liberty views (if any
-exist for the pinned PDK) with the pad netlist in OpenSTA, and check that a
-path from core flop to pad and from pad to core flop reports arcs. If arcs
-are absent or only at a corner subset, pad delay and spread come from the
-ngspice characterization in row 11/14, and the assumption (pad delay taken
-from SPICE as a fixed min/max budget applied to STA I/O constraints) must be
-stated in each timing result. Filing a tool gap on `2AMLogic/klayout-tools`
-is conditional on the experiment showing `klt` cannot drive it; none is
-filed yet because nothing has been tried.
+**(a) Does OpenROAD STA see through the pad cells?** *Answered: yes for the
+delay arcs — with a corner-coverage gap* ([evidence record](../sim/pad-sta/records/RECORD.md),
+2026-11-14). The pinned PDK ships `sky130_fd_io` liberty views
+(649 `.lib` files; inventory with sha256 in the record), and OpenROAD's
+embedded OpenSTA reports real combinational arcs through the pad instance in
+both directions (`OUT -> PAD`, `PAD -> IN`) at the corners tried. But of the
+21 `top_gpiov2` corners shipped, exactly two fall inside decision 0002's
+3.3 V ±10 % window (a typical and a slow one) and none is a fast corner, so
+liberty yields a slow/max pad delay at the ratified supply but no fast/min
+counterpart: the min/max spread row 12 needs still requires the ngspice
+characterization in rows 11/14. Until that campaign lands, any pad delay
+taken from SPICE as a fixed min/max budget applied to STA I/O constraints
+must be stated in each timing result. The pinned `klt` 0.8.0 cannot drive
+this experiment (it cannot load a second liberty/LEF for a macro cell and
+silently ignores the unsupported request field), so the record carries the
+committed OpenROAD session driver as its reproduction path and the gap is
+filed on `2AMLogic/klayout-tools`.
 
 **(b) Delay-chain monotonicity across PVT.** *Unresolved, evidence needed.*
 Experiment: ngspice transient of a standard-cell chain, per tap, across all
