@@ -1,0 +1,32 @@
+{
+  "invocation_id": "b3e2c8ca64b643558ac1b5911edf451e",
+  "script_name": "sta_padwrap__tt_025C_1v80.tcl",
+  "script_path": {
+    "path": "sim/pad-sta/.klt/sta/sta_padwrap__tt_025C_1v80.tcl",
+    "scope": "repo"
+  },
+  "script_sha256": "5fd715771d9bb06f7ab6f5d53d40cc3a1322daa92d0c2615a9d88f13e4e97e41",
+  "metrics_path": {
+    "path": "sim/pad-sta/.klt/sta/padwrap__tt_025C_1v80_metrics.json",
+    "scope": "repo"
+  },
+  "outcome": "exited",
+  "returncode": 1,
+  "directory": {
+    "path": "sim/pad-sta/.klt/sta/openroad-logs/b3e2c8ca64b643558ac1b5911edf451e",
+    "scope": "repo"
+  },
+  "stdout_path": {
+    "path": "sim/pad-sta/.klt/sta/openroad-logs/b3e2c8ca64b643558ac1b5911edf451e/stdout.log",
+    "scope": "repo"
+  },
+  "stderr_path": {
+    "path": "sim/pad-sta/.klt/sta/openroad-logs/b3e2c8ca64b643558ac1b5911edf451e/stderr.log",
+    "scope": "repo"
+  },
+  "metadata_path": {
+    "path": "sim/pad-sta/.klt/sta/openroad-logs/b3e2c8ca64b643558ac1b5911edf451e/invocation.json",
+    "scope": "repo"
+  },
+  "retention_errors": []
+}
