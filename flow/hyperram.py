@@ -6,6 +6,11 @@
   hyperram.py check   re-synthesize into a temp dir and compare byte-for-byte
                       with the committed netlist; exit 3 if stale (T1 item 1
                       freshness check, see attest/item1.json)
+  hyperram.py sta     run `klt sta` on that netlist (clk at 20 ns, ideal clock, no
+                      wire load, no pads) at every sky130_fd_sc_hd liberty corner
+                      the pinned PDK ships, write the response to
+                      sim/hyperram/records/sta.json and a note beside it, and fail
+                      on negative slack only inside decision 0004's supply window
   hyperram.py layout  run `klt place-and-route` on layout/place-and-route.json
                       (the netlist above, 50 MHz, PDN + tapcells) and commit
                       the routed outputs to layout/records/ plus the T1 item 2
@@ -55,6 +60,9 @@ REC = REPO / "sim/hyperram/records"
 NETLIST = REC / "hyperram_ctrl.netlist.v"
 STAT = REC / "synth-stat.json"
 REQ = REPO / "flow/synthesize-hyperram.json"
+STA_REQ = REPO / "flow/sta-hyperram.json"
+STA_REC = REC / "sta.json"
+STA_NOTE = REC / "STA.md"
 LAYOUT = REPO / "layout"
 LREC = LAYOUT / "records"
 LREQ = LAYOUT / "place-and-route.json"
@@ -70,6 +78,19 @@ ROUTED = {
     "hyperram_ctrl_route.spef": "hyperram_ctrl.spef",
 }
 ROW17_MAX_UM2 = 100_000  # spec/target-spec.md row 17: <= 0.10 mm2 core (budget, proposal)
+# Decision 0004's core supply: 1.8 V +/- 10 %. The PDK ships liberty below
+# 1.62 V as well, and the same decision's "all liberty corners" line does not
+# reconcile the two -- settling that is #2's, not this runner's. So `sta` grades
+# only the corners inside the ratified window and reports the rest ungraded,
+# the way layout/README.md already reports the stale place-and-route numbers.
+# Both 1.60 V corners miss the floor by 20 mV and are therefore ungraded; that
+# is the window's arithmetic, not a judgement about them.
+VMIN_V, VMAX_V = 1.62, 1.98
+# Corner names are <model>_<temp>_<supply>, e.g. ss_n40C_1v76 -> 1.76 V. The
+# suffix is the only copy of a corner's voltage: the list of corner names lives
+# in flow/sta-hyperram.json and nowhere else, so classification parses the name
+# rather than keeping a second in/out-of-window list here to fall out of date.
+CORNER_V_RE = re.compile(r"_(\d)v(\d{2})$")
 KEYS = ("engine", "engine_version", "hdl_toplevel", "instance_count", "area_um2", "sequential_area_um2",
         "instance_counts_by_type", "leakage_power_nw", "blackbox_modules", "structural")
 
@@ -327,7 +348,264 @@ def layout_check():
     print("layout record is fresh")
 
 
-COMMANDS = {"synth": synth, "check": check, "layout": layout, "layout-check": layout_check}
+def corner_volts(name):
+    """The supply voltage a corner name encodes, e.g. ss_n40C_1v76 -> 1.76."""
+    m = CORNER_V_RE.search(name or "")
+    if not m:
+        sys.exit(f"FATAL: cannot read a supply voltage out of corner name {name!r}; "
+                 f"`sta` classifies corners in/out of {VMIN_V}-{VMAX_V} V by their "
+                 f"_<n>v<nn> suffix, so a corner it cannot parse cannot be graded")
+    return float(f"{m.group(1)}.{m.group(2)}")
+
+
+def in_window(name):
+    """Is this corner's supply inside decision 0004's ratified window?"""
+    return VMIN_V <= corner_volts(name) <= VMAX_V
+
+
+def liberty_read_by(entry):
+    """The liberty file klt's own OpenSTA script read for this corner.
+
+    Taken from the generated .tcl rather than re-derived: scripts/klt.sh holds
+    the klt pin and klt holds the PDK resolution rule (`find_pdk()`/`libs_ref`),
+    so a second discovery rule here could name a different file than the one
+    that actually answered -- which is precisely the question being asked.
+    The script lives in the untracked scratch dir flow/.klt/, so this is only
+    answerable in the run that produced the response, not afterwards.
+    """
+    corner = entry.get("corner")
+    sp = ((entry.get("engine_log") or {}).get("script_path") or {}).get("path")
+    if not sp:
+        sys.exit(f"FATAL: corner {corner}: the response names no repo-scoped OpenSTA "
+                 f"script, so the liberty klt actually read cannot be named and the "
+                 f"blackboxed cells cannot be checked against it")
+    script = REPO / sp
+    if not script.exists():
+        sys.exit(f"FATAL: corner {corner}: {rel(script)} is gone; the scratch dir is "
+                 f"untracked, so re-run `make hyperram-sta` rather than grading a "
+                 f"response whose liberty cannot be inspected")
+    libs = re.findall(r"^read_liberty\s+(\S+)\s*$", script.read_text(), re.M)
+    if len(libs) != 1:
+        sys.exit(f"FATAL: corner {corner}: expected exactly one read_liberty line in "
+                 f"{rel(script)}, found {len(libs)}")
+    return Path(libs[0])
+
+
+def check_blackboxes_resolved(doc, cells):
+    """Stop unless every cell yosys left as a blackbox is timed from real liberty.
+
+    `klt synthesize` reports three sky130 cells as blackbox_modules -- the gated
+    clock buffer, the delay-chain cell and the mux instantiated by name in the
+    RTL. Yosys does not time them; OpenSTA is the first tool that does, and
+    there are two ways it can fail to, neither of which shows up in a slack
+    number:
+
+      * no LEF master -- klt stops the whole run with `[ERROR ORD-2013]
+        instance ... LEF master ... not found.` and flow/klt_run.py's klt_json
+        turns that into a FATAL before this is reached. Confirmed by running
+        this netlist with the delay cell renamed to a cell the PDK does not
+        ship: klt exits 1 with that error and writes no record.
+      * a LEF master but no liberty entry -- OpenSTA links the instance with no
+        timing arcs, the delay chain contributes zero delay, and the response
+        carries no field that says so. Nothing but the liberty answers this, so
+        the liberty each corner actually read is inspected here.
+
+    The cell list comes from the committed synth-stat.json, so it tracks the
+    netlist being timed instead of being a third hardcoded copy.
+    """
+    for entry in doc["corners"]:
+        lib = liberty_read_by(entry)
+        if not lib.exists():
+            sys.exit(f"FATAL: corner {entry.get('corner')}: liberty {lib} named by klt's "
+                     f"own OpenSTA script is not readable")
+        text = lib.read_text()
+        missing = [c for c in cells if f'cell ("{c}")' not in text]
+        if missing:
+            sys.exit(f"FATAL: corner {entry.get('corner')}: {lib.name} defines no "
+                     f"{', '.join(missing)}; those cells are blackboxes in the netlist "
+                     f"({rel(STAT)} blackbox_modules), so OpenSTA timed them with no "
+                     f"arcs and the delay chain is zero delay in this record")
+    print(f"  blackboxed cells resolved against liberty at all {len(doc['corners'])} "
+          f"corners: {', '.join(cells)}")
+
+
+def sta_note(doc, cells):
+    """The prose beside the record: the in/out-of-window split, what was
+    assumed, what was not timed, and what the record does not prove.
+
+    Generated from the response rather than hand-written, so no number in it
+    can drift from the record it sits next to. Every sentence that is a claim
+    about the run reads its own value out of `doc`.
+    """
+    graded = [c for c in doc["corners"] if in_window(c["corner"])]
+    ungraded = [c for c in doc["corners"] if not in_window(c["corner"])]
+    cc = [c["constraint_completeness"] for c in doc["corners"]]
+    unclocked = sorted({c["unclocked_registers"]["count"] for c in cc})
+    endpoints = sorted({c["unconstrained_endpoints"]["count"] for c in cc})
+    req = json.loads(STA_REQ.read_text())
+    prov = doc["provenance"]
+
+    def rows(entries):
+        return [f"| `{c['corner']}` | {corner_volts(c['corner']):.2f} | {c['worst_slack_ns']} "
+                f"| {c['worst_hold_slack_ns']} | {c['fmax_mhz']} | {c['timing_status']} |"
+                for c in entries]
+
+    head = ["| corner | supply (V) | setup slack (ns) | hold slack (ns) | fmax (MHz) | status |",
+            "|---|---|---|---|---|---|"]
+    lines = [
+        "# Pre-layout STA of the controller netlist (all shipped liberty corners)",
+        "",
+        "`make hyperram-sta` -> [`sta.json`](sta.json), the unmodified `klt sta` response.",
+        f"Request: [`flow/{STA_REQ.name}`](../../../flow/{STA_REQ.name}) --"
+        f" `{req['constraints']['clock_port']}` at {req['constraints']['clock_period_ns']} ns"
+        f" (50 MHz, spec/target-spec.md row 1's target, not the 100 MHz stretch),"
+        f" {len(doc['corners'])} corners in one round trip.",
+        "",
+        f"- Netlist: `{doc['verilog_path']['path']}`, {prov['input']['content_hash']}.",
+        f"- Engine: {doc['engine']} {doc['engine_version']}; klt {prov['klt_version']};"
+        f" PDK {prov['pdk']['version']}.",
+        f"- `{doc['hdl_toplevel']}`, status `{doc['status']}`,"
+        f" `geometry_source: {doc['geometry_source']}`.",
+        "",
+        "## What was assumed",
+        "",
+        "Read out of the response, not asserted here:",
+        "",
+        f"- **Ideal clock** (`clock_mode: {json.dumps(doc['clock_mode'])}`) -- no CTS, no"
+        " clock-tree insertion delay, no propagated-clock latency. The reported"
+        " `clock_skew_ns` is OpenSTA's ideal-network estimate.",
+        f"- **No wire load** (`wire_load_model: {json.dumps(doc['wire_load_model'])}`,"
+        f" `wire_load_mode: {json.dumps(doc['wire_load_mode'])}`) and **no placement or"
+        f" routing** (`def_path: {json.dumps(doc['def_path'])}`,"
+        f" `spef_path: {json.dumps(doc['spef_path'])}`): interconnect is OpenSTA's own"
+        " estimate from the netlist. These are pre-layout numbers, not post-route ones.",
+        "- **No pads.** Only `sky130_fd_sc_hd` is loaded; no `sky130_fd_io` cell, no pad"
+        " delay, no bond/package model, no core-to-pad seam.",
+        "- **No I/O constraints.** The request sets only the clock port and period: no"
+        " input/output delay, no driving cell, no input transition, no output load. The"
+        " design's ports are therefore unconstrained (below).",
+        "",
+        "## Corners inside the ratified supply window (graded)",
+        "",
+        "Decision 0004 puts the core supply at 1.8 V +/- 10 %, i.e."
+        f" {VMIN_V}-{VMAX_V} V. `make hyperram-sta` fails on a negative setup or hold"
+        f" slack at any of these {len(graded)} corners.",
+        "",
+        *head, *rows(graded),
+        "",
+        "## Corners outside it (reported, not graded)",
+        "",
+        "The PDK ships liberty at supplies decision 0004's window excludes. These"
+        f" {len(ungraded)} corners are recorded and printed, and the target does not fail"
+        f" on them. `ss_100C_1v60` and `ss_n40C_1v60` miss the {VMIN_V} V floor by 20 mV;"
+        f" that is the window's arithmetic, not a judgement about those corners. The same"
+        f" decision's \"all liberty corners\" line does not reconcile with the window --"
+        f" left as found, and #2 owns settling it.",
+        "",
+        *head, *rows(ungraded),
+        "",
+        "## What was not timed",
+        "",
+        f"`constraint_completeness` is `{cc[0]['status']}` at every corner and the target"
+        f" does not gate on it. The counts are identical across all"
+        f" {len(doc['corners'])} corners:",
+        "",
+        f"- **{unclocked[0] if len(unclocked) == 1 else unclocked} unclocked registers.**"
+        f" Every sampled pin is under `u_cap/`, the `hr_rd_capture` instance. That module"
+        f" clocks its capture flops off `rwds_d` -- the input strobe after the delay chain"
+        f" -- on both edges, and a `klt sta` request names exactly one `clock_port`, so"
+        f" OpenSTA sees no clock on them. **The read-capture path is unconstrained and"
+        f" unreported in this record.**",
+        f"- **{endpoints[0] if len(endpoints) == 1 else endpoints} unconstrained"
+        f" endpoints** -- the design's output ports and `cfg_rdata`, since no output"
+        f" delay or load is set (above).",
+        "",
+        "Neither is masked. `constraints.false_path_from` would have hidden the capture"
+        " path instead of recording the gap, and the request schema cannot express a"
+        " second or generated clock for `rwds_d` at the pinned klt. Constraining that"
+        " domain is a modelling choice that belongs to the spec (#2); its real delays"
+        " belong to the ngspice delay-chain campaign (#99) and its pad-facing half to"
+        " #98.",
+        "",
+        f"All {len(cells)} cells yosys left as blackboxes"
+        f" ({', '.join('`' + c + '`' for c in cells)}) are defined in the liberty every"
+        f" corner read, so the delay chain is timed with real cell delays rather than as"
+        f" zero delay. `make hyperram-sta` fails if that is ever untrue.",
+        "",
+        "## What this does not prove",
+        "",
+        "This is the **STA, all core** half of `spec/target-spec.md` row 1's proof"
+        " (\"STA + SPICE pad timing\", corners \"all core + all ngspice\") and nothing"
+        " more. It is **not** a proof of row 11 (read capture), row 12 (read-capture"
+        " margin), row 14 (write path) or row 19 (timing at the pins): each of those"
+        " needs the pads, SPICE, or the strobe domain, none of which are in this record."
+        " **No spec row is called met here** -- the rows and their proof status are"
+        " `spec/`'s to state (#2, #100), and the manifests and signoff record are"
+        " untouched by this target.",
+        "",
+        "Also not here: place-and-route, wire load, SPEF, DRC/LVS (`layout/`, #52), and"
+        " any claim about 100 MHz -- the `fmax_mhz` column is OpenSTA's ideal-clock,"
+        " no-wire-load estimate for the `clk` domain alone, reported, not graded.",
+    ]
+    return "\n".join(lines) + "\n"
+
+
+def sta():
+    """`klt sta` on the committed netlist at every shipped liberty corner.
+
+    Mirrors flow/smoke.py's `sta` verb, with two differences the design (rather
+    than the smoke counter) forces:
+
+      * the gate is asymmetric -- graded inside decision 0004's supply window,
+        reported outside it (see VMIN_V/VMAX_V);
+      * the response is checked for things a slack number cannot show: the
+        corner set actually answered, and that the blackboxed cells were timed
+        from liberty (AC 8 of issue #97).
+
+    Order matters. The response's shape is validated *before* anything is
+    written, so a structurally broken run cannot overwrite good evidence; the
+    record and the note are then written unconditionally, and the slack gate
+    runs last. A timing failure at an in-window corner must still leave the
+    evidence on disk -- it is reported, not tuned away.
+    """
+    if not NETLIST.exists():
+        sys.exit(f"FATAL: {rel(NETLIST)} missing; run `make hyperram-synth`")
+    if not STAT.exists():
+        sys.exit(f"FATAL: {rel(STAT)} missing; run `make hyperram-synth`")
+    cells = json.loads(STAT.read_text())["blackbox_modules"]
+    want = list(json.loads(STA_REQ.read_text())["pdk"]["corners"])
+
+    doc = klt_json("sta", str(STA_REQ), env=pdk_env())
+    if doc.get("status") != "ok":
+        sys.exit(f"FATAL: klt sta status is {doc.get('status')!r}, not 'ok'")
+    got = [c.get("corner") for c in doc.get("corners") or []]
+    if got != want:
+        sys.exit(f"FATAL: the response does not answer the request's {len(want)} corners.\n"
+                 f"  requested: {want}\n  answered:  {got}")
+    check_blackboxes_resolved(doc, cells)
+
+    REC.mkdir(parents=True, exist_ok=True)
+    STA_REC.write_text(json.dumps(doc, indent=2) + "\n")
+    STA_NOTE.write_text(sta_note(doc, cells))
+
+    bad = 0
+    for c in doc["corners"]:
+        setup, hold = c.get("worst_slack_ns"), c.get("worst_hold_slack_ns")
+        graded = in_window(c["corner"])
+        ok = c.get("timing_status") == "constrained" and setup is not None \
+            and hold is not None and setup >= 0 and hold >= 0
+        bad += graded and not ok
+        verdict = ("PASS" if ok else "FAIL") if graded else "not graded"
+        print(f"  {c['corner']:<14} {corner_volts(c['corner']):.2f}V "
+              f"{'in ' if graded else 'out'} setup={setup:<10} hold={hold:<9} {verdict}")
+    print(f"sta: {len(doc['corners'])} corners -> {rel(STA_REC)}, {rel(STA_NOTE)}")
+    if bad:
+        sys.exit(f"FATAL: {bad} corner(s) inside {VMIN_V}-{VMAX_V} V failed; the record "
+                 f"is written -- report it, do not relax the request")
+
+
+COMMANDS = {"synth": synth, "check": check, "sta": sta,
+            "layout": layout, "layout-check": layout_check}
 
 if __name__ == "__main__":
     if len(sys.argv) != 2 or sys.argv[1] not in COMMANDS:

@@ -1,6 +1,7 @@
 # Toolchain smoke flow on rtl/smoke/ (NOT the design). `make smoke` runs lint,
 # the cocotb test, synthesis and three-corner STA, then writes the record.
-# `make hyperram-lint | hyperram-synth | hyperram-check` cover the controller RTL;
+# `make hyperram-lint | hyperram-synth | hyperram-check | hyperram-sta` cover the
+# controller RTL and the pre-layout timing of its netlist;
 # `make layout | layout-check` place-and-route its netlist (layout/);
 # `make drc` runs klt drc on the routed GDS (T1 item 3).
 # Run scripts/setup-env.sh first; targets use .venv/bin tools when present.
@@ -40,7 +41,7 @@ smoke-record:
 HR_DIR  := rtl/hyperram_ctrl
 HR_RTL  := $(HR_DIR)/hyperram_ctrl.v $(HR_DIR)/hr_cmd_fsm.v $(HR_DIR)/hr_dq_out.v $(HR_DIR)/hr_rd_capture.v
 
-.PHONY: hyperram-lint hyperram-synth hyperram-check
+.PHONY: hyperram-lint hyperram-synth hyperram-check hyperram-sta
 
 hyperram-lint:
 	# warnings are fatal; sim/ holds zero-delay stand-ins for the named sky130 cells
@@ -52,6 +53,12 @@ hyperram-synth:
 # re-synthesize and compare with the committed netlist (T1 item 1 freshness)
 hyperram-check:
 	python3 flow/hyperram.py check
+
+# klt sta on the committed netlist at all 16 shipped liberty corners (~30 s, no
+# place-and-route); graded inside decision 0004's 1.62-1.98 V supply window,
+# reported outside it. Not a prerequisite of anything.
+hyperram-sta:
+	python3 flow/hyperram.py sta
 
 .PHONY: layout layout-check
 
