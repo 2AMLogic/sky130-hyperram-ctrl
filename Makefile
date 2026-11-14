@@ -2,7 +2,9 @@
 # the cocotb test, synthesis and three-corner STA, then writes the record.
 # `make hyperram-lint | hyperram-synth | hyperram-check` cover the controller RTL;
 # `make layout | layout-check` place-and-route its netlist (layout/);
-# `make drc` runs klt drc on the routed GDS (T1 item 3).
+# `make drc` runs klt drc on the routed GDS (T1 item 3);
+# `make delay-chain` runs the 45-corner ngspice RWDS delay-chain campaign on the
+# batch fleet (spec open question (b), issue 99; local_only: needs ngspice + PDK).
 # Run scripts/setup-env.sh first; targets use .venv/bin tools when present.
 
 SHELL := /bin/bash
@@ -68,3 +70,13 @@ layout-check:
 # klt drc (curated sky130 deck, ~1 min, no PDK) on the routed GDS -> item-3 report
 drc:
 	scripts/klt.sh drc --deck sky130 --format json layout/records/hyperram_ctrl.gds > layout/records/drc.report.json
+
+.PHONY: delay-chain
+
+# The RWDS delay-chain ngspice campaign (spec open question (b), issue 99):
+# 5x3x3 decision-0004 corners submitted to the batch fleet through `klt sim`
+# (--wait-for-capacity 600; never a hand-run ngspice grid), the raw report
+# committed verbatim, and taps.csv / summary.csv / RECORD.md derived from it.
+# local_only like smoke/layout/drc: needs ngspice and the PDK, absent from CI.
+delay-chain:
+	python3 flow/delay_chain.py sim
