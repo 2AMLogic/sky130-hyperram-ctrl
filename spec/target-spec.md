@@ -54,10 +54,22 @@ stated in each timing result. Filing a tool gap on `2AMLogic/klayout-tools`
 is conditional on the experiment showing `klt` cannot drive it; none is
 filed yet because nothing has been tried.
 
-**(b) Delay-chain monotonicity across PVT.** *Unresolved, evidence needed.*
-Experiment: ngspice transient of a standard-cell chain, per tap, across all
-corners; pass if tap delay is monotonic in tap count and the min/max ratio
-at the chosen tap leaves the row 12 margin. Decision 0003 holds until this is
-shown; if it fails the record is superseded, not the margin relaxed.
+**(b) Delay-chain monotonicity across PVT.** *Answered for the on-chip chain
+(schematic level), 2026-11-14.* The ngspice campaign over the 16-cell
+`sky130_fd_sc_hd__dlygate4sd3_1` chain with its committed tap loads, across
+the full decision-0004 corner set (process tt/ff/ss/fs/sf, −40/27/125 °C,
+1.62/1.80/1.98 V; 45 corners, every one simulated) is **monotonic in tap
+count at every corner, rise and fall**, with a per-tap min/max spread of
+≈2.63–3.03 across corners; tap 7 spans ≈4.1–11.0 ns rise against the 10 ns
+bit time at 50 MHz. Record:
+[sim/delay-chain/records/RECORD.md](../sim/delay-chain/records/RECORD.md)
+(raw `klt sim` report committed beside it). The figures are schematic-level:
+the cell netlist carries no parasitics of any kind, so layout RC is still
+owed a post-layout (`klt pex`) confirmation. Decision 0003's monotonicity
+precondition is met for the on-chip chain; the other half of this
+experiment — the min/max ratio at the *chosen* tap leaving the row 12
+margin — still waits on the pad question (a) and the tap choice, and no row
+is marked met here. If a parasitic-inclusive run contradicts this record,
+the record is superseded, not the margin relaxed.
 
 **(c) Device timing parameters**: see [device-model-params.md](device-model-params.md).

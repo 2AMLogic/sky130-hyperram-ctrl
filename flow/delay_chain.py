@@ -12,7 +12,13 @@
 klt runs through scripts/klt.sh (the pin and the resolution rule). The
 campaign itself is a batch-fleet job submitted with --wait-for-capacity 600
 (never a hand-run ngspice grid: the dispatch hosts forbid it and a hand grid
-would carry no machine-checkable corner provenance). The derivation is pure;
+would carry no machine-checkable corner provenance). The request sets
+batch.runner_version_check to "warn": the fleet image's runner is NEWER than
+this repo's pinned client (it refused an unqualified submit with the
+runner-side preflight, exit 87), a newer runner cannot silently drop a
+request feature an older one would, and the skew is recorded in the report's
+environment.remote (runner_klt_version vs client_klt_version) and quoted in
+RECORD.md. The derivation is pure;
 scripts/check_delay_chain_derive.py unit-checks it, including a deliberately
 non-monotonic fixture that must be reported as a failure rather than smoothed
 over. Every corner that returns a measurement error appears in taps.csv as a
@@ -253,11 +259,19 @@ def render_provenance(report):
     ml = ml.get("scope", "?") if isinstance(ml, dict) else ml
     amb = (prov.get("pdk", {}).get("ambiguous_sources") or [])
     amb = f" (also installed via {', '.join(amb)}; client pinned $PDK_ROOT)" if amb else ""
+    skew = ""
+    if remote.get("runner_klt_version"):
+        skew = (f"- runner/client klt skew (deliberate, runner_version_check=warn): "
+                f"runner {remote.get('runner_klt_version')} vs client "
+                f"{remote.get('client_klt_version', '?')} (the repo pin); the "
+                f"runner is the newer side, so no request feature can be "
+                f"silently dropped")
     return "\n".join([
         "## Provenance (from the run's own report)", "",
         f"- engine: ngspice {env.get('engine_version', '?')} "
         f"(engine_host: {env.get('engine_host', '?')}); build banner: {banner}",
         f"- batch job(s): {jobs} (state: {state})",
+        skew,
         f"- klt: {prov.get('klt_version', '?')}",
         f"- PDK: {prov.get('pdk', {}).get('version', '?')}{amb}; "
         f"models_lib: {ml} (sha256 {env.get('models_lib_sha256', '?')})",
@@ -282,8 +296,10 @@ ASSUMPTIONS_MARKDOWN = "\n".join([
     "the per-tap delay is read at the dly nodes, before the mux.",
     "- Delay = 50 % rail crossing at the tap minus the 50 % crossing at the "
     "input node (supply-relative trip point via `frac_of`), first rise and "
-    "first fall in 0..30 ns; transient `5p 30n 0 25p` (tmax bounds the solver "
-    "step near the edges).",
+    "first fall in 0..60 ns -- the window spans the worst-corner delay, not "
+    "the typ-only one the first submit used (10 slow corners' late-tap fall "
+    "edges landed past 30 ns and came back empty). Transient `5p 60n 0 25p` "
+    "(tmax bounds the solver step near the edges).",
     "- Monotonicity test (AC3): delay(tap k+1) > delay(tap k) for every k, for "
     "rise and for fall, at that corner. Tap k+1's chain strictly contains tap "
     "k's, so a failure would point at a measurement artifact before the "
