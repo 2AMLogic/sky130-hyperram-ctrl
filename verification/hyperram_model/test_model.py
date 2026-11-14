@@ -1,7 +1,8 @@
 """Self-test for the device model: a trivial host driver exercises CA decode,
 latency (variable, doubled, fixed), linear bursts, RWDS write masking,
-register space, power-up, and the tCSM violation flag (with its negative
-control). No simulator or DUT needed: `python3 -m unittest -v`.
+register space, power-up, and the tCSM and ck_phase violation flags (each
+with its negative control). No simulator or DUT needed:
+`python3 -m unittest -v`.
 
 The timing values are the one PLACEHOLDER set defined beside the model
 (``model.PLACEHOLDER``), chosen for functional coverage. They are not
@@ -41,10 +42,16 @@ def words_within_tcsm(lat=LAT):
 
 
 class Host:
-    """Minimal host: drives CS#/CK/DQ/RWDS against the model, keeps time."""
+    """Minimal host: drives CS#/CK/DQ/RWDS against the model, keeps time.
 
-    def __init__(self, model, t=2000.0):
+    ``first_edge_rising=False`` inverts every CK level (CK idling high, so CA
+    launches on a falling edge). The model must reject that; nothing else
+    about the transaction changes, which is why the check is needed.
+    """
+
+    def __init__(self, model, t=2000.0, first_edge_rising=True):
         self.m, self.t = model, t
+        self.first_edge_rising = first_edge_rising
 
     def _edge(self, dq=None, rwds=None):
         self.t += HALF
@@ -54,7 +61,7 @@ class Host:
     def begin(self, ca):
         self.m.cs_fall(self.t)
         self.t += CS_PAD_NS
-        self._ck = 0
+        self._ck = 0 if self.first_edge_rising else 1
         self.ca_rwds = None
         for b in ca:
             out = self._edge(dq=b)
@@ -187,6 +194,47 @@ class ModelSelfTest(unittest.TestCase):
         flagged = self.m.violations_of("tCSM")
         self.assertEqual(len(flagged), 1)
         self.assertGreater(self.m.transactions[-1].cs_low_ns, PLACEHOLDER.t_csm_ns)
+
+    def test_ck_phase_flag_negative_control(self):
+        """The model reads the CK level it is passed (#86).
+
+        Positive control first: a read driven on the documented phase records
+        no ``ck_phase`` violation. Then the same read with every CK level
+        inverted -- identical bytes, identical edge count -- is flagged, once,
+        by name. Without the check both runs look alike, so a controller that
+        launched CA half a cycle off would pass every bench.
+        """
+        self.m.mem[0:4] = b"\x11\x22\x33\x44"
+        good = self.h.read(0, 2)
+        self.assertEqual(self.m.violations_of("ck_phase"), [])
+        self.m.assert_clean()
+
+        bad_model = HyperRamModel(PLACEHOLDER)
+        bad_model.mem[0:4] = b"\x11\x22\x33\x44"
+        bad = Host(bad_model, first_edge_rising=False).read(0, 2)
+        # Data is unaffected -- byte order comes from the edge count, not the
+        # level -- so the violation is the only thing that distinguishes them.
+        self.assertEqual(bad, good)
+        flagged = bad_model.violations_of("ck_phase")
+        self.assertEqual(len(flagged), 1, flagged)
+        self.assertIn("edge 0", flagged[0].detail)
+        self.assertIn("falling", flagged[0].detail)
+
+    def test_ck_phase_flags_a_single_slipped_edge(self):
+        """A phase slip part-way through a transaction is flagged too, at the
+        edge where it starts, and not again for the rest of the burst."""
+        self.h.begin(ca_bytes(0, True))
+        self.assertEqual(self.m.violations_of("ck_phase"), [])
+        # Repeat the current level instead of toggling: one stuck/duplicated
+        # CK edge, from here on every edge is on the wrong phase.
+        self.h.t += HALF
+        self.m.clock(self.h.t, self.h._ck)
+        self.h.idle(latency_idle_edges() - 1)
+        [self.h._edge() for _ in range(2)]
+        self.h.end()
+        flagged = self.m.violations_of("ck_phase")
+        self.assertEqual(len(flagged), 1, flagged)
+        self.assertIn("edge 6", flagged[0].detail)
 
     def test_cs_high_time_and_other_named_checks(self):
         self.h.begin(ca_bytes(0, True))

@@ -36,6 +36,12 @@ Interface assumptions (public definition, restated so a reviewer can check):
   * Read data is edge-aligned with RWDS (RWDS high on the first byte of each
     word). Write data is centre-aligned; RWDS high on a write byte masks it
     (memory space only).
+  * CK idles low: the first CA byte is clocked on a RISING edge and the
+    level alternates from there, one byte per edge. A transaction whose
+    edges do not follow that phase is flagged as ``ck_phase`` (once, on the
+    first mismatched edge) -- the byte order itself is driven by the edge
+    count, so without this check a controller launching CA half a cycle off
+    would transfer correct data and record no violation.
   * Not modelled here: wrapped bursts (out of v1 scope; flagged as
     ``burst_type``), the CR0 latency-field encoding, and sub-edge DQ
     setup/hold (tIS/tIH).
@@ -134,7 +140,6 @@ class Transaction:
     latency_clk: int            # total latency applied (0 for register write)
     extra_latency: bool         # RWDS high during CA
     t_cs_fall_ns: float
-    t_cs_rise_ns: Optional[float] = None
     bytes_transferred: int = 0  # data bytes moved (read out or write in)
     bytes_masked: int = 0
     cs_low_ns: Optional[float] = None
@@ -152,6 +157,7 @@ class _Txn:
     pending_hi: Optional[int] = None
     extra: bool = False
     tcsm_flagged: bool = False
+    ck_phase_flagged: bool = False
 
 
 class HyperRamModel:
@@ -226,11 +232,24 @@ class HyperRamModel:
             self._flag("tCSH", t_ns, f"{t_ns - txn.last_edge_ns} ns after last CK edge")
         self._check_tcsm(txn, t_ns)
         if txn.info is not None:
-            txn.info.t_cs_rise_ns = t_ns
             txn.info.cs_low_ns = t_ns - txn.start_ns
         self._cs_low = False
         self._txn = None
         self._cs_rose_ns = t_ns
+
+    def _check_ck_phase(self, txn: _Txn, i: int, ck: int, t_ns: float):
+        """CK idles low, so edge ``i`` of a transaction is rising when ``i`` is
+        even. Flagged once per transaction: a phase error is a standing
+        condition, and the first mismatched edge is the informative one."""
+        expect = 1 - (i & 1)
+        if int(ck) == expect or txn.ck_phase_flagged:
+            return
+        txn.ck_phase_flagged = True
+        name = {0: "falling", 1: "rising"}
+        self._flag("ck_phase", t_ns,
+                   f"CK edge {i} of this transaction is {name[int(ck) & 1]}, "
+                   f"expected {name[expect]}: CA launches on a rising edge and "
+                   "the level alternates from there")
 
     def _check_tcsm(self, txn: _Txn, t_ns: float):
         if not txn.tcsm_flagged and t_ns - txn.start_ns > self.p.t_csm_ns:
@@ -243,6 +262,10 @@ class HyperRamModel:
         """One CK edge (``ck`` is the new level, 1 = rising). Pins are the
         values sampled at the edge. Returns what the device drives from this
         edge on. With CS# high the edge is ignored and nothing is driven.
+
+        The level is checked, not just recorded: edge 0 of a transaction must
+        be rising and the level must alternate from there, else ``ck_phase``
+        is flagged once for the transaction.
         """
         if not self._cs_low:
             return PadOutput(None, None)
@@ -256,6 +279,7 @@ class HyperRamModel:
 
         i = txn.edge_idx
         txn.edge_idx += 1
+        self._check_ck_phase(txn, i, ck, t_ns)
         rwds_delay = self.p.t_ckds_ns + self.p.rwds_skew_ns
         if i < CA_BYTES:
             assert dq_in is not None, "DQ must be driven by the host during CA"

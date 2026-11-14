@@ -6,7 +6,6 @@
   "testbenches": [
     "verification/Makefile",
     "verification/README.md",
-    "verification/hyperram_model/__init__.py",
     "verification/hyperram_model/model.py",
     "verification/hyperram_model/test_model.py",
     "verification/smoke/Makefile",

@@ -3,14 +3,14 @@
   "kind": "generic",
   "status": "pass",
   "t1_item": 9,
-  "summary": "T1 item 9 (Testbenches shipped): 26/26 attestation checks passed (klt signoff --attest)",
+  "summary": "T1 item 9 (Testbenches shipped): 25/25 attestation checks passed (klt signoff --attest)",
   "source": "attest/item9.json",
   "attestation": {
     "producer": "klt signoff --attest",
     "inventory_schema_version": 1,
     "hash_algorithm": "sha256-raw-bytes",
-    "check_count": 26,
-    "passed_count": 26,
+    "check_count": 25,
+    "passed_count": 25,
     "checks": [
       {
         "check": "present",
@@ -31,7 +31,7 @@
         "role": "testbench",
         "path": "verification/README.md",
         "passed": true,
-        "content_hash": "sha256:c69c8835798f92cebd7bd3edbe09ce5f724618b730cd3a9d5152cd3d83fd175c"
+        "content_hash": "sha256:4db4574cf86e170a074c70b6e4ba1915124a3746684ede42d4410dd7250a544e"
       },
       {
         "check": "present",
@@ -141,23 +141,16 @@
       {
         "check": "present",
         "role": "testbench",
-        "path": "verification/hyperram_model/__init__.py",
-        "passed": true,
-        "content_hash": "sha256:54404525a142b8bbbc8cc033f92e14b977dceb65b07d639a7262be057cd4726f"
-      },
-      {
-        "check": "present",
-        "role": "testbench",
         "path": "verification/hyperram_model/model.py",
         "passed": true,
-        "content_hash": "sha256:98faf8ffc668daf029bfad5b57394ee69cac374838bb8f52a64fa1bcbcf52b87"
+        "content_hash": "sha256:25862a794841135e5a12dbebb3d39659e528e4cf3a4f1493cde67286078210fc"
       },
       {
         "check": "present",
         "role": "testbench",
         "path": "verification/hyperram_model/test_model.py",
         "passed": true,
-        "content_hash": "sha256:5f82176a9330a9df13af5fc20f0de9d2175499e921d806d980ad2a8c8580bc21"
+        "content_hash": "sha256:2fcfa350ed7970b150451620dc7802bd45fcbfcf3509b57e6618a532c02089e6"
       },
       {
         "check": "present",
@@ -218,7 +211,7 @@
         "path": "attest/item9.json",
         "scope": "repo"
       },
-      "content_hash": "sha256:575a616a2f854f4ed058da8da4225138e46de32c27744b88f67650f4f2fdabb7"
+      "content_hash": "sha256:edfac8a354f87d2899485a677dcd1a86d69a7bfa9fb967b20536af06f48e7449"
     }
   }
 }
