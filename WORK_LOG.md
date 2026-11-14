@@ -3,8 +3,15 @@
 Chronological record of merged PRs and closed issues, newest first.
 Maintained by the Guide triage role; entries are append-only.
 
+### 2026-11-14
+
+- **PR #90**: test: flag a CK-phase error in the device model instead of ignoring the level
+- **Issue #86** (closed): Device model ignores the CK level it is passed: check edge polarity or drop the parameter
+
 ### 2026-11-13
 
+- **PR #87**: fix: reject an off-pin yosys in flow/hyperram.py and re-mint the netlist under the pin
+- **Issue #81** (closed): Committed gate-level netlist does not reproduce under the pinned yosys, but item 1 records the freshness check as passed
 - **PR #82**: test: randomize RWDS extra latency on random-traffic reads, drop can't-fail checks
 - **PR #83**: refactor: run flow/ synthesis and place-and-route through scripts/klt.sh
 - **Issue #77** (closed): Remove stale extra-latency workaround, can't-fail assertions and dead helpers from the controller benches
