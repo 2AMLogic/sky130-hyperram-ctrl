@@ -5,6 +5,7 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-11-14
 
+- **PR #94**: docs(spec): transcribe the device timing table and refresh both sibling comparisons
 - **PR #90**: test: flag a CK-phase error in the device model instead of ignoring the level
 - **Issue #86** (closed): Device model ignores the CK level it is passed: check edge polarity or drop the parameter
 
