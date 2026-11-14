@@ -5,6 +5,12 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-11-14
 
+- **PR #107**: feat: add a hyperram-sta verb recording STA at all 16 shipped liberty corners
+- **Issue #97** (closed): Record pre-layout STA of the current controller netlist at every shipped sky130_fd_sc_hd corner
+- **PR #105**: refactor(verification): glob the controller bench list and assert the item-9 inventory covers it
+- **Issue #93** (closed): Derive the controller bench list from disk: three hand-maintained copies, none checked
+- **PR #95**: fix: gate synthesis on the pinned yosys.wasm hash, not just its version
+- **Issue #89** (closed): flow/hyperram.py yosys gate checks the engine version string, not the pinned wasm build
 - **PR #94**: docs(spec): transcribe the device timing table and refresh both sibling comparisons
 - **PR #90**: test: flag a CK-phase error in the device model instead of ignoring the level
 - **Issue #86** (closed): Device model ignores the CK level it is passed: check edge polarity or drop the parameter
