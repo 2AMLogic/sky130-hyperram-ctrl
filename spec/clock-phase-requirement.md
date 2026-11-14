@@ -9,15 +9,18 @@ separate proposal and is not used here.
 
 ## Source values (from [device-model-params.md](device-model-params.md))
 
-Document 001-99253, Rev. \*H copy (the repo cites Rev. \*C; not read, see that
-file). tIS = tIH = **1.00 ns** minimum, taken from the 100 MHz column of
-Table 9.5, p. 40. The source tabulates no 50 or 25 MHz column for tIS/tIH, so
+Document 001-99253, **Rev. \*H** — now the revision this spec cites throughout,
+with a recorded locator (see that file; Rev. \*C is no longer cited anywhere).
+tIS = tIH = **1.00 ns** minimum, taken from the 100 MHz column of
+Table 9.5, **p. 39**. The source tabulates no 50 or 25 MHz column for tIS/tIH, so
 **1.00 ns is an assumption at 50 and 25 MHz**: it is the slowest tabulated
 column, the tabulated minima grow as the clock slows (0.40, 0.60, 0.80, 1.00 ns
 at 200, 166, 133, 100 MHz), and nothing read says a slower clock needs more. If
 a device datasheet lists a larger 50 MHz value, the numbers below shrink by
 that difference. tCK min is 10.00 ns (100 MHz) and 20.00 ns (50 MHz), Table 9.2,
-p. 34; 40 ns at 25 MHz is the nominal period. Jitter: Table 9.2 note 1 says
+**p. 33** (note 2 there restricts the 50 MHz column's relevance to a HyperFlash
+burst-write program case, so the 20.00 ns is citable but its surrounding row set
+is not); 40 ns at 25 MHz is the nominal period. Jitter: Table 9.2 note 1 says
 "Clock jitter of ±5 percent is permitted"; the text read does not define
 whether this is period, cycle-to-cycle or absolute jitter, so the reading below
 is an assumption.
@@ -68,10 +71,19 @@ Corner: tIS/tIH are datasheet minima, not process corners, so (a) and (b) are
 the same number at every PVT point. The window must hold at **every** corner of
 decision 0004 (all ngspice corners tt/ff/ss/fs/sf, −40 … +125 °C, core 1.8 V
 ±10 %, I/O supply per decision 0002), because `e_pad`, `e_skew` and `e_jit` vary
-over them. The device-side voltage and temperature conditions of the tIS/tIH
-rows (Table 9.1) were not transcribed. Recorded evidence for the three
-uncertainty terms does not exist yet, so **no corner has been shown to meet
-this requirement**.
+over them. **Correction (2026-11-14):** an earlier version of this line said the
+device-side voltage and temperature conditions of the tIS/tIH rows "(Table 9.1)
+were not transcribed". Table 9.1 (p. 32) has now been read, and they do not
+exist to transcribe — it gives a load (`CL` = 20 pF at 100 MHz), input pulse
+levels (0.0–VCCQ), a VCCQ/2 measurement reference, and an **assumed 2 V/ns input
+slew rate**; §9.3.3 and §9.3.5 defer voltage and temperature to device
+datasheets. The slew assumption is the consequential one, and the pad spec does
+not currently meet it across most of the corner space — see
+[pad-interface.md](pad-interface.md) → conflict C1. That is a further reason
+`e_pad` is unbounded, and it adds a fourth unmeasured dependency this document
+does not carry a term for. Recorded evidence for the three uncertainty terms
+still does not exist, so **no corner has been shown to meet this
+requirement**.
 
 Phase is quoted at the pins: a clock source only gets what is left after
 `e_pad`, `e_skew` and `e_jit`. Example at 50 MHz: if those three sum to 1.5 ns,
@@ -130,5 +142,11 @@ cannot be bounded until the ngspice pad characterization exists.
 2. Data valid window is T/2 per beat; CK edge samples centre-aligned data; single-ended CK (decision 0001).
 3. Uncertainty terms add linearly and in the worst direction.
 4. The ±5 % jitter allowance is read as a bound on CK jitter relative to the nominal clock (definition not in the text read).
-5. Source is Rev. \*H of the interface definition, not the Rev. \*C cited elsewhere.
+5. Source is Rev. \*H of the interface definition. As of 2026-11-14 that is the
+   revision cited everywhere in `spec/`, with a recorded locator, so this is no
+   longer a mismatch with the rest of the spec; Rev. \*C remains unread.
 6. `e_pad`, `e_skew`, `e_jit` are unmeasured; no claim is made that any corner passes.
+7. The device's AC timings assume a 2 V/ns input slew rate, which the pad spec
+   does not meet at its slow corner ([pad-interface.md](pad-interface.md) → C1).
+   The budget above does not model any slew-dependent degradation of tIS/tIH,
+   because the source states none.
