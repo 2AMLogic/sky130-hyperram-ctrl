@@ -55,7 +55,7 @@ Row ids in the third column are `io-ring.md`'s own (`SUP.n`, `GF.n`, `GE.n`,
 | CK output | output-only pad | **GF.1** fallback keeps output-only and input-only variants; the target GPIO covers it | **fit** |
 | CS#, RESET# | output-only pads | as above | **fit** |
 | Drive strength | enough for a short board trace at 50 MHz, fixed by SPICE at a stated load | **GE.1** VOH ≥ VDDIO − 0.4 V at IOH = −4 mA and **GE.2** VOL ≤ 0.4 V at IOL = 4 mA, both at corner ss / 125 °C / VDDIO 2.97 V / VDD 1.62 V. Fallback ±2 mA; stretch ±8 mA in a selectable strong mode. **GF.4** one fixed strength in the target, selectable drive is stretch | **fit, and the placeholder is resolved.** This row previously carried "placeholder: 10 pF, to be replaced" — io-ring characterizes into **10 pF**, the same load, so the two specs agree on the load by convergence rather than by assumption. 4 mA at the slow/hot/low corner is a figure we can design against. Still a target: `measurements/` is empty |
-| Edge rate / input slew seen by the device | the device's AC timings **assume an input slew rate of 2 V/ns** (`device-model-params.md`, Table 9.1 note 1); a single-ended CK is allowed ≥ 1 V/ns (Table 9.3 note 1) | **GE.3** tr/tf (20–80 % of VDDIO) ≤ 3 ns into 10 pF at ss / 125 °C / 2.97 V, fallback ≤ 5 ns; **GE.4** tr/tf ≥ 0.8 ns into 10 pF at ff / −40 °C / 3.63 V | **conflict — see below.** GE.3's ceiling is far slower than 2 V/ns, by roughly an order of magnitude at the slow corner. This row was written as a "fit" earlier in this same pass and is corrected here |
+| Edge rate / input slew seen by the device | the device's AC timings **assume an input slew rate of 2 V/ns** (`device-model-params.md`, Table 9.1 note 1); a single-ended CK is allowed ≥ 1 V/ns (Table 9.3 note 1) | **GE.3** tr/tf (20–80 % of VDDIO) ≤ 3 ns into 10 pF at ss / 125 °C / 2.97 V, fallback ≤ 5 ns; **GE.4** tr/tf ≥ 0.8 ns into 10 pF at ff / −40 °C / 3.63 V | **conflict — see below.** GE.3's ceiling is far slower than 2 V/ns — **~3.4×** too slow at the slow corner. This row was written as a "fit" earlier in this same pass and is corrected here |
 | Maximum toggle rate | 50 MHz at the pins, 25 MHz fallback | **GE.9** 50 MHz into 10 pF on both the output and input paths at ss / 125 °C / low supplies, fallback 25 MHz | **fit, exactly.** Our target and fallback match GE.9's target and fallback, at the corner we care about. This is the single strongest point of agreement between the two specs |
 | Output delay and spread | pad-to-pin **minimum and maximum** over all ngspice corners, rise and fall separately, stated per cell | **GE.7** core-OUT-to-PAD 50 %–50 % ≤ 5 ns into 10 pF at ss / 125 °C / 2.97 V / 1.62 V; fallback ≤ 8 ns | **gap, narrowed and restated.** A maximum now exists at the slow corner. There is **no minimum, no fast-corner figure, and no rise/fall split**, so the spread — `max − min`, the only quantity read capture consumes — cannot be derived from it. A 5 ns ceiling is equally consistent with a spread of 0 ns or of 5 ns |
 | Input delay and spread | pin-to-core minimum and maximum, same corners, tracked on RWDS and DQ **separately** | **GE.8** PAD-to-core-IN 50 %–50 % ≤ 3 ns at ss / 125 °C / 2.97 V / 1.62 V; fallback ≤ 5 ns | **gap, same kind.** One-sided maximum, no minimum, and no statement that two instances of the cell match each other. For read capture the per-pin *matching* is more important than the absolute value |
@@ -75,6 +75,11 @@ Both surfaced only once the interface definition was actually obtained (see
 Neither is io-ring's fault, and neither is settled here — a Builder does not get
 to pick a side, and no row above is relaxed to make the conflict go away. Both
 are owed a decision record before ratification.
+
+Both conflicts below are **pad-side**. A third gap found in the same pass,
+**C3** — this spec's +125 °C corner lies outside the device's published
+`tCSM` thermal basis — is not a pad matter and is recorded in
+[decisions/0004](decisions/0004-pvt-corner-set.md), on the same footing.
 
 ### C1 — Input slew rate: the pad is far too slow at the slow corner
 
@@ -102,7 +107,7 @@ rather than escapes:
 
 1. **The measurement band is not stated.** The source says "2 V/ns" without
    naming the fraction of swing it is measured over; io-ring's GE.3/GE.4 use
-   20–80 %. The ratio above is therefore order-of-magnitude, not exact.
+   20–80 %. The ratio above is therefore approximate, not exact.
 2. **The figure is not tabulated at 50 MHz.** Table 9.1's columns are
    200 / 166 / 133 / 100 MHz only, and 2.0 V/ns is listed for all of them. There
    is no 50 MHz column, so **nothing read says what slew a 50 MHz bus needs.**
@@ -120,7 +125,7 @@ ask below.
 
 ### C2 — I/O supply tolerance exceeds the device's range
 
-The device's 3.0 V supply range is **2.70–3.60 V** (§8.3.3, p. 26). This spec
+The device's 3.0 V supply range is **2.70–3.60 V** (§8.3.3, p. 28). This spec
 and io-ring both say 3.3 V **±10 %**, i.e. up to **3.63 V**. On a shared I/O
 rail — the normal arrangement, and what decision 0002 implies — the high corner
 sits 0.03 V outside what the device permits. The device's range corresponds to
