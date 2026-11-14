@@ -22,6 +22,13 @@ not depend on $PATH; yosys and the PDK still do (scripts/setup-env.sh).
 the pinned one (exit 4, distinct from 3/STALE): klt resolves yosys from $PATH,
 so without .venv/bin first it silently synthesizes with the host yosys, and a
 netlist or freshness result minted that way does not reproduce (issue #81).
+Both halves of the pin are checked, because the version string is not an
+identity on its own -- any yosys reporting 0.68 used to pass, a native build
+with a different ABC included (issue #89). The second half is the yosys.wasm
+sha256 of the yowasp-yosys wheel the $PATH `yosys` belongs to: the build
+identity `yosys -V` does not report, already pinned in scripts/setup-env.sh.
+scripts/check_yosys_gate.py exercises the reject paths in CI, where there is
+no yosys to run.
 """
 
 import hashlib
@@ -29,6 +36,7 @@ import json
 import os
 import re
 import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -67,18 +75,26 @@ KEYS = ("engine", "engine_version", "hdl_toplevel", "instance_count", "area_um2"
 
 
 def pinned_yosys():
-    """(wheel version, engine version) of the pinned yosys, read from the one pin.
+    """(wheel version, engine version, yosys.wasm sha256) of the pinned yosys.
 
     scripts/setup-env.sh is the only place this repo writes the yosys pin -- it
     installs that wheel and verifies its yosys.wasm sha256 -- so read it from
-    there instead of keeping a second copy here. The two strings differ: the pin
-    is the *wheel* version (`0.68.0.0.post1208`), while `klt synthesize` reports
-    the *engine* version the binary itself prints (`0.68`). YoWASP numbers its
-    wheels `<upstream yosys version>.<build>.<n>.post<n>`, so the upstream
-    version is the leading two components. If YoWASP ever renumbers, this stops
-    the flow with a mismatch instead of letting an unverified yosys through.
+    there instead of keeping a second copy here. Three strings, because no one
+    of them identifies the build on its own:
+
+      * the *wheel* version (`0.68.0.0.post1208`), what the pin installs;
+      * the *engine* version the binary itself prints (`0.68`), which is what
+        `klt synthesize` reports back. YoWASP numbers its wheels
+        `<upstream yosys version>.<build>.<n>.post<n>`, so the upstream version
+        is the leading two components. If YoWASP ever renumbers, this stops the
+        flow with a mismatch instead of letting an unverified yosys through;
+      * the sha256 of the wheel's yosys.wasm, the Yosys/ABC build identity that
+        `yosys -V` does not report (scripts/setup-env.sh says so in its header,
+        and verifies it once at install time). A different yosys reporting the
+        same `0.68` has a different wasm, which is the whole point of pinning it.
     """
-    m = re.search(r'^YOWASP_YOSYS_VERSION="([^"]+)"$', SETUP_ENV.read_text(), re.M)
+    text = SETUP_ENV.read_text()
+    m = re.search(r'^YOWASP_YOSYS_VERSION="([^"]+)"$', text, re.M)
     if not m:
         sys.exit(f"FATAL: no YOWASP_YOSYS_VERSION= pin in {rel(SETUP_ENV)}; "
                  "cannot tell which yosys is the pinned one")
@@ -87,7 +103,60 @@ def pinned_yosys():
     if len(parts) < 2 or not all(p.isdigit() for p in parts[:2]):
         sys.exit(f"FATAL: cannot read an engine version out of the yosys pin "
                  f"{wheel!r} in {rel(SETUP_ENV)}")
-    return wheel, ".".join(parts[:2])
+    h = re.search(r'^YOWASP_YOSYS_WASM_SHA256="([0-9a-f]{64})"$', text, re.M)
+    if not h:
+        sys.exit(f"FATAL: no YOWASP_YOSYS_WASM_SHA256= pin in {rel(SETUP_ENV)}; "
+                 "cannot tell which yosys *build* is the pinned one, and the "
+                 "version string alone does not say")
+    return wheel, ".".join(parts[:2]), h.group(1)
+
+
+# The four lines scripts/setup-env.sh:81-84 pipes to the venv python to verify
+# the pin at install time. Kept identical on purpose: this is the same question
+# asked of the same wheel, just at mint time instead of install time.
+WASM_HASH_SNIPPET = (
+    "import hashlib, os\n"
+    "import yowasp_yosys\n"
+    'p = os.path.join(os.path.dirname(yowasp_yosys.__file__), "yosys.wasm")\n'
+    'print(hashlib.sha256(open(p, "rb").read()).hexdigest())\n'
+)
+
+
+def path_yosys_build():
+    """(what `yosys` on $PATH resolves to, the yosys.wasm sha256 of its wheel).
+
+    The sha256 is None when the resolved yosys is not a yowasp-yosys console
+    script: a native binary, or a wheel whose module will not import. A caller
+    must read None as "not the pinned build" and stop, never as "nothing to
+    check" -- a yosys whose build cannot be identified is precisely the case
+    issue #89 is about, so it has to fail closed.
+
+    Resolution deliberately mirrors klt's own. `shutil.which("yosys")` is the
+    same bare name off the same $PATH that `klt synthesize` resolves (verified
+    in the pinned klayout-tools wheel: it runs `subprocess.run(["yosys", ...])`
+    and exposes no binary override), and flow/klt_run.py passes no `env=`, so
+    klt inherits this process's environment.
+
+    scripts/setup-env.sh:90 makes .venv/bin/yosys a relative symlink to the
+    sibling `yowasp-yosys` console script, so realpath's parent is that
+    environment's bin/ -- and that bin/'s own python3 is the interpreter which
+    imports the wheel the $PATH yosys actually belongs to. Using it, rather than
+    importing yowasp_yosys here, is the point: attest/item1.json runs this file
+    as `python3 -I`, which need not be the venv's python at all.
+    """
+    found = shutil.which("yosys")
+    if found is None:
+        return None, None
+    found = os.path.realpath(found)
+    py = Path(found).parent / "python3"
+    if not py.exists():
+        return found, None
+    proc = subprocess.run([str(py), "-I", "-B", "-c", WASM_HASH_SNIPPET],
+                          capture_output=True, text=True)
+    got = proc.stdout.strip()
+    if proc.returncode != 0 or not re.fullmatch(r"[0-9a-f]{64}", got):
+        return found, None
+    return found, got
 
 
 def require_pinned_yosys(doc):
@@ -99,8 +168,26 @@ def require_pinned_yosys(doc):
     Without it, a run whose $PATH lacks .venv/bin synthesizes with the host
     yosys and the result looks ordinary; that is how a 0.67+post netlist was
     committed and recorded as a passing freshness check (issue #81).
+
+    Both halves of the pin are checked, because each answers a question the
+    other cannot:
+
+      * `engine`/`engine_version` from the response is the only *post-hoc*
+        signal -- the only one that speaks for the process that actually
+        answered. It is also all klt gives: the response carries no git sha1 and
+        no full version line (see sim/hyperram/records/synth-stat.json).
+      * the yosys.wasm sha256 of the $PATH yosys is the only *build* identity.
+        The version string is not one: until issue #89 any yosys reporting
+        `0.68` passed, a natively built 0.68 with a different ABC included, and
+        such a run would have minted a netlist here with no warning.
+
+    Known limit, stated rather than solved: the build half is not atomic with
+    klt's own resolution. It inspects what $PATH resolves `yosys` to in this
+    process, after klt resolved the identical bare name in its own subprocess
+    off this same environment. The two agree in any ordinary run; a $PATH
+    mutated mid-run would defeat it, and nothing in the response would show it.
     """
-    wheel, want = pinned_yosys()
+    wheel, want, want_sha = pinned_yosys()
     engine, got = doc.get("engine"), doc.get("engine_version")
     if engine != "yosys" or got != want:
         print(f"WRONG TOOL: this synthesis ran {engine} {got}, but the pin is "
@@ -108,6 +195,26 @@ def require_pinned_yosys(doc):
               f"result from {engine} {got} does not reproduce under the pin.\n"
               f"  Put .venv/bin first on $PATH (the Makefiles do) or re-run "
               f"{rel(SETUP_ENV)}.", file=sys.stderr)
+        sys.exit(WRONG_YOSYS_EXIT)
+    found, got_sha = path_yosys_build()
+    if got_sha != want_sha:
+        if found is None:
+            actual = "no `yosys` on $PATH at all"
+        elif got_sha is None:
+            actual = (f"{found}, which is not a yowasp-yosys wheel entry point "
+                      f"(no importable yowasp_yosys/yosys.wasm beside it to hash)")
+        else:
+            actual = f"{found}, whose yosys.wasm is sha256:{got_sha}"
+        print(f"WRONG TOOL: this synthesis reported yosys {want}, but the "
+              f"`yosys` on $PATH is not the pinned build.\n"
+              f"  expected: the yowasp-yosys {wheel} wheel, "
+              f"yosys.wasm sha256:{want_sha}\n"
+              f"  actual:   {actual}\n"
+              f"  The reported version does not identify the build -- a "
+              f"natively built yosys {want} reports the same {want} and is a "
+              f"different Yosys/ABC (issue #89). The pin is in "
+              f"{rel(SETUP_ENV)}: put .venv/bin first on $PATH (the Makefiles "
+              f"do) or re-run it.", file=sys.stderr)
         sys.exit(WRONG_YOSYS_EXIT)
 
 
