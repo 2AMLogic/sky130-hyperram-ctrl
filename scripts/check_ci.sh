@@ -18,7 +18,9 @@
 #      the local_only re-synthesis check is skipped)
 #   6. the committed klt drc report is bound to the cited GDS and deck (--check, no rerun)
 #   7. the committed klt signoff record equals a fresh render of the manifest
-#   (the item-9 testbench attestation is checked as step 4b)
+#   (the item-9 testbench attestation is checked as step 4b, and step 4c asserts
+#    that attestation declares every controller bench present on disk -- a bench
+#    the inventory omits is invisible to 4b rather than drift)
 #
 # RTL lint and the cocotb smoke test are added with the toolchain skeleton
 # (issue #3), not here.
@@ -66,6 +68,17 @@ echo "== 4b/7 item-9 attestation is fresh =="
 #   klt signoff --attest 9 --inventory attest/item9.json -o evidence/item9.json
 # The cold-start command (make -C verification) is local_only and is skipped here.
 "${KLT[@]}" signoff --attest 9 --inventory attest/item9.json --check evidence/item9.json
+
+echo "== 4c/7 item-9 attestation declares every controller bench on disk =="
+# Step 4b hashes the paths attest/item9.json lists, so a bench file the
+# inventory omits is not drift -- it is invisible, and can ship unexecuted
+# inside append-only evidence (issue #93). This is the assertion that closes
+# that: every bench file under verification/ctrl/ must be declared. The
+# checker is self-tested first, over fixture directories, because it is now the
+# only thing standing between an undeclared bench and a green CI. Needs no klt,
+# no cocotb and no PDK.
+python3 -I scripts/check_bench_coverage.py --self-test
+python3 -I scripts/check_bench_coverage.py
 
 echo "== 5/7 item-1 attestation is fresh =="
 # Per-file hashes of the RTL and netlist; the re-synthesis freshness command is
