@@ -31,6 +31,8 @@ import contextlib
 import hashlib
 import io
 import os
+import re
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -58,10 +60,36 @@ MUTATE_TO = "if False:  # neutralised by scripts/check_yosys_gate.py"
 # "module will not import" case pass by importing a real pinned wheel instead.
 # Absolute shebang on purpose: $PATH is replaced during these cases, so
 # `env python3` would resolve back to this script.
+#
+# The pin keeps the stdlib's *subdirectories*, by prefix and not by exact path
+# equality. `lib-dynload` lives under platstdlib rather than being equal to it,
+# and dropping it unimports every C extension the interpreter keeps there --
+# `_hashlib`/`_sha256` among them. On a build whose sha256 is a builtin that is
+# survivable; on one where it is a lib-dynload shared object (CI's
+# /opt/hostedtoolcache 3.10 is one) `import hashlib` still succeeds but
+# `hashlib.sha256` does not exist, the snippet exits non-zero, and every
+# fixture below collapses to "cannot identify this build" -- which is how this
+# check came to pass on its author's interpreter and fail in CI (PR #95).
+#
+# What the pin must still exclude is the leak it was written for: the host's
+# site-packages/dist-packages and user-site. Those are matched by name, not by
+# prefix, because a venv puts `site-packages` *inside* platstdlib, where a
+# prefix test alone would re-admit it.
 PY_STANDIN = '''#!{python}
-import sys, sysconfig
-stdlib = {{sysconfig.get_paths()[k] for k in ("stdlib", "platstdlib")}}
-sys.path[:] = [{site!r}] + [p for p in sys.path if p in stdlib or p.endswith(".zip")]
+import os, sys, sysconfig
+roots = [os.path.realpath(sysconfig.get_paths()[k]) for k in ("stdlib", "platstdlib")]
+
+
+def keep(p):
+    if p.endswith(".zip"):
+        return True
+    if os.path.basename(p.rstrip(os.sep)) in ("site-packages", "dist-packages"):
+        return False
+    real = os.path.realpath(p)
+    return any(real == r or real.startswith(r + os.sep) for r in roots)
+
+
+sys.path[:] = [{site!r}] + [p for p in sys.path if keep(p)]
 exec(compile(sys.argv[sys.argv.index("-c") + 1], "<standin>", "exec"),
      {{"__name__": "__main__"}})
 '''
@@ -94,6 +122,32 @@ def fake_env(root, *, wasm=b"", with_python=True, with_module=True):
         py.write_text(PY_STANDIN.format(python=sys.executable, site=str(site)))
         py.chmod(0o755)
     return bin_dir
+
+
+def standin_hash(bin_dir):
+    """Run the gate's own hashing snippet through a fixture's python3 stand-in.
+
+    -> (sha256 it printed or None, a line describing the failure or "").
+
+    The *check* has to tell a broken fixture apart from a yosys that is not the
+    pinned build. `path_yosys_build()` collapses both to None -- which is right
+    for the production gate, since a yosys whose build cannot be identified
+    must fail closed either way -- but inside this file the two mean opposite
+    things: one is the defect being checked, the other is the check itself not
+    running. Conflating them is what made PR #95's CI failure arrive as two
+    reverse-engineered assertions instead of "the fixture cannot hash".
+    """
+    proc = subprocess.run([str(bin_dir / "python3"), "-I", "-B", "-c",
+                           hyperram.WASM_HASH_SNIPPET],
+                          capture_output=True, text=True)
+    got = proc.stdout.strip()
+    if proc.returncode != 0:
+        return None, (f"the stand-in exited {proc.returncode}; "
+                      f"stderr: {proc.stderr.strip()[:400]!r}")
+    if not re.fullmatch(r"[0-9a-f]{64}", got):
+        return None, (f"the stand-in exited 0 but printed no sha256: "
+                      f"stdout {got[:120]!r}, stderr {proc.stderr.strip()[:200]!r}")
+    return got, ""
 
 
 def call_gate(path, *, engine="yosys", engine_version=None, gate=None):
@@ -141,6 +195,29 @@ def main():
         (native / "yosys").write_text("#!/bin/sh\necho 'Yosys 0.68 (native)'\n")
         (native / "yosys").chmod(0o755)
         no_module = fake_env(tmp / "no-module", with_module=False)
+
+        # --- the fixtures must be able to hash at all ----------------------
+        # Checked first and fatally, because every case below reads a stand-in
+        # that cannot hash as "not the pinned build": one environmental
+        # breakage would otherwise surface as a scatter of unrelated-looking
+        # assertion failures, and the accept case would fail for a reason that
+        # has nothing to do with the gate. Named here instead, with the
+        # snippet's own stderr.
+        got_sha, why = standin_hash(impostor)
+        if got_sha is None:
+            record(False,
+                   "the fixture's python3 stand-in can run the gate's hashing "
+                   "snippet (so a rejection below means the gate, not a broken "
+                   "fixture)", why)
+            print(f"\n::error::the pinned-yosys gate check cannot run in this "
+                  f"environment: {why} -- this is a broken fixture, not a "
+                  f"verdict on the gate")
+            return 1
+        record(got_sha == impostor_sha,
+               "the fixture's python3 stand-in hashes its own yosys.wasm "
+               "(the comparison below is a real one, on a real file)",
+               f"stand-in printed sha256:{got_sha}, fixture's wasm is "
+               f"sha256:{impostor_sha}")
 
         # --- the defect this closes (issue #89) ---------------------------
         code, err = call_gate(impostor)
