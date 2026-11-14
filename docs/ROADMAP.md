@@ -3,7 +3,7 @@
 A HyperBus-class memory controller and its pad-level I/O timing on the SkyWater
 sky130 open PDK, testing whether the open flow can close DDR read capture at the pins.
 
-Status as of 2026-11-13, `main` @ `20f1502`.
+Status as of 2026-11-14, `main` @ `c2304fc`.
 
 [`WORK_PLAN.md`](../WORK_PLAN.md) is the generated label-state view and
 [`WORK_LOG.md`](../WORK_LOG.md) the merge history; neither is restated here.
@@ -36,8 +36,13 @@ Also in the tree, outside the tier record:
 - The spec is drafted but unratified: `spec/target-spec.md` (20 rows), seven
   decision records, and the pad and clock interface tables with their gaps
   filed on the siblings (2AMLogic/sky130-io-ring#7, 2AMLogic/sky130-pll#332).
-- Device-model timing parameters are placeholders: `spec/device-model-params.md`
-  has tCK, tIS/tIH and tCKD/tCKDS transcribed and nine rows still `TBD(src)`.
+- The device-model timing **table** is now sourced: every row of
+  `spec/device-model-params.md` carries a value with table and page, or an
+  explicit "not published" note, and the document locator actually read is
+  recorded (PR #94). The **code** side does not match it yet:
+  `verification/hyperram_model/model.py`'s `PLACEHOLDER` set runs tCKD/tCKDS
+  at 6.0 ns, above the sourced 1.00-5.50 ns 100 MHz column — a gap the model
+  itself records and leaves for #2 (see Now 1).
 - `sim/` holds no I/O timing study and `design/` no custom cell. The read
   capture this block exists to prove (target-spec rows 11, 12, 14, 19) has no
   evidence yet, and both of the spec's open questions (a) and (b) are untried.
@@ -49,31 +54,35 @@ Also in the tree, outside the tier record:
 
 ## Now (can start today, one PR each)
 
-1. **Finish the spec draft's sourced rows (#2).** Done when every row of
-   `spec/device-model-params.md` carries a value with table and page from the
-   cited document, or an explicit "not published" note, the document locator
-   actually read is recorded, and `hyperram_model.model.PLACEHOLDER` matches.
-   Ratifying the result is a separate act (see Blocked and waiting).
-2. **Ignore the gate-level build directory (#91).** Done when
+1. **Bring `hyperram_model.model.PLACEHOLDER` in line with the sourced spec
+   table (#2).** The sourced-rows half of the old criterion is done on
+   `main` (PR #94): every row of `spec/device-model-params.md` carries a value
+   with table and page from the cited document, or an explicit "not
+   published" note, and the document locator actually read is recorded. What
+   remains is the model half: `PLACEHOLDER` still runs tCKD/tCKDS at 6.0 ns,
+   above the sourced 1.00-5.50 ns 100 MHz column. Ratifying the result is a
+   separate act (see Blocked and waiting).
+2. **Ignore the gate-level build directory (#91, in progress).** Done when
    `make -C verification/ctrl GL=1` leaves `git status --porcelain` empty.
-3. **Pre-layout timing record for the current netlist** (no issue; seed 1).
+3. **Pre-layout timing record for the current netlist** (#97, in progress).
    Done when `sim/hyperram/records/sta.json` holds `klt sta` slack for
    `hyperram_ctrl.netlist.v` at 20 ns for every shipped `sky130_fd_sc_hd`
    corner, with the corners below 1.62 V listed separately, and a
    `make hyperram-sta` target reproduces it.
 4. **Answer open question (a): does static timing see through the pad cells?**
-   (no issue; seed 2). Done when a record under `sim/` states, for the pinned
+   (#98, in progress). Done when a record under `sim/` states, for the pinned
    PDK, which `sky130_fd_io` liberty views exist and whether OpenSTA reports
    core-to-pad and pad-to-core arcs, and `spec/target-spec.md` question (a)
    cites it.
-5. **Answer open question (b): delay-chain monotonicity across PVT** (no issue;
-   seed 3). Done when an ngspice campaign on the `dlygate4sd3_1` chain used by
+5. **Answer open question (b): delay-chain monotonicity across PVT** (#99, in
+   progress). Done when an ngspice campaign on the `dlygate4sd3_1` chain used by
    `hr_rd_capture.v` records per-tap delay at every decision-0004 corner under
    `sim/`, with a monotonic / not-monotonic result per corner.
-6. **Correct status lines the tree has outrun** (no issue; seed 4). Done when
-   `spec/README.md` lists decision 0007, `spec/target-spec.md` no longer says
-   no proof exists for the CT rows, the README ladder line matches the item-9
-   benches, and `npm run check:ci` passes with item 10 re-attested.
+6. **Correct status lines the tree has outrun** (#100). Of its done-criteria,
+   `spec/README.md` already lists decision 0007 on `main` (since `cdaac7b`);
+   still owed: `spec/target-spec.md` no longer saying no proof exists for the
+   CT rows, the README ladder line matching the item-9 benches, and
+   `npm run check:ci` passing with item 10 re-attested.
 
 ## Next
 
@@ -92,9 +101,6 @@ Also in the tree, outside the tier record:
   with SDF from the fresh layout and the manifest cites the report.
 - **Max-transition and max-capacitance violations.** After #52, on the fresh
   response. Done when each class is fixed or explained in `layout/README.md`.
-- **Yosys identity gate (#89).** In curation. Done when `flow/hyperram.py`
-  rejects a Yosys 0.68 that is not the pinned build, or the issue closes on a
-  measurement that the outputs are byte-identical.
 
 ## Later
 
@@ -114,7 +120,12 @@ Also in the tree, outside the tier record:
 - **#52** is held on 2AMLogic/2am#7142: the batch image runs place-and-route
   but lacks magic, netgen and the sky130 PDK for DRC, LVS and ERC.
 - **#2 ratification** is a human/Champion act (`spec/README.md`); items 5 to 8
-  wait on it, drafting under #2 does not.
+  wait on it, drafting under #2 does not. It also owes a decision record for
+  the spec's gap **C3**: tCSM is not tabulated for the -40 to +125 °C
+  *Extended* range this spec's corner set uses, the published bounds fall 4x
+  over a +20 °C step (tightening with temperature), so the model's 1.00 us
+  default — taken on an explicitly *Industrial Plus* basis — is not
+  conservative at +125 °C (`spec/target-spec.md` row 9).
 - **#70, #78, #84** are cleanup proposals waiting on an operator decision.
 - **#5**, the T1 tracker, still carries its 2026-10-17 checklist; the signoff
   manifest above supersedes it.
