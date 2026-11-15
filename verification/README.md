@@ -17,6 +17,13 @@ make -C verification        # model self-test + smoke test + controller benches
   Wishbone host, config port), one module per CT row, `test_random_traffic.py`
   (scoreboard) and `test_all.py` (aggregate for `klt functional-verification`).
   One module: `make -C verification/ctrl COCOTB_TEST_MODULES=test_row09_max_cs_low`.
+  **To add a bench, drop a `test_*.py` in `ctrl/` and add it to
+  `../attest/item9.json`** - that inventory is the only list of bench names
+  left. `ctrl/Makefile` and `ctrl/test_all.py` both glob `ctrl/test_*.py`
+  (excluding `test_all.py`), so the two runners cannot select different
+  modules, and `scripts/check_bench_coverage.py` (CI step 4c) fails if the
+  inventory does not declare a file the glob can see - without it a bench could
+  ship hashed-as-absent and never execute (#93).
 - `../flow/functional-verification-ctrl.json` - the same benches as a
   `klt functional-verification` request (needs the `functional-verification`
   extra: `uvx --from "klayout-tools[functional-verification]==0.8.0" klt
