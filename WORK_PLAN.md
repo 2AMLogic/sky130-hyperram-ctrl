@@ -34,7 +34,6 @@ _None._
 
 Issues currently being built (`loom:building`).
 
-- **#91**: GL bench run leaves an untracked sim_build_gl/ directory (.gitignore covers sim_build/ only)
 - **#98**: Answer spec open question (a): do the pinned PDK's sky130_fd_io liberty views give OpenSTA arcs through the pad cells?
 - **#99**: Answer spec open question (b): ngspice per-tap delay of the RWDS delay chain across the decision-0004 corners
 
@@ -42,15 +41,13 @@ Issues currently being built (`loom:building`).
 
 PRs waiting on Judge (`loom:review-requested`).
 
-- **#96**: docs: roadmap as of 2026-11-13
 - **#108**: evidence: pad-liberty STA record - OpenSTA sees through the pads, no in-window fast corner
-- **#109**: feat: ngspice 45-corner RWDS delay-chain campaign; spec question (b) answered at the schematic level
 
 ## Approved (Awaiting Merge)
 
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
-- **#104**: chore: ignore the GL=1 cocotb build directory, not just sim_build/
+- **#109**: feat: ngspice 45-corner RWDS delay-chain campaign; spec question (b) answered at the schematic level
 
 ## Proposed
 
@@ -59,9 +56,9 @@ Issues carrying `loom:curated`.
 - **#2**: Draft and ratify the target spec *(curated)*
 - **#5**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
 - **#52**: Regenerate place-and-route and layout-dependent evidence after rd_flush ST_LAT fix (#48) *(curated)*
-- **#91**: GL bench run leaves an untracked sim_build_gl/ directory (.gitignore covers sim_build/ only) *(curated)*
 - **#98**: Answer spec open question (a): do the pinned PDK's sky130_fd_io liberty views give OpenSTA arcs through the pad cells? *(curated)*
 - **#99**: Answer spec open question (b): ngspice per-tap delay of the RWDS delay chain across the decision-0004 corners *(curated)*
+- **#100**: Correct three status lines the tree has outrun (spec/README decision list, target-spec proof note, README ladder) *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -70,6 +67,7 @@ Issues carrying `loom:curated`.
 - **#84**: Remove vendored design-evidence-tiers.md: the pinned klt wheel ships a byte-identical copy *(hermit)*
 - **#101**: Share the tap delay line: hr_dq_out and hr_rd_capture build the same 16-cell chain twice *(hermit)*
 - **#103**: Stop restating six toolchain pins in docs/environment.md: a hand-maintained copy nothing checks *(hermit)*
+- **#114**: Remove toolchain smoke flow: make smoke duplicates what the controller flow now exercises *(hermit)*
 
 ## Epics
 
@@ -83,10 +81,10 @@ _None._
 | Very important | 1 |
 | Important | 3 |
 | Ready (`loom:issue`) | 0 |
-| In Progress (`loom:building`) | 3 |
-| PRs awaiting review | 3 |
+| In Progress (`loom:building`) | 2 |
+| PRs awaiting review | 1 |
 | Approved PRs awaiting merge | 1 |
 | Curated | 6 |
-| Architect / Hermit proposals | 5 |
+| Architect / Hermit proposals | 6 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
