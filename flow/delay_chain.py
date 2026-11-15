@@ -7,7 +7,10 @@
                          re-check the report against the same matrix, and derive
                          taps.csv, summary.csv and RECORD.md
   delay_chain.py derive  re-derive the three records from a report (default the
-                         committed one); no ngspice, no fleet
+                         committed one); no ngspice, no fleet. A report that is
+                         not the full 45-corner collection is refused before
+                         anything is written, and a non-default report is also
+                         checked by corner id against the committed collection
 
 klt runs through scripts/klt.sh (the pin and the resolution rule). The
 campaign itself is a batch-fleet job submitted with --wait-for-capacity 600
@@ -323,12 +326,7 @@ def write_markdown(rec, report):
         "hr_dq_out.v) is the same cell, length and tap arithmetic, so this "
         "record answers for it too; no row-14 claim is made here.", "",
     ]
-    if report is not None:
-        head += [render_provenance(report)]
-    else:
-        head += ["## Provenance", "",
-                 "Re-derived locally from the committed sim.report.json; see that "
-                 "file and the previous RECORD.md for the run's provenance.", ""]
+    head += [render_provenance(report)]
     head += [ASSUMPTIONS_MARKDOWN]
     RECORD_MD.write_text("\n".join(head))
     print(f"wrote {TAPS_CSV.relative_to(REPO)}, {SUMMARY_CSV.relative_to(REPO)}, "
@@ -373,9 +371,25 @@ def sim():
 def derive_cmd():
     path = Path(sys.argv[2]) if len(sys.argv) > 2 else REPORT
     report = json.loads(path.read_text())
-    rec = derive(report)
+    corners = report.get("corners") or []
+    if len(corners) != N_CORNERS:
+        sys.exit(f"FATAL: expected {N_CORNERS} corners in the report, got "
+                 f"{len(corners)} (missing or extra corners would make the "
+                 f"min/max ratios lie); re-run `make delay-chain`")
+    expected_ids = None
+    if path.resolve() != REPORT.resolve():
+        # A non-default report is checked by NAME against the committed
+        # collection's corner ids -- the only in-repo source of real
+        # klt-format ids -- so a duplicated or wrong corner is named, not
+        # just counted.
+        committed = json.loads(REPORT.read_text())
+        expected_ids = [c.get("corner_id") for c in committed.get("corners") or []]
+    try:
+        rec = derive(report, expected_ids)
+    except DeriveError as e:
+        sys.exit(f"FATAL: {path}: {e}")
     write_csvs(rec)
-    write_markdown(rec, None)
+    write_markdown(rec, report)
     if rec["n_failed"]:
         sys.exit(f"FATAL: {rec['n_failed']} corner(s) failed measurement")
     print(f"derived from {path}: {rec['n_corners']} corners, "

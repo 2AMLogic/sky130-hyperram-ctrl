@@ -152,9 +152,15 @@ if command -v openroad >/dev/null 2>&1; then
 else echo "  openroad:  MISSING"; missing=1; fi
 # ngspice backs the delay-chain campaign (flow/delay_chain.py). Run it, not
 # just find it; the campaign itself runs on the batch fleet, whose worker's
-# version is the one a committed record names.
+# version is the one a committed record names. --version starts with an
+# asterisk banner and names the version on a later line, so capture the whole
+# output inside the if test -- no pipe there, pipefail must not turn an
+# unmatched version token into a false NOT RUNNABLE -- and pick the token
+# outside it.
 if command -v ngspice >/dev/null 2>&1; then
-  if nv="$(ngspice --version 2>&1 | head -1)"; then echo "  ngspice:   ${nv}"
+  if nv="$(ngspice --version 2>&1)"; then
+    ver="$(printf '%s\n' "${nv}" | grep -m1 -oE 'ngspice-[0-9][0-9.]*' || true)"
+    echo "  ngspice:   ${ver:-unknown version (ran OK)}"
   else echo "  ngspice:   on \$PATH but NOT RUNNABLE: $(printf '%s' "${nv}" | head -1)"; missing=1; fi
 else echo "  ngspice:   MISSING"; missing=1; fi
 [ "${missing}" -eq 0 ] || fail "host tools missing or too old (this script does not install host tools; see docs/environment.md)."
