@@ -20,9 +20,11 @@
 #      the local_only re-synthesis check is skipped)
 #   6. the committed klt drc report is bound to the cited GDS and deck (--check, no rerun)
 #   7. the committed klt signoff record equals a fresh render of the manifest
-#   (the item-9 testbench attestation is checked as step 4b, and step 4c asserts
-#    that attestation declares every controller bench present on disk -- a bench
-#    the inventory omits is invisible to 4b rather than drift)
+#   (the delay-chain derivation unit check runs as step 3b, beside the other
+#    tool-free gates; the item-9 testbench attestation is checked as step 4b,
+#    and step 4c asserts that attestation declares every controller bench
+#    present on disk -- a bench the inventory omits is invisible to 4b rather
+#    than drift)
 #
 # RTL lint and the cocotb smoke test are added with the toolchain skeleton
 # (issue #3), not here.
@@ -55,6 +57,14 @@ echo "== 3/7 pinned-yosys gate rejects an unpinned build =="
 # so the gate is driven directly here, with fabricated klt responses and
 # temporary $PATHs. Needs no yosys, no klt and no PDK.
 python3 -I scripts/check_yosys_gate.py
+
+echo "== 3b/7 delay-chain derivation unit check =="
+# flow/delay_chain.py's derive turns the campaign report into the committed
+# record (taps.csv, summary.csv, RECORD.md) and is pure -- the ngspice
+# campaign itself is local_only -- so the derivation is unit-checked directly
+# here, against fixed report fixtures, including a deliberately non-monotonic
+# one (issue #117). Needs no ngspice, no klt and no PDK.
+python3 -I scripts/check_delay_chain_derive.py
 
 echo "== 4/7 item-10 attestation is fresh =="
 # Hashes are raw bytes: any edit to README.md, LICENSE, ci.yml or
