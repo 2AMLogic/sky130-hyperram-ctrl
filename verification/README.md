@@ -49,10 +49,12 @@ clean, so the controller's gated CK does hold that phase).
 Skew knobs (`dq_skew_ns`, `rwds_skew_ns`) support the read-capture margin
 sweep. Not modelled: wrapped bursts, the CR0 latency-field encoding, tIS/tIH.
 
-**Parameters are placeholders, defined in one place.** Every row of
-`spec/device-model-params.md` except tCKD/tCKDS is still `TBD(src)` (#2), so
-`ModelParams` has no defaults and callers pass values chosen for functional
-coverage, printing them on every run. There is one such set,
+**Parameters are placeholders, defined in one place.** The rows of
+`spec/device-model-params.md` are sourced (value plus table and printed page,
+since PR #94), but `ModelParams` has no defaults and callers pass values
+chosen for functional coverage, printing them on every run: `PLACEHOLDER` is
+a deliberate stand-in that does not match the sourced rows yet, left for #2.
+There is one such set,
 `hyperram_model.model.PLACEHOLDER`, used by the self-test and (as
 `hrbench.BENCH_PARAMS`) by every controller bench; a value ratified by #2 is
 entered there once and reaches both. Anything that needs a variant derives it
@@ -118,8 +120,9 @@ real cell functions. Zero delay: no timing claim (SDF re-run is item 7).
   start of every bench) is `hyperram_model.model.PLACEHOLDER` — the one
   placeholder set, shared with the model self-test — plus the RWDS bench
   stimulus below. It is chosen for functional coverage, not taken from a
-  datasheet (every `spec/device-model-params.md` row but tCKD/tCKDS is
-  `TBD(src)`, #2). Results are model-relative until #2 lands. tCSM is
+  datasheet: the `spec/device-model-params.md` rows are sourced (PR #94), so
+  this set is a deliberate stand-in that does not match them yet, left for
+  #2. Results are model-relative until #2 lands. tCSM is
   1000 ns here.
 - **No pad or CK timing.** The RTL runs with zero-delay cells, so the CK
   quarter-period shift (row 14) and the RWDS capture delay (rows 11, 12) are
@@ -129,9 +132,10 @@ real cell functions. Zero delay: no timing claim (SDF re-run is item 7).
 - **Latency convention (changed in this PR).** The model now counts initial
   latency from the first CA clock, CA included (minimum 3; doubling doubles the
   whole count), which is how the controller counts. The earlier model counted
-  from the end of CA and could not be reconciled with doubling. The source row
-  is `TBD(src)`, so this is an assumption to confirm against the interface
-  definition when #2 lands.
+  from the end of CA and could not be reconciled with doubling. The row is
+  sourced (PR #94: the count is device dependent, no single number exists),
+  so this precise reading remains an assumption to confirm against the
+  interface definition when #2 lands.
 - **RWDS after CA.** The model drops RWDS low after CA when it signalled extra
   latency (public interface definition). The controller discards that edge by
   flushing the capture ring through `ST_LAT` (#48).

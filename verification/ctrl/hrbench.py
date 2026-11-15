@@ -12,9 +12,11 @@ ASSUMPTIONS stated here because the bench output depends on them:
     NOT claimed by these benches.
   * Read strobe: the model's RWDS is placed ``RWDS_EYE_NS`` after its DQ so
     the zero-delay capture chain sees RWDS mid-eye. Same caveat.
-  * Model timing values are PLACEHOLDERS (spec/device-model-params.md rows are
-    TBD(src), #2). The device values are the single set defined beside the
-    model, ``hyperram_model.model.PLACEHOLDER``; ``BENCH_PARAMS`` below is
+  * Model timing values are PLACEHOLDERS: the spec/device-model-params.md rows
+    are sourced (PR #94), so this set is a deliberate functional-coverage
+    stand-in that does not match them yet, left for #2. The device values are
+    the single set defined beside the model,
+    ``hyperram_model.model.PLACEHOLDER``; ``BENCH_PARAMS`` below is
     that set plus the RWDS bench stimulus, and is printed by every bench that
     starts.
 """
