@@ -20,11 +20,12 @@
 #      the local_only re-synthesis check is skipped)
 #   6. the committed klt drc report is bound to the cited GDS and deck (--check, no rerun)
 #   7. the committed klt signoff record equals a fresh render of the manifest
-#   (the delay-chain derivation unit check runs as step 3b, beside the other
-#    tool-free gates; the item-9 testbench attestation is checked as step 4b,
-#    and step 4c asserts that attestation declares every controller bench
-#    present on disk -- a bench the inventory omits is invisible to 4b rather
-#    than drift)
+#   (the --help assertion for the two shell drivers runs as step 2b, beside
+#    the other tool-free gates; the delay-chain derivation unit check runs as
+#    step 3b; the item-9 testbench attestation is checked as step 4b, and
+#    step 4c asserts that attestation declares every controller bench present
+#    on disk -- a bench the inventory omits is invisible to 4b rather than
+#    drift)
 #
 # RTL lint and the cocotb smoke test are added with the toolchain skeleton
 # (issue #3), not here.
@@ -49,6 +50,22 @@ done
 
 echo "== 2/7 README relative links =="
 python3 -I scripts/check_links.py README.md
+
+echo "== 2b/7 --help of the shell drivers prints comment text only =="
+# setup-env.sh and sim/pad-sta/run-opensta.sh print their leading comment
+# block as --help through a pattern-anchored sed range (issue #124). Their
+# upper bounds used to be hardcoded line numbers that drifted on every edit
+# above them: run-opensta.sh's had to be hand-bumped on each arg-loop change
+# (PR #123), and setup-env.sh's had drifted so far it silently dropped the
+# header's pin-maintenance note. This asserts the invariant, not a snapshot:
+# --help must exit 0 and print nothing but comment (and blank) lines, so a
+# reintroduced overshooting bound fails closed instead of silently truncating
+# or dumping shell source. The checker is self-tested first, because it is
+# the only thing standing between that regression and a green CI. Needs no
+# PDK, no yosys, no klt: both scripts exit from their argument loop before
+# touching a tool.
+python3 -I scripts/check_help_text.py --self-test
+python3 -I scripts/check_help_text.py scripts/setup-env.sh sim/pad-sta/run-opensta.sh
 
 echo "== 3/7 pinned-yosys gate rejects an unpinned build =="
 # flow/hyperram.py's gate is the only thing between a yosys that merely reports

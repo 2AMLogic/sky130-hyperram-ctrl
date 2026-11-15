@@ -48,7 +48,7 @@ while [ $# -gt 0 ]; do
   case "$1" in
     --pdk-root=*) PDK_ROOT="${1#*=}" ;;
     --pdk-root) [ $# -ge 2 ] || { echo "option $1 requires a directory argument" >&2; exit 1; }; PDK_ROOT="$2"; shift ;;
-    -h|--help) sed -n '2,53p' "${BASH_SOURCE[0]}"; exit 0 ;;
+    -h|--help) sed '1d;/^[^#]/,$d' "${BASH_SOURCE[0]}"; exit 0 ;;
     *) echo "unknown option: $1" >&2; exit 1 ;;
   esac
   shift
