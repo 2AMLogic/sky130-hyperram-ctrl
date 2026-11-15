@@ -32,22 +32,19 @@ _None._
 
 Issues currently being built (`loom:building`).
 
-- **#100**: Correct three status lines the tree has outrun (spec/README decision list, target-spec proof note, README ladder)
-- **#113**: setup-env reports ngspice as '******'; delay_chain.py derive lacks the sim path's partial-collection and provenance guards
-- **#116**: sim/pad-sta: four record/driver polish items found reviewing PR #108
+_None._
 
 ## PRs Awaiting Review
 
 PRs waiting on Judge (`loom:review-requested`).
 
-- **#125**: fix: refuse partial reports in delay_chain derive, keep its provenance; name ngspice version in setup-env
-- **#126**: docs: correct stale proof-status lines in target-spec and README
+_None._
 
 ## Approved (Awaiting Merge)
 
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
-- **#123**: pad-sta: make --pdk-root DIR work, harden pdk_ok, align RECORD.md with committed artifacts
+_None._
 
 ## Proposed
 
@@ -56,9 +53,6 @@ Issues carrying `loom:curated`.
 - **#2**: Draft and ratify the target spec *(curated)*
 - **#5**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
 - **#52**: Regenerate place-and-route and layout-dependent evidence after rd_flush ST_LAT fix (#48) *(curated)*
-- **#100**: Correct three status lines the tree has outrun (spec/README decision list, target-spec proof note, README ladder) *(curated)*
-- **#113**: setup-env reports ngspice as '******'; delay_chain.py derive lacks the sim path's partial-collection and provenance guards *(curated)*
-- **#116**: sim/pad-sta: four record/driver polish items found reviewing PR #108 *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -68,6 +62,7 @@ Issues carrying `loom:curated`.
 - **#101**: Share the tap delay line: hr_dq_out and hr_rd_capture build the same 16-cell chain twice *(hermit)*
 - **#103**: Stop restating six toolchain pins in docs/environment.md: a hand-maintained copy nothing checks *(hermit)*
 - **#114**: Remove toolchain smoke flow: make smoke duplicates what the controller flow now exercises *(hermit)*
+- **#133**: Remove check_help_text.py: a 200-line checker guarding a two-line sed already fixed structurally *(hermit)*
 
 ## Epics
 
@@ -81,10 +76,10 @@ _None._
 | Very important | 1 |
 | Important | 1 |
 | Ready (`loom:issue`) | 0 |
-| In Progress (`loom:building`) | 3 |
-| PRs awaiting review | 2 |
-| Approved PRs awaiting merge | 1 |
-| Curated | 6 |
-| Architect / Hermit proposals | 6 |
+| In Progress (`loom:building`) | 0 |
+| PRs awaiting review | 0 |
+| Approved PRs awaiting merge | 0 |
+| Curated | 3 |
+| Architect / Hermit proposals | 7 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
