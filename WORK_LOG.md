@@ -5,6 +5,8 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-11-15
 
+- **PR #136**: ci: replace check_help_text.py with an inline shell assertion in check_ci.sh
+- **Issue #133** (closed): Remove check_help_text.py: a 200-line checker guarding a two-line sed already fixed structurally
 - **PR #131**: fix: restore committed delay-chain records after derive_cmd refusal cases
 - **Issue #128** (closed): check_delay_chain_derive.py's derive_cmd cases write the committed records into the running checkout when a guard regresses
 - **PR #132**: fix: delete an unused DRIVER_SCRIPTS constant from the --help checker (module since removed by #133)
