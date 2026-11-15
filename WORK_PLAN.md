@@ -21,33 +21,34 @@ _None._
 `loom:important`; taken before unlabelled work.
 
 - **#52**: Regenerate place-and-route and layout-dependent evidence after rd_flush ST_LAT fix (#48)
-- **#98**: Answer spec open question (a): do the pinned PDK's sky130_fd_io liberty views give OpenSTA arcs through the pad cells?
-- **#99**: Answer spec open question (b): ngspice per-tap delay of the RWDS delay chain across the decision-0004 corners
 
 ## Ready
 
 Human-approved issues ready for implementation (`loom:issue`).
 
-_None._
+- **#116**: sim/pad-sta: four record/driver polish items found reviewing PR #108
 
 ## In Progress
 
 Issues currently being built (`loom:building`).
 
-- **#98**: Answer spec open question (a): do the pinned PDK's sky130_fd_io liberty views give OpenSTA arcs through the pad cells?
-- **#99**: Answer spec open question (b): ngspice per-tap delay of the RWDS delay chain across the decision-0004 corners
+- **#106**: Bench-coverage assertion stops at verification/ctrl/: smoke and hyperram_model can still ship an undeclared bench
+- **#111**: docs/ROADMAP.md: date the Now list to the header sha so merge-queue drift stops blocking review
+- **#117**: Wire scripts/check_delay_chain_derive.py into check_ci.sh: a passing unit check nothing runs
 
 ## PRs Awaiting Review
 
 PRs waiting on Judge (`loom:review-requested`).
 
-- **#108**: evidence: pad-liberty STA record - OpenSTA sees through the pads, no in-window fast corner
+- **#119**: check: assert bench declarations for every verification/ subdirectory
+- **#120**: docs: take Now/Next workflow state out of ROADMAP prose
+- **#121**: ci: run the delay-chain derivation unit check in check_ci.sh
 
 ## Approved (Awaiting Merge)
 
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
-- **#109**: feat: ngspice 45-corner RWDS delay-chain campaign; spec question (b) answered at the schematic level
+_None._
 
 ## Proposed
 
@@ -56,9 +57,11 @@ Issues carrying `loom:curated`.
 - **#2**: Draft and ratify the target spec *(curated)*
 - **#5**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
 - **#52**: Regenerate place-and-route and layout-dependent evidence after rd_flush ST_LAT fix (#48) *(curated)*
-- **#98**: Answer spec open question (a): do the pinned PDK's sky130_fd_io liberty views give OpenSTA arcs through the pad cells? *(curated)*
-- **#99**: Answer spec open question (b): ngspice per-tap delay of the RWDS delay chain across the decision-0004 corners *(curated)*
 - **#100**: Correct three status lines the tree has outrun (spec/README decision list, target-spec proof note, README ladder) *(curated)*
+- **#106**: Bench-coverage assertion stops at verification/ctrl/: smoke and hyperram_model can still ship an undeclared bench *(curated)*
+- **#111**: docs/ROADMAP.md: date the Now list to the header sha so merge-queue drift stops blocking review *(curated)*
+- **#113**: setup-env reports ngspice as '******'; delay_chain.py derive lacks the sim path's partial-collection and provenance guards *(curated)*
+- **#116**: sim/pad-sta: four record/driver polish items found reviewing PR #108 *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -79,12 +82,12 @@ _None._
 |------|-------|
 | Operator merge-risk holds | 0 |
 | Very important | 1 |
-| Important | 3 |
-| Ready (`loom:issue`) | 0 |
-| In Progress (`loom:building`) | 2 |
-| PRs awaiting review | 1 |
-| Approved PRs awaiting merge | 1 |
-| Curated | 6 |
+| Important | 1 |
+| Ready (`loom:issue`) | 1 |
+| In Progress (`loom:building`) | 3 |
+| PRs awaiting review | 3 |
+| Approved PRs awaiting merge | 0 |
+| Curated | 8 |
 | Architect / Hermit proposals | 6 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->

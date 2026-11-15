@@ -3,6 +3,15 @@
 Chronological record of merged PRs and closed issues, newest first.
 Maintained by the Guide triage role; entries are append-only.
 
+### 2026-11-15
+
+- **PR #118**: docs: reword stale TBD(src) citations in the verification tree and regrade T1 item 9
+- **Issue #110** (closed): Stale TBD(src) citations in the verification tree after PR #94 filled every device-param row
+- **PR #108**: evidence: pad-liberty STA record - OpenSTA sees through the pads, no in-window fast corner
+- **Issue #98** (closed): Answer spec open question (a): do the pinned PDK's sky130_fd_io liberty views give OpenSTA arcs through the pad cells?
+- **PR #109**: feat: ngspice 45-corner RWDS delay-chain campaign; spec question (b) answered at the schematic level
+- **Issue #99** (closed): Answer spec open question (b): ngspice per-tap delay of the RWDS delay chain across the decision-0004 corners
+
 ### 2026-11-14
 
 - **PR #104**: chore: ignore the GL=1 cocotb build directory, not just sim_build/
