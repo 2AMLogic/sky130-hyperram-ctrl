@@ -7,8 +7,8 @@ Maintained by the Guide triage role; entries are append-only.
 
 - **PR #131**: fix: restore committed delay-chain records after derive_cmd refusal cases
 - **Issue #128** (closed): check_delay_chain_derive.py's derive_cmd cases write the committed records into the running checkout when a guard regresses
-- **PR #132**: fix: delete unused DRIVER_SCRIPTS constant from check_help_text.py
-- **Issue #130** (closed): check_help_text.py defines an unused DRIVER_SCRIPTS constant; the real driver list lives in check_ci.sh
+- **PR #132**: fix: delete an unused DRIVER_SCRIPTS constant from the --help checker (module since removed by #133)
+- **Issue #130** (closed): the --help checker defined an unused DRIVER_SCRIPTS constant; the real driver list lives in check_ci.sh
 - **PR #129**: fix: pattern-anchor the shell drivers' --help sed bound, gate it in CI
 - **Issue #124** (closed): run-opensta.sh --help range is a hardcoded line number that must be hand-bumped on every arg-loop edit
 - **PR #126**: docs: correct stale proof-status lines in target-spec and README
