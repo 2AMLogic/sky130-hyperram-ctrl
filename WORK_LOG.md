@@ -5,6 +5,12 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-11-15
 
+- **PR #121**: ci: run the delay-chain derivation unit check in check_ci.sh
+- **Issue #117** (closed): Wire scripts/check_delay_chain_derive.py into check_ci.sh: a passing unit check nothing runs
+- **PR #120**: docs: take Now/Next workflow state out of ROADMAP prose
+- **Issue #111** (closed): docs/ROADMAP.md: date the Now list to the header sha so merge-queue drift stops blocking review
+- **PR #119**: check: assert bench declarations for every verification/ subdirectory
+- **Issue #106** (closed): Bench-coverage assertion stops at verification/ctrl/: smoke and hyperram_model can still ship an undeclared bench
 - **PR #118**: docs: reword stale TBD(src) citations in the verification tree and regrade T1 item 9
 - **Issue #110** (closed): Stale TBD(src) citations in the verification tree after PR #94 filled every device-param row
 - **PR #108**: evidence: pad-liberty STA record - OpenSTA sees through the pads, no in-window fast corner
