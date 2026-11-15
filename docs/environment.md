@@ -5,6 +5,12 @@ tools. It exits non-zero, with a message, if any pin below is not met.
 `sky130_fd_sc_hd` must be present: `sky130_fd_pr` alone leaves synthesis
 unable to run (the trap recorded in sky130-modexp#193), so the script enables
 both libraries and checks the tt/ss/ff liberty files and the LEF exist.
+`sky130_fd_io` is enabled alongside them because the pad-liberty STA evidence
+(`sim/pad-sta/`, answering [open question (a)](../spec/target-spec.md)) reads
+its liberty and LEF: verified on a fresh provision, `ciel enable` with only
+`-l sky130_fd_pr -l sky130_fd_sc_hd` links exactly those two libraries into
+`libs.ref/` — `sky130_fd_io` ships in the PDK but is not linked unless
+named, so the script also checks its `top_gpiov2` liberty and LEF exist.
 
 ## Pinned versions
 
