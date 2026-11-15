@@ -45,7 +45,7 @@ VENV_DIR="${REPO_ROOT}/.venv"
 for arg in "$@"; do
   case "${arg}" in
     --pdk-root=*) PDK_ROOT="${arg#--pdk-root=}" ;;
-    -h|--help) sed -n '2,21p' "${BASH_SOURCE[0]}"; exit 0 ;;
+    -h|--help) sed '1d;/^[^#]/,$d' "${BASH_SOURCE[0]}"; exit 0 ;;
     *) echo "unknown option: ${arg}" >&2; exit 1 ;;
   esac
 done
