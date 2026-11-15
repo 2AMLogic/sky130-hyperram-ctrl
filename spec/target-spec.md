@@ -1,7 +1,20 @@
 # Target specification (DRAFT)
 
 Status: **DRAFT, unratified.** "Proof" names the testbench or analysis that
-will establish the row; none of them exists yet, so no row is met.
+will establish the row. Those proofs are partly in place: pre-layout core
+STA ([sim/hyperram/records/STA.md](../sim/hyperram/records/STA.md)), the
+ngspice delay-chain campaign
+([sim/delay-chain/records/RECORD.md](../sim/delay-chain/records/RECORD.md)),
+pad-liberty STA
+([sim/pad-sta/records/RECORD.md](../sim/pad-sta/records/RECORD.md)), the CT
+benches ([verification/README.md](../verification/README.md)) and the
+DRC/LVS/ERC and area records ([layout/records/](../layout/records/)). Each
+record states what it establishes and under which assumptions; the open
+questions below carry the current answers. CT results are model-relative:
+the benches run against the behavioural device model at placeholder
+parameters chosen for functional coverage, not the sourced values in
+[device-model-params.md](device-model-params.md). No row is met pending
+ratification (#2).
 
 ## Corner sets (see decision 0004)
 
