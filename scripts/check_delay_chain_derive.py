@@ -166,36 +166,44 @@ def derive_cmd_exit_code(report_path):
         sys.argv = old_argv
 
 
-with tempfile.TemporaryDirectory() as td:
-    # 5a. Too few corners: refused with the expected count in the message.
-    p = Path(td) / "partial.report.json"
-    p.write_text(json.dumps(report))
-    code = derive_cmd_exit_code(p)
-    check("partial derive_cmd refuses", isinstance(code, str)
-          and "expected 45 corners" in code, True)
+try:
+    with tempfile.TemporaryDirectory() as td:
+        # 5a. Too few corners: refused with the expected count in the message.
+        p = Path(td) / "partial.report.json"
+        p.write_text(json.dumps(report))
+        code = derive_cmd_exit_code(p)
+        check("partial derive_cmd refuses", isinstance(code, str)
+              and "expected 45 corners" in code, True)
 
-    # 5b. Too many corners: the count is exact, not a lower bound.
-    p = Path(td) / "oversized.report.json"
-    p.write_text(json.dumps({"corners": [
-        full_corner(f"tt{i}/vdd=1.800V/27C", "tt", 27, 1.80, RISE, FALL)
-        for i in range(46)]}))
-    code = derive_cmd_exit_code(p)
-    check("oversized derive_cmd refuses", isinstance(code, str)
-          and "expected 45 corners" in code, True)
+        # 5b. Too many corners: the count is exact, not a lower bound.
+        p = Path(td) / "oversized.report.json"
+        p.write_text(json.dumps({"corners": [
+            full_corner(f"tt{i}/vdd=1.800V/27C", "tt", 27, 1.80, RISE, FALL)
+            for i in range(46)]}))
+        code = derive_cmd_exit_code(p)
+        check("oversized derive_cmd refuses", isinstance(code, str)
+              and "expected 45 corners" in code, True)
 
-    # 5c. Full count but wrong ids: a non-default report is checked BY NAME
-    #     against the committed collection's corner ids (the only in-repo
-    #     source of real klt-format ids), so this is refused and named.
-    p = Path(td) / "wrongids.report.json"
-    wrong = json.loads(delay_chain.REPORT.read_text())
-    wrong["corners"][0]["corner_id"] = "not-a-real-klt-id"
-    p.write_text(json.dumps(wrong))
-    code = derive_cmd_exit_code(p)
-    check("wrong-ids derive_cmd refuses by name", isinstance(code, str)
-          and "missing 1 of 45" in str(code), True)
+        # 5c. Full count but wrong ids: a non-default report is checked BY NAME
+        #     against the committed collection's corner ids (the only in-repo
+        #     source of real klt-format ids), so this is refused and named.
+        p = Path(td) / "wrongids.report.json"
+        wrong = json.loads(delay_chain.REPORT.read_text())
+        wrong["corners"][0]["corner_id"] = "not-a-real-klt-id"
+        p.write_text(json.dumps(wrong))
+        code = derive_cmd_exit_code(p)
+        check("wrong-ids derive_cmd refuses by name", isinstance(code, str)
+              and "missing 1 of 45" in str(code), True)
 
-check("derive_cmd partial collection wrote nothing",
-      {f: f.read_bytes() for f in REC_BEFORE} == REC_BEFORE, True)
+    check("derive_cmd partial collection wrote nothing",
+          {f: f.read_bytes() for f in REC_BEFORE} == REC_BEFORE, True)
+finally:
+    # A regressed guard writes the committed records; the check reports that
+    # (above) and must not also leave the checkout dirty. Compare before
+    # restoring: the assertion above must see the drift to detect it.
+    for f, before in REC_BEFORE.items():
+        if f.read_bytes() != before:
+            f.write_bytes(before)
 
 if failures:
     print()
