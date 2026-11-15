@@ -3,7 +3,7 @@
 A HyperBus-class memory controller and its pad-level I/O timing on the SkyWater
 sky130 open PDK, testing whether the open flow can close DDR read capture at the pins.
 
-Status as of 2026-11-14, `main` @ `c2304fc`.
+Status as of 2026-11-15, `main` @ `aacd7a7`.
 
 [`WORK_PLAN.md`](../WORK_PLAN.md) is the generated label-state view and
 [`WORK_LOG.md`](../WORK_LOG.md) the merge history; neither is restated here.
@@ -43,48 +43,72 @@ Also in the tree, outside the tier record:
   `verification/hyperram_model/model.py`'s `PLACEHOLDER` set runs tCKD/tCKDS
   at 6.0 ns, above the sourced 1.00-5.50 ns 100 MHz column — a gap the model
   itself records and leaves for #2 (see Now 1).
-- `sim/` holds no I/O timing study and `design/` no custom cell. The read
-  capture this block exists to prove (target-spec rows 11, 12, 14, 19) has no
-  evidence yet, and both of the spec's open questions (a) and (b) are untried.
+- Both of the spec's open questions now have first answers, from two I/O
+  timing studies under `sim/`. Question (a), does static timing see through
+  the pad cells: yes for the delay arcs — `OUT -> PAD` and `PAD -> IN` are
+  real arcs in the shipped `sky130_fd_io` liberty — but only **2 of 21**
+  `top_gpiov2` liberty corners fall inside decision 0002's 2.97–3.63 V I/O
+  window and neither is a fast corner, so liberty yields a slow/max pad
+  delay but no fast/min bound; the min/max spread still needs ngspice
+  (`sim/pad-sta/records/RECORD.md`). Question (b), delay-chain
+  monotonicity across PVT: monotonic at every corner, rise and fall —
+  45 of 45 corners over the 16-cell `g_rwds_dly` chain
+  (`sim/delay-chain/records/RECORD.md`). The pre-layout core STA record
+  (`sim/hyperram/records/sta.json`, `sim/hyperram/records/STA.md`) is not
+  I/O-timing evidence: it loads only `sky130_fd_sc_hd` — no pads, no I/O
+  constraints. `design/` still holds no custom cell.
 - Findings recorded in `layout/README.md` and left as found: post-route setup
   slack is negative at the four `ss_n40C` liberty corners below 1.62 V (worst
   -24.29 ns at `ss_n40C_1v28`), which decision 0004's "all liberty corners"
   does not reconcile with its 1.8 V ±10 % supply; 732 max-transition and 20
   max-capacitance violations against the library limits are uninvestigated.
 
-## Now (can start today, one PR each)
+## Now
+
+Each item is routing as of the header sha above; live label state is
+[`WORK_PLAN.md`](../WORK_PLAN.md). Landed items name the record that closed
+them; open ones keep their done-criterion.
 
 1. **Bring `hyperram_model.model.PLACEHOLDER` in line with the sourced spec
    table (#2).** The sourced-rows half of the old criterion is done on
    `main` (PR #94): every row of `spec/device-model-params.md` carries a value
    with table and page from the cited document, or an explicit "not
    published" note, and the document locator actually read is recorded. What
-   remains is the model half: `PLACEHOLDER` still runs tCKD/tCKDS at 6.0 ns,
-   above the sourced 1.00-5.50 ns 100 MHz column. Ratifying the result is a
-   separate act (see Blocked and waiting).
-2. **Ignore the gate-level build directory (#91, in progress).** Done when
-   `make -C verification/ctrl GL=1` leaves `git status --porcelain` empty.
-3. **Pre-layout timing record for the current netlist** (#97, in progress).
-   Done when `sim/hyperram/records/sta.json` holds `klt sta` slack for
-   `hyperram_ctrl.netlist.v` at 20 ns for every shipped `sky130_fd_sc_hd`
-   corner, with the corners below 1.62 V listed separately, and a
-   `make hyperram-sta` target reproduces it.
-4. **Answer open question (a): does static timing see through the pad cells?**
-   (#98, in progress). Done when a record under `sim/` states, for the pinned
-   PDK, which `sky130_fd_io` liberty views exist and whether OpenSTA reports
-   core-to-pad and pad-to-core arcs, and `spec/target-spec.md` question (a)
-   cites it.
-5. **Answer open question (b): delay-chain monotonicity across PVT** (#99, in
-   progress). Done when an ngspice campaign on the `dlygate4sd3_1` chain used by
-   `hr_rd_capture.v` records per-tap delay at every decision-0004 corner under
-   `sim/`, with a monotonic / not-monotonic result per corner.
+   remains at the header sha is the model half: `PLACEHOLDER` still runs
+   tCKD/tCKDS at 6.0 ns, above the sourced 1.00-5.50 ns 100 MHz column.
+   Ratifying the result is a separate act (see Blocked and waiting).
+2. **Ignore the gate-level build directory (#91).** Landed on `main` (PR
+   #104): `.gitignore`'s `sim_build*/` glob covers the GL=1 variant directory
+   (`SIM_BUILD = sim_build_gl`), so `make -C verification/ctrl GL=1` leaves
+   `git status --porcelain` empty.
+3. **Pre-layout timing record for the current netlist (#97).** Landed on
+   `main` (PR #107): `sim/hyperram/records/sta.json` holds `klt sta` slack
+   for `hyperram_ctrl.netlist.v` at 20 ns for every shipped
+   `sky130_fd_sc_hd` corner, corners below 1.62 V listed separately;
+   `make hyperram-sta` reproduces it and `sim/hyperram/records/STA.md`
+   records it. Core-only — no pads, no I/O constraints (see Where it
+   stands).
+4. **Answer open question (a): does static timing see through the pad
+   cells? (#98).** Answered on `main` (PR #108):
+   `sim/pad-sta/records/RECORD.md` — yes for the delay arcs (`OUT -> PAD`,
+   `PAD -> IN`), but exactly 2 of 21 shipped `top_gpiov2` liberty corners
+   fall inside decision 0002's 2.97–3.63 V I/O window and neither is a fast
+   corner, so liberty alone cannot bound the min/max pad delay; the spread
+   still needs ngspice (Next).
+5. **Answer open question (b): delay-chain monotonicity across PVT (#99).**
+   Answered on `main` (PR #109): `sim/delay-chain/records/RECORD.md` —
+   monotonic at every corner, rise and fall (45 of 45), over the 16-cell
+   `g_rwds_dly` `dlygate4sd3_1` chain of `hr_rd_capture.v`.
 6. **Correct status lines the tree has outrun** (#100). Of its done-criteria,
    `spec/README.md` already lists decision 0007 on `main` (since `cdaac7b`);
-   still owed: `spec/target-spec.md` no longer saying no proof exists for the
-   CT rows, the README ladder line matching the item-9 benches, and
-   `npm run check:ci` passing with item 10 re-attested.
+   still owed at the header sha: `spec/target-spec.md` no longer saying no
+   proof exists for the CT rows, the README ladder line matching the item-9
+   benches, and `npm run check:ci` passing with item 10 re-attested.
 
 ## Next
+
+As of the header sha above; live label state is
+[`WORK_PLAN.md`](../WORK_PLAN.md).
 
 - **Regenerate layout and its evidence (#52).** Unblocks when the batch image
   can run DRC, LVS and ERC (see below). Done when `make layout-check` reports
@@ -93,10 +117,11 @@ Also in the tree, outside the tier record:
   and 11 stayed `met` on a stale layout because the item-2 envelope binds only
   the GDS hash. Done when `npm run check:ci` fails on a netlist/layout
   mismatch, or the gap is filed on klayout-tools as a grader gap.
-- **Pad and strobe-delay timing campaign (rows 11, 12, 14).** After Now 4 and
-  5, and pad data from the I/O ring sibling (2AMLogic/sky130-io-ring#7). Done
-  when `sim/` holds a per-corner setup and hold margin at the capturing flop
-  against the row-12 figure.
+- **Pad and strobe-delay timing campaign (rows 11, 12, 14).** Now 4 and 5 are
+  answered (records above); what remains is pad data from the I/O ring
+  sibling (2AMLogic/sky130-io-ring#7) and the ngspice min/max pad-delay
+  spread that question (a) left open. Done when `sim/` holds a per-corner
+  setup and hold margin at the capturing flop against the row-12 figure.
 - **Item 7, post-layout verification.** After #52. Done when the GL benches run
   with SDF from the fresh layout and the manifest cites the report.
 - **Max-transition and max-capacitance violations.** After #52, on the fresh
@@ -108,7 +133,10 @@ Also in the tree, outside the tier record:
   First: is the spec ratified, and which liberty corners does decision 0004
   actually bind once the sub-1.62 V corners are reconciled?
 - **Item 6.** First: does the ratified spec make any statistical claim?
-- **Custom delay cell (`design/`).** First: does open question (b) fail?
+- **Custom delay cell (`design/`).** Its gate question, open question (b), is
+  answered and did not fail: 45 of 45 corners monotonic, rise and fall
+  (`sim/delay-chain/records/RECORD.md`); `design/` still holds no custom
+  cell.
 - **A `consumes:` edge to the pad ring and PLL siblings.** First: do the
   siblings publish pad delay tables and a clock output stage this block can
   pin to a commit?
