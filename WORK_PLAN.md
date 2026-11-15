@@ -26,29 +26,28 @@ _None._
 
 Human-approved issues ready for implementation (`loom:issue`).
 
-- **#116**: sim/pad-sta: four record/driver polish items found reviewing PR #108
+_None._
 
 ## In Progress
 
 Issues currently being built (`loom:building`).
 
-- **#106**: Bench-coverage assertion stops at verification/ctrl/: smoke and hyperram_model can still ship an undeclared bench
-- **#111**: docs/ROADMAP.md: date the Now list to the header sha so merge-queue drift stops blocking review
-- **#117**: Wire scripts/check_delay_chain_derive.py into check_ci.sh: a passing unit check nothing runs
+- **#100**: Correct three status lines the tree has outrun (spec/README decision list, target-spec proof note, README ladder)
+- **#113**: setup-env reports ngspice as '******'; delay_chain.py derive lacks the sim path's partial-collection and provenance guards
+- **#116**: sim/pad-sta: four record/driver polish items found reviewing PR #108
 
 ## PRs Awaiting Review
 
 PRs waiting on Judge (`loom:review-requested`).
 
-- **#119**: check: assert bench declarations for every verification/ subdirectory
-- **#120**: docs: take Now/Next workflow state out of ROADMAP prose
-- **#121**: ci: run the delay-chain derivation unit check in check_ci.sh
+- **#125**: fix: refuse partial reports in delay_chain derive, keep its provenance; name ngspice version in setup-env
+- **#126**: docs: correct stale proof-status lines in target-spec and README
 
 ## Approved (Awaiting Merge)
 
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
-_None._
+- **#123**: pad-sta: make --pdk-root DIR work, harden pdk_ok, align RECORD.md with committed artifacts
 
 ## Proposed
 
@@ -58,8 +57,6 @@ Issues carrying `loom:curated`.
 - **#5**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
 - **#52**: Regenerate place-and-route and layout-dependent evidence after rd_flush ST_LAT fix (#48) *(curated)*
 - **#100**: Correct three status lines the tree has outrun (spec/README decision list, target-spec proof note, README ladder) *(curated)*
-- **#106**: Bench-coverage assertion stops at verification/ctrl/: smoke and hyperram_model can still ship an undeclared bench *(curated)*
-- **#111**: docs/ROADMAP.md: date the Now list to the header sha so merge-queue drift stops blocking review *(curated)*
 - **#113**: setup-env reports ngspice as '******'; delay_chain.py derive lacks the sim path's partial-collection and provenance guards *(curated)*
 - **#116**: sim/pad-sta: four record/driver polish items found reviewing PR #108 *(curated)*
 
@@ -83,11 +80,11 @@ _None._
 | Operator merge-risk holds | 0 |
 | Very important | 1 |
 | Important | 1 |
-| Ready (`loom:issue`) | 1 |
+| Ready (`loom:issue`) | 0 |
 | In Progress (`loom:building`) | 3 |
-| PRs awaiting review | 3 |
-| Approved PRs awaiting merge | 0 |
-| Curated | 8 |
+| PRs awaiting review | 2 |
+| Approved PRs awaiting merge | 1 |
+| Curated | 6 |
 | Architect / Hermit proposals | 6 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
