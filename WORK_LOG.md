@@ -5,6 +5,9 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-11-14
 
+- **PR #104**: chore: ignore the GL=1 cocotb build directory, not just sim_build/
+- **Issue #91** (closed): GL bench run leaves an untracked sim_build_gl/ directory (.gitignore covers sim_build/ only)
+- **PR #96**: docs: roadmap as of 2026-11-13
 - **PR #107**: feat: add a hyperram-sta verb recording STA at all 16 shipped liberty corners
 - **Issue #97** (closed): Record pre-layout STA of the current controller netlist at every shipped sky130_fd_sc_hd corner
 - **PR #105**: refactor(verification): glob the controller bench list and assert the item-9 inventory covers it
