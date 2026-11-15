@@ -13,10 +13,15 @@ test plan calls out:
   appears in the record as a failure with empty delays, and the runner-level
   failure count sees it;
 - a report missing expected corners raises (a partial collection must fail
-  loudly, never ratio over what happened to come back).
+  loudly, never ratio over what happened to come back);
+- the derive subcommand refuses a report that is not the full 45-corner
+  collection -- too few or too many corners, or wrong corner ids -- before
+  anything is written.
 """
 
+import json
 import sys
+import tempfile
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
@@ -137,6 +142,60 @@ try:
     print("FAIL missing corners: no raise")
 except delay_chain.DeriveError as e:
     check("missing corners raises with count", "1 of 3" in str(e), True)
+
+# 5. The derive SUBCOMMAND refuses a report that is not the full 45-corner
+#    collection before writing anything (the sim path asserts the same count;
+#    `delay_chain.py derive <partial report>` must not ratio over a subset
+#    either), and a non-default report is also checked by corner id against
+#    the committed collection. The committed record files must be untouched.
+REC_BEFORE = {f: f.read_bytes() for f in
+              (delay_chain.RECORD_MD, delay_chain.TAPS_CSV, delay_chain.SUMMARY_CSV)}
+
+
+def derive_cmd_exit_code(report_path):
+    """Run delay_chain.derive_cmd as if invoked on report_path; return its
+    exit value (None if it returned instead of exiting)."""
+    old_argv = sys.argv
+    sys.argv = ["delay_chain.py", "derive", str(report_path)]
+    try:
+        delay_chain.derive_cmd()
+        return None
+    except SystemExit as e:
+        return e.code
+    finally:
+        sys.argv = old_argv
+
+
+with tempfile.TemporaryDirectory() as td:
+    # 5a. Too few corners: refused with the expected count in the message.
+    p = Path(td) / "partial.report.json"
+    p.write_text(json.dumps(report))
+    code = derive_cmd_exit_code(p)
+    check("partial derive_cmd refuses", isinstance(code, str)
+          and "expected 45 corners" in code, True)
+
+    # 5b. Too many corners: the count is exact, not a lower bound.
+    p = Path(td) / "oversized.report.json"
+    p.write_text(json.dumps({"corners": [
+        full_corner(f"tt{i}/vdd=1.800V/27C", "tt", 27, 1.80, RISE, FALL)
+        for i in range(46)]}))
+    code = derive_cmd_exit_code(p)
+    check("oversized derive_cmd refuses", isinstance(code, str)
+          and "expected 45 corners" in code, True)
+
+    # 5c. Full count but wrong ids: a non-default report is checked BY NAME
+    #     against the committed collection's corner ids (the only in-repo
+    #     source of real klt-format ids), so this is refused and named.
+    p = Path(td) / "wrongids.report.json"
+    wrong = json.loads(delay_chain.REPORT.read_text())
+    wrong["corners"][0]["corner_id"] = "not-a-real-klt-id"
+    p.write_text(json.dumps(wrong))
+    code = derive_cmd_exit_code(p)
+    check("wrong-ids derive_cmd refuses by name", isinstance(code, str)
+          and "missing 1 of 45" in str(code), True)
+
+check("derive_cmd partial collection wrote nothing",
+      {f: f.read_bytes() for f in REC_BEFORE} == REC_BEFORE, True)
 
 if failures:
     print()
