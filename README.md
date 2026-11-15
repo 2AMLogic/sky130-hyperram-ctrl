@@ -98,8 +98,10 @@ Maturity ladder: spec ratified → controller verified against the device
 model → pin-level timing closed across corners, pads included → layout
 DRC/LVS-clean → shuttle seat → measured silicon. **Current position:
 controller synthesized and routed, DRC/LVS/ERC clean at the tool's coverage,
-against a draft (not yet ratified) spec; device-model verification and
-pin-level timing are not done.**
+against a draft (not yet ratified) spec; the controller is verified against
+the behavioural device model at placeholder parameters (testbenches shipped,
+not full corner verification against a ratified spec), and pin-level timing
+is not done.**
 
 ## Repo layout
 
