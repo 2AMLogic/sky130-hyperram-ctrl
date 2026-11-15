@@ -6,8 +6,8 @@ with its negative control). No simulator or DUT needed:
 
 The timing values are the one PLACEHOLDER set defined beside the model
 (``model.PLACEHOLDER``), chosen for functional coverage. They are not
-datasheet numbers; every spec/device-model-params.md row but tCKD/tCKDS
-is still TBD(src).
+datasheet numbers: the spec/device-model-params.md rows are sourced (PR #94)
+but PLACEHOLDER does not match them yet -- a deliberate stand-in, left for #2.
 Nothing below restates one of those numbers: every expectation is derived
 from PLACEHOLDER, so a value ratified by #2 is entered once, in model.py.
 """

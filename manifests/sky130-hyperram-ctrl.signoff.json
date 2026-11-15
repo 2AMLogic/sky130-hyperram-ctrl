@@ -290,7 +290,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:edfac8a354f87d2899485a677dcd1a86d69a7bfa9fb967b20536af06f48e7449",
+        "content_hash": "sha256:3588a2ffb894dd808039ee93a2f4e17517cd05a53950ebf40926821f1530158c",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -299,7 +299,7 @@
             "path": "attest/item9.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:edfac8a354f87d2899485a677dcd1a86d69a7bfa9fb967b20536af06f48e7449",
+          "content_hash": "sha256:3588a2ffb894dd808039ee93a2f4e17517cd05a53950ebf40926821f1530158c",
           "input_verified": true,
           "summary": "T1 item 9 (Testbenches shipped): 25/25 attestation checks passed (klt signoff --attest)",
           "source": "attest/item9.json",

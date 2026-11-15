@@ -10,10 +10,11 @@ without a simulator (``test_model.py``) and wrapped by a cocotb pad driver
 for the controller benches. The caller supplies the simulation time in ns on
 every pin event; the model never reads a wall clock.
 
-Timing values are *inputs*: ``ModelParams`` has no defaults for them. While
-rows of ``spec/device-model-params.md`` still read ``TBD(src)`` (every row but
-tCKD/tCKDS, as of this commit), benches pass placeholder values chosen for
-functional coverage and must say so in their output (``ModelParams.describe``).
+Timing values are *inputs*: ``ModelParams`` has no defaults for them. The rows
+of ``spec/device-model-params.md`` are sourced (value plus table and printed
+page, since PR #94), but benches pass placeholder values chosen for functional
+coverage -- a deliberate stand-in that does not match the sourced rows yet,
+left for #2 -- and must say so in their output (``ModelParams.describe``).
 There is one such set, ``PLACEHOLDER`` below, and benches derive any variant
 from it with ``dataclasses.replace``. Every check names its parameter; a
 violation is recorded in ``HyperRamModel.violations`` and a bench fails on any
@@ -30,8 +31,9 @@ Interface assumptions (public definition, restated so a reviewer can check):
     the minimum is 3 and data starts ``latency - 3`` cycles after CA ends).
     Doubling doubles the whole count. This is the reading of "clocks from CA
     to data" in ``spec/device-model-params.md`` that matches the controller
-    (rtl/hyperram_ctrl/hr_cmd_fsm.v); that row is ``TBD(src)``, so the
-    convention is an assumption until #2 lands. Register writes have zero
+    (rtl/hyperram_ctrl/hr_cmd_fsm.v); the row is sourced (PR #94: the count
+    is device dependent, no single number exists), but this precise reading
+    is an assumption until #2 lands. Register writes have zero
     latency; register reads and memory reads/writes use it.
   * Read data is edge-aligned with RWDS (RWDS high on the first byte of each
     word). Write data is centre-aligned; RWDS high on a write byte masks it
@@ -94,14 +96,16 @@ class ModelParams:
 # their parameters from this one object, so a value ratified by #2 is entered
 # here once and reaches all of them.
 #
-# NOT datasheet values. Except for tCKD/tCKDS the rows of
-# ``spec/device-model-params.md`` these stand in for are still ``TBD(src)``
-# (#2), so the numbers are chosen for functional coverage only and every
-# bench prints them (``ModelParams.describe``). Results are model-relative.
+# NOT datasheet values. The rows of ``spec/device-model-params.md`` these
+# stand in for are sourced (value plus table and printed page, since PR #94),
+# but this set does not match them yet: it is a deliberate functional-coverage
+# stand-in, left for #2. The numbers are chosen for functional coverage only
+# and every bench prints them (``ModelParams.describe``). Results are
+# model-relative.
 #
 # Known gap, left for #2 (choosing values is out of scope here): tCKD/tCKDS
 # are 6.0 ns, above the sourced 100 MHz column of
-# ``spec/device-model-params.md`` (tCKD/tCKDS 1.00-5.50 ns, Table 9.4 p. 37).
+# ``spec/device-model-params.md`` (tCKD/tCKDS 1.00-5.50 ns, Table 9.4 p. 36).
 #
 # ``dq_skew_ns`` / ``rwds_skew_ns`` stay at zero: they are bench stimulus, not
 # device values. A bench that needs them derives its own set with

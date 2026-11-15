@@ -2,8 +2,9 @@
 the model's tCSM, with a down-counter that ends the burst and re-issues the
 remainder; CT with a model that flags the violation.
 
-The device-model tCSM is a placeholder (spec/device-model-params.md tCSM is
-TBD(src)); what is verified is the relation
+The device-model tCSM is a placeholder: the spec/device-model-params.md tCSM
+row is sourced (PR #94), but the placeholder set is a deliberate
+functional-coverage stand-in left for #2; what is verified is the relation
     cfg_tcsm = floor(tCSM / T) - TCSM_MARGIN_CLK  =>  no violation
 for the placeholder and for several other tCSM values, at the 50 MHz clock
 used here, plus a negative control that shows the model flags it.
