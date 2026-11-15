@@ -10,8 +10,9 @@
 #   3. Provisions the pinned sky130A PDK via `ciel` with BOTH sky130_fd_pr and
 #      sky130_fd_sc_hd enabled, verifies the open_pdks revision from SOURCES,
 #      and FAILS LOUDLY if the sky130_fd_sc_hd liberty/LEF is missing.
-#   4. Checks iverilog, verilator and openroad are on $PATH and records their
-#      versions (they are host tools: this script never installs them).
+#   4. Checks iverilog, verilator, openroad and ngspice are on $PATH and
+#      records their versions (they are host tools: this script never
+#      installs them).
 #
 # Exit 0: environment ready.  Exit 1: anything above failed.
 #
@@ -119,7 +120,7 @@ ls "${PDK_ROOT}"/sky130A/libs.ref/sky130_fd_sc_hd/lef/*.lef >/dev/null 2>&1 \
 echo "sky130A ready (open_pdks ${CIEL_SKY130_VERSION:0:12} verified via SOURCES; sky130_fd_sc_hd present)"
 
 echo
-echo "== 4/4 host tools (iverilog, verilator, openroad) =="
+echo "== 4/4 host tools (iverilog, verilator, openroad, ngspice) =="
 missing=0
 major_of() { sed -E 's/[^0-9]*([0-9]+).*/\1/'; }
 if command -v iverilog >/dev/null 2>&1; then
@@ -137,6 +138,13 @@ if command -v openroad >/dev/null 2>&1; then
   if ov="$(openroad -version 2>&1)"; then echo "  openroad:  ${ov}"
   else echo "  openroad:  on \$PATH but NOT RUNNABLE: $(printf '%s' "${ov}" | head -1)"; missing=1; fi
 else echo "  openroad:  MISSING"; missing=1; fi
+# ngspice backs the delay-chain campaign (flow/delay_chain.py). Run it, not
+# just find it; the campaign itself runs on the batch fleet, whose worker's
+# version is the one a committed record names.
+if command -v ngspice >/dev/null 2>&1; then
+  if nv="$(ngspice --version 2>&1 | head -1)"; then echo "  ngspice:   ${nv}"
+  else echo "  ngspice:   on \$PATH but NOT RUNNABLE: $(printf '%s' "${nv}" | head -1)"; missing=1; fi
+else echo "  ngspice:   MISSING"; missing=1; fi
 [ "${missing}" -eq 0 ] || fail "host tools missing or too old (this script does not install host tools; see docs/environment.md)."
 
 echo
