@@ -5,6 +5,16 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-11-15
 
+- **PR #132**: fix: delete unused DRIVER_SCRIPTS constant from check_help_text.py
+- **Issue #130** (closed): check_help_text.py defines an unused DRIVER_SCRIPTS constant; the real driver list lives in check_ci.sh
+- **PR #129**: fix: pattern-anchor the shell drivers' --help sed bound, gate it in CI
+- **Issue #124** (closed): run-opensta.sh --help range is a hardcoded line number that must be hand-bumped on every arg-loop edit
+- **PR #126**: docs: correct stale proof-status lines in target-spec and README
+- **Issue #100** (closed): Correct three status lines the tree has outrun (spec/README decision list, target-spec proof note, README ladder)
+- **PR #125**: fix: refuse partial reports in delay_chain derive, keep its provenance; name ngspice version in setup-env
+- **Issue #113** (closed): setup-env reports ngspice as a masked value; delay_chain.py derive lacks the sim path's partial-collection and provenance guards
+- **PR #123**: pad-sta: make --pdk-root DIR work, harden pdk_ok, align RECORD.md with committed artifacts
+- **Issue #116** (closed): sim/pad-sta: four record/driver polish items found reviewing PR #108
 - **PR #121**: ci: run the delay-chain derivation unit check in check_ci.sh
 - **Issue #117** (closed): Wire scripts/check_delay_chain_derive.py into check_ci.sh: a passing unit check nothing runs
 - **PR #120**: docs: take Now/Next workflow state out of ROADMAP prose
