@@ -149,10 +149,11 @@ def self_test():
         help_problems("", 0) != [],
         "empty help fails",
     )
+    nonzero_case = "# Usage: x\n"
     record(
-        any("exited 1" in p for p in help_problems("# Usage: x\n", 1)),
+        any("exited 1" in p for p in help_problems(nonzero_case, 1)),
         "a nonzero --help exit fails",
-        f"got {help_problems('# Usage: x\\n', 1)}",
+        f"got {help_problems(nonzero_case, 1)}",
     )
     no_usage = "# driver.sh -- do a thing.\n#\n# See the README.\n"
     record(
