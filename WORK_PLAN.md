@@ -62,7 +62,6 @@ Issues carrying `loom:curated`.
 - **#101**: Share the tap delay line: hr_dq_out and hr_rd_capture build the same 16-cell chain twice *(hermit)*
 - **#103**: Stop restating six toolchain pins in docs/environment.md: a hand-maintained copy nothing checks *(hermit)*
 - **#114**: Remove toolchain smoke flow: make smoke duplicates what the controller flow now exercises *(hermit)*
-- **#133**: Remove check_help_text.py: a 200-line checker guarding a two-line sed already fixed structurally *(hermit)*
 
 ## Epics
 

@@ -55,17 +55,36 @@ echo "== 2b/7 --help of the shell drivers prints comment text only =="
 # setup-env.sh and sim/pad-sta/run-opensta.sh print their leading comment
 # block as --help through a pattern-anchored sed range (issue #124). Their
 # upper bounds used to be hardcoded line numbers that drifted on every edit
-# above them: run-opensta.sh's had to be hand-bumped on each arg-loop change
-# (PR #123), and setup-env.sh's had drifted so far it silently dropped the
-# header's pin-maintenance note. This asserts the invariant, not a snapshot:
-# --help must exit 0 and print nothing but comment (and blank) lines, so a
-# reintroduced overshooting bound fails closed instead of silently truncating
-# or dumping shell source. The checker is self-tested first, because it is
-# the only thing standing between that regression and a green CI. Needs no
-# PDK, no yosys, no klt: both scripts exit from their argument loop before
-# touching a tool.
-python3 -I scripts/check_help_text.py --self-test
-python3 -I scripts/check_help_text.py scripts/setup-env.sh sim/pad-sta/run-opensta.sh
+# above them. This asserts the invariant, not a snapshot: --help must exit
+# 0, write nothing to stderr, and print nothing but comment and blank
+# lines, one of them the "# Usage:" header -- a reintroduced overshooting
+# bound fails closed instead of silently truncating or dumping shell
+# source. Needs no PDK, no yosys, no klt: both scripts exit from their
+# argument loop before touching a tool.
+help_err="$(mktemp)"
+help_fail() {
+  rm -f "$help_err"
+  echo "::error file=$1::$2"
+  exit 1
+}
+for s in scripts/setup-env.sh sim/pad-sta/run-opensta.sh; do
+  rc=0
+  out="$(bash "$s" --help 2>"$help_err")" || rc=$?
+  if [ "$rc" -ne 0 ]; then
+    help_fail "$s" "--help exited $rc (expected 0)"
+  fi
+  if [ -s "$help_err" ]; then
+    help_fail "$s" "--help wrote to stderr: $(head -c 200 "$help_err")"
+  fi
+  if ! printf '%s\n' "$out" | grep -q '^# Usage:'; then
+    help_fail "$s" "--help has no '# Usage:' line"
+  fi
+  if printf '%s\n' "$out" | grep -qv -e '^[[:space:]]*$' -e '^[[:space:]]*#'; then
+    help_fail "$s" "--help printed shell source, not comment text only"
+  fi
+  echo "ok $s: --help is comment lines only"
+done
+rm -f "$help_err"
 
 echo "== 3/7 pinned-yosys gate rejects an unpinned build =="
 # flow/hyperram.py's gate is the only thing between a yosys that merely reports
