@@ -96,7 +96,8 @@ echo
 echo "== 3/4 sky130A PDK (open_pdks ${CIEL_SKY130_VERSION:0:12}) under ${PDK_ROOT} =="
 pdk_ok() {
   grep -q "${CIEL_SKY130_VERSION}" "${PDK_ROOT}/sky130A/SOURCES" 2>/dev/null \
-    && ls "${PDK_ROOT}"/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib >/dev/null 2>&1
+    && ls "${PDK_ROOT}"/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib >/dev/null 2>&1 \
+    && ls "${PDK_ROOT}"/sky130A/libs.ref/sky130_fd_io/lib/sky130_fd_io__top_gpiov2_tt_tt_025C_1v80_3v30.lib >/dev/null 2>&1
 }
 if pdk_ok; then
   echo "pinned PDK already present; not re-fetching"

@@ -98,7 +98,10 @@ see [Assumptions](#assumptions-stated) for what they depend on.
 `inventory.tsv` lists every `sky130_fd_io` liberty file the pinned revision
 ships — **649 `.lib` files** across 26 cell names (plus the two
 corner-less stub files `sky130_ef_io__analog_stubs.lib` and
-`slices_stubs.lib`), with sha256 for each. Summary:
+`slices_stubs.lib`), with sha256 for each. The derived corner columns
+(`core_proc`, `io_proc`, `temp`, `vddio`) are deliberately populated only
+for the cell under test, `top_gpiov2` (21 of the 649 rows); every other row
+carries `-` in all four even where its `corner_suffix` would parse. Summary:
 
 | Cell (family) | Corners | | Cell (family) | Corners |
 |---|---|---|---|---|
@@ -233,8 +236,9 @@ must pick its load deliberately with the sibling I/O ring.
 than a clean refusal — the unsupported field is silently ignored.** Committed
 evidence: `sta-request.json` (the request as written, using the documented
 `macros: [{name, lef, lib: {<core-corner>: <pad-liberty>}}]` shape) and
-`klt-0.8.0-attempt/` (the generated engine script, the engine stderr, and
-the invocation record).
+`klt-0.8.0-attempt/` (the generated engine script, the engine stderr —
+empty, because OpenROAD wrote its `ORD-*` diagnostics to stdout, which was
+not captured — and the invocation record).
 
 Observed on the pinned wheel (checked in the 0.8.0 wheel contents
 themselves, not inferred from the failure alone):
@@ -250,7 +254,10 @@ themselves, not inferred from the failure alone):
    instances: `[ERROR ORD-2013] instance u_ipad LEF master
    sky130_fd_io__top_gpiov2 not found` (exit 1, no response document —
    which is why there is no `sta.json` in this record: the committed engine
-   artifacts in `klt-0.8.0-attempt/` are the tool output there is).
+   artifacts in `klt-0.8.0-attempt/` are the tool output there is). The
+   quoted line itself is committed in `opensta-nolib-nolef.log`, not in
+   `klt-0.8.0-attempt/`: OpenROAD wrote the `ORD-*` diagnostics to stdout,
+   and only the (empty) stderr was captured there.
 3. The per-corner `lib` map's documented property — "a `lib` map with no
    entry for the corner being analysed is a request error, not a silent
    fallback" — cannot hold at this pin, because the map itself is ignored;
@@ -302,8 +309,11 @@ PDK_ROOT=~/.ciel sim/pad-sta/run-opensta.sh
 regenerates every `opensta-*.log` next to this file. Logs embed the absolute
 PDK/netlist paths of the machine that produced them; the arc numbers and the
 warning/no-path lines, not byte-identical logs, are what must reproduce.
-Regenerate the inventory (adjust the two path variables at the top) and diff
-against `inventory.tsv`:
+Regenerate the inventory (adjust the single path variable `d` at the top)
+and diff against `inventory.tsv`. The snippet reproduces the `file` and
+`sha256` columns only — columns 1 and 10 of the TSV, printed
+space-separated — so compare those two columns; it does not regenerate the
+other eight derived columns:
 
 ```sh
 python3 - <<'PY'
