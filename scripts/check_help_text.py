@@ -40,11 +40,6 @@ import pathlib
 import subprocess
 import sys
 
-DRIVER_SCRIPTS = [
-    "scripts/setup-env.sh",
-    "sim/pad-sta/run-opensta.sh",
-]
-
 
 def help_problems(help_text, rc):
     """Problems with one script's --help output (empty list = clean)."""
