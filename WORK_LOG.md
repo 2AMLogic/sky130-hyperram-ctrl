@@ -5,6 +5,8 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-11-15
 
+- **PR #131**: fix: restore committed delay-chain records after derive_cmd refusal cases
+- **Issue #128** (closed): check_delay_chain_derive.py's derive_cmd cases write the committed records into the running checkout when a guard regresses
 - **PR #132**: fix: delete unused DRIVER_SCRIPTS constant from check_help_text.py
 - **Issue #130** (closed): check_help_text.py defines an unused DRIVER_SCRIPTS constant; the real driver list lives in check_ci.sh
 - **PR #129**: fix: pattern-anchor the shell drivers' --help sed bound, gate it in CI
