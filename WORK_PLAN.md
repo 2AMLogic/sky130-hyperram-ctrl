@@ -79,6 +79,6 @@ _None._
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
 | Curated | 3 |
-| Architect / Hermit proposals | 7 |
+| Architect / Hermit proposals | 6 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
