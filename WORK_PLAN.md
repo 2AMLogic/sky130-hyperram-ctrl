@@ -14,13 +14,13 @@ _None._
 
 `loom:very-important` (one counts per workspace); every stage takes these first.
 
-- **#2**: Draft and ratify the target spec
+- **#2**: Draft and ratify the target spec *(held)*
 
 ## Important
 
 `loom:important`; taken before unlabelled work.
 
-- **#52**: Regenerate place-and-route and layout-dependent evidence after rd_flush ST_LAT fix (#48)
+- **#52**: Regenerate place-and-route and layout-dependent evidence after rd_flush ST_LAT fix (#48) *(held)*
 
 ## Ready
 
@@ -50,18 +50,18 @@ _None._
 
 Issues carrying `loom:curated`.
 
-- **#2**: Draft and ratify the target spec *(curated)*
+- **#2**: Draft and ratify the target spec *(curated)* *(held)*
 - **#5**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
-- **#52**: Regenerate place-and-route and layout-dependent evidence after rd_flush ST_LAT fix (#48) *(curated)*
+- **#52**: Regenerate place-and-route and layout-dependent evidence after rd_flush ST_LAT fix (#48) *(curated)* *(held)*
 
 ## Proposed (Architect / Hermit)
 
-- **#70**: Remove drifted layout/toolchain.json inventory and stale bring-up stubs *(hermit)*
-- **#78**: Trim the 175k-line dead_metal list from the committed klt extract record *(hermit)*
-- **#84**: Remove vendored design-evidence-tiers.md: the pinned klt wheel ships a byte-identical copy *(hermit)*
-- **#101**: Share the tap delay line: hr_dq_out and hr_rd_capture build the same 16-cell chain twice *(hermit)*
-- **#103**: Stop restating six toolchain pins in docs/environment.md: a hand-maintained copy nothing checks *(hermit)*
-- **#114**: Remove toolchain smoke flow: make smoke duplicates what the controller flow now exercises *(hermit)*
+- **#70**: Remove drifted layout/toolchain.json inventory and stale bring-up stubs *(hermit)* *(held)*
+- **#78**: Trim the 175k-line dead_metal list from the committed klt extract record *(hermit)* *(held)*
+- **#84**: Remove vendored design-evidence-tiers.md: the pinned klt wheel ships a byte-identical copy *(hermit)* *(held)*
+- **#101**: Share the tap delay line: hr_dq_out and hr_rd_capture build the same 16-cell chain twice *(hermit)* *(held)*
+- **#103**: Stop restating six toolchain pins in docs/environment.md: a hand-maintained copy nothing checks *(hermit)* *(held)*
+- **#114**: Remove toolchain smoke flow: make smoke duplicates what the controller flow now exercises *(hermit)* *(held)*
 
 ## Epics
 
