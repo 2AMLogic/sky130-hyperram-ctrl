@@ -257,16 +257,22 @@ step sta
 log "freshness: re-synthesize and byte-compare against the committed netlist"
 python3 -I flow/hyperram.py check
 step check
-log "structural check: 32 chain cells, one shared hr_tap_delay module"
+log "structural check: 32 chain cells (2 x 16 in the shared module)"
 python3 - <<'PY'
-import re
+import json, re
 net = open("sim/hyperram/records/hyperram_ctrl.netlist.v").read()
-insts = re.findall(r"^\s*sky130_fd_sc_hd__dlygate4sd3_1\s+(\\?\S+)", net, re.M)
-assert len(insts) == 32, f"expected 32 dlygate4sd3_1 instances, found {len(insts)}"
+stat = json.load(open("sim/hyperram/records/synth-stat.json"))
+# yosys's own hierarchy-aware count: 2 instantiations x 16 cells = 32 physical
+cells = stat["instance_counts_by_type"].get("sky130_fd_sc_hd__dlygate4sd3_1", 0)
+assert cells == 32, f"expected 32 dlygate4sd3_1 cells, found {cells}"
 assert "module hr_tap_delay" in net, "hr_tap_delay module missing from the netlist"
-under = [i for i in insts if i.startswith(("\\u_ck_dly.", "\\u_rwds_dly."))]
-assert len(under) == 32, f"chain cells not under the named instantiations: {len(insts) - len(under)} stray"
-print("cell check ok: 32 dlygate4sd3_1, all under u_ck_dly.g_dly / u_rwds_dly.g_dly")
+body = net.split("module hr_tap_delay", 1)[1].split("endmodule", 1)[0]
+insts = re.findall(r"^\s*sky130_fd_sc_hd__dlygate4sd3_1\s+(\S+)", body, re.M)
+assert len(insts) == 16, f"expected the 16-cell chain written once in hr_tap_delay, found {len(insts)}"
+sites = re.findall(r"^\s*hr_tap_delay\s+(\S+)", net, re.M)
+assert sorted(sites) == ["u_ck_dly", "u_rwds_dly"], \
+    f"expected the two named instantiations u_ck_dly/u_rwds_dly, found {sites}"
+print(f"cell check ok: 32 dlygate4sd3_1 = 2 x 16 in hr_tap_delay, instantiated as {sorted(sites)}")
 PY
 step cell-check
 log "re-recording the item-1 attestation (re-runs the freshness check itself)"
