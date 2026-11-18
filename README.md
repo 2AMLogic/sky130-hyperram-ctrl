@@ -16,18 +16,13 @@ grades **7 of 11** T1 items: items 1–4, 9, 10 and 11 are `met`, against a
 **draft** spec (issue #2), not a ratified one; the verdicts are provisional.
 Items 5–8 (including pin-level timing across corners) are not met.
 
-**Layout-dependent items are stale.** Items 2, 3, 4 and 11 are graded `met`
-from records generated from the netlist *before* the `rd_flush` ST_LAT fix
-(#48, PR #51). The committed place-and-route response was built from netlist
-`sha256:c0f912a1…3d40d0f`; the current
-`sim/hyperram/records/hyperram_ctrl.netlist.v` is `sha256:038c7e9a…06409ca3`,
-so `make layout-check` reports STALE. The grader still shows `met` because the
-item-2 envelope binds only the GDS hash, not the netlist it came from. The
-routed layout is therefore of the older RTL until the records are regenerated
-in #52, which is held on 2AMLogic/2am#7142: the batch image that can run
-place-and-route off the dispatch host now launches (2AMLogic/2am#6416, closed
-2026-11-12), but magic, netgen and the sky130 PDK, which the DRC/LVS/ERC half
-of the flow needs, were not found in it.
+**Layout-dependent items are graded from records regenerated for the current
+netlist.** Items 2, 3, 4 and 11 are graded `met` from layout records built
+from `sim/hyperram/records/hyperram_ctrl.netlist.v` as it stands, so
+`make layout-check` reports them fresh; the netlist hash and regeneration
+date are quoted once, in the Records banner of
+[`layout/README.md`](layout/README.md), and deliberately not repeated here —
+a hash in this README would go stale at every regeneration.
 
 **Built agent-native.** Every specification, decision record, testbench, and
 line of documentation here is produced by AI agents working from a ratified
