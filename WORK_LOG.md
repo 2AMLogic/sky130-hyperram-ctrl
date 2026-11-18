@@ -5,6 +5,10 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-11-18
 
+- **PR #152**: docs: re-point g_rwds_dly/g_ck_dly citations at hr_tap_delay's g_dly chain
+- **Issue #150** (closed): Stale g_rwds_dly / g_ck_dly generate-label citations after the hr_tap_delay refactor
+- **PR #149**: docs: replace false stale-layout status paragraph in README
+- **Issue #147** (closed): README status paragraph: 'Layout-dependent items are stale' is false since #140, and quotes a netlist hash #101's regen replaces
 - **PR #148**: refactor: share the 16-cell tap delay line in one hr_tap_delay module
 - **Issue #101**: hr_dq_out and hr_rd_capture build the same 16-cell chain twice
 - **PR #145**: docs: remove misplaced 2026-11-18 WORK_LOG section holding un-closed Issue #52 entry

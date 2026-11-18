@@ -32,15 +32,13 @@ _None._
 
 Issues currently being built (`loom:building`).
 
-- **#101**: Share the tap delay line: hr_dq_out and hr_rd_capture build the same 16-cell chain twice
 - **#142**: fleet-regen-layout.sh: provision the PDK outside the repo root so deck.path in committed evidence is resolvable
-- **#147**: README status paragraph: 'Layout-dependent items are stale' is false since #140, and quotes a netlist hash #101's regen replaces
 
 ## PRs Awaiting Review
 
 PRs waiting on Judge (`loom:review-requested`).
 
-- **#149**: docs: replace false stale-layout status paragraph in README
+_None._
 
 ## Approved (Awaiting Merge)
 
@@ -55,7 +53,6 @@ Issues carrying `loom:curated`.
 - **#2**: Draft and ratify the target spec *(curated)* *(held)*
 - **#5**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
 - **#142**: fleet-regen-layout.sh: provision the PDK outside the repo root so deck.path in committed evidence is resolvable *(curated)*
-- **#147**: README status paragraph: 'Layout-dependent items are stale' is false since #140, and quotes a netlist hash #101's regen replaces *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -77,10 +74,10 @@ _None._
 | Very important | 1 |
 | Important | 0 |
 | Ready (`loom:issue`, net of holds/building/merge-pending) | 0 |
-| In Progress (`loom:building`) | 3 |
-| PRs awaiting review | 1 |
+| In Progress (`loom:building`) | 1 |
+| PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 4 |
+| Curated | 3 |
 | Architect / Hermit proposals | 5 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
