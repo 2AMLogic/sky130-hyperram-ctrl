@@ -23,6 +23,7 @@
 #   (the --help assertion for the two shell drivers runs as step 2b, beside
 #    the other tool-free gates; the delay-chain derivation unit check runs as
 #    step 3b; the tap-decode structural check runs as step 3c, self-tested
+#    first; the PDK-root provenance check runs as step 3d, self-tested
 #    first; the item-9 testbench attestation is checked as step 4b, and
 #    step 4c asserts that attestation declares every controller bench present
 #    on disk -- a bench the inventory omits is invisible to 4b rather than
@@ -115,6 +116,24 @@ echo "== 3c/7 tap-decode structural check =="
 # Needs no yosys, no klt and no PDK.
 python3 -I scripts/check_tap_decode.py --self-test
 python3 -I scripts/check_tap_decode.py
+
+echo "== 3d/7 PDK-root provenance check =="
+# ensure_pdk in scripts/fleet-regen-layout.sh fetches the pinned sky130A PDK
+# outside the repo root (issue #142): a PDK under ${REPO_ROOT} makes klt
+# record the liberty deck as repo-scoped evidence -- a path into a tree
+# .gitignore deliberately excludes, unresolvable in every checkout -- while
+# outside the repo the same field records scope "external". Every bench is
+# blind to the regression and it surfaces only when a fleet job runs the
+# regeneration end to end, by which time the wrong evidence is already
+# committed, so this is the structural guard: a pure read of the committed
+# script asserting every `export PDK_ROOT=` target in ensure_pdk is /opt/pdk,
+# a caller-supplied ${PDK_ROOT}, or rooted at ${TMPDIR:-/var/tmp}, and never
+# ${REPO_ROOT} (issue #155). It fails closed on a missing ensure_pdk or a
+# missing export -- a rename must not silently pass -- and is self-tested
+# first, over fixtures carrying exactly the regression. Needs no PDK, no
+# klt and no network.
+python3 -I scripts/check_pdk_root.py --self-test
+python3 -I scripts/check_pdk_root.py
 
 echo "== 4/7 item-10 attestation is fresh =="
 # Hashes are raw bytes: any edit to README.md, LICENSE, ci.yml or
