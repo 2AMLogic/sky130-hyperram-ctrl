@@ -200,10 +200,37 @@ step checks
 
 # Re-pin the manifest citations for the evidence this run regenerated, then
 # re-render the verdict of record (manifests/README.md: same PR as the change).
+#
+# The pinned content_hash is the INPUT artifact the cited envelope binds --
+# its self-reported provenance.input.content_hash (design-evidence-tiers.md,
+# "Staleness is failure": klt signoff gates the pin against that self-report)
+# -- not the evidence file's own bytes. item2/DRC/ERC all bind the routed GDS,
+# LVS binds its extracted netlist, the P&R response binds the routed netlist.
 log "re-pinning manifest citations and re-rendering the signoff record"
 python3 - <<'PY'
-import hashlib, json, pathlib
-def h(p): return "sha256:" + hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
+import json, pathlib
+def input_hash(path):
+    doc = json.loads(pathlib.Path(path).read_text())
+    def find(node):
+        if isinstance(node, dict):
+            prov = node.get("provenance")
+            if isinstance(prov, dict):
+                inp = prov.get("input")
+                if isinstance(inp, dict) and inp.get("content_hash"):
+                    return inp["content_hash"]
+            for v in node.values():
+                found = find(v)
+                if found:
+                    return found
+        elif isinstance(node, list):
+            for v in node:
+                found = find(v)
+                if found:
+                    return found
+    found = find(doc)
+    if not found:
+        raise SystemExit(f"FATAL: no provenance.input.content_hash in {path}")
+    return found
 targets = {
     "evidence/item2.json",
     "layout/records/drc.report.json",
@@ -216,7 +243,7 @@ man = json.loads(mp.read_text())
 def fix(node):
     if isinstance(node, dict):
         if node.get("file") in targets:
-            node["content_hash"] = h(node["file"])
+            node["content_hash"] = input_hash(node["file"])
         else:
             for v in node.values():
                 fix(v)
@@ -253,9 +280,11 @@ PY
 
 python3 - <<'PY'
 import json
+req = json.load(open("layout/place-and-route.json"))
 r = json.load(open("layout/records/place-and-route.response.json"))
-print(f"P&R: engine {r['engine']} {r.get('engine_version','')} corner {r['pdk']['corner']} "
-      f"clk {r['constraints']['clock_period_ns']}ns core {r['core_area_um2']}um2 "
+print(f"P&R: engine {r['engine']} {r.get('engine_version','')} "
+      f"corner {req['pdk']['corner']} (interconnect {r.get('interconnect_corner')}) "
+      f"clk {req['constraints']['clock_period_ns']}ns core {r['core_area_um2']}um2 "
       f"worst_slack {r.get('worst_slack_ns')}ns TNS {r.get('total_negative_slack_ns')}ns "
       f"spef_worst_slack {r.get('spef_sta',{}).get('worst_slack_ns')}ns")
 PY
