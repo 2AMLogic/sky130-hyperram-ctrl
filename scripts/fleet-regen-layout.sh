@@ -93,7 +93,7 @@ ensure_klt() {
 # exactly the way scripts/setup-env.sh does.
 wasm_sha_of() {
   local venv="${REPO_ROOT}/.fleet-venv"
-  "${venv}/bin/python3" - <<'PY'
+  "${venv}/bin/python3" -I <<'PY'
 import hashlib, os
 import yowasp_yosys
 p = os.path.join(os.path.dirname(yowasp_yosys.__file__), "yosys.wasm")
@@ -235,6 +235,9 @@ ensure_yowasp_yosys
 # declared outputs (job exit 3) instead of silently re-collecting stale files.
 # Runs after the toolchain checks above, so an early failure cannot leave the
 # records deleted.
+# Deliberately NOT cleaned: sim/hyperram/records/ also holds the gate-level
+# functional report (functional-verification-ctrl-gl.report.json), which this
+# script does not produce -- an rm -rf there would drop it from collection.
 rm -rf layout/records/* layout/lvs/records/* evidence/item2.json
 mkdir -p layout/records layout/lvs/records
 
@@ -258,7 +261,7 @@ log "freshness: re-synthesize and byte-compare against the committed netlist"
 python3 -I flow/hyperram.py check
 step check
 log "structural check: 32 chain cells (2 x 16 in the shared module)"
-python3 - <<'PY'
+python3 -I <<'PY'
 import json, re
 net = open("sim/hyperram/records/hyperram_ctrl.netlist.v").read()
 stat = json.load(open("sim/hyperram/records/synth-stat.json"))
@@ -274,6 +277,8 @@ assert sorted(sites) == ["u_ck_dly", "u_rwds_dly"], \
     f"expected the two named instantiations u_ck_dly/u_rwds_dly, found {sites}"
 print(f"cell check ok: 32 dlygate4sd3_1 = 2 x 16 in hr_tap_delay, instantiated as {sorted(sites)}")
 PY
+log "structural check: tap decode is one linear 16-cell series, taps at depths 2,4,..16"
+python3 -I scripts/check_tap_decode.py
 step cell-check
 log "re-recording the item-1 attestation (re-runs the freshness check itself)"
 scripts/klt.sh signoff --attest 1 --inventory attest/item1.json -o evidence/item1.json
@@ -309,7 +314,7 @@ step checks
 # -- not the evidence file's own bytes. item2/DRC/ERC all bind the routed GDS,
 # LVS binds its extracted netlist, the P&R response binds the routed netlist.
 log "re-pinning manifest citations and re-rendering the signoff record"
-python3 - <<'PY'
+python3 -I <<'PY'
 import json, pathlib
 def input_hash(path):
     doc = json.loads(pathlib.Path(path).read_text())
@@ -368,7 +373,7 @@ python3 -c 'import json; d=json.load(open("manifests/sky130-hyperram-ctrl.signof
 step signoff
 
 # Verdicts: the AC is DRC clean, LVS match, ERC clean -- fail the job otherwise.
-python3 - <<'PY'
+python3 -I <<'PY'
 import json
 drc = json.load(open("layout/records/drc.report.json"))
 assert drc["status"] == "clean" and drc["violation_count"] == 0, f"DRC not clean: {drc['status']} n={drc.get('violation_count')}"
@@ -381,7 +386,7 @@ assert erc["erc_status"] == "clean", f"ERC not clean: {erc['erc_status']}"
 print("verdicts: DRC clean; LVS match (power match); ERC clean")
 PY
 
-python3 - <<'PY'
+python3 -I <<'PY'
 import json
 req = json.load(open("layout/place-and-route.json"))
 r = json.load(open("layout/records/place-and-route.response.json"))
