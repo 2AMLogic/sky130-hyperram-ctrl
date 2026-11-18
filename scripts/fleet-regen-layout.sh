@@ -159,11 +159,44 @@ ensure_pdk() {
   if [ -n "${PDK_ROOT:-}" ]; then
     log "WARNING: PDK at ${PDK_ROOT:-<unset>} is missing or not open_pdks ${PDK_COMMIT:0:12}; fetching a fresh one"
   fi
-  export PDK_ROOT="${REPO_ROOT}/.fleet-pdk"
-  mkdir -p "${PDK_ROOT}"
-  ciel enable --pdk-root "${PDK_ROOT}" --pdk-family sky130 \
+  # Fetch OUTSIDE the repo root (issue #142). A PDK under ${REPO_ROOT} makes
+  # klt record the liberty deck as {"path": ".fleet-pdk/...", "scope": "repo"}
+  # in the evidence it writes -- a repo-scoped path into a tree .gitignore
+  # deliberately excludes, unresolvable in every checkout. Outside the repo
+  # the same field records {"path": null, "scope": "external"} (measured with
+  # the pinned klt on a /var/tmp PDK root: klt place-and-route responded
+  # scope "external" with the deck's content_hash unchanged), exactly as the
+  # baked-/opt/pdk path has always recorded.
+  #
+  # The shared root is keyed by the pin, so a retry reuses a complete copy;
+  # each fetch lands in a per-run mktemp directory and is renamed into place
+  # only after it verifies, so concurrent shards cannot collide (mv -T is a
+  # rename: it replaces an empty target and refuses a non-empty one). If the
+  # shared root exists but does not verify, this run falls back to its own
+  # staging copy rather than deleting a directory another process may own.
+  local shared_root staging
+  shared_root="${TMPDIR:-/var/tmp}/fleet-pdk-${PDK_COMMIT}"
+  if pdk_ok "${shared_root}"; then
+    export PDK_ROOT="${shared_root}"
+    log "reusing a previously fetched PDK at ${PDK_ROOT} (open_pdks ${PDK_COMMIT:0:12})"
+    return 0
+  fi
+  staging="$(mktemp -d "${TMPDIR:-/var/tmp}/fleet-pdk.XXXXXXXX")" \
+    || { echo "FATAL: no writable scratch directory under ${TMPDIR:-/var/tmp} for the PDK fetch" >&2; exit 4; }
+  ciel enable --pdk-root "${staging}" --pdk-family sky130 \
     -l sky130_fd_pr -l sky130_fd_sc_hd -l sky130_fd_io "${PDK_COMMIT}" \
-    || { echo "FATAL: ciel enable failed (network, or GitHub rate limit)" >&2; exit 4; }
+    || { rm -rf "${staging}"; echo "FATAL: ciel enable failed (network, or GitHub rate limit)" >&2; exit 4; }
+  pdk_ok "${staging}" || { rm -rf "${staging}"; echo "FATAL: freshly provisioned PDK does not verify" >&2; exit 4; }
+  if mv -T "${staging}" "${shared_root}" 2>/dev/null; then
+    export PDK_ROOT="${shared_root}"
+  elif pdk_ok "${shared_root}"; then
+    log "a concurrent shard published the same PDK first; using its copy"
+    rm -rf "${staging}"
+    export PDK_ROOT="${shared_root}"
+  else
+    log "WARNING: ${shared_root} exists but does not verify; using this run's own copy at ${staging}"
+    export PDK_ROOT="${staging}"
+  fi
   pdk_ok "${PDK_ROOT}" || { echo "FATAL: freshly provisioned PDK does not verify" >&2; exit 4; }
   log "PDK provisioned with ciel at ${PDK_ROOT} (open_pdks ${PDK_COMMIT:0:12})"
 }
