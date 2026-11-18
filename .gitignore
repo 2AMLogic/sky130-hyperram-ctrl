@@ -115,6 +115,13 @@ flow/.klt/
 # klt place-and-route scratch (layout/records/ holds the committed outputs)
 layout/.klt/
 
+# fleet job scratch (scripts/fleet-regen-layout.sh): job-local PDK/venv
+# provisioning and probe output; machine-local, multi-GB, never committed
+# (layout/records/ and layout/lvs/records/ hold the committed outputs)
+.fleet-pdk/
+.fleet-venv/
+fleet-probe.txt
+
 # klt sta scratch from sim/pad-sta (records/ holds the committed outputs)
 sim/pad-sta/.klt/
 

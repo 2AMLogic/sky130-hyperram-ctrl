@@ -162,17 +162,19 @@ LOG="${REPO_ROOT}/fleet-regen.log"
 exec > >(tee "${LOG}") 2>&1
 log "regen start: RS_SOURCE_COMMIT=${RS_SOURCE_COMMIT:-<unset>} src_sha256=${RS_SRC_SHA256:-<unset>}"
 
-# Clean the outputs this run owns, so a partial failure surfaces as missing
-# declared outputs (job exit 3) instead of silently re-collecting stale files.
-rm -rf layout/records/* layout/lvs/records/* evidence/item2.json
-mkdir -p layout/records layout/lvs/records
-
 ensure_klt
 have openroad || { echo "FATAL: openroad not on PATH" >&2; exit 4; }
 openroad -version >/dev/null 2>&1 || { echo "FATAL: openroad on PATH but not runnable" >&2; exit 4; }
 log "openroad: $(openroad -version 2>&1 | head -1)"
 ensure_pdk
 export PDK="${PDK:-sky130A}"
+
+# Clean the outputs this run owns, so a partial failure surfaces as missing
+# declared outputs (job exit 3) instead of silently re-collecting stale files.
+# Runs after the toolchain checks above, so an early failure cannot leave the
+# records deleted.
+rm -rf layout/records/* layout/lvs/records/* evidence/item2.json
+mkdir -p layout/records layout/lvs/records
 
 STEP_T0=$(date +%s)
 step() { log "step $1 done in $(( $(date +%s) - STEP_T0 ))s"; STEP_T0=$(date +%s); }

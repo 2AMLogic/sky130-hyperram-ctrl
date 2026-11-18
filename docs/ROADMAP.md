@@ -59,8 +59,8 @@ Also in the tree, outside the tier record:
   constraints. `design/` still holds no custom cell.
 - Findings recorded in `layout/README.md` and left as found: post-route setup
   slack is negative at the four `ss_n40C` liberty corners below 1.62 V (worst
-  -24.29 ns at `ss_n40C_1v28`), which decision 0004's "all liberty corners"
-  does not reconcile with its 1.8 V ±10 % supply; 732 max-transition and 20
+  -27.28 ns at `ss_n40C_1v28`), which decision 0004's "all liberty corners"
+  does not reconcile with its 1.8 V ±10 % supply; 284 max-transition and 15
   max-capacitance violations against the library limits are uninvestigated.
 
 ## Now
