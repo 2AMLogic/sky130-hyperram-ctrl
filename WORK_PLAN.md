@@ -4,6 +4,7 @@ Roadmap generated from GitHub label state by the Guide triage role.
 Only the region between the markers is machine-generated.
 
 <!-- guide:plan-body:start -->
+_Generated: 2026-11-18T12:52:50Z (snapshot; compare against live labels)_
 ## Operator Attention: Merge-Risk-Hold Pileup
 
 Judge-approved PRs under a hold (`loom:blocked` or `loom:operator`) — only a human merge decision is missing.
@@ -32,13 +33,13 @@ _None._
 
 Issues currently being built (`loom:building`).
 
-- **#142**: fleet-regen-layout.sh: provision the PDK outside the repo root so deck.path in committed evidence is resolvable
+- **#158**: check_pdk_root.py: a bare } inside a heredoc truncates the ensure_pdk body and hides a repo-rooted PDK_ROOT
 
 ## PRs Awaiting Review
 
 PRs waiting on Judge (`loom:review-requested`).
 
-_None._
+- **#159**: fix: make check_pdk_root body extraction heredoc-aware
 
 ## Approved (Awaiting Merge)
 
@@ -52,7 +53,7 @@ Issues carrying `loom:curated`.
 
 - **#2**: Draft and ratify the target spec *(curated)* *(held)*
 - **#5**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
-- **#142**: fleet-regen-layout.sh: provision the PDK outside the repo root so deck.path in committed evidence is resolvable *(curated)*
+- **#158**: check_pdk_root.py: a bare } inside a heredoc truncates the ensure_pdk body and hides a repo-rooted PDK_ROOT *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -75,7 +76,7 @@ _None._
 | Important | 0 |
 | Ready (`loom:issue`, net of holds/building/merge-pending) | 0 |
 | In Progress (`loom:building`) | 1 |
-| PRs awaiting review | 0 |
+| PRs awaiting review | 1 |
 | Approved PRs awaiting merge | 0 |
 | Curated | 3 |
 | Architect / Hermit proposals | 5 |
