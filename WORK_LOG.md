@@ -131,10 +131,6 @@ Maintained by the Guide triage role; entries are append-only.
 - **PR #20**: feat: attest T1 item 10 repo hygiene via klt signoff --attest (klt 0.8.0)
 - **Issue #18** (closed): T1 item 10 (Repo hygiene): attest README, LICENSE and CI with klt signoff --attest 10
 
-### 2026-11-18
-
-- **Issue #52**: Regenerate place-and-route, DRC/LVS/ERC and item-2 evidence on a batch-fleet heavy instance after the rd_flush ST_LAT fix (#48, PR #51); P&R never ran on the dispatch worker
-
 ### 2026-10-22
 
 - **PR #7**: ci: add CI gate script, graded klt signoff record, README reproduce section
