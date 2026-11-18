@@ -28,7 +28,7 @@ GL_CHECK        = cd $(abspath ../..) && env -u PDK_ROOT PDK=sky130A python3 flo
 endif
 else
 VERILOG_SOURCES = $(RTL)/sim/sky130_cells_behav.v $(RTL)/hr_dq_out.v \
-                  $(RTL)/hr_rd_capture.v $(RTL)/hr_cmd_fsm.v $(RTL)/hyperram_ctrl.v
+                  $(RTL)/hr_rd_capture.v $(RTL)/hr_tap_delay.v $(RTL)/hr_cmd_fsm.v $(RTL)/hyperram_ctrl.v
 endif
 COCOTB_TOPLEVEL = hyperram_ctrl
 # The controller-bench rule (see the header): every test_*.py in this directory

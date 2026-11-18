@@ -5,6 +5,7 @@
     "../rtl/hyperram_ctrl/sim/sky130_cells_behav.v",
     "../rtl/hyperram_ctrl/hr_dq_out.v",
     "../rtl/hyperram_ctrl/hr_rd_capture.v",
+    "../rtl/hyperram_ctrl/hr_tap_delay.v",
     "../rtl/hyperram_ctrl/hr_cmd_fsm.v",
     "../rtl/hyperram_ctrl/hyperram_ctrl.v"
   ],
