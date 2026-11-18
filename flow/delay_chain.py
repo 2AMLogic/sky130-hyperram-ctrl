@@ -321,9 +321,10 @@ def write_markdown(rec, report):
         "# RWDS delay chain across PVT (spec open question (b))", "",
         render_result(rec), "",
         "Result of the `make delay-chain` campaign (decision 0004 ngspice corner "
-        "set) over the 16-cell `g_rwds_dly` chain of "
-        "rtl/hyperram_ctrl/hr_rd_capture.v. The second chain (`g_ck_dly`, "
-        "hr_dq_out.v) is the same cell, length and tap arithmetic, so this "
+        "set) over the 16-cell `g_dly` chain of "
+        "rtl/hyperram_ctrl/hr_tap_delay.v, instantiated as `u_rwds_dly` in "
+        "hr_rd_capture.v. The second chain (`u_ck_dly`, hr_dq_out.v) is the "
+        "same cell, length and tap arithmetic, so this "
         "record answers for it too; no row-14 claim is made here.", "",
     ]
     head += [render_provenance(report)]

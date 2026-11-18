@@ -1,6 +1,7 @@
 * RWDS delay-chain bench (spec open question b, decision 0003): 16
-* sky130_fd_sc_hd__dlygate4sd3_1 cells in series -- the g_rwds_dly chain of
-* rtl/hyperram_ctrl/hr_rd_capture.v -- loaded exactly as the committed
+* sky130_fd_sc_hd__dlygate4sd3_1 cells in series -- the g_dly chain of
+* rtl/hyperram_ctrl/hr_tap_delay.v (instantiated as u_rwds_dly in
+* rtl/hyperram_ctrl/hr_rd_capture.v) -- loaded exactly as the committed
 * controller netlist loads it (sim/hyperram/records/hyperram_ctrl.netlist.v:
 * the two mux4_2 tap selectors and their clkbuf_1 buffers).
 *
