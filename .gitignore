@@ -115,10 +115,12 @@ flow/.klt/
 # klt place-and-route scratch (layout/records/ holds the committed outputs)
 layout/.klt/
 
-# fleet job scratch (scripts/fleet-regen-layout.sh): job-local PDK/venv
+# fleet job scratch (scripts/fleet-regen-layout.sh): job-local venv
 # provisioning and probe output; machine-local, multi-GB, never committed
-# (layout/records/ and layout/lvs/records/ hold the committed outputs)
-.fleet-pdk/
+# (layout/records/ and layout/lvs/records/ hold the committed outputs).
+# The fetched PDK no longer provisions under the repo root -- issue #142
+# moved it to ${TMPDIR:-/var/tmp}/fleet-pdk-<commit> so committed evidence
+# records the deck as scope "external" -- so there is no .fleet-pdk/ entry.
 .fleet-venv/
 fleet-probe.txt
 
