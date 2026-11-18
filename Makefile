@@ -41,7 +41,7 @@ smoke-record:
 	python3 flow/smoke.py record
 
 HR_DIR  := rtl/hyperram_ctrl
-HR_RTL  := $(HR_DIR)/hyperram_ctrl.v $(HR_DIR)/hr_cmd_fsm.v $(HR_DIR)/hr_dq_out.v $(HR_DIR)/hr_rd_capture.v
+HR_RTL  := $(HR_DIR)/hyperram_ctrl.v $(HR_DIR)/hr_cmd_fsm.v $(HR_DIR)/hr_dq_out.v $(HR_DIR)/hr_rd_capture.v $(HR_DIR)/hr_tap_delay.v
 
 .PHONY: hyperram-lint hyperram-synth hyperram-check hyperram-sta
 

@@ -22,7 +22,8 @@
 #   7. the committed klt signoff record equals a fresh render of the manifest
 #   (the --help assertion for the two shell drivers runs as step 2b, beside
 #    the other tool-free gates; the delay-chain derivation unit check runs as
-#    step 3b; the item-9 testbench attestation is checked as step 4b, and
+#    step 3b; the tap-decode structural check runs as step 3c, self-tested
+#    first; the item-9 testbench attestation is checked as step 4b, and
 #    step 4c asserts that attestation declares every controller bench present
 #    on disk -- a bench the inventory omits is invisible to 4b rather than
 #    drift)
@@ -101,6 +102,19 @@ echo "== 3b/7 delay-chain derivation unit check =="
 # here, against fixed report fixtures, including a deliberately non-monotonic
 # one (issue #117). Needs no ngspice, no klt and no PDK.
 python3 -I scripts/check_delay_chain_derive.py
+
+echo "== 3c/7 tap-decode structural check =="
+# The controller benches cannot cover the tap arithmetic of hr_tap_delay: the
+# sim stand-ins are zero-delay pass-throughs, so no tap decode or chain-length
+# mutation can change a bench result (PR #148 review -- both mutations were
+# shown to leave the 43/43 suite green). This is the structural guard instead,
+# a pure read of the committed netlist: one linear 16-cell dlygate series and
+# a tap mux selecting depths 2,4,..16 for tap_sel=0..7. Self-tested first,
+# over fixtures carrying exactly the mutations the benches miss, because it
+# is now the only thing standing between a broken decode and a green CI.
+# Needs no yosys, no klt and no PDK.
+python3 -I scripts/check_tap_decode.py --self-test
+python3 -I scripts/check_tap_decode.py
 
 echo "== 4/7 item-10 attestation is fresh =="
 # Hashes are raw bytes: any edit to README.md, LICENSE, ci.yml or

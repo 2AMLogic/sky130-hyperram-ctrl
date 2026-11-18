@@ -1,6 +1,8 @@
 // Read capture (spec rows 11, 12; decision 0003): RWDS is delayed through a
 // chain of sky130_fd_sc_hd delay cells with a static, register-selected tap
 // and then clocks the data capture flops on both edges. No calibration.
+// The chain is the shared hr_tap_delay module (see its header for the
+// named-cell contract and the tap numbering).
 //
 // Capture domain (clocked by the delayed RWDS): byte 0 is taken on the
 // rising edge, byte 1 on the falling edge, and the 16-bit word is written to
@@ -11,7 +13,7 @@
 // it as a single-cycle path). The core side discards stale entries with
 // `flush` at the start of each read transaction.
 //
-// Named cells: u_rwds_dly[i] (the chain). Tap k selects 2*(k+1) cells.
+// Named cells: u_rwds_dly (the chain, an hr_tap_delay instantiation).
 `default_nettype none
 
 module hr_rd_capture (
@@ -27,18 +29,11 @@ module hr_rd_capture (
     output wire [15:0] w0,
     output wire [15:0] w1
 );
-    // ---- delay chain -----------------------------------------------------
-    wire [16:0] dly;
-    assign dly[0] = rwds_i;
-    genvar i;
-    generate
-        for (i = 0; i < 16; i = i + 1) begin : g_rwds_dly
-            sky130_fd_sc_hd__dlygate4sd3_1 u_rwds_dly (.A(dly[i]), .X(dly[i+1]));
-        end
-    endgenerate
-
-    wire [7:0] taps = {dly[16], dly[14], dly[12], dly[10], dly[8], dly[6], dly[4], dly[2]};
-    wire       rwds_d = taps[tap_sel];
+    // ---- delay chain -------------------------------------------------------
+    // 16-cell standard-cell chain, static register-selected tap (decision
+    // 0003); tap numbering and the STA/SPICE contract live in hr_tap_delay.v.
+    wire       rwds_d;
+    hr_tap_delay u_rwds_dly (.in_sig(rwds_i), .tap_sel(tap_sel), .out_sig(rwds_d));
 
     // ---- capture domain ----------------------------------------------------
     reg [7:0]  cap_b0;

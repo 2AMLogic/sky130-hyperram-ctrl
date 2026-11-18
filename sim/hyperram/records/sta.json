@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "engine": "openroad",
-  "engine_version": "26Q3-1510-g6cb3f2b704",
+  "engine_version": "26Q4-1310-g98c6045c72",
   "hdl_toplevel": "hyperram_ctrl",
   "status": "ok",
   "def_path": null,
@@ -19,15 +19,12 @@
     "klayout_version": "0.30.13",
     "pdk": {
       "name": "sky130A",
-      "source": "search root: ~/.ciel",
-      "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7",
-      "ambiguous_sources": [
-        "search root: ~/.volare"
-      ]
+      "source": "PDK_ROOT environment variable",
+      "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
     },
     "deck": null,
     "input": {
-      "content_hash": "sha256:038c7e9a13aff7062aa1a0e5303707865c423f28995dc347cf0189c206409ca3",
+      "content_hash": "sha256:5ea579ba0640d6d73dc84e04e410a889b0588b313785f2697c4f4cfbc38a9f64",
       "role": "netlist"
     }
   },
@@ -35,13 +32,13 @@
     {
       "corner": "ff_100C_1v65",
       "engine_log": {
-        "invocation_id": "884b10a8e1b0424ab3ad3d35e74f2203",
+        "invocation_id": "aace5976bfaf426fa176446027e1e814",
         "script_name": "sta_hyperram_ctrl.netlist__ff_100C_1v65.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ff_100C_1v65.tcl",
           "scope": "repo"
         },
-        "script_sha256": "6ab07a2ead84fa2843504e41adb26c2d298a7c20be96c9dfb3ff78f0035962d1",
+        "script_sha256": "063baf05406c1f3d7aa2a584d59ec7da4a35c76b220f17efb2b559438c3a5646",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ff_100C_1v65_metrics.json",
           "scope": "repo"
@@ -49,19 +46,19 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/884b10a8e1b0424ab3ad3d35e74f2203",
+          "path": "flow/.klt/sta/openroad-logs/aace5976bfaf426fa176446027e1e814",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/884b10a8e1b0424ab3ad3d35e74f2203/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/aace5976bfaf426fa176446027e1e814/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/884b10a8e1b0424ab3ad3d35e74f2203/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/aace5976bfaf426fa176446027e1e814/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/884b10a8e1b0424ab3ad3d35e74f2203/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/aace5976bfaf426fa176446027e1e814/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
@@ -70,7 +67,7 @@
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.27604,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 262.344,
+      "fmax_mhz": 271.845,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -106,26 +103,26 @@
           "status": "ok",
           "count": 143,
           "sample": [
-            "u_cap/_0851_/CLK",
-            "u_cap/_0852_/CLK",
-            "u_cap/_0853_/CLK",
-            "u_cap/_0854_/CLK",
-            "u_cap/_0855_/CLK",
-            "u_cap/_0856_/CLK",
-            "u_cap/_0857_/CLK",
-            "u_cap/_0858_/CLK",
-            "u_cap/_0859_/CLK",
-            "u_cap/_0860_/CLK",
-            "u_cap/_0861_/CLK",
-            "u_cap/_0862_/CLK",
-            "u_cap/_0863_/CLK",
-            "u_cap/_0864_/CLK",
-            "u_cap/_0865_/CLK",
-            "u_cap/_0866_/CLK",
-            "u_cap/_0867_/CLK",
-            "u_cap/_0868_/CLK",
-            "u_cap/_0869_/CLK",
-            "u_cap/_0870_/CLK"
+            "u_cap/_804_/CLK",
+            "u_cap/_805_/CLK",
+            "u_cap/_806_/CLK",
+            "u_cap/_807_/CLK",
+            "u_cap/_808_/CLK",
+            "u_cap/_809_/CLK",
+            "u_cap/_810_/CLK",
+            "u_cap/_811_/CLK",
+            "u_cap/_812_/CLK",
+            "u_cap/_813_/CLK",
+            "u_cap/_814_/CLK",
+            "u_cap/_815_/CLK",
+            "u_cap/_816_/CLK",
+            "u_cap/_817_/CLK",
+            "u_cap/_818_/CLK",
+            "u_cap/_819_/CLK",
+            "u_cap/_820_/CLK",
+            "u_cap/_821_/CLK",
+            "u_cap/_822_/CLK",
+            "u_cap/_823_/CLK"
           ],
           "truncated": true,
           "reason": null
@@ -138,8 +135,8 @@
         "status": "ok",
         "check_type": "setup",
         "engine_check_role": "setup",
-        "startpoint": "u_out/_45_/Q",
-        "endpoint": "u_out/_25_/D",
+        "startpoint": "u_out/_40_/Q",
+        "endpoint": "u_out/_20_/D",
         "slack_ns": 9.64408,
         "consistent_with_aggregate": true,
         "reason": null
@@ -148,14 +145,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_0983_/Q",
-        "endpoint": "u_cap/_0987_/D",
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
         "slack_ns": 0.27604,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.17908,
-      "estimated_power_mw": 1.9542,
+      "clock_skew_ns": 0.11876,
+      "estimated_power_mw": 1.1192,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -171,21 +168,21 @@
         "content_hash": "sha256:913e67fc551be7e4e97fc031f3e72e5ef3251438ceeb44753f73b68df58f5650",
         "released": false,
         "path": {
-          "path": null,
-          "scope": "external"
+          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_100C_1v65.lib",
+          "scope": "repo"
         }
       }
     },
     {
       "corner": "ff_100C_1v95",
       "engine_log": {
-        "invocation_id": "b3d1abc26ec545589ed9f6492428c4de",
+        "invocation_id": "82ac78a7db2048e3a45a465621aeac25",
         "script_name": "sta_hyperram_ctrl.netlist__ff_100C_1v95.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ff_100C_1v95.tcl",
           "scope": "repo"
         },
-        "script_sha256": "5304545fa18833303b09e22aeb988e8850b97274fa43ee6699b23bc2b33be237",
+        "script_sha256": "39a7643195873c71e86cc8db028e412026d8395d9eb8ef0f2bcf9892a04f4140",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ff_100C_1v95_metrics.json",
           "scope": "repo"
@@ -193,19 +190,19 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/b3d1abc26ec545589ed9f6492428c4de",
+          "path": "flow/.klt/sta/openroad-logs/82ac78a7db2048e3a45a465621aeac25",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/b3d1abc26ec545589ed9f6492428c4de/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/82ac78a7db2048e3a45a465621aeac25/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/b3d1abc26ec545589ed9f6492428c4de/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/82ac78a7db2048e3a45a465621aeac25/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/b3d1abc26ec545589ed9f6492428c4de/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/82ac78a7db2048e3a45a465621aeac25/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
@@ -214,7 +211,7 @@
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.21974,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 337.655,
+      "fmax_mhz": 349.256,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -250,26 +247,26 @@
           "status": "ok",
           "count": 143,
           "sample": [
-            "u_cap/_0851_/CLK",
-            "u_cap/_0852_/CLK",
-            "u_cap/_0853_/CLK",
-            "u_cap/_0854_/CLK",
-            "u_cap/_0855_/CLK",
-            "u_cap/_0856_/CLK",
-            "u_cap/_0857_/CLK",
-            "u_cap/_0858_/CLK",
-            "u_cap/_0859_/CLK",
-            "u_cap/_0860_/CLK",
-            "u_cap/_0861_/CLK",
-            "u_cap/_0862_/CLK",
-            "u_cap/_0863_/CLK",
-            "u_cap/_0864_/CLK",
-            "u_cap/_0865_/CLK",
-            "u_cap/_0866_/CLK",
-            "u_cap/_0867_/CLK",
-            "u_cap/_0868_/CLK",
-            "u_cap/_0869_/CLK",
-            "u_cap/_0870_/CLK"
+            "u_cap/_804_/CLK",
+            "u_cap/_805_/CLK",
+            "u_cap/_806_/CLK",
+            "u_cap/_807_/CLK",
+            "u_cap/_808_/CLK",
+            "u_cap/_809_/CLK",
+            "u_cap/_810_/CLK",
+            "u_cap/_811_/CLK",
+            "u_cap/_812_/CLK",
+            "u_cap/_813_/CLK",
+            "u_cap/_814_/CLK",
+            "u_cap/_815_/CLK",
+            "u_cap/_816_/CLK",
+            "u_cap/_817_/CLK",
+            "u_cap/_818_/CLK",
+            "u_cap/_819_/CLK",
+            "u_cap/_820_/CLK",
+            "u_cap/_821_/CLK",
+            "u_cap/_822_/CLK",
+            "u_cap/_823_/CLK"
           ],
           "truncated": true,
           "reason": null
@@ -282,8 +279,8 @@
         "status": "ok",
         "check_type": "setup",
         "engine_check_role": "setup",
-        "startpoint": "u_out/_45_/Q",
-        "endpoint": "u_out/_25_/D",
+        "startpoint": "u_out/_40_/Q",
+        "endpoint": "u_out/_20_/D",
         "slack_ns": 9.72145,
         "consistent_with_aggregate": true,
         "reason": null
@@ -292,14 +289,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_0983_/Q",
-        "endpoint": "u_cap/_0987_/D",
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
         "slack_ns": 0.21974,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.1521,
-      "estimated_power_mw": 2.8507,
+      "clock_skew_ns": 0.09675,
+      "estimated_power_mw": 1.6074,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -315,21 +312,21 @@
         "content_hash": "sha256:15c9ccefec536ff35d694314af5812e7c03b4e5a356ec8ea28f2e40bbeec04e7",
         "released": false,
         "path": {
-          "path": null,
-          "scope": "external"
+          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_100C_1v95.lib",
+          "scope": "repo"
         }
       }
     },
     {
       "corner": "ff_n40C_1v56",
       "engine_log": {
-        "invocation_id": "70de30f6ff424b77a8cee5c9ce3e64e4",
+        "invocation_id": "ffbf611e60df45be811d1c0731e87a42",
         "script_name": "sta_hyperram_ctrl.netlist__ff_n40C_1v56.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ff_n40C_1v56.tcl",
           "scope": "repo"
         },
-        "script_sha256": "b32fbebb40096c4b027b15cef80f2178c62536513882159cd46ae005c2a0080c",
+        "script_sha256": "8070e7c6249f69ccf8753ab6bcf5c82867edcfdc5919cf4c45d52511623c584d",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ff_n40C_1v56_metrics.json",
           "scope": "repo"
@@ -337,19 +334,19 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/70de30f6ff424b77a8cee5c9ce3e64e4",
+          "path": "flow/.klt/sta/openroad-logs/ffbf611e60df45be811d1c0731e87a42",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/70de30f6ff424b77a8cee5c9ce3e64e4/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/ffbf611e60df45be811d1c0731e87a42/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/70de30f6ff424b77a8cee5c9ce3e64e4/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/ffbf611e60df45be811d1c0731e87a42/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/70de30f6ff424b77a8cee5c9ce3e64e4/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/ffbf611e60df45be811d1c0731e87a42/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
@@ -358,7 +355,7 @@
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.31153,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 206.965,
+      "fmax_mhz": 221.297,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -394,26 +391,26 @@
           "status": "ok",
           "count": 143,
           "sample": [
-            "u_cap/_0851_/CLK",
-            "u_cap/_0852_/CLK",
-            "u_cap/_0853_/CLK",
-            "u_cap/_0854_/CLK",
-            "u_cap/_0855_/CLK",
-            "u_cap/_0856_/CLK",
-            "u_cap/_0857_/CLK",
-            "u_cap/_0858_/CLK",
-            "u_cap/_0859_/CLK",
-            "u_cap/_0860_/CLK",
-            "u_cap/_0861_/CLK",
-            "u_cap/_0862_/CLK",
-            "u_cap/_0863_/CLK",
-            "u_cap/_0864_/CLK",
-            "u_cap/_0865_/CLK",
-            "u_cap/_0866_/CLK",
-            "u_cap/_0867_/CLK",
-            "u_cap/_0868_/CLK",
-            "u_cap/_0869_/CLK",
-            "u_cap/_0870_/CLK"
+            "u_cap/_804_/CLK",
+            "u_cap/_805_/CLK",
+            "u_cap/_806_/CLK",
+            "u_cap/_807_/CLK",
+            "u_cap/_808_/CLK",
+            "u_cap/_809_/CLK",
+            "u_cap/_810_/CLK",
+            "u_cap/_811_/CLK",
+            "u_cap/_812_/CLK",
+            "u_cap/_813_/CLK",
+            "u_cap/_814_/CLK",
+            "u_cap/_815_/CLK",
+            "u_cap/_816_/CLK",
+            "u_cap/_817_/CLK",
+            "u_cap/_818_/CLK",
+            "u_cap/_819_/CLK",
+            "u_cap/_820_/CLK",
+            "u_cap/_821_/CLK",
+            "u_cap/_822_/CLK",
+            "u_cap/_823_/CLK"
           ],
           "truncated": true,
           "reason": null
@@ -426,8 +423,8 @@
         "status": "ok",
         "check_type": "setup",
         "engine_check_role": "setup",
-        "startpoint": "u_out/_45_/Q",
-        "endpoint": "u_out/_25_/D",
+        "startpoint": "u_out/_40_/Q",
+        "endpoint": "u_out/_20_/D",
         "slack_ns": 9.55665,
         "consistent_with_aggregate": true,
         "reason": null
@@ -436,14 +433,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_0983_/Q",
-        "endpoint": "u_cap/_0987_/D",
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
         "slack_ns": 0.31153,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.19261,
-      "estimated_power_mw": 1.6285,
+      "clock_skew_ns": 0.14685,
+      "estimated_power_mw": 0.9422,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -459,21 +456,21 @@
         "content_hash": "sha256:d64f38f3e67f8adab818531901385dbd29c6a4805e6166f7166bcc3e9370ef88",
         "released": false,
         "path": {
-          "path": null,
-          "scope": "external"
+          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v56.lib",
+          "scope": "repo"
         }
       }
     },
     {
       "corner": "ff_n40C_1v65",
       "engine_log": {
-        "invocation_id": "7c4f6eb6c5fd460e8dda0d0d9e5699ea",
+        "invocation_id": "f08c214ff7b9475688474f96801d898b",
         "script_name": "sta_hyperram_ctrl.netlist__ff_n40C_1v65.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ff_n40C_1v65.tcl",
           "scope": "repo"
         },
-        "script_sha256": "739b598a258f729e0ac8a4488c0288b2bce9a3e799b929d6e99caa2313cf0bcb",
+        "script_sha256": "d38d5dcb31d7e763e661042762f5d56eec679181a21190c88fe78785978fbb12",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ff_n40C_1v65_metrics.json",
           "scope": "repo"
@@ -481,19 +478,19 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/7c4f6eb6c5fd460e8dda0d0d9e5699ea",
+          "path": "flow/.klt/sta/openroad-logs/f08c214ff7b9475688474f96801d898b",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/7c4f6eb6c5fd460e8dda0d0d9e5699ea/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/f08c214ff7b9475688474f96801d898b/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/7c4f6eb6c5fd460e8dda0d0d9e5699ea/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/f08c214ff7b9475688474f96801d898b/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/7c4f6eb6c5fd460e8dda0d0d9e5699ea/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/f08c214ff7b9475688474f96801d898b/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
@@ -502,7 +499,7 @@
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.27562,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 240.913,
+      "fmax_mhz": 256.342,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -538,26 +535,26 @@
           "status": "ok",
           "count": 143,
           "sample": [
-            "u_cap/_0851_/CLK",
-            "u_cap/_0852_/CLK",
-            "u_cap/_0853_/CLK",
-            "u_cap/_0854_/CLK",
-            "u_cap/_0855_/CLK",
-            "u_cap/_0856_/CLK",
-            "u_cap/_0857_/CLK",
-            "u_cap/_0858_/CLK",
-            "u_cap/_0859_/CLK",
-            "u_cap/_0860_/CLK",
-            "u_cap/_0861_/CLK",
-            "u_cap/_0862_/CLK",
-            "u_cap/_0863_/CLK",
-            "u_cap/_0864_/CLK",
-            "u_cap/_0865_/CLK",
-            "u_cap/_0866_/CLK",
-            "u_cap/_0867_/CLK",
-            "u_cap/_0868_/CLK",
-            "u_cap/_0869_/CLK",
-            "u_cap/_0870_/CLK"
+            "u_cap/_804_/CLK",
+            "u_cap/_805_/CLK",
+            "u_cap/_806_/CLK",
+            "u_cap/_807_/CLK",
+            "u_cap/_808_/CLK",
+            "u_cap/_809_/CLK",
+            "u_cap/_810_/CLK",
+            "u_cap/_811_/CLK",
+            "u_cap/_812_/CLK",
+            "u_cap/_813_/CLK",
+            "u_cap/_814_/CLK",
+            "u_cap/_815_/CLK",
+            "u_cap/_816_/CLK",
+            "u_cap/_817_/CLK",
+            "u_cap/_818_/CLK",
+            "u_cap/_819_/CLK",
+            "u_cap/_820_/CLK",
+            "u_cap/_821_/CLK",
+            "u_cap/_822_/CLK",
+            "u_cap/_823_/CLK"
           ],
           "truncated": true,
           "reason": null
@@ -570,8 +567,8 @@
         "status": "ok",
         "check_type": "setup",
         "engine_check_role": "setup",
-        "startpoint": "u_out/_45_/Q",
-        "endpoint": "u_out/_25_/D",
+        "startpoint": "u_out/_40_/Q",
+        "endpoint": "u_out/_20_/D",
         "slack_ns": 9.61458,
         "consistent_with_aggregate": true,
         "reason": null
@@ -580,14 +577,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_0983_/Q",
-        "endpoint": "u_cap/_0987_/D",
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
         "slack_ns": 0.27562,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.17602,
-      "estimated_power_mw": 1.8351,
+      "clock_skew_ns": 0.12977,
+      "estimated_power_mw": 1.0572,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -603,21 +600,21 @@
         "content_hash": "sha256:dd777cb159bf2fc853773d74a3c3e8269b73869d25aae49d0f80f117df9631ee",
         "released": false,
         "path": {
-          "path": null,
-          "scope": "external"
+          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v65.lib",
+          "scope": "repo"
         }
       }
     },
     {
       "corner": "ff_n40C_1v76",
       "engine_log": {
-        "invocation_id": "6038bcb474e54fa8b8f7218e74331656",
+        "invocation_id": "0fe73b7c23b042379f1c7e688b11e2d2",
         "script_name": "sta_hyperram_ctrl.netlist__ff_n40C_1v76.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ff_n40C_1v76.tcl",
           "scope": "repo"
         },
-        "script_sha256": "bb021fae200479531f3f0f975bffe6ef2328f53368bc1d8cd3334e9cc27a022b",
+        "script_sha256": "e8a3a9fdc489014492d36ca0b3f976fa1a6dba6d60b0fcb3a50da4c0b66065ca",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ff_n40C_1v76_metrics.json",
           "scope": "repo"
@@ -625,19 +622,19 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/6038bcb474e54fa8b8f7218e74331656",
+          "path": "flow/.klt/sta/openroad-logs/0fe73b7c23b042379f1c7e688b11e2d2",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/6038bcb474e54fa8b8f7218e74331656/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/0fe73b7c23b042379f1c7e688b11e2d2/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/6038bcb474e54fa8b8f7218e74331656/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/0fe73b7c23b042379f1c7e688b11e2d2/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/6038bcb474e54fa8b8f7218e74331656/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/0fe73b7c23b042379f1c7e688b11e2d2/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
@@ -646,7 +643,7 @@
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.24213,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 281.478,
+      "fmax_mhz": 297.682,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -682,26 +679,26 @@
           "status": "ok",
           "count": 143,
           "sample": [
-            "u_cap/_0851_/CLK",
-            "u_cap/_0852_/CLK",
-            "u_cap/_0853_/CLK",
-            "u_cap/_0854_/CLK",
-            "u_cap/_0855_/CLK",
-            "u_cap/_0856_/CLK",
-            "u_cap/_0857_/CLK",
-            "u_cap/_0858_/CLK",
-            "u_cap/_0859_/CLK",
-            "u_cap/_0860_/CLK",
-            "u_cap/_0861_/CLK",
-            "u_cap/_0862_/CLK",
-            "u_cap/_0863_/CLK",
-            "u_cap/_0864_/CLK",
-            "u_cap/_0865_/CLK",
-            "u_cap/_0866_/CLK",
-            "u_cap/_0867_/CLK",
-            "u_cap/_0868_/CLK",
-            "u_cap/_0869_/CLK",
-            "u_cap/_0870_/CLK"
+            "u_cap/_804_/CLK",
+            "u_cap/_805_/CLK",
+            "u_cap/_806_/CLK",
+            "u_cap/_807_/CLK",
+            "u_cap/_808_/CLK",
+            "u_cap/_809_/CLK",
+            "u_cap/_810_/CLK",
+            "u_cap/_811_/CLK",
+            "u_cap/_812_/CLK",
+            "u_cap/_813_/CLK",
+            "u_cap/_814_/CLK",
+            "u_cap/_815_/CLK",
+            "u_cap/_816_/CLK",
+            "u_cap/_817_/CLK",
+            "u_cap/_818_/CLK",
+            "u_cap/_819_/CLK",
+            "u_cap/_820_/CLK",
+            "u_cap/_821_/CLK",
+            "u_cap/_822_/CLK",
+            "u_cap/_823_/CLK"
           ],
           "truncated": true,
           "reason": null
@@ -714,8 +711,8 @@
         "status": "ok",
         "check_type": "setup",
         "engine_check_role": "setup",
-        "startpoint": "u_out/_45_/Q",
-        "endpoint": "u_out/_25_/D",
+        "startpoint": "u_out/_40_/Q",
+        "endpoint": "u_out/_20_/D",
         "slack_ns": 9.66518,
         "consistent_with_aggregate": true,
         "reason": null
@@ -724,14 +721,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_0983_/Q",
-        "endpoint": "u_cap/_0987_/D",
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
         "slack_ns": 0.24213,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.16058,
-      "estimated_power_mw": 2.0987,
+      "clock_skew_ns": 0.11562,
+      "estimated_power_mw": 1.2092,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -747,21 +744,21 @@
         "content_hash": "sha256:0f5b7ceef23114c3834870f86c2f90ea24d597622fcd5abd2916b1fb604e8a26",
         "released": false,
         "path": {
-          "path": null,
-          "scope": "external"
+          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v76.lib",
+          "scope": "repo"
         }
       }
     },
     {
       "corner": "ff_n40C_1v95",
       "engine_log": {
-        "invocation_id": "2707f979307d4b59acbd026ead295971",
+        "invocation_id": "91545ce1ed3748a89204ee599005b76e",
         "script_name": "sta_hyperram_ctrl.netlist__ff_n40C_1v95.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ff_n40C_1v95.tcl",
           "scope": "repo"
         },
-        "script_sha256": "cfd8832bab45adfae9d465ccbdb6eaedd6928a778063084d6ceffa62f3844705",
+        "script_sha256": "bfc81893dd22c231eeb4242cce6b32d955f65731e067283e4634cae43e53a736",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ff_n40C_1v95_metrics.json",
           "scope": "repo"
@@ -769,19 +766,19 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/2707f979307d4b59acbd026ead295971",
+          "path": "flow/.klt/sta/openroad-logs/91545ce1ed3748a89204ee599005b76e",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/2707f979307d4b59acbd026ead295971/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/91545ce1ed3748a89204ee599005b76e/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/2707f979307d4b59acbd026ead295971/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/91545ce1ed3748a89204ee599005b76e/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/2707f979307d4b59acbd026ead295971/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/91545ce1ed3748a89204ee599005b76e/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
@@ -790,7 +787,7 @@
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.20407,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 347.512,
+      "fmax_mhz": 363.35,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -826,26 +823,26 @@
           "status": "ok",
           "count": 143,
           "sample": [
-            "u_cap/_0851_/CLK",
-            "u_cap/_0852_/CLK",
-            "u_cap/_0853_/CLK",
-            "u_cap/_0854_/CLK",
-            "u_cap/_0855_/CLK",
-            "u_cap/_0856_/CLK",
-            "u_cap/_0857_/CLK",
-            "u_cap/_0858_/CLK",
-            "u_cap/_0859_/CLK",
-            "u_cap/_0860_/CLK",
-            "u_cap/_0861_/CLK",
-            "u_cap/_0862_/CLK",
-            "u_cap/_0863_/CLK",
-            "u_cap/_0864_/CLK",
-            "u_cap/_0865_/CLK",
-            "u_cap/_0866_/CLK",
-            "u_cap/_0867_/CLK",
-            "u_cap/_0868_/CLK",
-            "u_cap/_0869_/CLK",
-            "u_cap/_0870_/CLK"
+            "u_cap/_804_/CLK",
+            "u_cap/_805_/CLK",
+            "u_cap/_806_/CLK",
+            "u_cap/_807_/CLK",
+            "u_cap/_808_/CLK",
+            "u_cap/_809_/CLK",
+            "u_cap/_810_/CLK",
+            "u_cap/_811_/CLK",
+            "u_cap/_812_/CLK",
+            "u_cap/_813_/CLK",
+            "u_cap/_814_/CLK",
+            "u_cap/_815_/CLK",
+            "u_cap/_816_/CLK",
+            "u_cap/_817_/CLK",
+            "u_cap/_818_/CLK",
+            "u_cap/_819_/CLK",
+            "u_cap/_820_/CLK",
+            "u_cap/_821_/CLK",
+            "u_cap/_822_/CLK",
+            "u_cap/_823_/CLK"
           ],
           "truncated": true,
           "reason": null
@@ -858,8 +855,8 @@
         "status": "ok",
         "check_type": "setup",
         "engine_check_role": "setup",
-        "startpoint": "u_out/_45_/Q",
-        "endpoint": "u_out/_25_/D",
+        "startpoint": "u_out/_40_/Q",
+        "endpoint": "u_out/_20_/D",
         "slack_ns": 9.72341,
         "consistent_with_aggregate": true,
         "reason": null
@@ -868,14 +865,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_0983_/Q",
-        "endpoint": "u_cap/_0987_/D",
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
         "slack_ns": 0.20407,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.14114,
-      "estimated_power_mw": 2.6231,
+      "clock_skew_ns": 0.0981,
+      "estimated_power_mw": 1.4984,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -891,21 +888,21 @@
         "content_hash": "sha256:fb61d91c55a7f85b1989e8149d040b13ba5e7f5478f5bf0c3c16c5da30720139",
         "released": false,
         "path": {
-          "path": null,
-          "scope": "external"
+          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v95.lib",
+          "scope": "repo"
         }
       }
     },
     {
       "corner": "ss_100C_1v40",
       "engine_log": {
-        "invocation_id": "cf36e44fc86f43138cb0ebce1d697660",
+        "invocation_id": "cde2107111ed4e3288e6c4c71ce687aa",
         "script_name": "sta_hyperram_ctrl.netlist__ss_100C_1v40.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ss_100C_1v40.tcl",
           "scope": "repo"
         },
-        "script_sha256": "a3459d9aa37b22be2f96660a03b2c77a23cdc9d157cc9c8b6d51de30c389534c",
+        "script_sha256": "73dfc992be807c87550c830eb5a05a0421ea8e9fddf4c13ee6d55f190daa797f",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ss_100C_1v40_metrics.json",
           "scope": "repo"
@@ -913,28 +910,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/cf36e44fc86f43138cb0ebce1d697660",
+          "path": "flow/.klt/sta/openroad-logs/cde2107111ed4e3288e6c4c71ce687aa",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/cf36e44fc86f43138cb0ebce1d697660/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/cde2107111ed4e3288e6c4c71ce687aa/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/cf36e44fc86f43138cb0ebce1d697660/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/cde2107111ed4e3288e6c4c71ce687aa/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/cf36e44fc86f43138cb0ebce1d697660/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/cde2107111ed4e3288e6c4c71ce687aa/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": 5.23403,
+      "worst_slack_ns": 5.88001,
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.98269,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 67.7233,
+      "fmax_mhz": 70.8216,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -970,26 +967,26 @@
           "status": "ok",
           "count": 143,
           "sample": [
-            "u_cap/_0851_/CLK",
-            "u_cap/_0852_/CLK",
-            "u_cap/_0853_/CLK",
-            "u_cap/_0854_/CLK",
-            "u_cap/_0855_/CLK",
-            "u_cap/_0856_/CLK",
-            "u_cap/_0857_/CLK",
-            "u_cap/_0858_/CLK",
-            "u_cap/_0859_/CLK",
-            "u_cap/_0860_/CLK",
-            "u_cap/_0861_/CLK",
-            "u_cap/_0862_/CLK",
-            "u_cap/_0863_/CLK",
-            "u_cap/_0864_/CLK",
-            "u_cap/_0865_/CLK",
-            "u_cap/_0866_/CLK",
-            "u_cap/_0867_/CLK",
-            "u_cap/_0868_/CLK",
-            "u_cap/_0869_/CLK",
-            "u_cap/_0870_/CLK"
+            "u_cap/_804_/CLK",
+            "u_cap/_805_/CLK",
+            "u_cap/_806_/CLK",
+            "u_cap/_807_/CLK",
+            "u_cap/_808_/CLK",
+            "u_cap/_809_/CLK",
+            "u_cap/_810_/CLK",
+            "u_cap/_811_/CLK",
+            "u_cap/_812_/CLK",
+            "u_cap/_813_/CLK",
+            "u_cap/_814_/CLK",
+            "u_cap/_815_/CLK",
+            "u_cap/_816_/CLK",
+            "u_cap/_817_/CLK",
+            "u_cap/_818_/CLK",
+            "u_cap/_819_/CLK",
+            "u_cap/_820_/CLK",
+            "u_cap/_821_/CLK",
+            "u_cap/_822_/CLK",
+            "u_cap/_823_/CLK"
           ],
           "truncated": true,
           "reason": null
@@ -1002,9 +999,9 @@
         "status": "ok",
         "check_type": "setup",
         "engine_check_role": "setup",
-        "startpoint": "u_cap/_0990_/Q",
-        "endpoint": "u_fsm/_2070_/D",
-        "slack_ns": 5.23403,
+        "startpoint": "u_cap/_943_/Q",
+        "endpoint": "u_fsm/_2129_/D",
+        "slack_ns": 5.88001,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -1012,14 +1009,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_0983_/Q",
-        "endpoint": "u_cap/_0987_/D",
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
         "slack_ns": 0.98269,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.53825,
-      "estimated_power_mw": 1.3322,
+      "clock_skew_ns": 0.35547,
+      "estimated_power_mw": 0.7593,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -1035,21 +1032,21 @@
         "content_hash": "sha256:88c8ce95b6a7f333bd9e618fc765c3005fbeccfca2727226bd821c0d16fcaac8",
         "released": false,
         "path": {
-          "path": null,
-          "scope": "external"
+          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_100C_1v40.lib",
+          "scope": "repo"
         }
       }
     },
     {
       "corner": "ss_100C_1v60",
       "engine_log": {
-        "invocation_id": "4b4beb87703647fda21aeaf58fddc995",
+        "invocation_id": "1ffba96d76b143c981d18cf8ee238f03",
         "script_name": "sta_hyperram_ctrl.netlist__ss_100C_1v60.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ss_100C_1v60.tcl",
           "scope": "repo"
         },
-        "script_sha256": "dd69cbbc4ac7f305bb2e5a6dc018e62c7bf25fd9f97cbfaf4b867b6d6b1373ea",
+        "script_sha256": "cfdf1f01937a51846d3701b33c6c242037d7eabdc5f6fecbb0477f5134e19407",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ss_100C_1v60_metrics.json",
           "scope": "repo"
@@ -1057,19 +1054,19 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/4b4beb87703647fda21aeaf58fddc995",
+          "path": "flow/.klt/sta/openroad-logs/1ffba96d76b143c981d18cf8ee238f03",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/4b4beb87703647fda21aeaf58fddc995/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/1ffba96d76b143c981d18cf8ee238f03/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/4b4beb87703647fda21aeaf58fddc995/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/1ffba96d76b143c981d18cf8ee238f03/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/4b4beb87703647fda21aeaf58fddc995/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/1ffba96d76b143c981d18cf8ee238f03/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
@@ -1078,7 +1075,7 @@
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.67759,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 100.548,
+      "fmax_mhz": 104.819,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -1114,26 +1111,26 @@
           "status": "ok",
           "count": 143,
           "sample": [
-            "u_cap/_0851_/CLK",
-            "u_cap/_0852_/CLK",
-            "u_cap/_0853_/CLK",
-            "u_cap/_0854_/CLK",
-            "u_cap/_0855_/CLK",
-            "u_cap/_0856_/CLK",
-            "u_cap/_0857_/CLK",
-            "u_cap/_0858_/CLK",
-            "u_cap/_0859_/CLK",
-            "u_cap/_0860_/CLK",
-            "u_cap/_0861_/CLK",
-            "u_cap/_0862_/CLK",
-            "u_cap/_0863_/CLK",
-            "u_cap/_0864_/CLK",
-            "u_cap/_0865_/CLK",
-            "u_cap/_0866_/CLK",
-            "u_cap/_0867_/CLK",
-            "u_cap/_0868_/CLK",
-            "u_cap/_0869_/CLK",
-            "u_cap/_0870_/CLK"
+            "u_cap/_804_/CLK",
+            "u_cap/_805_/CLK",
+            "u_cap/_806_/CLK",
+            "u_cap/_807_/CLK",
+            "u_cap/_808_/CLK",
+            "u_cap/_809_/CLK",
+            "u_cap/_810_/CLK",
+            "u_cap/_811_/CLK",
+            "u_cap/_812_/CLK",
+            "u_cap/_813_/CLK",
+            "u_cap/_814_/CLK",
+            "u_cap/_815_/CLK",
+            "u_cap/_816_/CLK",
+            "u_cap/_817_/CLK",
+            "u_cap/_818_/CLK",
+            "u_cap/_819_/CLK",
+            "u_cap/_820_/CLK",
+            "u_cap/_821_/CLK",
+            "u_cap/_822_/CLK",
+            "u_cap/_823_/CLK"
           ],
           "truncated": true,
           "reason": null
@@ -1146,8 +1143,8 @@
         "status": "ok",
         "check_type": "setup",
         "engine_check_role": "setup",
-        "startpoint": "u_out/_45_/Q",
-        "endpoint": "u_out/_25_/D",
+        "startpoint": "u_out/_40_/Q",
+        "endpoint": "u_out/_20_/D",
         "slack_ns": 9.03148,
         "consistent_with_aggregate": true,
         "reason": null
@@ -1156,14 +1153,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_0983_/Q",
-        "endpoint": "u_cap/_0987_/D",
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
         "slack_ns": 0.67759,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.39182,
-      "estimated_power_mw": 1.8348,
+      "clock_skew_ns": 0.25665,
+      "estimated_power_mw": 1.053,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -1179,21 +1176,21 @@
         "content_hash": "sha256:9b24f0db3967ac67b4cae1f74bb480fd47922d18d0ed577e3c121739b412c361",
         "released": false,
         "path": {
-          "path": null,
-          "scope": "external"
+          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_100C_1v60.lib",
+          "scope": "repo"
         }
       }
     },
     {
       "corner": "ss_n40C_1v28",
       "engine_log": {
-        "invocation_id": "b2b9336b6b354816890c99024c6ba9de",
+        "invocation_id": "93bf2f91f016449998ab30acf1d64877",
         "script_name": "sta_hyperram_ctrl.netlist__ss_n40C_1v28.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ss_n40C_1v28.tcl",
           "scope": "repo"
         },
-        "script_sha256": "cfc3c97b0340e52ad3552bd83f20920c1d4bd336ee11c5ea1021743680138c7c",
+        "script_sha256": "f1427a752e8225e6ef3a1cc625612857ab86535a82aa4a7103f3b3b5d96744ea",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ss_n40C_1v28_metrics.json",
           "scope": "repo"
@@ -1201,28 +1198,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/b2b9336b6b354816890c99024c6ba9de",
+          "path": "flow/.klt/sta/openroad-logs/93bf2f91f016449998ab30acf1d64877",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/b2b9336b6b354816890c99024c6ba9de/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/93bf2f91f016449998ab30acf1d64877/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/b2b9336b6b354816890c99024c6ba9de/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/93bf2f91f016449998ab30acf1d64877/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/b2b9336b6b354816890c99024c6ba9de/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/93bf2f91f016449998ab30acf1d64877/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": -22.3117,
-      "total_negative_slack_ns": -995.222,
+      "worst_slack_ns": -17.3491,
+      "total_negative_slack_ns": -1279.44,
       "worst_hold_slack_ns": 2.00452,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 23.6341,
+      "fmax_mhz": 26.7744,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -1258,41 +1255,41 @@
           "status": "ok",
           "count": 143,
           "sample": [
-            "u_cap/_0851_/CLK",
-            "u_cap/_0852_/CLK",
-            "u_cap/_0853_/CLK",
-            "u_cap/_0854_/CLK",
-            "u_cap/_0855_/CLK",
-            "u_cap/_0856_/CLK",
-            "u_cap/_0857_/CLK",
-            "u_cap/_0858_/CLK",
-            "u_cap/_0859_/CLK",
-            "u_cap/_0860_/CLK",
-            "u_cap/_0861_/CLK",
-            "u_cap/_0862_/CLK",
-            "u_cap/_0863_/CLK",
-            "u_cap/_0864_/CLK",
-            "u_cap/_0865_/CLK",
-            "u_cap/_0866_/CLK",
-            "u_cap/_0867_/CLK",
-            "u_cap/_0868_/CLK",
-            "u_cap/_0869_/CLK",
-            "u_cap/_0870_/CLK"
+            "u_cap/_804_/CLK",
+            "u_cap/_805_/CLK",
+            "u_cap/_806_/CLK",
+            "u_cap/_807_/CLK",
+            "u_cap/_808_/CLK",
+            "u_cap/_809_/CLK",
+            "u_cap/_810_/CLK",
+            "u_cap/_811_/CLK",
+            "u_cap/_812_/CLK",
+            "u_cap/_813_/CLK",
+            "u_cap/_814_/CLK",
+            "u_cap/_815_/CLK",
+            "u_cap/_816_/CLK",
+            "u_cap/_817_/CLK",
+            "u_cap/_818_/CLK",
+            "u_cap/_819_/CLK",
+            "u_cap/_820_/CLK",
+            "u_cap/_821_/CLK",
+            "u_cap/_822_/CLK",
+            "u_cap/_823_/CLK"
           ],
           "truncated": true,
           "reason": null
         },
         "sample_limit": 20
       },
-      "setup_violation_count": 182,
+      "setup_violation_count": 214,
       "hold_violation_count": 0,
       "worst_setup_path": {
         "status": "ok",
         "check_type": "setup",
         "engine_check_role": "setup",
-        "startpoint": "u_cap/_0990_/Q",
-        "endpoint": "u_fsm/_2070_/D",
-        "slack_ns": -22.31168,
+        "startpoint": "u_cap/_943_/Q",
+        "endpoint": "u_fsm/_2130_/D",
+        "slack_ns": -17.34906,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -1300,14 +1297,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_0983_/Q",
-        "endpoint": "u_cap/_0987_/D",
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
         "slack_ns": 2.00452,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.91123,
-      "estimated_power_mw": 0.8777,
+      "clock_skew_ns": 0.87127,
+      "estimated_power_mw": 0.4384,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -1323,21 +1320,21 @@
         "content_hash": "sha256:afd8201328f73996b7c80bf13909674ba7b483ec413dea3fca74831cec712578",
         "released": false,
         "path": {
-          "path": null,
-          "scope": "external"
+          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_n40C_1v28.lib",
+          "scope": "repo"
         }
       }
     },
     {
       "corner": "ss_n40C_1v35",
       "engine_log": {
-        "invocation_id": "123c3dc1c0d54971bf84baa7da1cf697",
+        "invocation_id": "17886ec035d4438aacbc0ef7ba4138dc",
         "script_name": "sta_hyperram_ctrl.netlist__ss_n40C_1v35.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ss_n40C_1v35.tcl",
           "scope": "repo"
         },
-        "script_sha256": "cce540feabc4dcf5eca424e5fe4a45d9bfb7261e58094eb15ec388a0f74c8b9b",
+        "script_sha256": "e79ed63fd5b7c8fb627a668136b33b9b5ee9de591bfdc73c4c6ae92bc2537d7d",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ss_n40C_1v35_metrics.json",
           "scope": "repo"
@@ -1345,28 +1342,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/123c3dc1c0d54971bf84baa7da1cf697",
+          "path": "flow/.klt/sta/openroad-logs/17886ec035d4438aacbc0ef7ba4138dc",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/123c3dc1c0d54971bf84baa7da1cf697/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/17886ec035d4438aacbc0ef7ba4138dc/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/123c3dc1c0d54971bf84baa7da1cf697/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/17886ec035d4438aacbc0ef7ba4138dc/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/123c3dc1c0d54971bf84baa7da1cf697/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/17886ec035d4438aacbc0ef7ba4138dc/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": -8.26914,
-      "total_negative_slack_ns": -91.8129,
+      "worst_slack_ns": -5.31591,
+      "total_negative_slack_ns": -62.0001,
       "worst_hold_slack_ns": 1.45077,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 35.3743,
+      "fmax_mhz": 39.5008,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -1402,41 +1399,41 @@
           "status": "ok",
           "count": 143,
           "sample": [
-            "u_cap/_0851_/CLK",
-            "u_cap/_0852_/CLK",
-            "u_cap/_0853_/CLK",
-            "u_cap/_0854_/CLK",
-            "u_cap/_0855_/CLK",
-            "u_cap/_0856_/CLK",
-            "u_cap/_0857_/CLK",
-            "u_cap/_0858_/CLK",
-            "u_cap/_0859_/CLK",
-            "u_cap/_0860_/CLK",
-            "u_cap/_0861_/CLK",
-            "u_cap/_0862_/CLK",
-            "u_cap/_0863_/CLK",
-            "u_cap/_0864_/CLK",
-            "u_cap/_0865_/CLK",
-            "u_cap/_0866_/CLK",
-            "u_cap/_0867_/CLK",
-            "u_cap/_0868_/CLK",
-            "u_cap/_0869_/CLK",
-            "u_cap/_0870_/CLK"
+            "u_cap/_804_/CLK",
+            "u_cap/_805_/CLK",
+            "u_cap/_806_/CLK",
+            "u_cap/_807_/CLK",
+            "u_cap/_808_/CLK",
+            "u_cap/_809_/CLK",
+            "u_cap/_810_/CLK",
+            "u_cap/_811_/CLK",
+            "u_cap/_812_/CLK",
+            "u_cap/_813_/CLK",
+            "u_cap/_814_/CLK",
+            "u_cap/_815_/CLK",
+            "u_cap/_816_/CLK",
+            "u_cap/_817_/CLK",
+            "u_cap/_818_/CLK",
+            "u_cap/_819_/CLK",
+            "u_cap/_820_/CLK",
+            "u_cap/_821_/CLK",
+            "u_cap/_822_/CLK",
+            "u_cap/_823_/CLK"
           ],
           "truncated": true,
           "reason": null
         },
         "sample_limit": 20
       },
-      "setup_violation_count": 32,
+      "setup_violation_count": 21,
       "hold_violation_count": 0,
       "worst_setup_path": {
         "status": "ok",
         "check_type": "setup",
         "engine_check_role": "setup",
-        "startpoint": "u_cap/_0990_/Q",
-        "endpoint": "u_fsm/_2070_/D",
-        "slack_ns": -8.26914,
+        "startpoint": "u_cap/_943_/Q",
+        "endpoint": "u_fsm/_2129_/D",
+        "slack_ns": -5.31591,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -1444,14 +1441,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_0983_/Q",
-        "endpoint": "u_cap/_0987_/D",
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
         "slack_ns": 1.45077,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.70037,
-      "estimated_power_mw": 1.0444,
+      "clock_skew_ns": 0.62279,
+      "estimated_power_mw": 0.5516,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -1467,21 +1464,21 @@
         "content_hash": "sha256:8fd5aefd2053feef0a9bd3a5a972680dd77ddb8dda744836611656f37f969855",
         "released": false,
         "path": {
-          "path": null,
-          "scope": "external"
+          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_n40C_1v35.lib",
+          "scope": "repo"
         }
       }
     },
     {
       "corner": "ss_n40C_1v40",
       "engine_log": {
-        "invocation_id": "b527830290024bdd88c7d5b4cc8f7bb2",
+        "invocation_id": "9f45c876331a4d8990977e64f6b40a89",
         "script_name": "sta_hyperram_ctrl.netlist__ss_n40C_1v40.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ss_n40C_1v40.tcl",
           "scope": "repo"
         },
-        "script_sha256": "15812a841b8a43dc87bb602fb857c4ce337cfb6f3e12ab31f62071cb32c58ce5",
+        "script_sha256": "1bdff20201d3a8f2ad5cb68335bf8c896b07658811c9107c8024c06d1b8f5f2b",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ss_n40C_1v40_metrics.json",
           "scope": "repo"
@@ -1489,28 +1486,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/b527830290024bdd88c7d5b4cc8f7bb2",
+          "path": "flow/.klt/sta/openroad-logs/9f45c876331a4d8990977e64f6b40a89",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/b527830290024bdd88c7d5b4cc8f7bb2/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/9f45c876331a4d8990977e64f6b40a89/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/b527830290024bdd88c7d5b4cc8f7bb2/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/9f45c876331a4d8990977e64f6b40a89/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/b527830290024bdd88c7d5b4cc8f7bb2/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/9f45c876331a4d8990977e64f6b40a89/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": -2.6127,
-      "total_negative_slack_ns": -5.32871,
+      "worst_slack_ns": -0.36499,
+      "total_negative_slack_ns": -1.20775,
       "worst_hold_slack_ns": 1.19796,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 44.2229,
+      "fmax_mhz": 49.1039,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -1546,41 +1543,41 @@
           "status": "ok",
           "count": 143,
           "sample": [
-            "u_cap/_0851_/CLK",
-            "u_cap/_0852_/CLK",
-            "u_cap/_0853_/CLK",
-            "u_cap/_0854_/CLK",
-            "u_cap/_0855_/CLK",
-            "u_cap/_0856_/CLK",
-            "u_cap/_0857_/CLK",
-            "u_cap/_0858_/CLK",
-            "u_cap/_0859_/CLK",
-            "u_cap/_0860_/CLK",
-            "u_cap/_0861_/CLK",
-            "u_cap/_0862_/CLK",
-            "u_cap/_0863_/CLK",
-            "u_cap/_0864_/CLK",
-            "u_cap/_0865_/CLK",
-            "u_cap/_0866_/CLK",
-            "u_cap/_0867_/CLK",
-            "u_cap/_0868_/CLK",
-            "u_cap/_0869_/CLK",
-            "u_cap/_0870_/CLK"
+            "u_cap/_804_/CLK",
+            "u_cap/_805_/CLK",
+            "u_cap/_806_/CLK",
+            "u_cap/_807_/CLK",
+            "u_cap/_808_/CLK",
+            "u_cap/_809_/CLK",
+            "u_cap/_810_/CLK",
+            "u_cap/_811_/CLK",
+            "u_cap/_812_/CLK",
+            "u_cap/_813_/CLK",
+            "u_cap/_814_/CLK",
+            "u_cap/_815_/CLK",
+            "u_cap/_816_/CLK",
+            "u_cap/_817_/CLK",
+            "u_cap/_818_/CLK",
+            "u_cap/_819_/CLK",
+            "u_cap/_820_/CLK",
+            "u_cap/_821_/CLK",
+            "u_cap/_822_/CLK",
+            "u_cap/_823_/CLK"
           ],
           "truncated": true,
           "reason": null
         },
         "sample_limit": 20
       },
-      "setup_violation_count": 9,
+      "setup_violation_count": 7,
       "hold_violation_count": 0,
       "worst_setup_path": {
         "status": "ok",
         "check_type": "setup",
         "engine_check_role": "setup",
-        "startpoint": "u_cap/_0990_/Q",
-        "endpoint": "u_fsm/_2070_/D",
-        "slack_ns": -2.6127,
+        "startpoint": "u_cap/_943_/Q",
+        "endpoint": "u_fsm/_2129_/D",
+        "slack_ns": -0.36499,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -1588,14 +1585,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_0983_/Q",
-        "endpoint": "u_cap/_0987_/D",
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
         "slack_ns": 1.19796,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.60265,
-      "estimated_power_mw": 1.1887,
+      "clock_skew_ns": 0.51467,
+      "estimated_power_mw": 0.6553,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -1611,21 +1608,21 @@
         "content_hash": "sha256:2c6c61b165c313a6eb18d805431f981cebf9cf138cec39a67d01ea99f63a4717",
         "released": false,
         "path": {
-          "path": null,
-          "scope": "external"
+          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_n40C_1v40.lib",
+          "scope": "repo"
         }
       }
     },
     {
       "corner": "ss_n40C_1v44",
       "engine_log": {
-        "invocation_id": "f6b30ace43fc4b27bd2389e708ad467d",
+        "invocation_id": "58bc5d00ec3a4ca1965f2310174277a7",
         "script_name": "sta_hyperram_ctrl.netlist__ss_n40C_1v44.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ss_n40C_1v44.tcl",
           "scope": "repo"
         },
-        "script_sha256": "bc187622ec6eec1ece09230112a413745b3e67297f07b05f3242ea0ccc575c8c",
+        "script_sha256": "4ce5547d8226dae0f80c8256164e9d728c56ee8843bac5293e76de31c530fe7a",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ss_n40C_1v44_metrics.json",
           "scope": "repo"
@@ -1633,28 +1630,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/f6b30ace43fc4b27bd2389e708ad467d",
+          "path": "flow/.klt/sta/openroad-logs/58bc5d00ec3a4ca1965f2310174277a7",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/f6b30ace43fc4b27bd2389e708ad467d/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/58bc5d00ec3a4ca1965f2310174277a7/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/f6b30ace43fc4b27bd2389e708ad467d/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/58bc5d00ec3a4ca1965f2310174277a7/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/f6b30ace43fc4b27bd2389e708ad467d/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/58bc5d00ec3a4ca1965f2310174277a7/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": 0.6686,
+      "worst_slack_ns": 2.49099,
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 1.05445,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 51.7293,
+      "fmax_mhz": 57.1134,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -1690,26 +1687,26 @@
           "status": "ok",
           "count": 143,
           "sample": [
-            "u_cap/_0851_/CLK",
-            "u_cap/_0852_/CLK",
-            "u_cap/_0853_/CLK",
-            "u_cap/_0854_/CLK",
-            "u_cap/_0855_/CLK",
-            "u_cap/_0856_/CLK",
-            "u_cap/_0857_/CLK",
-            "u_cap/_0858_/CLK",
-            "u_cap/_0859_/CLK",
-            "u_cap/_0860_/CLK",
-            "u_cap/_0861_/CLK",
-            "u_cap/_0862_/CLK",
-            "u_cap/_0863_/CLK",
-            "u_cap/_0864_/CLK",
-            "u_cap/_0865_/CLK",
-            "u_cap/_0866_/CLK",
-            "u_cap/_0867_/CLK",
-            "u_cap/_0868_/CLK",
-            "u_cap/_0869_/CLK",
-            "u_cap/_0870_/CLK"
+            "u_cap/_804_/CLK",
+            "u_cap/_805_/CLK",
+            "u_cap/_806_/CLK",
+            "u_cap/_807_/CLK",
+            "u_cap/_808_/CLK",
+            "u_cap/_809_/CLK",
+            "u_cap/_810_/CLK",
+            "u_cap/_811_/CLK",
+            "u_cap/_812_/CLK",
+            "u_cap/_813_/CLK",
+            "u_cap/_814_/CLK",
+            "u_cap/_815_/CLK",
+            "u_cap/_816_/CLK",
+            "u_cap/_817_/CLK",
+            "u_cap/_818_/CLK",
+            "u_cap/_819_/CLK",
+            "u_cap/_820_/CLK",
+            "u_cap/_821_/CLK",
+            "u_cap/_822_/CLK",
+            "u_cap/_823_/CLK"
           ],
           "truncated": true,
           "reason": null
@@ -1722,9 +1719,9 @@
         "status": "ok",
         "check_type": "setup",
         "engine_check_role": "setup",
-        "startpoint": "u_cap/_0990_/Q",
-        "endpoint": "u_fsm/_2070_/D",
-        "slack_ns": 0.6686,
+        "startpoint": "u_cap/_943_/Q",
+        "endpoint": "u_fsm/_2130_/D",
+        "slack_ns": 2.49099,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -1732,14 +1729,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_0983_/Q",
-        "endpoint": "u_cap/_0987_/D",
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
         "slack_ns": 1.05445,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.54597,
-      "estimated_power_mw": 1.3158,
+      "clock_skew_ns": 0.45475,
+      "estimated_power_mw": 0.7439,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -1755,21 +1752,21 @@
         "content_hash": "sha256:88814187f8226bb6e7ad394a1afef161eb1c4006ed1f095cc31ab0da7dae1f0f",
         "released": false,
         "path": {
-          "path": null,
-          "scope": "external"
+          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_n40C_1v44.lib",
+          "scope": "repo"
         }
       }
     },
     {
       "corner": "ss_n40C_1v60",
       "engine_log": {
-        "invocation_id": "0b3d0e15c5e9479f84da6490578abdb2",
+        "invocation_id": "0b8cd8809cdd4853bca9f66c62e08f43",
         "script_name": "sta_hyperram_ctrl.netlist__ss_n40C_1v60.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ss_n40C_1v60.tcl",
           "scope": "repo"
         },
-        "script_sha256": "c150af522d872db9e826bc1cee43f5c3da96e2101f41aa05b8322bdf5204faab",
+        "script_sha256": "590ab1d2f09fd13f2961a4333481a32b6d5d8ea848068ade27b64008195e8860",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ss_n40C_1v60_metrics.json",
           "scope": "repo"
@@ -1777,28 +1774,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/0b3d0e15c5e9479f84da6490578abdb2",
+          "path": "flow/.klt/sta/openroad-logs/0b8cd8809cdd4853bca9f66c62e08f43",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/0b3d0e15c5e9479f84da6490578abdb2/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/0b8cd8809cdd4853bca9f66c62e08f43/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/0b3d0e15c5e9479f84da6490578abdb2/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/0b8cd8809cdd4853bca9f66c62e08f43/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/0b3d0e15c5e9479f84da6490578abdb2/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/0b8cd8809cdd4853bca9f66c62e08f43/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": 8.14977,
+      "worst_slack_ns": 8.9227,
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.69001,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 84.3866,
+      "fmax_mhz": 92.1626,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -1834,26 +1831,26 @@
           "status": "ok",
           "count": 143,
           "sample": [
-            "u_cap/_0851_/CLK",
-            "u_cap/_0852_/CLK",
-            "u_cap/_0853_/CLK",
-            "u_cap/_0854_/CLK",
-            "u_cap/_0855_/CLK",
-            "u_cap/_0856_/CLK",
-            "u_cap/_0857_/CLK",
-            "u_cap/_0858_/CLK",
-            "u_cap/_0859_/CLK",
-            "u_cap/_0860_/CLK",
-            "u_cap/_0861_/CLK",
-            "u_cap/_0862_/CLK",
-            "u_cap/_0863_/CLK",
-            "u_cap/_0864_/CLK",
-            "u_cap/_0865_/CLK",
-            "u_cap/_0866_/CLK",
-            "u_cap/_0867_/CLK",
-            "u_cap/_0868_/CLK",
-            "u_cap/_0869_/CLK",
-            "u_cap/_0870_/CLK"
+            "u_cap/_804_/CLK",
+            "u_cap/_805_/CLK",
+            "u_cap/_806_/CLK",
+            "u_cap/_807_/CLK",
+            "u_cap/_808_/CLK",
+            "u_cap/_809_/CLK",
+            "u_cap/_810_/CLK",
+            "u_cap/_811_/CLK",
+            "u_cap/_812_/CLK",
+            "u_cap/_813_/CLK",
+            "u_cap/_814_/CLK",
+            "u_cap/_815_/CLK",
+            "u_cap/_816_/CLK",
+            "u_cap/_817_/CLK",
+            "u_cap/_818_/CLK",
+            "u_cap/_819_/CLK",
+            "u_cap/_820_/CLK",
+            "u_cap/_821_/CLK",
+            "u_cap/_822_/CLK",
+            "u_cap/_823_/CLK"
           ],
           "truncated": true,
           "reason": null
@@ -1866,9 +1863,9 @@
         "status": "ok",
         "check_type": "setup",
         "engine_check_role": "setup",
-        "startpoint": "u_cap/_0990_/Q",
-        "endpoint": "u_fsm/_2070_/D",
-        "slack_ns": 8.14977,
+        "startpoint": "u_out/_40_/Q",
+        "endpoint": "u_out/_20_/D",
+        "slack_ns": 8.9227,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -1876,14 +1873,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_0983_/Q",
-        "endpoint": "u_cap/_0987_/D",
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
         "slack_ns": 0.69001,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.38417,
-      "estimated_power_mw": 1.7362,
+      "clock_skew_ns": 0.30032,
+      "estimated_power_mw": 0.9975,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -1899,21 +1896,21 @@
         "content_hash": "sha256:23cba893b985a950a7951e3f29ae66ae6a639aaef75c1478e2306fb68d4a7ee5",
         "released": false,
         "path": {
-          "path": null,
-          "scope": "external"
+          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_n40C_1v60.lib",
+          "scope": "repo"
         }
       }
     },
     {
       "corner": "ss_n40C_1v76",
       "engine_log": {
-        "invocation_id": "888774a37859480bb9fbdf70fe353c29",
+        "invocation_id": "92f2456be4b846ee8b042396330d3ea7",
         "script_name": "sta_hyperram_ctrl.netlist__ss_n40C_1v76.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ss_n40C_1v76.tcl",
           "scope": "repo"
         },
-        "script_sha256": "54fab2fadce7cb460cb905b8d9075733431a2e9359f34c83ed3f7d1243f0cefd",
+        "script_sha256": "bc5cb85370a5849f14020ebb95865d0c6f3cca63fc700ebfc32da557d3fb09eb",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ss_n40C_1v76_metrics.json",
           "scope": "repo"
@@ -1921,19 +1918,19 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/888774a37859480bb9fbdf70fe353c29",
+          "path": "flow/.klt/sta/openroad-logs/92f2456be4b846ee8b042396330d3ea7",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/888774a37859480bb9fbdf70fe353c29/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/92f2456be4b846ee8b042396330d3ea7/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/888774a37859480bb9fbdf70fe353c29/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/92f2456be4b846ee8b042396330d3ea7/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/888774a37859480bb9fbdf70fe353c29/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/92f2456be4b846ee8b042396330d3ea7/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
@@ -1942,7 +1939,7 @@
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.519,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 119.468,
+      "fmax_mhz": 128.852,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -1978,26 +1975,26 @@
           "status": "ok",
           "count": 143,
           "sample": [
-            "u_cap/_0851_/CLK",
-            "u_cap/_0852_/CLK",
-            "u_cap/_0853_/CLK",
-            "u_cap/_0854_/CLK",
-            "u_cap/_0855_/CLK",
-            "u_cap/_0856_/CLK",
-            "u_cap/_0857_/CLK",
-            "u_cap/_0858_/CLK",
-            "u_cap/_0859_/CLK",
-            "u_cap/_0860_/CLK",
-            "u_cap/_0861_/CLK",
-            "u_cap/_0862_/CLK",
-            "u_cap/_0863_/CLK",
-            "u_cap/_0864_/CLK",
-            "u_cap/_0865_/CLK",
-            "u_cap/_0866_/CLK",
-            "u_cap/_0867_/CLK",
-            "u_cap/_0868_/CLK",
-            "u_cap/_0869_/CLK",
-            "u_cap/_0870_/CLK"
+            "u_cap/_804_/CLK",
+            "u_cap/_805_/CLK",
+            "u_cap/_806_/CLK",
+            "u_cap/_807_/CLK",
+            "u_cap/_808_/CLK",
+            "u_cap/_809_/CLK",
+            "u_cap/_810_/CLK",
+            "u_cap/_811_/CLK",
+            "u_cap/_812_/CLK",
+            "u_cap/_813_/CLK",
+            "u_cap/_814_/CLK",
+            "u_cap/_815_/CLK",
+            "u_cap/_816_/CLK",
+            "u_cap/_817_/CLK",
+            "u_cap/_818_/CLK",
+            "u_cap/_819_/CLK",
+            "u_cap/_820_/CLK",
+            "u_cap/_821_/CLK",
+            "u_cap/_822_/CLK",
+            "u_cap/_823_/CLK"
           ],
           "truncated": true,
           "reason": null
@@ -2010,8 +2007,8 @@
         "status": "ok",
         "check_type": "setup",
         "engine_check_role": "setup",
-        "startpoint": "u_out/_45_/Q",
-        "endpoint": "u_out/_25_/D",
+        "startpoint": "u_out/_40_/Q",
+        "endpoint": "u_out/_20_/D",
         "slack_ns": 9.24029,
         "consistent_with_aggregate": true,
         "reason": null
@@ -2020,14 +2017,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_0983_/Q",
-        "endpoint": "u_cap/_0987_/D",
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
         "slack_ns": 0.519,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.30078,
-      "estimated_power_mw": 2.1348,
+      "clock_skew_ns": 0.22774,
+      "estimated_power_mw": 1.2208,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -2043,21 +2040,21 @@
         "content_hash": "sha256:f4f16d4f7040623afb60d0480a035e4128c5c1212361ae3bd13c3a52d9692a84",
         "released": false,
         "path": {
-          "path": null,
-          "scope": "external"
+          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_n40C_1v76.lib",
+          "scope": "repo"
         }
       }
     },
     {
       "corner": "tt_025C_1v80",
       "engine_log": {
-        "invocation_id": "8b23cf2e8f2342779e5fe122a4a42b97",
+        "invocation_id": "80999762f1bb4ea68d09b707939f3700",
         "script_name": "sta_hyperram_ctrl.netlist__tt_025C_1v80.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__tt_025C_1v80.tcl",
           "scope": "repo"
         },
-        "script_sha256": "e46cc9bf48be9e9c65187d97a01377bcadd532761434386a8c52088db80b439e",
+        "script_sha256": "774f966dec9547e99e99ec412580bb5cdbf39998a461bdb60cfc9be609af119a",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__tt_025C_1v80_metrics.json",
           "scope": "repo"
@@ -2065,19 +2062,19 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/8b23cf2e8f2342779e5fe122a4a42b97",
+          "path": "flow/.klt/sta/openroad-logs/80999762f1bb4ea68d09b707939f3700",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/8b23cf2e8f2342779e5fe122a4a42b97/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/80999762f1bb4ea68d09b707939f3700/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/8b23cf2e8f2342779e5fe122a4a42b97/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/80999762f1bb4ea68d09b707939f3700/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/8b23cf2e8f2342779e5fe122a4a42b97/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/80999762f1bb4ea68d09b707939f3700/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
@@ -2086,7 +2083,7 @@
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.33121,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 202.524,
+      "fmax_mhz": 214.138,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -2122,26 +2119,26 @@
           "status": "ok",
           "count": 143,
           "sample": [
-            "u_cap/_0851_/CLK",
-            "u_cap/_0852_/CLK",
-            "u_cap/_0853_/CLK",
-            "u_cap/_0854_/CLK",
-            "u_cap/_0855_/CLK",
-            "u_cap/_0856_/CLK",
-            "u_cap/_0857_/CLK",
-            "u_cap/_0858_/CLK",
-            "u_cap/_0859_/CLK",
-            "u_cap/_0860_/CLK",
-            "u_cap/_0861_/CLK",
-            "u_cap/_0862_/CLK",
-            "u_cap/_0863_/CLK",
-            "u_cap/_0864_/CLK",
-            "u_cap/_0865_/CLK",
-            "u_cap/_0866_/CLK",
-            "u_cap/_0867_/CLK",
-            "u_cap/_0868_/CLK",
-            "u_cap/_0869_/CLK",
-            "u_cap/_0870_/CLK"
+            "u_cap/_804_/CLK",
+            "u_cap/_805_/CLK",
+            "u_cap/_806_/CLK",
+            "u_cap/_807_/CLK",
+            "u_cap/_808_/CLK",
+            "u_cap/_809_/CLK",
+            "u_cap/_810_/CLK",
+            "u_cap/_811_/CLK",
+            "u_cap/_812_/CLK",
+            "u_cap/_813_/CLK",
+            "u_cap/_814_/CLK",
+            "u_cap/_815_/CLK",
+            "u_cap/_816_/CLK",
+            "u_cap/_817_/CLK",
+            "u_cap/_818_/CLK",
+            "u_cap/_819_/CLK",
+            "u_cap/_820_/CLK",
+            "u_cap/_821_/CLK",
+            "u_cap/_822_/CLK",
+            "u_cap/_823_/CLK"
           ],
           "truncated": true,
           "reason": null
@@ -2154,8 +2151,8 @@
         "status": "ok",
         "check_type": "setup",
         "engine_check_role": "setup",
-        "startpoint": "u_out/_45_/Q",
-        "endpoint": "u_out/_25_/D",
+        "startpoint": "u_out/_40_/Q",
+        "endpoint": "u_out/_20_/D",
         "slack_ns": 9.55587,
         "consistent_with_aggregate": true,
         "reason": null
@@ -2164,14 +2161,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_0983_/Q",
-        "endpoint": "u_cap/_0987_/D",
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
         "slack_ns": 0.33121,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.21226,
-      "estimated_power_mw": 2.2921,
+      "clock_skew_ns": 0.14578,
+      "estimated_power_mw": 1.2995,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -2187,21 +2184,21 @@
         "content_hash": "sha256:8e78e14442062dba34d414fca6490b2f6b96038d4510d1438ca44fee31487135",
         "released": false,
         "path": {
-          "path": null,
-          "scope": "external"
+          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib",
+          "scope": "repo"
         }
       }
     },
     {
       "corner": "tt_100C_1v80",
       "engine_log": {
-        "invocation_id": "9cdd18760ef7442eabca1bcee11b8680",
+        "invocation_id": "856689b3c32147628d5b96362cf45172",
         "script_name": "sta_hyperram_ctrl.netlist__tt_100C_1v80.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__tt_100C_1v80.tcl",
           "scope": "repo"
         },
-        "script_sha256": "da3fe53d10aa28734d56caac78f28dfee757c13fff4ce1ffa824d3347e948592",
+        "script_sha256": "1b047a5b921654e08b613aa930086373d2a68bfec13393acf3aeb7c8f7b3696b",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__tt_100C_1v80_metrics.json",
           "scope": "repo"
@@ -2209,19 +2206,19 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/9cdd18760ef7442eabca1bcee11b8680",
+          "path": "flow/.klt/sta/openroad-logs/856689b3c32147628d5b96362cf45172",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/9cdd18760ef7442eabca1bcee11b8680/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/856689b3c32147628d5b96362cf45172/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/9cdd18760ef7442eabca1bcee11b8680/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/856689b3c32147628d5b96362cf45172/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/9cdd18760ef7442eabca1bcee11b8680/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/856689b3c32147628d5b96362cf45172/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
@@ -2230,7 +2227,7 @@
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.33955,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 207.536,
+      "fmax_mhz": 215.878,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -2266,26 +2263,26 @@
           "status": "ok",
           "count": 143,
           "sample": [
-            "u_cap/_0851_/CLK",
-            "u_cap/_0852_/CLK",
-            "u_cap/_0853_/CLK",
-            "u_cap/_0854_/CLK",
-            "u_cap/_0855_/CLK",
-            "u_cap/_0856_/CLK",
-            "u_cap/_0857_/CLK",
-            "u_cap/_0858_/CLK",
-            "u_cap/_0859_/CLK",
-            "u_cap/_0860_/CLK",
-            "u_cap/_0861_/CLK",
-            "u_cap/_0862_/CLK",
-            "u_cap/_0863_/CLK",
-            "u_cap/_0864_/CLK",
-            "u_cap/_0865_/CLK",
-            "u_cap/_0866_/CLK",
-            "u_cap/_0867_/CLK",
-            "u_cap/_0868_/CLK",
-            "u_cap/_0869_/CLK",
-            "u_cap/_0870_/CLK"
+            "u_cap/_804_/CLK",
+            "u_cap/_805_/CLK",
+            "u_cap/_806_/CLK",
+            "u_cap/_807_/CLK",
+            "u_cap/_808_/CLK",
+            "u_cap/_809_/CLK",
+            "u_cap/_810_/CLK",
+            "u_cap/_811_/CLK",
+            "u_cap/_812_/CLK",
+            "u_cap/_813_/CLK",
+            "u_cap/_814_/CLK",
+            "u_cap/_815_/CLK",
+            "u_cap/_816_/CLK",
+            "u_cap/_817_/CLK",
+            "u_cap/_818_/CLK",
+            "u_cap/_819_/CLK",
+            "u_cap/_820_/CLK",
+            "u_cap/_821_/CLK",
+            "u_cap/_822_/CLK",
+            "u_cap/_823_/CLK"
           ],
           "truncated": true,
           "reason": null
@@ -2298,8 +2295,8 @@
         "status": "ok",
         "check_type": "setup",
         "engine_check_role": "setup",
-        "startpoint": "u_out/_45_/Q",
-        "endpoint": "u_out/_25_/D",
+        "startpoint": "u_out/_40_/Q",
+        "endpoint": "u_out/_20_/D",
         "slack_ns": 9.56054,
         "consistent_with_aggregate": true,
         "reason": null
@@ -2308,14 +2305,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_0983_/Q",
-        "endpoint": "u_cap/_0987_/D",
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
         "slack_ns": 0.33955,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.21906,
-      "estimated_power_mw": 2.381,
+      "clock_skew_ns": 0.14332,
+      "estimated_power_mw": 1.3367,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -2331,8 +2328,8 @@
         "content_hash": "sha256:7c6b9fc62d7e83b8317cdca883d79107d8f2ff1061b04519fda7d3088560015b",
         "released": false,
         "path": {
-          "path": null,
-          "scope": "external"
+          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_100C_1v80.lib",
+          "scope": "repo"
         }
       }
     }

@@ -10,7 +10,9 @@
 // function of the cycle-k state, exactly like the other drive inputs.
 //
 // Named cells (kept for STA / SPICE): u_ddr_dq[i], u_ddr_rwds, u_ck_icg,
-// u_ck_dly[i]. The tap mux select is static during operation.
+// u_ck_dly (the CK tap-delay line, an hr_tap_delay instantiation -- the
+// chain's own named cells live in hr_tap_delay.v). The tap mux select is
+// static during operation.
 `default_nettype none
 
 module hr_dq_out (
@@ -74,20 +76,13 @@ module hr_dq_out (
     endgenerate
     sky130_fd_sc_hd__mux2_1 u_ddr_rwds (.A0(r1_n), .A1(r0_r), .S(clk), .X(hb_rwds_o));
 
-    // CK: gated core clock, then tap-selected delay (taps at 2,4,..16 cells).
+    // CK: gated core clock, then tap-selected delay (taps at 2,4,..16 cells;
+    // design target: a quarter period, so CK edges centre in each byte). The
+    // chain is the shared hr_tap_delay module.
     wire ck_g;
     sky130_fd_sc_hd__dlclkp_1 u_ck_icg (.CLK(clk), .GATE(ck_en), .GCLK(ck_g));
 
-    wire [16:0] ck_c;
-    assign ck_c[0] = ck_g;
-    generate
-        for (i = 0; i < 16; i = i + 1) begin : g_ck_dly
-            sky130_fd_sc_hd__dlygate4sd3_1 u_ck_dly (.A(ck_c[i]), .X(ck_c[i+1]));
-        end
-    endgenerate
-
-    wire [7:0] ck_taps = {ck_c[16], ck_c[14], ck_c[12], ck_c[10], ck_c[8], ck_c[6], ck_c[4], ck_c[2]};
-    assign hb_ck = ck_taps[ck_tap];
+    hr_tap_delay u_ck_dly (.in_sig(ck_g), .tap_sel(ck_tap), .out_sig(hb_ck));
 endmodule
 
 `default_nettype wire

@@ -6,6 +6,7 @@
     "../rtl/hyperram_ctrl/hr_cmd_fsm.v",
     "../rtl/hyperram_ctrl/hr_dq_out.v",
     "../rtl/hyperram_ctrl/hr_rd_capture.v",
+    "../rtl/hyperram_ctrl/hr_tap_delay.v",
     "../rtl/hyperram_ctrl/synth/sky130_cells_bb.v"
   ],
   "hdl_toplevel": "hyperram_ctrl",

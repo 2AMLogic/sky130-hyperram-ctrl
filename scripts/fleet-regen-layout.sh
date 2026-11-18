@@ -5,22 +5,26 @@
 #
 #   scripts/fleet-regen-layout.sh probe   report the image's toolchain facts and
 #                                         exit 0 (writes fleet-probe.txt)
-#   scripts/fleet-regen-layout.sh         regenerate layout/records/,
+#   scripts/fleet-regen-layout.sh         regenerate the netlist, the STA
+#                                         records, evidence/item1.json, then
+#                                         layout/records/,
 #                                         layout/lvs/records/, evidence/item2.json
 #                                         and the cited-evidence pins in
 #                                         manifests/, re-render the signoff
 #                                         record, then verify freshness
 #                                         (writes fleet-regen.log)
 #
-# Why this script exists: `make layout` (~25 min place-and-route) must not run
-# on the shared dispatch worker (operator ruling on issue #52, 2026-11-03). It
-# is submitted with infra/aws/repo-script-submit.py (2AMLogic/2am):
+# Why this script exists: `make layout` (~25 min place-and-route) and the
+# synthesis/freshness half of the flow must not run on the shared dispatch
+# worker (operator ruling on issue #52, 2026-11-03). It is submitted with
+# infra/aws/repo-script-submit.py (2AMLogic/2am):
 #
 #   infra/aws/repo-script-submit.py --source-dir <checkout> --commit <sha> \
 #     --repo 2AMLogic/sky130-hyperram-ctrl --issue 52 --image-profile heavy \
 #     --timeout 7200 --wait-for-capacity 600 \
 #     --pip klayout-tools==0.8.0 --pip ciel==2.6.1 \
 #     --script scripts/fleet-regen-layout.sh [--shard probe] \
+#     --output sim/hyperram/records --output evidence/item1.json \
 #     --output layout/records --output layout/lvs/records \
 #     --output evidence/item2.json \
 #     --output manifests/sky130-hyperram-ctrl.json \
@@ -77,6 +81,63 @@ ensure_klt() {
   [ "$(klt --version 2>/dev/null | awk '{print $NF}')" = "${KLT_PIN}" ] \
     || { echo "FATAL: cannot put pinned klt ${KLT_PIN} on PATH" >&2; exit 4; }
   log "klt $(klt --version) (local venv)"
+}
+
+# --- pinned yowasp-yosys on $PATH (synthesis / freshness) --------------------
+# `flow/hyperram.py synth|check` (and the item-1 attestation's freshness
+# command, which runs that file) refuse to answer unless the `yosys` on $PATH
+# is the pinned yowasp-yosys build: require_pinned_yosys checks both the
+# engine version the response reports and the yosys.wasm sha256 of the $PATH
+# entry point. The heavy image's native yosys is not that build, so install
+# the pinned wheel into the same local venv as klt and link it as `yosys`,
+# exactly the way scripts/setup-env.sh does.
+wasm_sha_of() {
+  local venv="${REPO_ROOT}/.fleet-venv"
+  "${venv}/bin/python3" -I <<'PY'
+import hashlib, os
+import yowasp_yosys
+p = os.path.join(os.path.dirname(yowasp_yosys.__file__), "yosys.wasm")
+print(hashlib.sha256(open(p, "rb").read()).hexdigest())
+PY
+}
+
+ensure_yowasp_yosys() {
+  local want_ver want_sha got_sha venv="${REPO_ROOT}/.fleet-venv"
+  want_ver="$(strip_quotes "$(grep -E '^YOWASP_YOSYS_VERSION=' scripts/setup-env.sh | cut -d= -f2-)")"
+  want_sha="$(strip_quotes "$(grep -E '^YOWASP_YOSYS_WASM_SHA256=' scripts/setup-env.sh | cut -d= -f2-)")"
+  # Bootstrap the venv if ensure_klt found the pinned klt on PATH and skipped
+  # it, then put it first so the linked `yosys` (and the venv klt, if any)
+  # win over the image's tools.
+  if [ ! -x "${venv}/bin/python3" ]; then
+    python3 -m venv "${venv}" 2>/dev/null \
+      || (have uv && uv venv --quiet "${venv}") \
+      || { echo "FATAL: cannot create a venv (no python3 -m venv, no uv)" >&2; exit 4; }
+  fi
+  export PATH="${venv}/bin:${PATH}"
+  if [ -x "${venv}/bin/yowasp-yosys" ] \
+     && [ "$(realpath "${venv}/bin/yosys" 2>/dev/null)" = "$(realpath "${venv}/bin/yowasp-yosys")" ]; then
+    got_sha="$(wasm_sha_of 2>/dev/null || true)"
+    if [ "${got_sha}" = "${want_sha}" ]; then
+      log "pinned yowasp-yosys ${want_ver} already in ${venv} (yosys.wasm sha256:${got_sha})"
+      return 0
+    fi
+  fi
+  log "installing yowasp-yosys==${want_ver} into ${venv}"
+  if "${venv}/bin/python3" -m pip --version >/dev/null 2>&1; then
+    "${venv}/bin/python3" -m pip install --quiet "yowasp-yosys==${want_ver}" \
+      || { echo "FATAL: pip install yowasp-yosys==${want_ver} failed (network access to PyPI?)" >&2; exit 4; }
+  else
+    have uv || { echo "FATAL: venv has no pip and uv is unavailable" >&2; exit 4; }
+    uv pip install --quiet --python "${venv}/bin/python3" "yowasp-yosys==${want_ver}" \
+      || { echo "FATAL: uv pip install of yowasp-yosys==${want_ver} failed (network access to PyPI?)" >&2; exit 4; }
+  fi
+  got_sha="$(wasm_sha_of)" \
+    || { echo "FATAL: could not hash the YoWASP yosys.wasm module after install" >&2; exit 4; }
+  [ "${got_sha}" = "${want_sha}" ] \
+    || { echo "FATAL: Yosys/ABC build identity mismatch: expected sha256:${want_sha}, got sha256:${got_sha}. Do not mint evidence from this environment." >&2; exit 4; }
+  ln -sfn "yowasp-yosys" "${venv}/bin/yosys" \
+    || { echo "FATAL: could not link ${venv}/bin/yosys" >&2; exit 4; }
+  log "yosys.wasm sha256:${got_sha} (matches pin)"
 }
 
 # --- sky130A PDK at the pinned open_pdks commit ------------------------------
@@ -168,16 +229,60 @@ openroad -version >/dev/null 2>&1 || { echo "FATAL: openroad on PATH but not run
 log "openroad: $(openroad -version 2>&1 | head -1)"
 ensure_pdk
 export PDK="${PDK:-sky130A}"
+ensure_yowasp_yosys
 
 # Clean the outputs this run owns, so a partial failure surfaces as missing
 # declared outputs (job exit 3) instead of silently re-collecting stale files.
 # Runs after the toolchain checks above, so an early failure cannot leave the
 # records deleted.
+# Deliberately NOT cleaned: sim/hyperram/records/ also holds the gate-level
+# functional report (functional-verification-ctrl-gl.report.json), which this
+# script does not produce -- an rm -rf there would drop it from collection.
 rm -rf layout/records/* layout/lvs/records/* evidence/item2.json
 mkdir -p layout/records layout/lvs/records
 
 STEP_T0=$(date +%s)
 step() { log "step $1 done in $(( $(date +%s) - STEP_T0 ))s"; STEP_T0=$(date +%s); }
+
+# --- netlist + STA + item-1 evidence (the half the layout phase reads) -------
+# The layout phase below place-and-routes the *committed* netlist, and the
+# item-1 envelope binds the RTL and netlist hashes, so the netlist is
+# regenerated first: pinned-yowasp synthesis, re-timing of the fresh netlist,
+# a byte-compare freshness check, the structural 32-chain-cell assertion
+# (issue #101: the refactor must be naming-only), then the item-1 attestation,
+# whose freshness command re-runs that check itself.
+log "regenerating the netlist (pinned yowasp-yosys synthesis)"
+python3 flow/hyperram.py synth
+step synth
+log "re-timing the fresh netlist (klt sta, all shipped liberty corners)"
+python3 flow/hyperram.py sta
+step sta
+log "freshness: re-synthesize and byte-compare against the committed netlist"
+python3 -I flow/hyperram.py check
+step check
+log "structural check: 32 chain cells (2 x 16 in the shared module)"
+python3 -I <<'PY'
+import json, re
+net = open("sim/hyperram/records/hyperram_ctrl.netlist.v").read()
+stat = json.load(open("sim/hyperram/records/synth-stat.json"))
+# yosys's own hierarchy-aware count: 2 instantiations x 16 cells = 32 physical
+cells = stat["instance_counts_by_type"].get("sky130_fd_sc_hd__dlygate4sd3_1", 0)
+assert cells == 32, f"expected 32 dlygate4sd3_1 cells, found {cells}"
+assert "module hr_tap_delay" in net, "hr_tap_delay module missing from the netlist"
+body = net.split("module hr_tap_delay", 1)[1].split("endmodule", 1)[0]
+insts = re.findall(r"^\s*sky130_fd_sc_hd__dlygate4sd3_1\s+(\S+)", body, re.M)
+assert len(insts) == 16, f"expected the 16-cell chain written once in hr_tap_delay, found {len(insts)}"
+sites = re.findall(r"^\s*hr_tap_delay\s+(\S+)", net, re.M)
+assert sorted(sites) == ["u_ck_dly", "u_rwds_dly"], \
+    f"expected the two named instantiations u_ck_dly/u_rwds_dly, found {sites}"
+print(f"cell check ok: 32 dlygate4sd3_1 = 2 x 16 in hr_tap_delay, instantiated as {sorted(sites)}")
+PY
+log "structural check: tap decode is one linear 16-cell series, taps at depths 2,4,..16"
+python3 -I scripts/check_tap_decode.py
+step cell-check
+log "re-recording the item-1 attestation (re-runs the freshness check itself)"
+scripts/klt.sh signoff --attest 1 --inventory attest/item1.json -o evidence/item1.json
+step attest-item1
 
 log "running make layout (klt place-and-route, ~25 min)"
 make layout
@@ -209,7 +314,7 @@ step checks
 # -- not the evidence file's own bytes. item2/DRC/ERC all bind the routed GDS,
 # LVS binds its extracted netlist, the P&R response binds the routed netlist.
 log "re-pinning manifest citations and re-rendering the signoff record"
-python3 - <<'PY'
+python3 -I <<'PY'
 import json, pathlib
 def input_hash(path):
     doc = json.loads(pathlib.Path(path).read_text())
@@ -234,6 +339,7 @@ def input_hash(path):
         raise SystemExit(f"FATAL: no provenance.input.content_hash in {path}")
     return found
 targets = {
+    "evidence/item1.json",
     "evidence/item2.json",
     "layout/records/drc.report.json",
     "layout/lvs/records/report.json",
@@ -267,7 +373,7 @@ python3 -c 'import json; d=json.load(open("manifests/sky130-hyperram-ctrl.signof
 step signoff
 
 # Verdicts: the AC is DRC clean, LVS match, ERC clean -- fail the job otherwise.
-python3 - <<'PY'
+python3 -I <<'PY'
 import json
 drc = json.load(open("layout/records/drc.report.json"))
 assert drc["status"] == "clean" and drc["violation_count"] == 0, f"DRC not clean: {drc['status']} n={drc.get('violation_count')}"
@@ -280,7 +386,7 @@ assert erc["erc_status"] == "clean", f"ERC not clean: {erc['erc_status']}"
 print("verdicts: DRC clean; LVS match (power match); ERC clean")
 PY
 
-python3 - <<'PY'
+python3 -I <<'PY'
 import json
 req = json.load(open("layout/place-and-route.json"))
 r = json.load(open("layout/records/place-and-route.response.json"))
