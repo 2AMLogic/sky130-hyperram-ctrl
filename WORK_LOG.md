@@ -5,8 +5,10 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-11-18
 
-- **PR (this change)**: refactor: share the 16-cell tap delay line in one hr_tap_delay module
+- **PR #148**: refactor: share the 16-cell tap delay line in one hr_tap_delay module
 - **Issue #101**: hr_dq_out and hr_rd_capture build the same 16-cell chain twice
+- **PR #145**: docs: remove misplaced 2026-11-18 WORK_LOG section holding un-closed Issue #52 entry
+- **Issue #144** (closed): WORK_LOG.md: misplaced 2026-11-18 section records Issue #52 as opened, out of chronological order
 - **PR #140**: data: regenerate routed layout and layout-dependent evidence from the post-#51 netlist
 - **Issue #52** (closed): Regenerate place-and-route and layout-dependent evidence after rd_flush ST_LAT fix (#48)
 
