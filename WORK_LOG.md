@@ -5,6 +5,8 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-11-18
 
+- **PR #154**: fix: provision the fetched fleet PDK outside the repo root so evidence decks record scope external
+- **Issue #142** (closed): fleet-regen-layout.sh: provision the PDK outside the repo root so deck.path in committed evidence is resolvable
 - **PR #152**: docs: re-point g_rwds_dly/g_ck_dly citations at hr_tap_delay's g_dly chain
 - **Issue #150** (closed): Stale g_rwds_dly / g_ck_dly generate-label citations after the hr_tap_delay refactor
 - **PR #149**: docs: replace false stale-layout status paragraph in README
