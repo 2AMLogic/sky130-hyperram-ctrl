@@ -4,177 +4,177 @@
   "engine_version": "26Q4-1310-g98c6045c72",
   "engine_logs": [
     {
-      "invocation_id": "dbaf6d6a636f4d78a616cc87bef8b715",
+      "invocation_id": "fc5ba53de1dc4c228c445d9e4ccbbc9b",
       "script_name": "pnr_hyperram_ctrl_floorplan.tcl",
-      "script_sha256": "8ce0dd5b19b6d052e9df8ddd998a7c713827990efbc90664a974ab48915ab8a2",
+      "script_sha256": "c26337dd29d3a0110b6c4a7f6c6736bc6113c33528d223705d6fdbc5ac6b0455",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "16e2ec4249a1423abe06eb5173d4a9d6",
+      "invocation_id": "b40a9d83da68408d9ff46c8738ed2daa",
       "script_name": "pnr_hyperram_ctrl_place.tcl",
-      "script_sha256": "1177e0df40c520a733c1fe9d0e3f972f61d2d6dabed18584070c33e714c38869",
+      "script_sha256": "0cebc6c5708628114ccfbdb92b671b9bf13d71b7d3a60c067067ee0739450bb2",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "aea2d1e14d11468bb17507613f230b63",
+      "invocation_id": "3b958c72aef04bc8875d9a71a1b80dde",
       "script_name": "pnr_hyperram_ctrl_cts.tcl",
-      "script_sha256": "73c36433261594506dcddaae9be363ea2e8af3290fed79ed98415376c58828c4",
+      "script_sha256": "29087f9a1a8176887d6598a73b2f63d2ebb1ab2de14d5a27e23f26893d577cd7",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "d25f09e22178418dabbbccf727fb4189",
+      "invocation_id": "134be6bcd37c4c34b7fb1db03b8fba08",
       "script_name": "pnr_hyperram_ctrl_route.tcl",
-      "script_sha256": "18500d1d0dcdec78fdf76e982be824d0585e57dde1766e7b736ab6c3443adf1c",
+      "script_sha256": "561b582060ae03629a7da06c5502524b6125dc34b0978a132a5d73da8c6e71b4",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "447e02380f364353a87316e61d5f0097",
+      "invocation_id": "c5eab2da49f5439f9eaacad22e3993c3",
       "script_name": "pnr_hyperram_ctrl_route_corners.tcl",
-      "script_sha256": "78db580773b0929a227033de0d4a5c59de2357aac77103d4821b56a959460b20",
+      "script_sha256": "80b95568ec14e0f6bb980358d359a476e72025315248d02a1a81ee80863847d6",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "49bca484dfe7492398fdc992d6b25094",
+      "invocation_id": "e2546a8dfb6345e9a7916abb12ec4a6a",
       "script_name": "pnr_hyperram_ctrl_route_corner_ff_100C_1v65.tcl",
-      "script_sha256": "ec87c8723c937f18e3fc1a13b523f8b2c3bc0001853cad0c1e9e5780f5fafd50",
+      "script_sha256": "7ca2872683285cca042c7e6e570f158f64754ce9a82049f2a120a8112c239b3e",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "dcde22568fbd44b692154488c2cf52e4",
+      "invocation_id": "6337a3dae1134cca849469879462196d",
       "script_name": "pnr_hyperram_ctrl_route_corner_ff_100C_1v95.tcl",
-      "script_sha256": "b5845fa009042bf9d2c4426119a0c69b3cb74788b7c50ae0c124033be7d7d0f6",
+      "script_sha256": "4176adb6200ac773389d9079010edf417b377ebc15c85a8553fde8f320b3baf6",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "6f8178b460fc4b419c2316a2146c8215",
+      "invocation_id": "2a6e54ad1ab44a468b44076b384402bc",
       "script_name": "pnr_hyperram_ctrl_route_corner_ff_n40C_1v56.tcl",
-      "script_sha256": "6712723a18779f2c3a0d4f87e6a08168e4dad03ab0d212c7b170da37c430c85d",
+      "script_sha256": "d27eab1d7f96e2df057eafc3fa906d19e42f3dd7161e24631bb291689b9c0ab3",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "28e59041a9c0454ba5415730658025c1",
+      "invocation_id": "db7cd15b3f41446b8c87af7ea887b191",
       "script_name": "pnr_hyperram_ctrl_route_corner_ff_n40C_1v65.tcl",
-      "script_sha256": "1ffb97601e61edb09d18031a4bd5d907d4c008e4a46d91902b0e92bf907c5194",
+      "script_sha256": "46efe590276a5b1506887080e38b4ea4cb5e23fb72edd5062dd7489f28417115",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "f9ad08c505f947eda02ab6b74474472d",
+      "invocation_id": "e9c71acb6a954548a4c1b1dbc46cf34e",
       "script_name": "pnr_hyperram_ctrl_route_corner_ff_n40C_1v76.tcl",
-      "script_sha256": "d98f11e205f6fc37ce7634aa581d69ec8621e08faa4703d32927d9538d6710a8",
+      "script_sha256": "1c29d99afe12677c7dc795025c9e7974934e796dca3537446098302d82b3680c",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "b469cf383b0044b28a8c5874e6a795eb",
+      "invocation_id": "ffc5c75e69394994bbf0103d9357af28",
       "script_name": "pnr_hyperram_ctrl_route_corner_ff_n40C_1v95.tcl",
-      "script_sha256": "0b6ee2572d9b52960e5a17f9a31f1c8ff44da306da729e22d464e9f1f0f5296d",
+      "script_sha256": "f8da146588c300ff8311188452458a4370b281860998858db79754b42837835b",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "ef6abac907b448a7978ee50be58b9b61",
+      "invocation_id": "90a3d9b3b7c94763b4113ec3b0b264e2",
       "script_name": "pnr_hyperram_ctrl_route_corner_ss_100C_1v40.tcl",
-      "script_sha256": "68a19842938f20b7abfeed6a76ca257e398b678708482882619ba50a5397ab92",
+      "script_sha256": "ab8cbb9138d9d33299d7b2eefad8896502d440ee4bbc33229828c47f821b983d",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "8b6dbb4e45cc48c39ecc41899ca94ab8",
+      "invocation_id": "27caab72a9c8427b9c3dd9fd481b67ed",
       "script_name": "pnr_hyperram_ctrl_route_corner_ss_100C_1v60.tcl",
-      "script_sha256": "e8a53ca2d8ad500e0c343b25fba7cd387047758f4f609f24c014cb89523e5602",
+      "script_sha256": "2e9f87c3a915023e4698fcc6d1c6d4bef9d1195fcb70996c7e5280100c026086",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "9610ddf7ba5644acbad379662ae6cf96",
+      "invocation_id": "dbd447d04fcd4c8d8374f5faf72408b5",
       "script_name": "pnr_hyperram_ctrl_route_corner_ss_n40C_1v28.tcl",
-      "script_sha256": "634999c7d5aa2177b2bbd10e9a6692181ae17b8b9868b49db0dcb4173535a2ae",
+      "script_sha256": "b77c73d8861abac966ee413070717d184f84a655ee14830d197bb3291898a53d",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "c1c9d6bd79744637a327c60b8fe2fbae",
+      "invocation_id": "3e877f705d144684ae2d9305b501be1a",
       "script_name": "pnr_hyperram_ctrl_route_corner_ss_n40C_1v35.tcl",
-      "script_sha256": "2f11b7b61810a191bf6bd2e3239bb3af038cc3cc163f923c9e451a432d6011f4",
+      "script_sha256": "ee46cf7a1ddc1ada7607f61027c51991e7e6dd3ab992a973e1eb6238c1e6aac7",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "87095e3a15fb433d9fca6e837fb6c50b",
+      "invocation_id": "d8632081d3644559b06d6138b4a3cb3d",
       "script_name": "pnr_hyperram_ctrl_route_corner_ss_n40C_1v40.tcl",
-      "script_sha256": "224ae189625918f0b2067c3246dca07e77a40c1227e0fe254465aad2b273c9bd",
+      "script_sha256": "32f98bd156df876196644626acb53394a33e509cb9a7098d441bf7768e99ba7d",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "7d7e13f33e1345518d12af87d2fe50bb",
+      "invocation_id": "84e226b2de324fd68a248b46c5587c98",
       "script_name": "pnr_hyperram_ctrl_route_corner_ss_n40C_1v44.tcl",
-      "script_sha256": "50da87c25b1b326c6fb9e579c7826aed452ffcc49e1c3c9646a87ee4a01d546c",
+      "script_sha256": "52d2f0883698c0540912093fdd304de8122f3b01b48cba3f6971b524e67d6525",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "25aba24fb1fc412ea9433a99707ae33c",
+      "invocation_id": "e280ce93038343a19f5276b151e89a72",
       "script_name": "pnr_hyperram_ctrl_route_corner_ss_n40C_1v60.tcl",
-      "script_sha256": "32b76eaf48e5a70c01d19c31c4577eb96628b7a2ca5500df890b0434c076a418",
+      "script_sha256": "3cb759461da77339e6218a227c28159bb8e9a60977ef434942ba11c607107089",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "44929f0061d74ce3a7b5faf71508648e",
+      "invocation_id": "690dbed3d2e848adb69a9ce9d8d9547a",
       "script_name": "pnr_hyperram_ctrl_route_corner_ss_n40C_1v76.tcl",
-      "script_sha256": "1181aaa204f3d61a6b19cf6ee53d42c39de36b3e73dc4391b3d06fa476f23a6c",
+      "script_sha256": "7d17b5110d49e013a5b1bdca554ff30dc34e1b8d0048b42c678ca1b4a28974c3",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "45dfcd26a2e44dbcb0dfaea3b4228895",
+      "invocation_id": "98f48732fdf8492784b4f160698168c9",
       "script_name": "pnr_hyperram_ctrl_route_corner_tt_025C_1v80.tcl",
-      "script_sha256": "d1d19504cdfcfabd65213f76052c5e1a791a7c34a0d861951fc35d978576baf2",
+      "script_sha256": "efafc4ab7b4b46bd75befbcf7748ba9c45b0f22a34de57336eabb82bbe8dfee2",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "0d2f9f2de3994d9ca223c6880fa5a9e5",
+      "invocation_id": "08962c5fc40f4b9e975081c7cb049af2",
       "script_name": "pnr_hyperram_ctrl_route_corner_tt_100C_1v80.tcl",
-      "script_sha256": "4b298f06f3700aa5a2c98836629fd2deed6a022a8f26b566b3ee446d860bef2d",
+      "script_sha256": "e2e20784713ec3d9d7f36758c09b9d13dc7804864c5170332d542c5d26fd8ffd",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "881d86325116495e8870359055065e34",
+      "invocation_id": "a067c6d199464d3db5533faa22408e10",
       "script_name": "pnr_hyperram_ctrl_route_spef.tcl",
-      "script_sha256": "4889c075ffeadb5a8e98db1258e28bc7afd02922d110b8b445e8c21b8f24fb26",
+      "script_sha256": "72513ff7509f6f608aac7219afa99d0b1ccd214ebbf9662e07107cfef504d30c",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
@@ -201,27 +201,27 @@
     }
   },
   "interconnect_corner": "nom",
-  "die_area_um2": 89242.6,
-  "core_area_um2": 82372.8,
-  "utilization_pct": 32.9126,
-  "wirelength_um": 80341,
-  "worst_slack_ns": 9.54469,
+  "die_area_um2": 86668.4,
+  "core_area_um2": 80417.1,
+  "utilization_pct": 32.7156,
+  "wirelength_um": 78218,
+  "worst_slack_ns": 9.54493,
   "total_negative_slack_ns": 0,
-  "fmax_mhz": 190.435,
+  "fmax_mhz": 208.925,
   "setup_violation_count": 0,
   "hold_violation_count": 0,
   "nominal_hold_slack_ns": 0.33121,
-  "antenna_violation_count": 0,
+  "antenna_violation_count": 1,
   "route_drc_violation_count": 0,
-  "estimated_power_mw": 1.9367,
-  "clock_skew_ns": 0.39954,
-  "worst_setup_slack_ns": -27.2751,
-  "worst_hold_slack_ns": 0.20641,
+  "estimated_power_mw": 1.8443,
+  "clock_skew_ns": 0.37511,
+  "worst_setup_slack_ns": -18.7546,
+  "worst_hold_slack_ns": 0.2049,
   "corners": [
     {
       "name": "ff_100C_1v65",
-      "setup_slack_ns": 9.6347,
-      "hold_slack_ns": 0.27911,
+      "setup_slack_ns": 9.6349,
+      "hold_slack_ns": 0.27708,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
@@ -232,8 +232,8 @@
     },
     {
       "name": "ff_100C_1v95",
-      "setup_slack_ns": 9.71381,
-      "hold_slack_ns": 0.22212,
+      "setup_slack_ns": 9.71397,
+      "hold_slack_ns": 0.22059,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
@@ -244,20 +244,20 @@
     },
     {
       "name": "ff_n40C_1v56",
-      "setup_slack_ns": 9.54662,
-      "hold_slack_ns": 0.3152,
+      "setup_slack_ns": 9.54684,
+      "hold_slack_ns": 0.31271,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
-      "max_transition_violation_count": 0,
-      "max_capacitance_violation_count": 0,
-      "max_transition_violation_count_vs_library": 0,
-      "max_capacitance_violation_count_vs_library": 0
+      "max_transition_violation_count": 34,
+      "max_capacitance_violation_count": 1,
+      "max_transition_violation_count_vs_library": 34,
+      "max_capacitance_violation_count_vs_library": 1
     },
     {
       "name": "ff_n40C_1v65",
-      "setup_slack_ns": 9.6053,
-      "hold_slack_ns": 0.27883,
+      "setup_slack_ns": 9.6055,
+      "hold_slack_ns": 0.27668,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
@@ -268,8 +268,8 @@
     },
     {
       "name": "ff_n40C_1v76",
-      "setup_slack_ns": 9.65672,
-      "hold_slack_ns": 0.24495,
+      "setup_slack_ns": 9.6569,
+      "hold_slack_ns": 0.24309,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
@@ -280,8 +280,8 @@
     },
     {
       "name": "ff_n40C_1v95",
-      "setup_slack_ns": 9.71593,
-      "hold_slack_ns": 0.20641,
+      "setup_slack_ns": 9.71609,
+      "hold_slack_ns": 0.2049,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
@@ -292,8 +292,8 @@
     },
     {
       "name": "ss_100C_1v40",
-      "setup_slack_ns": 4.04622,
-      "hold_slack_ns": 0.99046,
+      "setup_slack_ns": 5.41466,
+      "hold_slack_ns": 0.98522,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
@@ -304,33 +304,33 @@
     },
     {
       "name": "ss_100C_1v60",
-      "setup_slack_ns": 9.01152,
-      "hold_slack_ns": 0.68342,
+      "setup_slack_ns": 9.01194,
+      "hold_slack_ns": 0.67952,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
-      "max_transition_violation_count": 148,
-      "max_capacitance_violation_count": 8,
-      "max_transition_violation_count_vs_library": 148,
-      "max_capacitance_violation_count_vs_library": 8
+      "max_transition_violation_count": 474,
+      "max_capacitance_violation_count": 15,
+      "max_transition_violation_count_vs_library": 474,
+      "max_capacitance_violation_count_vs_library": 15
     },
     {
       "name": "ss_n40C_1v28",
-      "setup_slack_ns": -27.2751,
-      "hold_slack_ns": 2.02673,
-      "total_negative_setup_slack_ns": -2146.7,
+      "setup_slack_ns": -18.7546,
+      "hold_slack_ns": 2.01012,
+      "total_negative_setup_slack_ns": -2058.27,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
-      "max_transition_violation_count": 114,
-      "max_capacitance_violation_count": 7,
-      "max_transition_violation_count_vs_library": 114,
-      "max_capacitance_violation_count_vs_library": 7
+      "max_transition_violation_count": 503,
+      "max_capacitance_violation_count": 16,
+      "max_transition_violation_count_vs_library": 503,
+      "max_capacitance_violation_count_vs_library": 16
     },
     {
       "name": "ss_n40C_1v35",
-      "setup_slack_ns": -11.2257,
-      "hold_slack_ns": 1.4641,
-      "total_negative_setup_slack_ns": -280.309,
+      "setup_slack_ns": -6.21758,
+      "hold_slack_ns": 1.45479,
+      "total_negative_setup_slack_ns": -137.428,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
       "max_transition_violation_count": 0,
@@ -340,9 +340,9 @@
     },
     {
       "name": "ss_n40C_1v40",
-      "setup_slack_ns": -4.87741,
-      "hold_slack_ns": 1.20906,
-      "total_negative_setup_slack_ns": -29.0363,
+      "setup_slack_ns": -1.04689,
+      "hold_slack_ns": 1.20141,
+      "total_negative_setup_slack_ns": -6.54537,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
       "max_transition_violation_count": 0,
@@ -352,9 +352,9 @@
     },
     {
       "name": "ss_n40C_1v44",
-      "setup_slack_ns": -1.2434,
-      "hold_slack_ns": 1.06446,
-      "total_negative_setup_slack_ns": -1.2434,
+      "setup_slack_ns": 1.87387,
+      "hold_slack_ns": 1.05748,
+      "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
       "max_transition_violation_count": 0,
@@ -364,44 +364,44 @@
     },
     {
       "name": "ss_n40C_1v60",
-      "setup_slack_ns": 7.09867,
-      "hold_slack_ns": 0.69669,
+      "setup_slack_ns": 8.81672,
+      "hold_slack_ns": 0.69207,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
-      "max_transition_violation_count": 284,
-      "max_capacitance_violation_count": 15,
-      "max_transition_violation_count_vs_library": 284,
-      "max_capacitance_violation_count_vs_library": 15
+      "max_transition_violation_count": 609,
+      "max_capacitance_violation_count": 21,
+      "max_transition_violation_count_vs_library": 609,
+      "max_capacitance_violation_count_vs_library": 21
     },
     {
       "name": "ss_n40C_1v76",
-      "setup_slack_ns": 9.22578,
-      "hold_slack_ns": 0.52474,
+      "setup_slack_ns": 9.22609,
+      "hold_slack_ns": 0.52053,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
-      "max_transition_violation_count": 132,
-      "max_capacitance_violation_count": 5,
-      "max_transition_violation_count_vs_library": 132,
-      "max_capacitance_violation_count_vs_library": 5
+      "max_transition_violation_count": 442,
+      "max_capacitance_violation_count": 13,
+      "max_transition_violation_count_vs_library": 442,
+      "max_capacitance_violation_count_vs_library": 13
     },
     {
       "name": "tt_025C_1v80",
-      "setup_slack_ns": 9.54469,
-      "hold_slack_ns": 0.33479,
+      "setup_slack_ns": 9.54493,
+      "hold_slack_ns": 0.33237,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
-      "max_transition_violation_count": 0,
-      "max_capacitance_violation_count": 0,
-      "max_transition_violation_count_vs_library": 0,
-      "max_capacitance_violation_count_vs_library": 0
+      "max_transition_violation_count": 34,
+      "max_capacitance_violation_count": 1,
+      "max_transition_violation_count_vs_library": 34,
+      "max_capacitance_violation_count_vs_library": 1
     },
     {
       "name": "tt_100C_1v80",
-      "setup_slack_ns": 9.54892,
-      "hold_slack_ns": 0.34315,
+      "setup_slack_ns": 9.54917,
+      "hold_slack_ns": 0.34074,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
@@ -416,8 +416,8 @@
       "total_overflow": 0,
       "max_horizontal_overflow": 0,
       "max_vertical_overflow": 0,
-      "usage_pct": 13.39,
-      "max_layer_usage_pct": 20.86,
+      "usage_pct": 13.19,
+      "max_layer_usage_pct": 22.24,
       "overflow_per_layer": {
         "li1": {
           "resource": 0,
@@ -428,39 +428,39 @@
           "total_overflow": 0
         },
         "met1": {
-          "resource": 28033,
-          "demand": 5385,
-          "usage_pct": 19.21,
+          "resource": 26971,
+          "demand": 4780,
+          "usage_pct": 17.72,
           "max_horizontal_overflow": 0,
           "max_vertical_overflow": 0,
           "total_overflow": 0
         },
         "met2": {
-          "resource": 23686,
-          "demand": 4942,
-          "usage_pct": 20.86,
+          "resource": 22959,
+          "demand": 5107,
+          "usage_pct": 22.24,
           "max_horizontal_overflow": 0,
           "max_vertical_overflow": 0,
           "total_overflow": 0
         },
         "met3": {
-          "resource": 17556,
-          "demand": 590,
-          "usage_pct": 3.36,
+          "resource": 16923,
+          "demand": 457,
+          "usage_pct": 2.7,
           "max_horizontal_overflow": 0,
           "max_vertical_overflow": 0,
           "total_overflow": 0
         },
         "met4": {
-          "resource": 11781,
-          "demand": 311,
-          "usage_pct": 2.64,
+          "resource": 11419,
+          "demand": 338,
+          "usage_pct": 2.96,
           "max_horizontal_overflow": 0,
           "max_vertical_overflow": 0,
           "total_overflow": 0
         },
         "met5": {
-          "resource": 2814,
+          "resource": 2706,
           "demand": 0,
           "usage_pct": 0.0,
           "max_horizontal_overflow": 0,
@@ -468,39 +468,35 @@
           "total_overflow": 0
         }
       },
-      "routed_net_count": 2388,
+      "routed_net_count": 2415,
       "max_gcell_usage_pct": null
     },
     "detailed_route": {
-      "first_iteration_drc_violation_count": 2692,
-      "iteration_count": 14,
+      "first_iteration_drc_violation_count": 2390,
+      "iteration_count": 10,
       "drc_violations_per_iteration": [
-        2692,
-        1736,
-        1959,
-        405,
-        206,
-        138,
-        76,
-        40,
-        36,
-        36,
-        10,
-        2,
-        2,
+        2390,
+        1754,
+        1673,
+        443,
+        115,
+        50,
+        26,
+        11,
+        11,
         0
       ],
       "converged": true
     },
     "completeness": {
-      "signal_net_count": 2254,
+      "signal_net_count": 2283,
       "unrouted_net_count": 0,
       "partially_routed_net_count": null
     },
     "placement": {
       "total_routing_overflow": null,
       "overflowed_tile_count": null,
-      "final_weighted_congestion": 0.6148
+      "final_weighted_congestion": 0.7232
     },
     "null_reasons": {
       "global_route.max_gcell_usage_pct": "OpenROAD's global router reports usage per routing layer, not per GCell",
@@ -509,74 +505,74 @@
       "completeness.partially_routed_net_count": "OpenROAD exposes no per-net connectivity check; only nets with no routed wire at all are counted"
     }
   },
-  "max_transition_violation_count": 284,
-  "max_capacitance_violation_count": 15,
-  "max_transition_violation_count_vs_library": 284,
-  "max_capacitance_violation_count_vs_library": 15,
+  "max_transition_violation_count": 612,
+  "max_capacitance_violation_count": 22,
+  "max_transition_violation_count_vs_library": 612,
+  "max_capacitance_violation_count_vs_library": 22,
   "timing_status": "constrained",
   "stages": [
     {
       "name": "floorplan",
-      "die_area_um2": 89242.6,
-      "core_area_um2": 82372.8,
-      "utilization_pct": 31.9875,
+      "die_area_um2": 86668.4,
+      "core_area_um2": 80417.1,
+      "utilization_pct": 31.8226,
       "worst_slack_ns": 9.55587,
       "total_negative_slack_ns": 0,
       "timing_status": "constrained"
     },
     {
       "name": "place",
-      "die_area_um2": 89242.6,
-      "core_area_um2": 82372.8,
-      "utilization_pct": 31.6382,
-      "worst_slack_ns": 9.55332,
+      "die_area_um2": 86668.4,
+      "core_area_um2": 80417.1,
+      "utilization_pct": 31.4943,
+      "worst_slack_ns": 9.55362,
       "total_negative_slack_ns": 0,
-      "wirelength_um": 55918.7,
-      "fmax_mhz": 192.87,
-      "estimated_power_mw": 1.4413,
+      "wirelength_um": 54084.1,
+      "fmax_mhz": 209.308,
+      "estimated_power_mw": 1.3698,
       "setup_violation_count": 0,
       "hold_violation_count": 0,
-      "nominal_hold_slack_ns": 0.33333,
+      "nominal_hold_slack_ns": 0.33202,
       "timing_status": "constrained"
     },
     {
       "name": "cts",
-      "die_area_um2": 89242.6,
-      "core_area_um2": 82372.8,
-      "utilization_pct": 32.8306,
-      "worst_slack_ns": 9.64863,
+      "die_area_um2": 86668.4,
+      "core_area_um2": 80417.1,
+      "utilization_pct": 32.6379,
+      "worst_slack_ns": 9.7095,
       "total_negative_slack_ns": 0,
-      "fmax_mhz": 191.461,
-      "estimated_power_mw": 1.9028,
-      "clock_skew_ns": 0.36516,
+      "fmax_mhz": 207.473,
+      "estimated_power_mw": 1.8074,
+      "clock_skew_ns": 0.38671,
       "setup_violation_count": 0,
       "hold_violation_count": 0,
-      "nominal_hold_slack_ns": 0.34879,
+      "nominal_hold_slack_ns": 0.32611,
       "timing_status": "constrained"
     },
     {
       "name": "route",
-      "die_area_um2": 89242.6,
-      "core_area_um2": 82372.8,
-      "utilization_pct": 32.9126,
-      "worst_slack_ns": 9.54469,
+      "die_area_um2": 86668.4,
+      "core_area_um2": 80417.1,
+      "utilization_pct": 32.7156,
+      "worst_slack_ns": 9.54493,
       "total_negative_slack_ns": 0,
-      "wirelength_um": 80341,
-      "fmax_mhz": 190.435,
-      "estimated_power_mw": 1.9367,
-      "clock_skew_ns": 0.39954,
+      "wirelength_um": 78218,
+      "fmax_mhz": 208.925,
+      "estimated_power_mw": 1.8443,
+      "clock_skew_ns": 0.37511,
       "setup_violation_count": 0,
       "hold_violation_count": 0,
       "nominal_hold_slack_ns": 0.33121,
-      "antenna_violation_count": 0,
+      "antenna_violation_count": 1,
       "route_drc_violation_count": 0,
-      "worst_setup_slack_ns": -27.2751,
-      "worst_hold_slack_ns": 0.20641,
+      "worst_setup_slack_ns": -18.7546,
+      "worst_hold_slack_ns": 0.2049,
       "corners": [
         {
           "name": "ff_100C_1v65",
-          "setup_slack_ns": 9.6347,
-          "hold_slack_ns": 0.27911,
+          "setup_slack_ns": 9.6349,
+          "hold_slack_ns": 0.27708,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
@@ -587,8 +583,8 @@
         },
         {
           "name": "ff_100C_1v95",
-          "setup_slack_ns": 9.71381,
-          "hold_slack_ns": 0.22212,
+          "setup_slack_ns": 9.71397,
+          "hold_slack_ns": 0.22059,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
@@ -599,20 +595,20 @@
         },
         {
           "name": "ff_n40C_1v56",
-          "setup_slack_ns": 9.54662,
-          "hold_slack_ns": 0.3152,
+          "setup_slack_ns": 9.54684,
+          "hold_slack_ns": 0.31271,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
-          "max_transition_violation_count": 0,
-          "max_capacitance_violation_count": 0,
-          "max_transition_violation_count_vs_library": 0,
-          "max_capacitance_violation_count_vs_library": 0
+          "max_transition_violation_count": 34,
+          "max_capacitance_violation_count": 1,
+          "max_transition_violation_count_vs_library": 34,
+          "max_capacitance_violation_count_vs_library": 1
         },
         {
           "name": "ff_n40C_1v65",
-          "setup_slack_ns": 9.6053,
-          "hold_slack_ns": 0.27883,
+          "setup_slack_ns": 9.6055,
+          "hold_slack_ns": 0.27668,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
@@ -623,8 +619,8 @@
         },
         {
           "name": "ff_n40C_1v76",
-          "setup_slack_ns": 9.65672,
-          "hold_slack_ns": 0.24495,
+          "setup_slack_ns": 9.6569,
+          "hold_slack_ns": 0.24309,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
@@ -635,8 +631,8 @@
         },
         {
           "name": "ff_n40C_1v95",
-          "setup_slack_ns": 9.71593,
-          "hold_slack_ns": 0.20641,
+          "setup_slack_ns": 9.71609,
+          "hold_slack_ns": 0.2049,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
@@ -647,8 +643,8 @@
         },
         {
           "name": "ss_100C_1v40",
-          "setup_slack_ns": 4.04622,
-          "hold_slack_ns": 0.99046,
+          "setup_slack_ns": 5.41466,
+          "hold_slack_ns": 0.98522,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
@@ -659,33 +655,33 @@
         },
         {
           "name": "ss_100C_1v60",
-          "setup_slack_ns": 9.01152,
-          "hold_slack_ns": 0.68342,
+          "setup_slack_ns": 9.01194,
+          "hold_slack_ns": 0.67952,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
-          "max_transition_violation_count": 148,
-          "max_capacitance_violation_count": 8,
-          "max_transition_violation_count_vs_library": 148,
-          "max_capacitance_violation_count_vs_library": 8
+          "max_transition_violation_count": 474,
+          "max_capacitance_violation_count": 15,
+          "max_transition_violation_count_vs_library": 474,
+          "max_capacitance_violation_count_vs_library": 15
         },
         {
           "name": "ss_n40C_1v28",
-          "setup_slack_ns": -27.2751,
-          "hold_slack_ns": 2.02673,
-          "total_negative_setup_slack_ns": -2146.7,
+          "setup_slack_ns": -18.7546,
+          "hold_slack_ns": 2.01012,
+          "total_negative_setup_slack_ns": -2058.27,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
-          "max_transition_violation_count": 114,
-          "max_capacitance_violation_count": 7,
-          "max_transition_violation_count_vs_library": 114,
-          "max_capacitance_violation_count_vs_library": 7
+          "max_transition_violation_count": 503,
+          "max_capacitance_violation_count": 16,
+          "max_transition_violation_count_vs_library": 503,
+          "max_capacitance_violation_count_vs_library": 16
         },
         {
           "name": "ss_n40C_1v35",
-          "setup_slack_ns": -11.2257,
-          "hold_slack_ns": 1.4641,
-          "total_negative_setup_slack_ns": -280.309,
+          "setup_slack_ns": -6.21758,
+          "hold_slack_ns": 1.45479,
+          "total_negative_setup_slack_ns": -137.428,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
           "max_transition_violation_count": 0,
@@ -695,9 +691,9 @@
         },
         {
           "name": "ss_n40C_1v40",
-          "setup_slack_ns": -4.87741,
-          "hold_slack_ns": 1.20906,
-          "total_negative_setup_slack_ns": -29.0363,
+          "setup_slack_ns": -1.04689,
+          "hold_slack_ns": 1.20141,
+          "total_negative_setup_slack_ns": -6.54537,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
           "max_transition_violation_count": 0,
@@ -707,9 +703,9 @@
         },
         {
           "name": "ss_n40C_1v44",
-          "setup_slack_ns": -1.2434,
-          "hold_slack_ns": 1.06446,
-          "total_negative_setup_slack_ns": -1.2434,
+          "setup_slack_ns": 1.87387,
+          "hold_slack_ns": 1.05748,
+          "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
           "max_transition_violation_count": 0,
@@ -719,44 +715,44 @@
         },
         {
           "name": "ss_n40C_1v60",
-          "setup_slack_ns": 7.09867,
-          "hold_slack_ns": 0.69669,
+          "setup_slack_ns": 8.81672,
+          "hold_slack_ns": 0.69207,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
-          "max_transition_violation_count": 284,
-          "max_capacitance_violation_count": 15,
-          "max_transition_violation_count_vs_library": 284,
-          "max_capacitance_violation_count_vs_library": 15
+          "max_transition_violation_count": 609,
+          "max_capacitance_violation_count": 21,
+          "max_transition_violation_count_vs_library": 609,
+          "max_capacitance_violation_count_vs_library": 21
         },
         {
           "name": "ss_n40C_1v76",
-          "setup_slack_ns": 9.22578,
-          "hold_slack_ns": 0.52474,
+          "setup_slack_ns": 9.22609,
+          "hold_slack_ns": 0.52053,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
-          "max_transition_violation_count": 132,
-          "max_capacitance_violation_count": 5,
-          "max_transition_violation_count_vs_library": 132,
-          "max_capacitance_violation_count_vs_library": 5
+          "max_transition_violation_count": 442,
+          "max_capacitance_violation_count": 13,
+          "max_transition_violation_count_vs_library": 442,
+          "max_capacitance_violation_count_vs_library": 13
         },
         {
           "name": "tt_025C_1v80",
-          "setup_slack_ns": 9.54469,
-          "hold_slack_ns": 0.33479,
+          "setup_slack_ns": 9.54493,
+          "hold_slack_ns": 0.33237,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
-          "max_transition_violation_count": 0,
-          "max_capacitance_violation_count": 0,
-          "max_transition_violation_count_vs_library": 0,
-          "max_capacitance_violation_count_vs_library": 0
+          "max_transition_violation_count": 34,
+          "max_capacitance_violation_count": 1,
+          "max_transition_violation_count_vs_library": 34,
+          "max_capacitance_violation_count_vs_library": 1
         },
         {
           "name": "tt_100C_1v80",
-          "setup_slack_ns": 9.54892,
-          "hold_slack_ns": 0.34315,
+          "setup_slack_ns": 9.54917,
+          "hold_slack_ns": 0.34074,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
@@ -766,17 +762,17 @@
           "max_capacitance_violation_count_vs_library": 0
         }
       ],
-      "max_transition_violation_count": 284,
-      "max_capacitance_violation_count": 15,
-      "max_transition_violation_count_vs_library": 284,
-      "max_capacitance_violation_count_vs_library": 15,
+      "max_transition_violation_count": 612,
+      "max_capacitance_violation_count": 22,
+      "max_transition_violation_count_vs_library": 612,
+      "max_capacitance_violation_count_vs_library": 22,
       "congestion": {
         "global_route": {
           "total_overflow": 0,
           "max_horizontal_overflow": 0,
           "max_vertical_overflow": 0,
-          "usage_pct": 13.39,
-          "max_layer_usage_pct": 20.86,
+          "usage_pct": 13.19,
+          "max_layer_usage_pct": 22.24,
           "overflow_per_layer": {
             "li1": {
               "resource": 0,
@@ -787,39 +783,39 @@
               "total_overflow": 0
             },
             "met1": {
-              "resource": 28033,
-              "demand": 5385,
-              "usage_pct": 19.21,
+              "resource": 26971,
+              "demand": 4780,
+              "usage_pct": 17.72,
               "max_horizontal_overflow": 0,
               "max_vertical_overflow": 0,
               "total_overflow": 0
             },
             "met2": {
-              "resource": 23686,
-              "demand": 4942,
-              "usage_pct": 20.86,
+              "resource": 22959,
+              "demand": 5107,
+              "usage_pct": 22.24,
               "max_horizontal_overflow": 0,
               "max_vertical_overflow": 0,
               "total_overflow": 0
             },
             "met3": {
-              "resource": 17556,
-              "demand": 590,
-              "usage_pct": 3.36,
+              "resource": 16923,
+              "demand": 457,
+              "usage_pct": 2.7,
               "max_horizontal_overflow": 0,
               "max_vertical_overflow": 0,
               "total_overflow": 0
             },
             "met4": {
-              "resource": 11781,
-              "demand": 311,
-              "usage_pct": 2.64,
+              "resource": 11419,
+              "demand": 338,
+              "usage_pct": 2.96,
               "max_horizontal_overflow": 0,
               "max_vertical_overflow": 0,
               "total_overflow": 0
             },
             "met5": {
-              "resource": 2814,
+              "resource": 2706,
               "demand": 0,
               "usage_pct": 0.0,
               "max_horizontal_overflow": 0,
@@ -827,39 +823,35 @@
               "total_overflow": 0
             }
           },
-          "routed_net_count": 2388,
+          "routed_net_count": 2415,
           "max_gcell_usage_pct": null
         },
         "detailed_route": {
-          "first_iteration_drc_violation_count": 2692,
-          "iteration_count": 14,
+          "first_iteration_drc_violation_count": 2390,
+          "iteration_count": 10,
           "drc_violations_per_iteration": [
-            2692,
-            1736,
-            1959,
-            405,
-            206,
-            138,
-            76,
-            40,
-            36,
-            36,
-            10,
-            2,
-            2,
+            2390,
+            1754,
+            1673,
+            443,
+            115,
+            50,
+            26,
+            11,
+            11,
             0
           ],
           "converged": true
         },
         "completeness": {
-          "signal_net_count": 2254,
+          "signal_net_count": 2283,
           "unrouted_net_count": 0,
           "partially_routed_net_count": null
         },
         "placement": {
           "total_routing_overflow": null,
           "overflowed_tile_count": null,
-          "final_weighted_congestion": 0.6148
+          "final_weighted_congestion": 0.7232
         },
         "null_reasons": {
           "global_route.max_gcell_usage_pct": "OpenROAD's global router reports usage per routing layer, not per GCell",
@@ -880,1170 +872,1170 @@
     {
       "name": "VDD",
       "edge": "north",
-      "x_um": 149.27,
+      "x_um": 147.2,
       "y_um": 277.44,
       "layer": "met5"
     },
     {
       "name": "VSS",
       "edge": "north",
-      "x_um": 149.27,
-      "y_um": 291.04,
+      "x_um": 147.2,
+      "y_um": 263.84,
       "layer": "met5"
     },
     {
       "name": "cfg_adr[0]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 261.46,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 258.74,
       "layer": "met3"
     },
     {
       "name": "cfg_adr[1]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 149.94,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_adr[2]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 62.9,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_rdata[0]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 92.82,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_rdata[10]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 152.66,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_rdata[11]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 154.02,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_rdata[12]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 155.38,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_rdata[13]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 147.22,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_rdata[14]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 91.46,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_rdata[15]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 158.1,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_rdata[1]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 159.46,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_rdata[2]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 42.5,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_rdata[3]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 61.54,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_rdata[4]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 90.1,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_rdata[5]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 163.54,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_rdata[6]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 47.94,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_rdata[7]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 128.18,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_rdata[8]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 166.26,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_rdata[9]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 88.74,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_wdata[0]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 143.14,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_wdata[10]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 168.98,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_wdata[11]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 170.34,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_wdata[12]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 171.7,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_wdata[13]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 87.38,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_wdata[14]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 173.06,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_wdata[15]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 60.18,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_wdata[1]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 175.78,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_wdata[2]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 140.42,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_wdata[3]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 86.02,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_wdata[4]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 178.5,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_wdata[5]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 179.86,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_wdata[6]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 139.06,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_wdata[7]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 39.78,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_wdata[8]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 84.66,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_wdata[9]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 183.94,
-      "layer": "met3"
-    },
-    {
-      "name": "cfg_we",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 137.7,
-      "layer": "met3"
-    },
-    {
-      "name": "clk",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 58.82,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_ck",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 186.66,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_cs_n",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 83.3,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_dq_i[0]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 136.34,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_dq_i[1]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 189.38,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_dq_i[2]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 190.74,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_dq_i[3]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 46.58,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_dq_i[4]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 81.94,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_dq_i[5]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 193.46,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_dq_i[6]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 194.82,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_dq_i[7]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 162.18,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_dq_o[0]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 133.62,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_dq_o[1]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 80.58,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_dq_o[2]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 57.46,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_dq_o[3]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 200.26,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_dq_o[4]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 132.26,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_dq_o[5]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 197.54,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_dq_o[6]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 79.22,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_dq_o[7]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 204.34,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_dq_oe",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 130.9,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_reset_n",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 205.7,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_rwds_i",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 198.9,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_rwds_o",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 77.86,
-      "layer": "met3"
-    },
-    {
-      "name": "hb_rwds_oe",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 129.54,
-      "layer": "met3"
-    },
-    {
-      "name": "rst_n",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 209.78,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_ack",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 211.14,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[0]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 212.5,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[10]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 76.5,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[11]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 56.1,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[12]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 215.22,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[13]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 216.58,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[14]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 126.82,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[15]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 145.86,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[16]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 75.14,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[17]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 174.42,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[18]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 125.46,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[19]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 185.3,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[1]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 223.38,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[20]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 224.74,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[21]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 124.1,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[22]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 41.14,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[23]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 227.46,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[24]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 54.74,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[25]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 122.74,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[26]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 45.22,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[27]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 73.78,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[28]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 144.5,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[29]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 121.38,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[2]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 208.42,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[30]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 103.7,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[3]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 109.14,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[4]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 120.02,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[5]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 232.9,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[6]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 53.38,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[7]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 72.42,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[8]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 118.66,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_adr[9]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 234.26,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_cyc",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 188.02,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[0]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 235.62,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[10]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 117.3,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[11]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 182.58,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[12]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 236.98,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[13]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 177.14,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[14]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 115.94,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[15]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 217.94,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[16]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 71.06,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[17]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 167.62,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[18]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 114.58,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[19]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 239.7,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[1]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 113.22,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[20]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 241.06,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[21]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 110.5,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[22]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 156.74,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[23]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 242.42,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[24]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 69.7,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[25]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 111.86,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[26]",
-      "edge": "west",
-      "x_um": 0.4,
+      "edge": "east",
+      "x_um": 293.995,
       "y_um": 202.98,
       "layer": "met3"
     },
     {
-      "name": "wb_dat_r[27]",
-      "edge": "west",
-      "x_um": 0.4,
+      "name": "cfg_adr[2]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 145.86,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_rdata[0]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 144.5,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_rdata[10]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 234.26,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_rdata[11]",
+      "edge": "east",
+      "x_um": 293.995,
       "y_um": 148.58,
       "layer": "met3"
     },
     {
-      "name": "wb_dat_r[28]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 52.02,
+      "name": "cfg_rdata[12]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 204.34,
       "layer": "met3"
     },
     {
-      "name": "wb_dat_r[29]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 100.98,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[2]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 246.5,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[30]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 38.42,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[31]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 226.1,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[3]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 68.34,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_r[4]",
-      "edge": "west",
-      "x_um": 0.4,
+      "name": "cfg_rdata[13]",
+      "edge": "east",
+      "x_um": 293.995,
       "y_um": 247.86,
       "layer": "met3"
     },
     {
-      "name": "wb_dat_r[5]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 245.14,
+      "name": "cfg_rdata[14]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 139.06,
       "layer": "met3"
     },
     {
-      "name": "wb_dat_r[6]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 219.3,
+      "name": "cfg_rdata[15]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 149.94,
       "layer": "met3"
     },
     {
-      "name": "wb_dat_r[7]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 107.78,
+      "name": "cfg_rdata[1]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 137.7,
       "layer": "met3"
     },
     {
-      "name": "wb_dat_r[8]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 249.22,
+      "name": "cfg_rdata[2]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 205.7,
       "layer": "met3"
     },
     {
-      "name": "wb_dat_r[9]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 228.82,
+      "name": "cfg_rdata[3]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 134.98,
       "layer": "met3"
     },
     {
-      "name": "wb_dat_w[0]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 251.94,
+      "name": "cfg_rdata[4]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 151.3,
       "layer": "met3"
     },
     {
-      "name": "wb_dat_w[10]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 106.42,
+      "name": "cfg_rdata[5]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 167.62,
       "layer": "met3"
     },
     {
-      "name": "wb_dat_w[11]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 50.66,
+      "name": "cfg_rdata[6]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 132.26,
       "layer": "met3"
     },
     {
-      "name": "wb_dat_w[12]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 222.02,
+      "name": "cfg_rdata[7]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 207.06,
       "layer": "met3"
     },
     {
-      "name": "wb_dat_w[13]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 220.66,
+      "name": "cfg_rdata[8]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 235.62,
       "layer": "met3"
     },
     {
-      "name": "wb_dat_w[14]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 105.06,
+      "name": "cfg_rdata[9]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 174.42,
       "layer": "met3"
     },
     {
-      "name": "wb_dat_w[15]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 253.3,
+      "name": "cfg_wdata[0]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 155.38,
       "layer": "met3"
     },
     {
-      "name": "wb_dat_w[16]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 66.98,
+      "name": "cfg_wdata[10]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 126.82,
       "layer": "met3"
     },
     {
-      "name": "wb_dat_w[17]",
-      "edge": "west",
-      "x_um": 0.4,
+      "name": "cfg_wdata[11]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 208.42,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[12]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 125.46,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[13]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 124.1,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[14]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 122.74,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[15]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 162.18,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[1]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 209.78,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[2]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 120.02,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[3]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 118.66,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[4]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 236.98,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[5]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 117.3,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[6]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 211.14,
+      "layer": "met3"
+    },
+    {
+      "name": "cfg_wdata[7]",
+      "edge": "east",
+      "x_um": 293.995,
       "y_um": 254.66,
       "layer": "met3"
     },
     {
-      "name": "wb_dat_w[18]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 43.86,
+      "name": "cfg_wdata[8]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 158.1,
       "layer": "met3"
     },
     {
-      "name": "wb_dat_w[19]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 141.78,
+      "name": "cfg_wdata[9]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 249.22,
       "layer": "met3"
     },
     {
-      "name": "wb_dat_w[1]",
-      "edge": "west",
-      "x_um": 0.4,
+      "name": "cfg_we",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 111.86,
+      "layer": "met3"
+    },
+    {
+      "name": "clk",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 212.5,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_ck",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 159.46,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_cs_n",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 114.58,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_i[0]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 154.02,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_i[1]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 106.42,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_i[2]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 213.86,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_i[3]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 238.34,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_i[4]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 103.7,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_i[5]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 102.34,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_i[6]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 181.22,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_i[7]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 215.22,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_o[0]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 99.62,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_o[1]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 113.22,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_o[2]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 163.54,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_o[3]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 96.9,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_o[4]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 216.58,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_o[5]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 94.18,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_o[6]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 164.9,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_o[7]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 92.82,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_dq_oe",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 91.46,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_reset_n",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 217.94,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_rwds_i",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 166.26,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_rwds_o",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 239.7,
+      "layer": "met3"
+    },
+    {
+      "name": "hb_rwds_oe",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 87.38,
+      "layer": "met3"
+    },
+    {
+      "name": "rst_n",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 250.58,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_ack",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 219.3,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[0]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 105.06,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[10]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 140.42,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[11]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 81.94,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[12]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 168.98,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[13]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 80.58,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[14]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 220.66,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[15]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 241.06,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[16]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 170.34,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[17]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 182.58,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[18]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 75.14,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[19]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 73.78,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[1]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 171.7,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[20]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 222.02,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[21]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 72.42,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[22]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 71.06,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[23]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 173.06,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[24]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 69.7,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[25]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 79.22,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[26]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 143.14,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[27]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 242.42,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[28]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 226.1,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[29]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 65.62,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[2]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 223.38,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[30]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 175.78,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[3]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 64.26,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[4]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 95.54,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[5]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 62.9,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[6]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 177.14,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[7]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 100.98,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[8]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 61.54,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_adr[9]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 60.18,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_cyc",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 178.5,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[0]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 110.5,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[10]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 76.5,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[11]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 224.74,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[12]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 179.86,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[13]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 58.82,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[14]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 121.38,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[15]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 251.94,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[16]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 243.78,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[17]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 152.66,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[18]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 130.9,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[19]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 196.18,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[1]",
+      "edge": "east",
+      "x_um": 293.995,
       "y_um": 256.02,
       "layer": "met3"
     },
     {
+      "name": "wb_dat_r[20]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 257.38,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[21]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 54.74,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[22]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 141.78,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[23]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 183.94,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[24]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 90.1,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[25]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 147.22,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[26]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 57.46,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[27]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 185.3,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[28]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 156.74,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[29]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 227.46,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[2]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 245.14,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[30]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 186.66,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[31]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 52.02,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[3]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 83.3,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[4]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 47.94,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[5]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 188.02,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[6]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 66.98,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[7]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 68.34,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[8]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 107.78,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_r[9]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 189.38,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[0]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 49.3,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[10]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 43.86,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[11]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 228.82,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[12]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 190.74,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[13]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 129.54,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[14]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 88.74,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[15]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 46.58,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[16]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 192.1,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[17]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 253.3,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[18]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 77.86,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[19]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 56.1,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[1]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 193.46,
+      "layer": "met3"
+    },
+    {
       "name": "wb_dat_w[20]",
-      "edge": "west",
-      "x_um": 0.4,
+      "edge": "east",
+      "x_um": 293.995,
       "y_um": 230.18,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[21]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 102.34,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 41.14,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[22]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 257.38,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 39.78,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[23]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 213.86,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 194.82,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[24]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 243.78,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 115.94,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[25]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 65.62,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 128.18,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[26]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 164.9,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 133.62,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[27]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 196.18,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 246.5,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[28]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 151.3,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 136.34,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[29]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 99.62,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 38.42,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[2]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 250.58,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_w[30]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 192.1,
-      "layer": "met3"
-    },
-    {
-      "name": "wb_dat_w[31]",
-      "edge": "west",
-      "x_um": 0.4,
+      "edge": "east",
+      "x_um": 293.995,
       "y_um": 231.54,
       "layer": "met3"
     },
     {
+      "name": "wb_dat_w[30]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 197.54,
+      "layer": "met3"
+    },
+    {
+      "name": "wb_dat_w[31]",
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 86.02,
+      "layer": "met3"
+    },
+    {
       "name": "wb_dat_w[3]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 98.26,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 84.66,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[4]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 49.3,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 37.06,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[5]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 160.82,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 198.9,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[6]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 238.34,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 98.26,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[7]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 96.9,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 42.5,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[8]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 64.26,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 160.82,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[9]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 258.74,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 200.26,
       "layer": "met3"
     },
     {
       "name": "wb_sel[0]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 134.98,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 232.9,
       "layer": "met3"
     },
     {
       "name": "wb_sel[1]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 95.54,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 45.22,
       "layer": "met3"
     },
     {
       "name": "wb_sel[2]",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 207.06,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 35.7,
       "layer": "met3"
     },
     {
       "name": "wb_sel[3]",
-      "edge": "west",
-      "x_um": 0.4,
+      "edge": "east",
+      "x_um": 293.995,
       "y_um": 201.62,
       "layer": "met3"
     },
     {
       "name": "wb_stall",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 260.1,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 109.14,
       "layer": "met3"
     },
     {
       "name": "wb_stb",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 94.18,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 53.38,
       "layer": "met3"
     },
     {
       "name": "wb_we",
-      "edge": "west",
-      "x_um": 0.4,
-      "y_um": 181.22,
+      "edge": "east",
+      "x_um": 293.995,
+      "y_um": 50.66,
       "layer": "met3"
     }
   ],
@@ -2079,17 +2071,17 @@
       "scope": "repo"
     },
     "sdf_path": null,
-    "worst_slack_ns": 9.54122,
+    "worst_slack_ns": 9.54192,
     "total_negative_slack_ns": 0,
     "timing_status": "constrained",
     "setup_violation_count": 0,
     "hold_violation_count": 0,
-    "nets_annotated": 2389,
-    "nets_total": 8543,
-    "design_nets_annotated": 2389,
-    "design_nets_total": 2407,
+    "nets_annotated": 2416,
+    "nets_total": 8045,
+    "design_nets_annotated": 2416,
+    "design_nets_total": 2434,
     "annotation_complete": false,
-    "annotation_warning": "only 2389 of 2407 nets in the linked design are named by this SPEF -- the slack/violation values in this block are NOT a real-parasitics measurement to the extent annotation is missing, and should not be compared against the top-level estimate_parasitics-derived fields as if they were. See docs/cli/place-and-route.md's 'Net-name correlation' subsection."
+    "annotation_warning": "only 2416 of 2434 nets in the linked design are named by this SPEF -- the slack/violation values in this block are NOT a real-parasitics measurement to the extent annotation is missing, and should not be compared against the top-level estimate_parasitics-derived fields as if they were. See docs/cli/place-and-route.md's 'Net-name correlation' subsection."
   },
   "power": {
     "preset": "sky130hd",
@@ -2156,14 +2148,29 @@
       "unavailable_reason": null,
       "status": "complete",
       "missing": [],
-      "components": 11676,
-      "tapcells": 1070,
+      "components": 11582,
+      "tapcells": 1060,
       "endcaps": 0,
-      "fillers": 8218,
+      "fillers": 8111,
       "special_nets": [
         {
           "name": "VDD",
           "use": "POWER",
+          "followpin_segments": 52,
+          "stripe_segments": 1680,
+          "other_segments": 1040,
+          "stripe_layers": [
+            "met5",
+            "met4",
+            "met3",
+            "met2",
+            "met1"
+          ],
+          "vias": 1660
+        },
+        {
+          "name": "VSS",
+          "use": "GROUND",
           "followpin_segments": 53,
           "stripe_segments": 1710,
           "other_segments": 1060,
@@ -2175,21 +2182,6 @@
             "met1"
           ],
           "vias": 1690
-        },
-        {
-          "name": "VSS",
-          "use": "GROUND",
-          "followpin_segments": 53,
-          "stripe_segments": 1892,
-          "other_segments": 1166,
-          "stripe_layers": [
-            "met5",
-            "met4",
-            "met3",
-            "met2",
-            "met1"
-          ],
-          "vias": 1870
         }
       ]
     }
@@ -2213,7 +2205,7 @@
       }
     },
     "input": {
-      "content_hash": "sha256:038c7e9a13aff7062aa1a0e5303707865c423f28995dc347cf0189c206409ca3",
+      "content_hash": "sha256:5ea579ba0640d6d73dc84e04e410a889b0588b313785f2697c4f4cfbc38a9f64",
       "role": "netlist"
     }
   }

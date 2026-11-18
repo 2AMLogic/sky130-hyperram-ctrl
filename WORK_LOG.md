@@ -5,6 +5,8 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-11-18
 
+- **PR (this change)**: refactor: share the 16-cell tap delay line in one hr_tap_delay module
+- **Issue #101**: hr_dq_out and hr_rd_capture build the same 16-cell chain twice
 - **PR #140**: data: regenerate routed layout and layout-dependent evidence from the post-#51 netlist
 - **Issue #52** (closed): Regenerate place-and-route and layout-dependent evidence after rd_flush ST_LAT fix (#48)
 

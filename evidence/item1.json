@@ -3,21 +3,21 @@
   "kind": "generic",
   "status": "pass",
   "t1_item": 1,
-  "summary": "T1 item 1 (Design sources): 9/9 attestation checks passed (klt signoff --attest)",
+  "summary": "T1 item 1 (Design sources): 10/10 attestation checks passed (klt signoff --attest)",
   "source": "attest/item1.json",
   "attestation": {
     "producer": "klt signoff --attest",
     "inventory_schema_version": 1,
     "hash_algorithm": "sha256-raw-bytes",
-    "check_count": 9,
-    "passed_count": 9,
+    "check_count": 10,
+    "passed_count": 10,
     "checks": [
       {
         "check": "present",
         "role": "source",
         "path": "flow/synthesize-hyperram.json",
         "passed": true,
-        "content_hash": "sha256:eb3f2374dbd10d6db17de539a9f2acb0192fbac8e9c9c2b9973f0bc4216e0164"
+        "content_hash": "sha256:e1a9e9cc56a430f8e4ece38a819fc7c4d1c2eeac83003214c9664fdbb7ab3c49"
       },
       {
         "check": "present",
@@ -31,14 +31,21 @@
         "role": "source",
         "path": "rtl/hyperram_ctrl/hr_dq_out.v",
         "passed": true,
-        "content_hash": "sha256:9724c0bf92d0a9fd9da957687b2f29bb996509f956f28cda166c0a26b3abd280"
+        "content_hash": "sha256:7d64bb959fa25600679c796b3955ee8bd7d76683985ec2189eed90282afe4b53"
       },
       {
         "check": "present",
         "role": "source",
         "path": "rtl/hyperram_ctrl/hr_rd_capture.v",
         "passed": true,
-        "content_hash": "sha256:27fdde18609fc4efcb81fe6fcea33b6217add1a053cc94903008e8ed76c797ed"
+        "content_hash": "sha256:d48032b78b278e155472aed5afc26cadb6d9401a1bb1fb80a856f8efc7f5d337"
+      },
+      {
+        "check": "present",
+        "role": "source",
+        "path": "rtl/hyperram_ctrl/hr_tap_delay.v",
+        "passed": true,
+        "content_hash": "sha256:a6f6272732655095426d0d3df6fc87424ccdd27227aecfb1da5b29c0728e8029"
       },
       {
         "check": "present",
@@ -66,7 +73,7 @@
         "role": "derived",
         "path": "sim/hyperram/records/hyperram_ctrl.netlist.v",
         "passed": true,
-        "content_hash": "sha256:038c7e9a13aff7062aa1a0e5303707865c423f28995dc347cf0189c206409ca3"
+        "content_hash": "sha256:5ea579ba0640d6d73dc84e04e410a889b0588b313785f2697c4f4cfbc38a9f64"
       },
       {
         "check": "command",
@@ -96,7 +103,7 @@
         "path": "attest/item1.json",
         "scope": "repo"
       },
-      "content_hash": "sha256:cf4e1f8f42232d63b39c07d76e899a237929f11304074913b2f845c28db48f05"
+      "content_hash": "sha256:fb4abbf736b1abdf5ca8a38e5f73390fc281addfa1fe4a7c1d3e745ed334e4f9"
     }
   }
 }
