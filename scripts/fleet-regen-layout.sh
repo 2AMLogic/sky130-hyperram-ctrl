@@ -229,6 +229,7 @@ openroad -version >/dev/null 2>&1 || { echo "FATAL: openroad on PATH but not run
 log "openroad: $(openroad -version 2>&1 | head -1)"
 ensure_pdk
 export PDK="${PDK:-sky130A}"
+ensure_yowasp_yosys
 
 # Clean the outputs this run owns, so a partial failure surfaces as missing
 # declared outputs (job exit 3) instead of silently re-collecting stale files.
