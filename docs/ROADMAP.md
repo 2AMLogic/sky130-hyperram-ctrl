@@ -52,8 +52,8 @@ Also in the tree, outside the tier record:
   delay but no fast/min bound; the min/max spread still needs ngspice
   (`sim/pad-sta/records/RECORD.md`). Question (b), delay-chain
   monotonicity across PVT: monotonic at every corner, rise and fall —
-  45 of 45 corners over the 16-cell `g_rwds_dly` chain
-  (`sim/delay-chain/records/RECORD.md`). The pre-layout core STA record
+  45 of 45 corners over the 16-cell `g_dly` chain of `hr_tap_delay`
+  (`u_rwds_dly`; `sim/delay-chain/records/RECORD.md`). The pre-layout core STA record
   (`sim/hyperram/records/sta.json`, `sim/hyperram/records/STA.md`) is not
   I/O-timing evidence: it loads only `sky130_fd_sc_hd` — no pads, no I/O
   constraints. `design/` still holds no custom cell.
@@ -98,7 +98,8 @@ them; open ones keep their done-criterion.
 5. **Answer open question (b): delay-chain monotonicity across PVT (#99).**
    Answered on `main` (PR #109): `sim/delay-chain/records/RECORD.md` —
    monotonic at every corner, rise and fall (45 of 45), over the 16-cell
-   `g_rwds_dly` `dlygate4sd3_1` chain of `hr_rd_capture.v`.
+   `g_dly` `dlygate4sd3_1` chain of `hr_tap_delay` (instantiated as
+   `u_rwds_dly` in `hr_rd_capture.v`).
 6. **Correct status lines the tree has outrun** (#100). Of its done-criteria,
    `spec/README.md` already lists decision 0007 on `main` (since `cdaac7b`);
    still owed at the header sha: `spec/target-spec.md` no longer saying no
