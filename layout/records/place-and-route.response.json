@@ -1,180 +1,180 @@
 {
   "schema_version": 1,
   "engine": "openroad",
-  "engine_version": "26Q3-1510-g6cb3f2b704",
+  "engine_version": "26Q4-1310-g98c6045c72",
   "engine_logs": [
     {
-      "invocation_id": "e9c518bbc52d4bc88168fbb5a5c42d80",
+      "invocation_id": "dbaf6d6a636f4d78a616cc87bef8b715",
       "script_name": "pnr_hyperram_ctrl_floorplan.tcl",
-      "script_sha256": "48444470512ba215687807871b0f6dd8bfd8c86ebdf7c02b84bf929c25c6cf7c",
+      "script_sha256": "8ce0dd5b19b6d052e9df8ddd998a7c713827990efbc90664a974ab48915ab8a2",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "84d089614427485d9bcdcddd6b2ba3f9",
+      "invocation_id": "16e2ec4249a1423abe06eb5173d4a9d6",
       "script_name": "pnr_hyperram_ctrl_place.tcl",
-      "script_sha256": "8972c1228fd607df47689fa0ae8f7d86f6db9e50a7160b399dca3a019aac2a6d",
+      "script_sha256": "1177e0df40c520a733c1fe9d0e3f972f61d2d6dabed18584070c33e714c38869",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "c79e2a85960e4f3bbdf55d49847e44e3",
+      "invocation_id": "aea2d1e14d11468bb17507613f230b63",
       "script_name": "pnr_hyperram_ctrl_cts.tcl",
-      "script_sha256": "4ba207e11acdeead13f0d5f2b6cf17d1c587d5c8824bea54d2f25718c906c5ca",
+      "script_sha256": "73c36433261594506dcddaae9be363ea2e8af3290fed79ed98415376c58828c4",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "6653edad6d9e46d5afad4fe0b4f06731",
+      "invocation_id": "d25f09e22178418dabbbccf727fb4189",
       "script_name": "pnr_hyperram_ctrl_route.tcl",
-      "script_sha256": "90a472da49c7fa704070568d1a16aba7b3ceb7b37749012f1f5cbacbeea464ae",
+      "script_sha256": "18500d1d0dcdec78fdf76e982be824d0585e57dde1766e7b736ab6c3443adf1c",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "7a409587df76470c9a0da92f54d0a67e",
+      "invocation_id": "447e02380f364353a87316e61d5f0097",
       "script_name": "pnr_hyperram_ctrl_route_corners.tcl",
-      "script_sha256": "f040ef0bcf9cab61257f8ad2ddf5e7ce45a613d2baaa875ed4b5a67e3308f34c",
+      "script_sha256": "78db580773b0929a227033de0d4a5c59de2357aac77103d4821b56a959460b20",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "ea9d1586f8724c949cddfb24637f5149",
+      "invocation_id": "49bca484dfe7492398fdc992d6b25094",
       "script_name": "pnr_hyperram_ctrl_route_corner_ff_100C_1v65.tcl",
-      "script_sha256": "14c5c2b6088de6ed4efff4a5de9f2c8c614eea4bb379cfa30dc0d28d5a242109",
+      "script_sha256": "ec87c8723c937f18e3fc1a13b523f8b2c3bc0001853cad0c1e9e5780f5fafd50",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "328a297690214fdeabddb7daad6aa527",
+      "invocation_id": "dcde22568fbd44b692154488c2cf52e4",
       "script_name": "pnr_hyperram_ctrl_route_corner_ff_100C_1v95.tcl",
-      "script_sha256": "0cb34151c5e812f32a7a9579f94af329abd4f72a11f21d2a0d15c9fa27a38b92",
+      "script_sha256": "b5845fa009042bf9d2c4426119a0c69b3cb74788b7c50ae0c124033be7d7d0f6",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "049e45844f4240f9b8ab77d63a7a891c",
+      "invocation_id": "6f8178b460fc4b419c2316a2146c8215",
       "script_name": "pnr_hyperram_ctrl_route_corner_ff_n40C_1v56.tcl",
-      "script_sha256": "3eb1f5119a3564339041a4b8341715a2d914b5430b1ef8fb63685f9cb659ed7d",
+      "script_sha256": "6712723a18779f2c3a0d4f87e6a08168e4dad03ab0d212c7b170da37c430c85d",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "106006d0bd014422a835aaf33aa650d2",
+      "invocation_id": "28e59041a9c0454ba5415730658025c1",
       "script_name": "pnr_hyperram_ctrl_route_corner_ff_n40C_1v65.tcl",
-      "script_sha256": "be60565bc3031db7ab38e116a7aa3094ec69831d863d61d3d93bcac73fd9702c",
+      "script_sha256": "1ffb97601e61edb09d18031a4bd5d907d4c008e4a46d91902b0e92bf907c5194",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "04d6d050c7c04d8a9e7c41bdcbff61bd",
+      "invocation_id": "f9ad08c505f947eda02ab6b74474472d",
       "script_name": "pnr_hyperram_ctrl_route_corner_ff_n40C_1v76.tcl",
-      "script_sha256": "5712f4391053faaa63c038cc3d8f9189d24605a55bff35dee0d4b33a15b33c43",
+      "script_sha256": "d98f11e205f6fc37ce7634aa581d69ec8621e08faa4703d32927d9538d6710a8",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "223eeced398a42c7825dceb7b20409d2",
+      "invocation_id": "b469cf383b0044b28a8c5874e6a795eb",
       "script_name": "pnr_hyperram_ctrl_route_corner_ff_n40C_1v95.tcl",
-      "script_sha256": "efefaef803475e5d3549c92394de06c4fec59ed19ce2a489f127be4275356567",
+      "script_sha256": "0b6ee2572d9b52960e5a17f9a31f1c8ff44da306da729e22d464e9f1f0f5296d",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "e433fbaf13dc433c93879f14fd4b64dc",
+      "invocation_id": "ef6abac907b448a7978ee50be58b9b61",
       "script_name": "pnr_hyperram_ctrl_route_corner_ss_100C_1v40.tcl",
-      "script_sha256": "891b2ee12a50eedefe9732781d5b73ac4f506a56721b416e3da69ddbd85cbe46",
+      "script_sha256": "68a19842938f20b7abfeed6a76ca257e398b678708482882619ba50a5397ab92",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "ed11cf1f6c014ad4936309cd8a3bf620",
+      "invocation_id": "8b6dbb4e45cc48c39ecc41899ca94ab8",
       "script_name": "pnr_hyperram_ctrl_route_corner_ss_100C_1v60.tcl",
-      "script_sha256": "94e31abb5791de5fad2487928620c6c5b9da052e30f64154bf4f945bdba0aeae",
+      "script_sha256": "e8a53ca2d8ad500e0c343b25fba7cd387047758f4f609f24c014cb89523e5602",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "056e4c48c807466a883e5881c633a907",
+      "invocation_id": "9610ddf7ba5644acbad379662ae6cf96",
       "script_name": "pnr_hyperram_ctrl_route_corner_ss_n40C_1v28.tcl",
-      "script_sha256": "08a59f50c0c4f47c1fd16162495b93d6886edc3fffd15c4757d2fdea3b099c66",
+      "script_sha256": "634999c7d5aa2177b2bbd10e9a6692181ae17b8b9868b49db0dcb4173535a2ae",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "fd5b63532b564ff3b82437794b76c195",
+      "invocation_id": "c1c9d6bd79744637a327c60b8fe2fbae",
       "script_name": "pnr_hyperram_ctrl_route_corner_ss_n40C_1v35.tcl",
-      "script_sha256": "853f259f15c779485b00a0ac49ad68d1e69c252fdb59f77a75874eadc5e248ed",
+      "script_sha256": "2f11b7b61810a191bf6bd2e3239bb3af038cc3cc163f923c9e451a432d6011f4",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "0f1d45ccf5804341aef0bf00611dc813",
+      "invocation_id": "87095e3a15fb433d9fca6e837fb6c50b",
       "script_name": "pnr_hyperram_ctrl_route_corner_ss_n40C_1v40.tcl",
-      "script_sha256": "092fd2daa9f293d650e8cb4b2ec31a8995a142b0b98bc501b00efaad2d9a193e",
+      "script_sha256": "224ae189625918f0b2067c3246dca07e77a40c1227e0fe254465aad2b273c9bd",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "2ef2c3576b8942e6b703b4c40fe1bc26",
+      "invocation_id": "7d7e13f33e1345518d12af87d2fe50bb",
       "script_name": "pnr_hyperram_ctrl_route_corner_ss_n40C_1v44.tcl",
-      "script_sha256": "fc6708076d728a6e9cc9995e87bef89616e71a6898fdbef6eee9c2e9be245759",
+      "script_sha256": "50da87c25b1b326c6fb9e579c7826aed452ffcc49e1c3c9646a87ee4a01d546c",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "f80c06f715f74f20b25f0ceef97fd635",
+      "invocation_id": "25aba24fb1fc412ea9433a99707ae33c",
       "script_name": "pnr_hyperram_ctrl_route_corner_ss_n40C_1v60.tcl",
-      "script_sha256": "6c2b30736a0862093546b5080207d0d97d84a5903116192b2de01b53ac0e759a",
+      "script_sha256": "32b76eaf48e5a70c01d19c31c4577eb96628b7a2ca5500df890b0434c076a418",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "7b0706916bca40aebf6baa2fcda17f6d",
+      "invocation_id": "44929f0061d74ce3a7b5faf71508648e",
       "script_name": "pnr_hyperram_ctrl_route_corner_ss_n40C_1v76.tcl",
-      "script_sha256": "771e6ac5251e2ed9e03cdc6c358fa948f15c103bb763e14a750f22aaff1eaf46",
+      "script_sha256": "1181aaa204f3d61a6b19cf6ee53d42c39de36b3e73dc4391b3d06fa476f23a6c",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "2345191e55b94d24a0b40d70ea4993e0",
+      "invocation_id": "45dfcd26a2e44dbcb0dfaea3b4228895",
       "script_name": "pnr_hyperram_ctrl_route_corner_tt_025C_1v80.tcl",
-      "script_sha256": "a7ab65981b126372c5cf264936f2def9b29139be0cedd2a0c025e3586ff27b19",
+      "script_sha256": "d1d19504cdfcfabd65213f76052c5e1a791a7c34a0d861951fc35d978576baf2",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "d7cc002df75d4b39a4160ff2e532baae",
+      "invocation_id": "0d2f9f2de3994d9ca223c6880fa5a9e5",
       "script_name": "pnr_hyperram_ctrl_route_corner_tt_100C_1v80.tcl",
-      "script_sha256": "84e143aaf70453f7637c8c3f6ceee25f6cb3dc2f0488fc100e3ba3107bc6cc6c",
+      "script_sha256": "4b298f06f3700aa5a2c98836629fd2deed6a022a8f26b566b3ee446d860bef2d",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
     },
     {
-      "invocation_id": "18e10319d16449849d2d06205b1b41b7",
+      "invocation_id": "881d86325116495e8870359055065e34",
       "script_name": "pnr_hyperram_ctrl_route_spef.tcl",
-      "script_sha256": "dfe1af9272ecf8379388fdbeb8083e27e0f959bf933bfa4bcc7ea6e0cc836f86",
+      "script_sha256": "4889c075ffeadb5a8e98db1258e28bc7afd02922d110b8b445e8c21b8f24fb26",
       "outcome": "exited",
       "returncode": 0,
       "retention_errors": []
@@ -201,27 +201,27 @@
     }
   },
   "interconnect_corner": "nom",
-  "die_area_um2": 90462.6,
-  "core_area_um2": 83687.8,
-  "utilization_pct": 32.7946,
-  "wirelength_um": 82534,
-  "worst_slack_ns": 9.53783,
+  "die_area_um2": 89242.6,
+  "core_area_um2": 82372.8,
+  "utilization_pct": 32.9126,
+  "wirelength_um": 80341,
+  "worst_slack_ns": 9.54469,
   "total_negative_slack_ns": 0,
-  "fmax_mhz": 190.286,
+  "fmax_mhz": 190.435,
   "setup_violation_count": 0,
   "hold_violation_count": 0,
   "nominal_hold_slack_ns": 0.33121,
   "antenna_violation_count": 0,
   "route_drc_violation_count": 0,
-  "estimated_power_mw": 2.9255,
-  "clock_skew_ns": 0.41329,
-  "worst_setup_slack_ns": -24.2925,
-  "worst_hold_slack_ns": 0.20706,
+  "estimated_power_mw": 1.9367,
+  "clock_skew_ns": 0.39954,
+  "worst_setup_slack_ns": -27.2751,
+  "worst_hold_slack_ns": 0.20641,
   "corners": [
     {
       "name": "ff_100C_1v65",
-      "setup_slack_ns": 9.62883,
-      "hold_slack_ns": 0.27997,
+      "setup_slack_ns": 9.6347,
+      "hold_slack_ns": 0.27911,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
@@ -232,8 +232,8 @@
     },
     {
       "name": "ff_100C_1v95",
-      "setup_slack_ns": 9.70907,
-      "hold_slack_ns": 0.22277,
+      "setup_slack_ns": 9.71381,
+      "hold_slack_ns": 0.22212,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
@@ -244,8 +244,8 @@
     },
     {
       "name": "ff_n40C_1v56",
-      "setup_slack_ns": 9.54057,
-      "hold_slack_ns": 0.31626,
+      "setup_slack_ns": 9.54662,
+      "hold_slack_ns": 0.3152,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
@@ -256,8 +256,8 @@
     },
     {
       "name": "ff_n40C_1v65",
-      "setup_slack_ns": 9.59958,
-      "hold_slack_ns": 0.27974,
+      "setup_slack_ns": 9.6053,
+      "hold_slack_ns": 0.27883,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
@@ -268,8 +268,8 @@
     },
     {
       "name": "ff_n40C_1v76",
-      "setup_slack_ns": 9.65135,
-      "hold_slack_ns": 0.24574,
+      "setup_slack_ns": 9.65672,
+      "hold_slack_ns": 0.24495,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
@@ -280,8 +280,8 @@
     },
     {
       "name": "ff_n40C_1v95",
-      "setup_slack_ns": 9.71125,
-      "hold_slack_ns": 0.20706,
+      "setup_slack_ns": 9.71593,
+      "hold_slack_ns": 0.20641,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
@@ -292,8 +292,8 @@
     },
     {
       "name": "ss_100C_1v40",
-      "setup_slack_ns": 3.83934,
-      "hold_slack_ns": 0.99263,
+      "setup_slack_ns": 4.04622,
+      "hold_slack_ns": 0.99046,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
@@ -304,33 +304,33 @@
     },
     {
       "name": "ss_100C_1v60",
-      "setup_slack_ns": 8.99898,
-      "hold_slack_ns": 0.68508,
+      "setup_slack_ns": 9.01152,
+      "hold_slack_ns": 0.68342,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
-      "max_transition_violation_count": 439,
-      "max_capacitance_violation_count": 9,
-      "max_transition_violation_count_vs_library": 439,
-      "max_capacitance_violation_count_vs_library": 9
+      "max_transition_violation_count": 148,
+      "max_capacitance_violation_count": 8,
+      "max_transition_violation_count_vs_library": 148,
+      "max_capacitance_violation_count_vs_library": 8
     },
     {
       "name": "ss_n40C_1v28",
-      "setup_slack_ns": -24.2925,
-      "hold_slack_ns": 2.03269,
-      "total_negative_setup_slack_ns": -3011.32,
+      "setup_slack_ns": -27.2751,
+      "hold_slack_ns": 2.02673,
+      "total_negative_setup_slack_ns": -2146.7,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
-      "max_transition_violation_count": 466,
-      "max_capacitance_violation_count": 11,
-      "max_transition_violation_count_vs_library": 466,
-      "max_capacitance_violation_count_vs_library": 11
+      "max_transition_violation_count": 114,
+      "max_capacitance_violation_count": 7,
+      "max_transition_violation_count_vs_library": 114,
+      "max_capacitance_violation_count_vs_library": 7
     },
     {
       "name": "ss_n40C_1v35",
-      "setup_slack_ns": -9.35131,
-      "hold_slack_ns": 1.46805,
-      "total_negative_setup_slack_ns": -651.509,
+      "setup_slack_ns": -11.2257,
+      "hold_slack_ns": 1.4641,
+      "total_negative_setup_slack_ns": -280.309,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
       "max_transition_violation_count": 0,
@@ -340,9 +340,9 @@
     },
     {
       "name": "ss_n40C_1v40",
-      "setup_slack_ns": -3.43052,
-      "hold_slack_ns": 1.2123,
-      "total_negative_setup_slack_ns": -47.2297,
+      "setup_slack_ns": -4.87741,
+      "hold_slack_ns": 1.20906,
+      "total_negative_setup_slack_ns": -29.0363,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
       "max_transition_violation_count": 0,
@@ -352,9 +352,9 @@
     },
     {
       "name": "ss_n40C_1v44",
-      "setup_slack_ns": -0.0162,
-      "hold_slack_ns": 1.06742,
-      "total_negative_setup_slack_ns": -0.0162,
+      "setup_slack_ns": -1.2434,
+      "hold_slack_ns": 1.06446,
+      "total_negative_setup_slack_ns": -1.2434,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
       "max_transition_violation_count": 0,
@@ -364,32 +364,32 @@
     },
     {
       "name": "ss_n40C_1v60",
-      "setup_slack_ns": 7.7332,
-      "hold_slack_ns": 0.69865,
+      "setup_slack_ns": 7.09867,
+      "hold_slack_ns": 0.69669,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
-      "max_transition_violation_count": 732,
-      "max_capacitance_violation_count": 19,
-      "max_transition_violation_count_vs_library": 732,
-      "max_capacitance_violation_count_vs_library": 19
+      "max_transition_violation_count": 284,
+      "max_capacitance_violation_count": 15,
+      "max_transition_violation_count_vs_library": 284,
+      "max_capacitance_violation_count_vs_library": 15
     },
     {
       "name": "ss_n40C_1v76",
-      "setup_slack_ns": 9.21776,
-      "hold_slack_ns": 0.52644,
+      "setup_slack_ns": 9.22578,
+      "hold_slack_ns": 0.52474,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
-      "max_transition_violation_count": 439,
-      "max_capacitance_violation_count": 7,
-      "max_transition_violation_count_vs_library": 439,
-      "max_capacitance_violation_count_vs_library": 7
+      "max_transition_violation_count": 132,
+      "max_capacitance_violation_count": 5,
+      "max_transition_violation_count_vs_library": 132,
+      "max_capacitance_violation_count_vs_library": 5
     },
     {
       "name": "tt_025C_1v80",
-      "setup_slack_ns": 9.53783,
-      "hold_slack_ns": 0.33581,
+      "setup_slack_ns": 9.54469,
+      "hold_slack_ns": 0.33479,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
@@ -400,8 +400,8 @@
     },
     {
       "name": "tt_100C_1v80",
-      "setup_slack_ns": 9.54177,
-      "hold_slack_ns": 0.34417,
+      "setup_slack_ns": 9.54892,
+      "hold_slack_ns": 0.34315,
       "total_negative_setup_slack_ns": 0,
       "total_negative_hold_slack_ns": 0,
       "timing_status": "constrained",
@@ -416,8 +416,8 @@
       "total_overflow": 0,
       "max_horizontal_overflow": 0,
       "max_vertical_overflow": 0,
-      "usage_pct": 13.69,
-      "max_layer_usage_pct": 24.18,
+      "usage_pct": 13.39,
+      "max_layer_usage_pct": 20.86,
       "overflow_per_layer": {
         "li1": {
           "resource": 0,
@@ -428,33 +428,33 @@
           "total_overflow": 0
         },
         "met1": {
-          "resource": 28235,
-          "demand": 4926,
-          "usage_pct": 17.45,
+          "resource": 28033,
+          "demand": 5385,
+          "usage_pct": 19.21,
           "max_horizontal_overflow": 0,
           "max_vertical_overflow": 0,
           "total_overflow": 0
         },
         "met2": {
-          "resource": 23896,
-          "demand": 5777,
-          "usage_pct": 24.18,
+          "resource": 23686,
+          "demand": 4942,
+          "usage_pct": 20.86,
           "max_horizontal_overflow": 0,
           "max_vertical_overflow": 0,
           "total_overflow": 0
         },
         "met3": {
-          "resource": 17671,
-          "demand": 662,
-          "usage_pct": 3.75,
+          "resource": 17556,
+          "demand": 590,
+          "usage_pct": 3.36,
           "max_horizontal_overflow": 0,
           "max_vertical_overflow": 0,
           "total_overflow": 0
         },
         "met4": {
-          "resource": 11865,
-          "demand": 197,
-          "usage_pct": 1.66,
+          "resource": 11781,
+          "demand": 311,
+          "usage_pct": 2.64,
           "max_horizontal_overflow": 0,
           "max_vertical_overflow": 0,
           "total_overflow": 0
@@ -468,109 +468,115 @@
           "total_overflow": 0
         }
       },
-      "routed_net_count": 2406,
+      "routed_net_count": 2388,
       "max_gcell_usage_pct": null
     },
     "detailed_route": {
-      "first_iteration_drc_violation_count": 2217,
-      "iteration_count": 9,
+      "first_iteration_drc_violation_count": 2692,
+      "iteration_count": 14,
       "drc_violations_per_iteration": [
-        2217,
-        1275,
-        1171,
-        191,
-        23,
-        12,
-        1,
-        1,
+        2692,
+        1736,
+        1959,
+        405,
+        206,
+        138,
+        76,
+        40,
+        36,
+        36,
+        10,
+        2,
+        2,
         0
       ],
       "converged": true
     },
     "completeness": {
-      "signal_net_count": 2259,
+      "signal_net_count": 2254,
       "unrouted_net_count": 0,
       "partially_routed_net_count": null
     },
     "placement": {
-      "total_routing_overflow": 0.0,
-      "overflowed_tile_count": 0,
-      "final_weighted_congestion": 0.7386
+      "total_routing_overflow": null,
+      "overflowed_tile_count": null,
+      "final_weighted_congestion": 0.6148
     },
     "null_reasons": {
       "global_route.max_gcell_usage_pct": "OpenROAD's global router reports usage per routing layer, not per GCell",
+      "placement.total_routing_overflow": "the engine did not print this figure in the stage log",
+      "placement.overflowed_tile_count": "the engine did not print this figure in the stage log",
       "completeness.partially_routed_net_count": "OpenROAD exposes no per-net connectivity check; only nets with no routed wire at all are counted"
     }
   },
-  "max_transition_violation_count": 732,
-  "max_capacitance_violation_count": 20,
-  "max_transition_violation_count_vs_library": 732,
-  "max_capacitance_violation_count_vs_library": 20,
+  "max_transition_violation_count": 284,
+  "max_capacitance_violation_count": 15,
+  "max_transition_violation_count_vs_library": 284,
+  "max_capacitance_violation_count_vs_library": 15,
   "timing_status": "constrained",
   "stages": [
     {
       "name": "floorplan",
-      "die_area_um2": 90462.6,
-      "core_area_um2": 83687.8,
-      "utilization_pct": 32.0037,
+      "die_area_um2": 89242.6,
+      "core_area_um2": 82372.8,
+      "utilization_pct": 31.9875,
       "worst_slack_ns": 9.55587,
       "total_negative_slack_ns": 0,
       "timing_status": "constrained"
     },
     {
       "name": "place",
-      "die_area_um2": 90462.6,
-      "core_area_um2": 83687.8,
-      "utilization_pct": 31.4999,
-      "worst_slack_ns": 9.55261,
+      "die_area_um2": 89242.6,
+      "core_area_um2": 82372.8,
+      "utilization_pct": 31.6382,
+      "worst_slack_ns": 9.55332,
       "total_negative_slack_ns": 0,
-      "wirelength_um": 58202.3,
-      "fmax_mhz": 194.176,
-      "estimated_power_mw": 2.3269,
+      "wirelength_um": 55918.7,
+      "fmax_mhz": 192.87,
+      "estimated_power_mw": 1.4413,
       "setup_violation_count": 0,
       "hold_violation_count": 0,
-      "nominal_hold_slack_ns": 0.33248,
+      "nominal_hold_slack_ns": 0.33333,
       "timing_status": "constrained"
     },
     {
       "name": "cts",
-      "die_area_um2": 90462.6,
-      "core_area_um2": 83687.8,
-      "utilization_pct": 32.7169,
-      "worst_slack_ns": 9.69459,
+      "die_area_um2": 89242.6,
+      "core_area_um2": 82372.8,
+      "utilization_pct": 32.8306,
+      "worst_slack_ns": 9.64863,
       "total_negative_slack_ns": 0,
-      "wirelength_um": 62249.4,
-      "fmax_mhz": 194.517,
-      "estimated_power_mw": 2.8029,
-      "clock_skew_ns": 0.39546,
+      "fmax_mhz": 191.461,
+      "estimated_power_mw": 1.9028,
+      "clock_skew_ns": 0.36516,
       "setup_violation_count": 0,
       "hold_violation_count": 0,
-      "nominal_hold_slack_ns": 0.34933,
+      "nominal_hold_slack_ns": 0.34879,
       "timing_status": "constrained"
     },
     {
       "name": "route",
-      "die_area_um2": 90462.6,
-      "core_area_um2": 83687.8,
-      "utilization_pct": 32.7946,
-      "worst_slack_ns": 9.53783,
+      "die_area_um2": 89242.6,
+      "core_area_um2": 82372.8,
+      "utilization_pct": 32.9126,
+      "worst_slack_ns": 9.54469,
       "total_negative_slack_ns": 0,
-      "wirelength_um": 82534,
-      "fmax_mhz": 190.286,
-      "estimated_power_mw": 2.9255,
-      "clock_skew_ns": 0.41329,
+      "wirelength_um": 80341,
+      "fmax_mhz": 190.435,
+      "estimated_power_mw": 1.9367,
+      "clock_skew_ns": 0.39954,
       "setup_violation_count": 0,
       "hold_violation_count": 0,
       "nominal_hold_slack_ns": 0.33121,
       "antenna_violation_count": 0,
       "route_drc_violation_count": 0,
-      "worst_setup_slack_ns": -24.2925,
-      "worst_hold_slack_ns": 0.20706,
+      "worst_setup_slack_ns": -27.2751,
+      "worst_hold_slack_ns": 0.20641,
       "corners": [
         {
           "name": "ff_100C_1v65",
-          "setup_slack_ns": 9.62883,
-          "hold_slack_ns": 0.27997,
+          "setup_slack_ns": 9.6347,
+          "hold_slack_ns": 0.27911,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
@@ -581,8 +587,8 @@
         },
         {
           "name": "ff_100C_1v95",
-          "setup_slack_ns": 9.70907,
-          "hold_slack_ns": 0.22277,
+          "setup_slack_ns": 9.71381,
+          "hold_slack_ns": 0.22212,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
@@ -593,8 +599,8 @@
         },
         {
           "name": "ff_n40C_1v56",
-          "setup_slack_ns": 9.54057,
-          "hold_slack_ns": 0.31626,
+          "setup_slack_ns": 9.54662,
+          "hold_slack_ns": 0.3152,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
@@ -605,8 +611,8 @@
         },
         {
           "name": "ff_n40C_1v65",
-          "setup_slack_ns": 9.59958,
-          "hold_slack_ns": 0.27974,
+          "setup_slack_ns": 9.6053,
+          "hold_slack_ns": 0.27883,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
@@ -617,8 +623,8 @@
         },
         {
           "name": "ff_n40C_1v76",
-          "setup_slack_ns": 9.65135,
-          "hold_slack_ns": 0.24574,
+          "setup_slack_ns": 9.65672,
+          "hold_slack_ns": 0.24495,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
@@ -629,8 +635,8 @@
         },
         {
           "name": "ff_n40C_1v95",
-          "setup_slack_ns": 9.71125,
-          "hold_slack_ns": 0.20706,
+          "setup_slack_ns": 9.71593,
+          "hold_slack_ns": 0.20641,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
@@ -641,8 +647,8 @@
         },
         {
           "name": "ss_100C_1v40",
-          "setup_slack_ns": 3.83934,
-          "hold_slack_ns": 0.99263,
+          "setup_slack_ns": 4.04622,
+          "hold_slack_ns": 0.99046,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
@@ -653,33 +659,33 @@
         },
         {
           "name": "ss_100C_1v60",
-          "setup_slack_ns": 8.99898,
-          "hold_slack_ns": 0.68508,
+          "setup_slack_ns": 9.01152,
+          "hold_slack_ns": 0.68342,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
-          "max_transition_violation_count": 439,
-          "max_capacitance_violation_count": 9,
-          "max_transition_violation_count_vs_library": 439,
-          "max_capacitance_violation_count_vs_library": 9
+          "max_transition_violation_count": 148,
+          "max_capacitance_violation_count": 8,
+          "max_transition_violation_count_vs_library": 148,
+          "max_capacitance_violation_count_vs_library": 8
         },
         {
           "name": "ss_n40C_1v28",
-          "setup_slack_ns": -24.2925,
-          "hold_slack_ns": 2.03269,
-          "total_negative_setup_slack_ns": -3011.32,
+          "setup_slack_ns": -27.2751,
+          "hold_slack_ns": 2.02673,
+          "total_negative_setup_slack_ns": -2146.7,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
-          "max_transition_violation_count": 466,
-          "max_capacitance_violation_count": 11,
-          "max_transition_violation_count_vs_library": 466,
-          "max_capacitance_violation_count_vs_library": 11
+          "max_transition_violation_count": 114,
+          "max_capacitance_violation_count": 7,
+          "max_transition_violation_count_vs_library": 114,
+          "max_capacitance_violation_count_vs_library": 7
         },
         {
           "name": "ss_n40C_1v35",
-          "setup_slack_ns": -9.35131,
-          "hold_slack_ns": 1.46805,
-          "total_negative_setup_slack_ns": -651.509,
+          "setup_slack_ns": -11.2257,
+          "hold_slack_ns": 1.4641,
+          "total_negative_setup_slack_ns": -280.309,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
           "max_transition_violation_count": 0,
@@ -689,9 +695,9 @@
         },
         {
           "name": "ss_n40C_1v40",
-          "setup_slack_ns": -3.43052,
-          "hold_slack_ns": 1.2123,
-          "total_negative_setup_slack_ns": -47.2297,
+          "setup_slack_ns": -4.87741,
+          "hold_slack_ns": 1.20906,
+          "total_negative_setup_slack_ns": -29.0363,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
           "max_transition_violation_count": 0,
@@ -701,9 +707,9 @@
         },
         {
           "name": "ss_n40C_1v44",
-          "setup_slack_ns": -0.0162,
-          "hold_slack_ns": 1.06742,
-          "total_negative_setup_slack_ns": -0.0162,
+          "setup_slack_ns": -1.2434,
+          "hold_slack_ns": 1.06446,
+          "total_negative_setup_slack_ns": -1.2434,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
           "max_transition_violation_count": 0,
@@ -713,32 +719,32 @@
         },
         {
           "name": "ss_n40C_1v60",
-          "setup_slack_ns": 7.7332,
-          "hold_slack_ns": 0.69865,
+          "setup_slack_ns": 7.09867,
+          "hold_slack_ns": 0.69669,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
-          "max_transition_violation_count": 732,
-          "max_capacitance_violation_count": 19,
-          "max_transition_violation_count_vs_library": 732,
-          "max_capacitance_violation_count_vs_library": 19
+          "max_transition_violation_count": 284,
+          "max_capacitance_violation_count": 15,
+          "max_transition_violation_count_vs_library": 284,
+          "max_capacitance_violation_count_vs_library": 15
         },
         {
           "name": "ss_n40C_1v76",
-          "setup_slack_ns": 9.21776,
-          "hold_slack_ns": 0.52644,
+          "setup_slack_ns": 9.22578,
+          "hold_slack_ns": 0.52474,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
-          "max_transition_violation_count": 439,
-          "max_capacitance_violation_count": 7,
-          "max_transition_violation_count_vs_library": 439,
-          "max_capacitance_violation_count_vs_library": 7
+          "max_transition_violation_count": 132,
+          "max_capacitance_violation_count": 5,
+          "max_transition_violation_count_vs_library": 132,
+          "max_capacitance_violation_count_vs_library": 5
         },
         {
           "name": "tt_025C_1v80",
-          "setup_slack_ns": 9.53783,
-          "hold_slack_ns": 0.33581,
+          "setup_slack_ns": 9.54469,
+          "hold_slack_ns": 0.33479,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
@@ -749,8 +755,8 @@
         },
         {
           "name": "tt_100C_1v80",
-          "setup_slack_ns": 9.54177,
-          "hold_slack_ns": 0.34417,
+          "setup_slack_ns": 9.54892,
+          "hold_slack_ns": 0.34315,
           "total_negative_setup_slack_ns": 0,
           "total_negative_hold_slack_ns": 0,
           "timing_status": "constrained",
@@ -760,17 +766,17 @@
           "max_capacitance_violation_count_vs_library": 0
         }
       ],
-      "max_transition_violation_count": 732,
-      "max_capacitance_violation_count": 20,
-      "max_transition_violation_count_vs_library": 732,
-      "max_capacitance_violation_count_vs_library": 20,
+      "max_transition_violation_count": 284,
+      "max_capacitance_violation_count": 15,
+      "max_transition_violation_count_vs_library": 284,
+      "max_capacitance_violation_count_vs_library": 15,
       "congestion": {
         "global_route": {
           "total_overflow": 0,
           "max_horizontal_overflow": 0,
           "max_vertical_overflow": 0,
-          "usage_pct": 13.69,
-          "max_layer_usage_pct": 24.18,
+          "usage_pct": 13.39,
+          "max_layer_usage_pct": 20.86,
           "overflow_per_layer": {
             "li1": {
               "resource": 0,
@@ -781,33 +787,33 @@
               "total_overflow": 0
             },
             "met1": {
-              "resource": 28235,
-              "demand": 4926,
-              "usage_pct": 17.45,
+              "resource": 28033,
+              "demand": 5385,
+              "usage_pct": 19.21,
               "max_horizontal_overflow": 0,
               "max_vertical_overflow": 0,
               "total_overflow": 0
             },
             "met2": {
-              "resource": 23896,
-              "demand": 5777,
-              "usage_pct": 24.18,
+              "resource": 23686,
+              "demand": 4942,
+              "usage_pct": 20.86,
               "max_horizontal_overflow": 0,
               "max_vertical_overflow": 0,
               "total_overflow": 0
             },
             "met3": {
-              "resource": 17671,
-              "demand": 662,
-              "usage_pct": 3.75,
+              "resource": 17556,
+              "demand": 590,
+              "usage_pct": 3.36,
               "max_horizontal_overflow": 0,
               "max_vertical_overflow": 0,
               "total_overflow": 0
             },
             "met4": {
-              "resource": 11865,
-              "demand": 197,
-              "usage_pct": 1.66,
+              "resource": 11781,
+              "demand": 311,
+              "usage_pct": 2.64,
               "max_horizontal_overflow": 0,
               "max_vertical_overflow": 0,
               "total_overflow": 0
@@ -821,37 +827,44 @@
               "total_overflow": 0
             }
           },
-          "routed_net_count": 2406,
+          "routed_net_count": 2388,
           "max_gcell_usage_pct": null
         },
         "detailed_route": {
-          "first_iteration_drc_violation_count": 2217,
-          "iteration_count": 9,
+          "first_iteration_drc_violation_count": 2692,
+          "iteration_count": 14,
           "drc_violations_per_iteration": [
-            2217,
-            1275,
-            1171,
-            191,
-            23,
-            12,
-            1,
-            1,
+            2692,
+            1736,
+            1959,
+            405,
+            206,
+            138,
+            76,
+            40,
+            36,
+            36,
+            10,
+            2,
+            2,
             0
           ],
           "converged": true
         },
         "completeness": {
-          "signal_net_count": 2259,
+          "signal_net_count": 2254,
           "unrouted_net_count": 0,
           "partially_routed_net_count": null
         },
         "placement": {
-          "total_routing_overflow": 0.0,
-          "overflowed_tile_count": 0,
-          "final_weighted_congestion": 0.7386
+          "total_routing_overflow": null,
+          "overflowed_tile_count": null,
+          "final_weighted_congestion": 0.6148
         },
         "null_reasons": {
           "global_route.max_gcell_usage_pct": "OpenROAD's global router reports usage per routing layer, not per GCell",
+          "placement.total_routing_overflow": "the engine did not print this figure in the stage log",
+          "placement.overflowed_tile_count": "the engine did not print this figure in the stage log",
           "completeness.partially_routed_net_count": "OpenROAD exposes no per-net connectivity check; only nets with no routed wire at all are counted"
         }
       },
@@ -867,14 +880,14 @@
     {
       "name": "VDD",
       "edge": "north",
-      "x_um": 150.19,
+      "x_um": 149.27,
       "y_um": 277.44,
       "layer": "met5"
     },
     {
       "name": "VSS",
       "edge": "north",
-      "x_um": 150.19,
+      "x_um": 149.27,
       "y_um": 291.04,
       "layer": "met5"
     },
@@ -882,70 +895,70 @@
       "name": "cfg_adr[0]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 38.42,
+      "y_um": 261.46,
       "layer": "met3"
     },
     {
       "name": "cfg_adr[1]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 94.18,
+      "y_um": 149.94,
       "layer": "met3"
     },
     {
       "name": "cfg_adr[2]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 151.3,
+      "y_um": 62.9,
       "layer": "met3"
     },
     {
       "name": "cfg_rdata[0]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 152.66,
+      "y_um": 92.82,
       "layer": "met3"
     },
     {
       "name": "cfg_rdata[10]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 62.9,
+      "y_um": 152.66,
       "layer": "met3"
     },
     {
       "name": "cfg_rdata[11]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 148.58,
+      "y_um": 154.02,
       "layer": "met3"
     },
     {
       "name": "cfg_rdata[12]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 92.82,
+      "y_um": 155.38,
       "layer": "met3"
     },
     {
       "name": "cfg_rdata[13]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 49.3,
+      "y_um": 147.22,
       "layer": "met3"
     },
     {
       "name": "cfg_rdata[14]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 158.1,
+      "y_um": 91.46,
       "layer": "met3"
     },
     {
       "name": "cfg_rdata[15]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 147.22,
+      "y_um": 158.1,
       "layer": "met3"
     },
     {
@@ -959,77 +972,77 @@
       "name": "cfg_rdata[2]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 91.46,
+      "y_um": 42.5,
       "layer": "met3"
     },
     {
       "name": "cfg_rdata[3]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 162.18,
+      "y_um": 61.54,
       "layer": "met3"
     },
     {
       "name": "cfg_rdata[4]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 145.86,
+      "y_um": 90.1,
       "layer": "met3"
     },
     {
       "name": "cfg_rdata[5]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 129.54,
+      "y_um": 163.54,
       "layer": "met3"
     },
     {
       "name": "cfg_rdata[6]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 164.9,
+      "y_um": 47.94,
       "layer": "met3"
     },
     {
       "name": "cfg_rdata[7]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 90.1,
+      "y_um": 128.18,
       "layer": "met3"
     },
     {
       "name": "cfg_rdata[8]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 61.54,
+      "y_um": 166.26,
       "layer": "met3"
     },
     {
       "name": "cfg_rdata[9]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 122.74,
+      "y_um": 88.74,
       "layer": "met3"
     },
     {
       "name": "cfg_wdata[0]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 141.78,
+      "y_um": 143.14,
       "layer": "met3"
     },
     {
       "name": "cfg_wdata[10]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 170.34,
+      "y_um": 168.98,
       "layer": "met3"
     },
     {
       "name": "cfg_wdata[11]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 88.74,
+      "y_um": 170.34,
       "layer": "met3"
     },
     {
@@ -1043,49 +1056,49 @@
       "name": "cfg_wdata[13]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 173.06,
+      "y_um": 87.38,
       "layer": "met3"
     },
     {
       "name": "cfg_wdata[14]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 174.42,
+      "y_um": 173.06,
       "layer": "met3"
     },
     {
       "name": "cfg_wdata[15]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 134.98,
+      "y_um": 60.18,
       "layer": "met3"
     },
     {
       "name": "cfg_wdata[1]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 87.38,
+      "y_um": 175.78,
       "layer": "met3"
     },
     {
       "name": "cfg_wdata[2]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 177.14,
+      "y_um": 140.42,
       "layer": "met3"
     },
     {
       "name": "cfg_wdata[3]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 178.5,
+      "y_um": 86.02,
       "layer": "met3"
     },
     {
       "name": "cfg_wdata[4]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 60.18,
+      "y_um": 178.5,
       "layer": "met3"
     },
     {
@@ -1099,133 +1112,133 @@
       "name": "cfg_wdata[6]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 86.02,
+      "y_um": 139.06,
       "layer": "met3"
     },
     {
       "name": "cfg_wdata[7]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 42.5,
+      "y_um": 39.78,
       "layer": "met3"
     },
     {
       "name": "cfg_wdata[8]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 139.06,
+      "y_um": 84.66,
       "layer": "met3"
     },
     {
       "name": "cfg_wdata[9]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 47.94,
+      "y_um": 183.94,
       "layer": "met3"
     },
     {
       "name": "cfg_we",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 185.3,
+      "y_um": 137.7,
       "layer": "met3"
     },
     {
       "name": "clk",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 84.66,
+      "y_um": 58.82,
       "layer": "met3"
     },
     {
       "name": "hb_ck",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 137.7,
+      "y_um": 186.66,
       "layer": "met3"
     },
     {
       "name": "hb_cs_n",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 182.58,
+      "y_um": 83.3,
       "layer": "met3"
     },
     {
       "name": "hb_dq_i[0]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 143.14,
+      "y_um": 136.34,
       "layer": "met3"
     },
     {
       "name": "hb_dq_i[1]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 190.74,
+      "y_um": 189.38,
       "layer": "met3"
     },
     {
       "name": "hb_dq_i[2]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 83.3,
+      "y_um": 190.74,
       "layer": "met3"
     },
     {
       "name": "hb_dq_i[3]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 58.82,
+      "y_um": 46.58,
       "layer": "met3"
     },
     {
       "name": "hb_dq_i[4]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 193.46,
+      "y_um": 81.94,
       "layer": "met3"
     },
     {
       "name": "hb_dq_i[5]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 194.82,
+      "y_um": 193.46,
       "layer": "met3"
     },
     {
       "name": "hb_dq_i[6]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 115.94,
+      "y_um": 194.82,
       "layer": "met3"
     },
     {
       "name": "hb_dq_i[7]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 81.94,
+      "y_um": 162.18,
       "layer": "met3"
     },
     {
       "name": "hb_dq_o[0]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 197.54,
+      "y_um": 133.62,
       "layer": "met3"
     },
     {
       "name": "hb_dq_o[1]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 183.94,
+      "y_um": 80.58,
       "layer": "met3"
     },
     {
       "name": "hb_dq_o[2]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 133.62,
+      "y_um": 57.46,
       "layer": "met3"
     },
     {
@@ -1239,21 +1252,21 @@
       "name": "hb_dq_o[4]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 80.58,
+      "y_um": 132.26,
       "layer": "met3"
     },
     {
       "name": "hb_dq_o[5]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 202.98,
+      "y_um": 197.54,
       "layer": "met3"
     },
     {
       "name": "hb_dq_o[6]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 132.26,
+      "y_um": 79.22,
       "layer": "met3"
     },
     {
@@ -1267,77 +1280,77 @@
       "name": "hb_dq_oe",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 205.7,
+      "y_um": 130.9,
       "layer": "met3"
     },
     {
       "name": "hb_reset_n",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 79.22,
+      "y_um": 205.7,
       "layer": "met3"
     },
     {
       "name": "hb_rwds_i",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 130.9,
+      "y_um": 198.9,
       "layer": "met3"
     },
     {
       "name": "hb_rwds_o",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 57.46,
+      "y_um": 77.86,
       "layer": "met3"
     },
     {
       "name": "hb_rwds_oe",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 209.78,
+      "y_um": 129.54,
       "layer": "met3"
     },
     {
       "name": "rst_n",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 46.58,
+      "y_um": 209.78,
       "layer": "met3"
     },
     {
       "name": "wb_ack",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 77.86,
+      "y_um": 211.14,
       "layer": "met3"
     },
     {
       "name": "wb_adr[0]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 192.1,
+      "y_um": 212.5,
       "layer": "met3"
     },
     {
       "name": "wb_adr[10]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 156.74,
+      "y_um": 76.5,
       "layer": "met3"
     },
     {
       "name": "wb_adr[11]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 215.22,
+      "y_um": 56.1,
       "layer": "met3"
     },
     {
       "name": "wb_adr[12]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 128.18,
+      "y_um": 215.22,
       "layer": "met3"
     },
     {
@@ -1351,511 +1364,511 @@
       "name": "wb_adr[14]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 76.5,
+      "y_um": 126.82,
       "layer": "met3"
     },
     {
       "name": "wb_adr[15]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 56.1,
+      "y_um": 145.86,
       "layer": "met3"
     },
     {
       "name": "wb_adr[16]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 126.82,
+      "y_um": 75.14,
       "layer": "met3"
     },
     {
       "name": "wb_adr[17]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 114.58,
+      "y_um": 174.42,
       "layer": "met3"
     },
     {
       "name": "wb_adr[18]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 222.02,
+      "y_um": 125.46,
       "layer": "met3"
     },
     {
       "name": "wb_adr[19]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 223.38,
+      "y_um": 185.3,
       "layer": "met3"
     },
     {
       "name": "wb_adr[1]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 125.46,
+      "y_um": 223.38,
       "layer": "met3"
     },
     {
       "name": "wb_adr[20]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 75.14,
+      "y_um": 224.74,
       "layer": "met3"
     },
     {
       "name": "wb_adr[21]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 224.74,
+      "y_um": 124.1,
       "layer": "met3"
     },
     {
       "name": "wb_adr[22]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 226.1,
+      "y_um": 41.14,
       "layer": "met3"
     },
     {
       "name": "wb_adr[23]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 124.1,
+      "y_um": 227.46,
       "layer": "met3"
     },
     {
       "name": "wb_adr[24]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 227.46,
+      "y_um": 54.74,
       "layer": "met3"
     },
     {
       "name": "wb_adr[25]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 217.94,
+      "y_um": 122.74,
       "layer": "met3"
     },
     {
       "name": "wb_adr[26]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 154.02,
+      "y_um": 45.22,
       "layer": "met3"
     },
     {
       "name": "wb_adr[27]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 54.74,
+      "y_um": 73.78,
       "layer": "met3"
     },
     {
       "name": "wb_adr[28]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 71.06,
+      "y_um": 144.5,
       "layer": "met3"
     },
     {
       "name": "wb_adr[29]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 231.54,
+      "y_um": 121.38,
       "layer": "met3"
     },
     {
       "name": "wb_adr[2]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 73.78,
+      "y_um": 208.42,
       "layer": "met3"
     },
     {
       "name": "wb_adr[30]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 121.38,
+      "y_um": 103.7,
       "layer": "met3"
     },
     {
       "name": "wb_adr[3]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 232.9,
+      "y_um": 109.14,
       "layer": "met3"
     },
     {
       "name": "wb_adr[4]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 201.62,
+      "y_um": 120.02,
       "layer": "met3"
     },
     {
       "name": "wb_adr[5]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 234.26,
+      "y_um": 232.9,
       "layer": "met3"
     },
     {
       "name": "wb_adr[6]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 120.02,
+      "y_um": 53.38,
       "layer": "met3"
     },
     {
       "name": "wb_adr[7]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 196.18,
+      "y_um": 72.42,
       "layer": "met3"
     },
     {
       "name": "wb_adr[8]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 235.62,
+      "y_um": 118.66,
       "layer": "met3"
     },
     {
       "name": "wb_adr[9]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 236.98,
+      "y_um": 234.26,
       "layer": "met3"
     },
     {
       "name": "wb_cyc",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 118.66,
+      "y_um": 188.02,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[0]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 186.66,
+      "y_um": 235.62,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[10]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 220.66,
+      "y_um": 117.3,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[11]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 72.42,
+      "y_um": 182.58,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[12]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 117.3,
+      "y_um": 236.98,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[13]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 238.34,
+      "y_um": 177.14,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[14]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 175.78,
+      "y_um": 115.94,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[15]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 45.22,
+      "y_um": 217.94,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[16]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 53.38,
+      "y_um": 71.06,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[17]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 144.5,
+      "y_um": 167.62,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[18]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 166.26,
+      "y_um": 114.58,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[19]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 100.98,
+      "y_um": 239.7,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[1]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 41.14,
+      "y_um": 113.22,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[20]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 39.78,
+      "y_um": 241.06,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[21]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 242.42,
+      "y_um": 110.5,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[22]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 155.38,
+      "y_um": 156.74,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[23]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 113.22,
+      "y_um": 242.42,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[24]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 207.06,
+      "y_um": 69.7,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[25]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 149.94,
+      "y_um": 111.86,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[26]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 239.7,
+      "y_um": 202.98,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[27]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 111.86,
+      "y_um": 148.58,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[28]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 140.42,
+      "y_um": 52.02,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[29]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 69.7,
+      "y_um": 100.98,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[2]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 52.02,
+      "y_um": 246.5,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[30]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 110.5,
+      "y_um": 38.42,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[31]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 245.14,
+      "y_um": 226.1,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[3]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 213.86,
+      "y_um": 68.34,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[4]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 249.22,
+      "y_um": 247.86,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[5]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 109.14,
+      "y_um": 245.14,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[6]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 230.18,
+      "y_um": 219.3,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[7]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 228.82,
+      "y_um": 107.78,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[8]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 189.38,
+      "y_um": 249.22,
       "layer": "met3"
     },
     {
       "name": "wb_dat_r[9]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 107.78,
+      "y_um": 228.82,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[0]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 247.86,
+      "y_um": 251.94,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[10]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 253.3,
+      "y_um": 106.42,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[11]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 68.34,
+      "y_um": 50.66,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[12]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 106.42,
+      "y_um": 222.02,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[13]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 167.62,
+      "y_um": 220.66,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[14]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 208.42,
+      "y_um": 105.06,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[15]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 250.58,
+      "y_um": 253.3,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[16]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 105.06,
+      "y_um": 66.98,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[17]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 43.86,
+      "y_um": 254.66,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[18]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 219.3,
+      "y_um": 43.86,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[19]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 241.06,
+      "y_um": 141.78,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[1]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 103.7,
+      "y_um": 256.02,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[20]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 66.98,
+      "y_um": 230.18,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[21]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 256.02,
+      "y_um": 102.34,
       "layer": "met3"
     },
     {
@@ -1869,168 +1882,168 @@
       "name": "wb_dat_w[23]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 102.34,
+      "y_um": 213.86,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[24]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 181.22,
+      "y_um": 243.78,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[25]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 168.98,
+      "y_um": 65.62,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[26]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 163.54,
+      "y_um": 164.9,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[27]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 50.66,
+      "y_um": 196.18,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[28]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 160.82,
+      "y_um": 151.3,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[29]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 258.74,
+      "y_um": 99.62,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[2]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 65.62,
+      "y_um": 250.58,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[30]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 99.62,
+      "y_um": 192.1,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[31]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 211.14,
+      "y_um": 231.54,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[3]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 212.5,
+      "y_um": 98.26,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[4]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 260.1,
+      "y_um": 49.3,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[5]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 98.26,
+      "y_um": 160.82,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[6]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 198.9,
+      "y_um": 238.34,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[7]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 254.66,
+      "y_um": 96.9,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[8]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 136.34,
+      "y_um": 64.26,
       "layer": "met3"
     },
     {
       "name": "wb_dat_w[9]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 96.9,
+      "y_um": 258.74,
       "layer": "met3"
     },
     {
       "name": "wb_sel[0]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 64.26,
+      "y_um": 134.98,
       "layer": "met3"
     },
     {
       "name": "wb_sel[1]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 251.94,
+      "y_um": 95.54,
       "layer": "met3"
     },
     {
       "name": "wb_sel[2]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 261.46,
+      "y_um": 207.06,
       "layer": "met3"
     },
     {
       "name": "wb_sel[3]",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 95.54,
+      "y_um": 201.62,
       "layer": "met3"
     },
     {
       "name": "wb_stall",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 188.02,
+      "y_um": 260.1,
       "layer": "met3"
     },
     {
       "name": "wb_stb",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 243.78,
+      "y_um": 94.18,
       "layer": "met3"
     },
     {
       "name": "wb_we",
       "edge": "west",
       "x_um": 0.4,
-      "y_um": 246.5,
+      "y_um": 181.22,
       "layer": "met3"
     }
   ],
@@ -2066,17 +2079,17 @@
       "scope": "repo"
     },
     "sdf_path": null,
-    "worst_slack_ns": 9.5284,
+    "worst_slack_ns": 9.54122,
     "total_negative_slack_ns": 0,
     "timing_status": "constrained",
     "setup_violation_count": 0,
     "hold_violation_count": 0,
-    "nets_annotated": 2407,
-    "nets_total": 8733,
-    "design_nets_annotated": 2407,
-    "design_nets_total": 2425,
+    "nets_annotated": 2389,
+    "nets_total": 8543,
+    "design_nets_annotated": 2389,
+    "design_nets_total": 2407,
     "annotation_complete": false,
-    "annotation_warning": "only 2407 of 2425 nets in the linked design are named by this SPEF -- the slack/violation values in this block are NOT a real-parasitics measurement to the extent annotation is missing, and should not be compared against the top-level estimate_parasitics-derived fields as if they were. See docs/cli/place-and-route.md's 'Net-name correlation' subsection."
+    "annotation_warning": "only 2389 of 2407 nets in the linked design are named by this SPEF -- the slack/violation values in this block are NOT a real-parasitics measurement to the extent annotation is missing, and should not be compared against the top-level estimate_parasitics-derived fields as if they were. See docs/cli/place-and-route.md's 'Net-name correlation' subsection."
   },
   "power": {
     "preset": "sky130hd",
@@ -2143,10 +2156,10 @@
       "unavailable_reason": null,
       "status": "complete",
       "missing": [],
-      "components": 12361,
-      "tapcells": 1134,
+      "components": 11676,
+      "tapcells": 1070,
       "endcaps": 0,
-      "fillers": 8826,
+      "fillers": 8218,
       "special_nets": [
         {
           "name": "VDD",
@@ -2166,9 +2179,9 @@
         {
           "name": "VSS",
           "use": "GROUND",
-          "followpin_segments": 54,
-          "stripe_segments": 1925,
-          "other_segments": 1188,
+          "followpin_segments": 53,
+          "stripe_segments": 1892,
+          "other_segments": 1166,
           "stripe_layers": [
             "met5",
             "met4",
@@ -2176,34 +2189,31 @@
             "met2",
             "met1"
           ],
-          "vias": 1903
+          "vias": 1870
         }
       ]
     }
   },
   "warnings": [],
   "provenance": {
-    "klt_version": "0.8.1.dev66+gf0a8810efd57",
-    "klayout_version": "0.30.12",
+    "klt_version": "0.8.0",
+    "klayout_version": "0.30.13",
     "pdk": {
       "name": "sky130A",
-      "source": "search root: ~/.ciel",
-      "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7",
-      "ambiguous_sources": [
-        "search root: ~/.volare"
-      ]
+      "source": "PDK_ROOT environment variable",
+      "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
     },
     "deck": {
       "name": "sky130_fd_sc_hd__tt_025C_1v80",
       "content_hash": "sha256:8e78e14442062dba34d414fca6490b2f6b96038d4510d1438ca44fee31487135",
       "released": false,
       "path": {
-        "path": null,
-        "scope": "external"
+        "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib",
+        "scope": "repo"
       }
     },
     "input": {
-      "content_hash": "sha256:c0f912a10e0dcc2d73e673b4bcf9a76fdac99a705e9dea63bffc3a5dd3d40d0f",
+      "content_hash": "sha256:038c7e9a13aff7062aa1a0e5303707865c423f28995dc347cf0189c206409ca3",
       "role": "netlist"
     }
   }

@@ -1,10 +1,10 @@
 {
   "note": "reported only, not graded: target-spec row 17 is a proposal (budget <= 0.10 mm2 core, corner typ)",
-  "core_area_um2": 83687.8,
-  "core_area_mm2": 0.08369,
-  "die_area_um2": 90462.6,
-  "utilization_pct": 32.7946,
+  "core_area_um2": 82372.8,
+  "core_area_mm2": 0.08237,
+  "die_area_um2": 89242.6,
+  "utilization_pct": 32.9126,
   "row17_max_core_um2": 100000,
   "within_row17_budget": true,
-  "synth_stdcell_area_um2": 25364.3264
+  "synth_stdcell_area_um2": 25010.2368
 }

@@ -16,8 +16,13 @@ the Makefile exports). It reads the item-1 netlist
 `sim/hyperram/records/hyperram_ctrl.netlist.v` through
 `layout/place-and-route.json`; run `make hyperram-synth` first if the RTL
 changed. After a re-run commit `layout/records/` and `evidence/item2.json`,
-and re-pin `manifests/sky130-hyperram-ctrl.json` item 2 to the new GDS hash.
-Placement is never edited by hand.
+re-pin `manifests/sky130-hyperram-ctrl.json` (items 2, 3, 4 and 11) to the new
+evidence and re-render the signoff record in the same PR.
+`scripts/fleet-regen-layout.sh` runs the whole sequence — flow, checks,
+manifest re-pin, signoff re-render — as one batch-fleet `repo-script` job
+(heavy image), which is where these ~25-minute runs belong; the shared
+dispatch worker is not a place-and-route host. Placement is never edited by
+hand.
 
 ## Request
 
@@ -35,17 +40,15 @@ timing across the set; that is item 5.
 
 ## Records (`layout/records/`)
 
-> **STALE as of #51.** These records come from the netlist before the
-> `rd_flush` ST_LAT fix (#48, PR #51). The response was built from netlist
-> `sha256:c0f912a10e0dcc2d73e673b4bcf9a76fdac99a705e9dea63bffc3a5dd3d40d0f`;
-> the current `sim/hyperram/records/hyperram_ctrl.netlist.v` is
-> `sha256:038c7e9a13aff7062aa1a0e5303707865c423f28995dc347cf0189c206409ca3`.
-> `make layout-check` reports `drifted` / STALE (`provenance.input.content_hash`).
-> T1 items 2, 3, 4 and 11 rest on these records and stay `met` only because the
-> item-2 envelope binds the GDS hash, not the source netlist. Regeneration is
-> #52, held on 2AMLogic/2am#7142 (the batch image lacks magic, netgen and the
-> sky130 PDK for the DRC/LVS/ERC half; 2AMLogic/2am#6416 closed 2026-11-12);
-> P&R is not re-run on the dispatch worker.
+> Regenerated for #52 on a batch-fleet heavy instance (2026-11-18,
+> `scripts/fleet-regen-layout.sh`, pinned klt 0.8.0 + OpenROAD 26Q4-1310 +
+> ciel-provisioned sky130A at open_pdks `f6eeac7dad085`): these records now
+> come from the post-`rd_flush`-fix netlist (#48, PR #51) at
+> `sha256:038c7e9a13aff7062aa1a0e5303707865c423f28995dc347cf0189c206409ca3`,
+> which `sim/hyperram/records/hyperram_ctrl.netlist.v` still is. They supersede
+> the pre-#51 records (netlist `sha256:c0f912a10e0dcc2d73e673b4bcf9a76fdac99a705e9dea63bffc3a5dd3d40d0f`,
+> core 83 687.8 µm², worst setup slack -24.29 ns at `ss_n40C_1v28`), which were
+> not edited in place — the superseded numbers are quoted here and in PR #52.
 
 | File | What |
 |---|---|
@@ -66,20 +69,20 @@ dir; their hashes stay in the response).
 From the committed response (`tt_025C_1v80` unless a corner is named):
 
 - `power.pdn: true`, `power.tapcell_master: sky130_fd_sc_hd__tapvpwrvgnd_1`
-  (1134 tapcells).
-- Core area 83 687.8 µm² (0.0837 mm²) against row 17's ≤ 0.10 mm² budget. Row
+  (1070 tapcells at a 14 µm distance).
+- Core area 82 372.8 µm² (0.0824 mm²) against row 17's ≤ 0.10 mm² budget. Row
   17 is a proposal, so this is a number, not a pass.
 - Route DRC (the router's own) 0, antenna violations 0. This is not `klt drc`
   (#16) and not LVS (#17).
-- Setup slack +9.54 ns at tt, hold +0.34 ns. Across the 16 corners the worst
-  setup slack is **-24.29 ns at `ss_n40C_1v28`**, and negative at `v1p35`,
-  `v1p40` and `v1p44` at -40 °C; `ss_n40C_1v60` is +7.73 ns. The negative
+- Setup slack +9.54 ns at tt, hold +0.33 ns. Across the 16 corners the worst
+  setup slack is **-27.28 ns at `ss_n40C_1v28`**, and negative at `v1p35`,
+  `v1p40` and `v1p44` at -40 °C; `ss_n40C_1v60` is +7.10 ns. The negative
   corners sit below the 1.8 V -10 % supply (1.62 V) of decision 0004, which
   the decision's corner list does not reconcile. Left as found.
-- `max_transition_violation_count` 732 and `max_capacitance_violation_count`
-  20 against the library limits. Not investigated here.
-- The SPEF session names 2407 of 2425 design nets (`annotation_complete:
-  false`), so its slack (+9.53 ns) is not a full real-parasitics measurement.
+- `max_transition_violation_count` 284 and `max_capacitance_violation_count`
+  15 against the library limits. Not investigated here.
+- The SPEF session names 2389 of 2407 design nets (`annotation_complete:
+  false`), so its slack (+9.54 ns) is not a full real-parasitics measurement.
 - Pins are placed by the tool on arbitrary edges; no pad-facing pin plan exists
   (the pads belong to the I/O ring sibling).
 - Not looked at: whether the CK-output and RWDS-capture delay-chain instances
