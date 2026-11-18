@@ -14,7 +14,9 @@ No bench can catch the regression: a reverted `export PDK_ROOT=` surfaces
 only when a fleet job runs the regeneration end to end (~26 min later), by
 which time the wrong evidence is already committed. This is the structural
 guard instead, a pure read of the committed script in the step 3c style,
-asserting every `export PDK_ROOT=` target inside `ensure_pdk` is
+asserting every assignment to PDK_ROOT inside `ensure_pdk` -- an
+`export PDK_ROOT=`, a `declare -x`/`readonly`/`typeset -x`, a plain
+`PDK_ROOT=`, or a bare `export PDK_ROOT` re-exporting one -- has a target
 
   1. the literal /opt/pdk (the image's baked PDK root), or
   2. the caller-supplied ${PDK_ROOT} (verified in place before any fetch),
@@ -23,8 +25,10 @@ asserting every `export PDK_ROOT=` target inside `ensure_pdk` is
      assigned from it (`shared_root`, `staging` in the current script),
 
 and never anything containing ${REPO_ROOT}. Any other target fails closed,
-as does a missing `ensure_pdk` or a missing export: a rename must not
-silently pass.
+as does a missing `ensure_pdk`, a body with no PDK_ROOT assignment at all,
+or a body whose braces do not close on a bare `}` line (a stray brace
+mid-line would truncate the body and hide the later targets): a rename
+must not silently pass.
 
   scripts/check_pdk_root.py               check the committed script (CI)
   scripts/check_pdk_root.py --self-test   check this checker, on fixtures
@@ -48,7 +52,14 @@ BAKED = "/opt/pdk"                  # the image's baked PDK root
 TMP_ROOT = "${TMPDIR:-/var/tmp}"    # the sanctioned scratch root (issue #142)
 REPO_VAR = "${REPO_ROOT}"
 
-EXPORT_RE = re.compile(r"^\s*export\s+PDK_ROOT=(.+?)\s*$")
+# Any declaration keyword that can introduce a PDK_ROOT assignment: the
+# judged target is the assignment itself, so a plain `PDK_ROOT=` later
+# re-exported bare (`export PDK_ROOT`, no `=`) cannot slip past, and
+# neither can `declare -x`, `readonly` or `typeset -x` spellings.
+TARGET_RE = re.compile(
+    r"^\s*(?:(?:export|local|readonly)\s+|declare\s+(?:-\w+\s+)*|typeset\s+(?:-\w+\s+)*)?"
+    r"PDK_ROOT=(.+?)\s*$"
+)
 ASSIGN_RE = re.compile(r"^\s*([A-Za-z_]\w*)=(.+?)\s*$")
 VARREF_RE = re.compile(r"^\$\{([A-Za-z_]\w*)\}$")
 
@@ -61,6 +72,10 @@ def function_body(text, name):
     Brace counting skips comment lines (the function's rationale comment
     quotes JSON braces); every ${...} expansion carries balanced braces on
     one line, so the closing `}` at column 0 is where depth returns to 0.
+    The body fails closed (None) unless that terminator is exactly `}`: an
+    ordinary line carrying a stray `}` (a quoting typo, a `tr -d '}'`)
+    would otherwise truncate the body early and hide every later target
+    behind the one allowed export the truncation leaves behind.
     """
     lines = text.splitlines()
     for i, ln in enumerate(lines):
@@ -71,7 +86,9 @@ def function_body(text, name):
             if not lines[j].lstrip().startswith("#"):
                 depth += lines[j].count("{") - lines[j].count("}")
             if j > i and depth <= 0:
-                return "\n".join(lines[i + 1 : j])
+                if lines[j].rstrip() == "}":
+                    return "\n".join(lines[i + 1 : j])
+                return None
         return None
     return None
 
@@ -113,7 +130,7 @@ def resolve(value, variables, depth=0):
 
 
 def judge(target, variables):
-    """Classify one `export PDK_ROOT=` target, resolving ${var} targets."""
+    """Classify one PDK_ROOT assignment target, resolving ${var} targets."""
     if VARREF_RE.match(target):
         resolved = resolve(target, variables)
         if resolved is None:
@@ -123,25 +140,33 @@ def judge(target, variables):
 
 
 def check_body(body):
-    """[problem, ...] for an `ensure_pdk` body; empty means it holds."""
+    """[problem, ...] for an `ensure_pdk` body; empty means it holds.
+
+    Every assignment to PDK_ROOT is a target, whatever keyword introduces
+    it: an `export PDK_ROOT=`, a `declare -x`/`readonly`/`typeset -x`, a
+    plain `PDK_ROOT=`, or a bare `export PDK_ROOT` re-exporting a plain
+    assignment (the assignment itself is the judged target).
+    """
     variables = {}
-    exports = []
+    targets = []
     for ln in body.splitlines():
         stripped = ln.strip()
         if stripped.startswith("#"):
             continue
-        m = EXPORT_RE.match(ln)
+        m = TARGET_RE.match(ln)
         if m:
-            exports.append(unquote(m.group(1)))
+            value = unquote(m.group(1))
+            targets.append(value)
+            variables["PDK_ROOT"] = value
             continue
         m = ASSIGN_RE.match(ln)
         if m:
             variables[m.group(1)] = unquote(m.group(2))
-    if not exports:
-        return [f"{FUNC} contains no `export PDK_ROOT=` (a rename must not silently pass)"]
+    if not targets:
+        return [f"{FUNC} contains no assignment to PDK_ROOT (a rename must not silently pass)"]
     return [
-        f"export PDK_ROOT={target}: {reason}"
-        for target in exports
+        f"PDK_ROOT={target}: {reason}"
+        for target in targets
         if (reason := judge(target, variables)) is not None
     ]
 
@@ -150,14 +175,14 @@ def check_text(text, label):
     """0 when every export target in the text's ensure_pdk is allowed."""
     body = function_body(text, FUNC)
     if body is None:
-        print(f"FAIL: {label}: no balanced {FUNC}() function found (a rename must not silently pass)", file=sys.stderr)
+        print(f"FAIL: {label}: no balanced {FUNC}() function found (a rename or a stray brace must not silently pass)", file=sys.stderr)
         return 1
     problems = check_body(body)
     if problems:
         for p in problems:
             print(f"FAIL: {label}: {p}", file=sys.stderr)
         return 1
-    print(f"ok {label}: every `export PDK_ROOT=` target in {FUNC} is {BAKED}, ${{PDK_ROOT}}, or {TMP_ROOT}-rooted")
+    print(f"ok {label}: every PDK_ROOT assignment target in {FUNC} is {BAKED}, ${{PDK_ROOT}}, or {TMP_ROOT}-rooted")
     return 0
 
 
@@ -264,7 +289,28 @@ def self_test():
         f"#!/usr/bin/env bash\n{FUNC}() {{\n  log \"nothing to do\"\n}}\n",
         False,
     )
-    record(ok, "fixture: ensure_pdk without any export PDK_ROOT= fails closed", out)
+    record(ok, "fixture: ensure_pdk without any PDK_ROOT assignment fails closed", out)
+
+    ok, out = check_fixture(
+        "assign-then-bare-export",
+        fixture_with(staging_export=f'PDK_ROOT="{REPO_VAR}/.fleet-pdk"\n  export PDK_ROOT'),
+        False,
+    )
+    record(ok, f"fixture: a plain PDK_ROOT= assignment + bare export PDK_ROOT fails", out)
+
+    ok, out = check_fixture(
+        "declare -x",
+        fixture_with(staging_export=f'declare -x PDK_ROOT="{REPO_VAR}/.fleet-pdk"'),
+        False,
+    )
+    record(ok, f"fixture: declare -x PDK_ROOT=\"{REPO_VAR}/.fleet-pdk\" fails", out)
+
+    truncated = GOOD_FIXTURE.replace(
+        "  local shared_root staging",
+        "  local shared_root staging\n  junk=\"$(echo stray | tr -d '}')\"",
+    ).replace(GOOD_STAGING_EXPORT, f'export PDK_ROOT="{REPO_VAR}/.fleet-pdk"')
+    ok, out = check_fixture("stray-brace truncation", truncated, False)
+    record(ok, "fixture: a stray } truncating the body hides no repo-rooted export", out)
 
     if failures:
         print(f"\n{len(failures)} self-test case(s) failed: {failures}")
