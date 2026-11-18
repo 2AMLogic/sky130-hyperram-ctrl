@@ -5,6 +5,8 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-11-18
 
+- **PR #164**: fix: match backslash-escaped heredoc delimiters in check_pdk_root
+- **Issue #162** (closed): check_pdk_root.py: a backslash-escaped heredoc delimiter (cat << EOF) still truncates the ensure_pdk body
 - **PR #159**: fix: make check_pdk_root body extraction heredoc-aware
 - **Issue #158** (closed): check_pdk_root.py: a bare } inside a heredoc truncates the ensure_pdk body and hides a repo-rooted PDK_ROOT
 - **PR #156**: guard: assert ensure_pdk never exports a repo-rooted PDK_ROOT
