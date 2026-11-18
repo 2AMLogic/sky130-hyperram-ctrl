@@ -29,8 +29,10 @@ as does a missing `ensure_pdk`, a body with no PDK_ROOT assignment at all,
 or a body whose braces do not close on a bare `}` line (a stray brace
 mid-line would truncate the body and hide the later targets); heredoc
 bodies inside the function are skipped as string literals, so their braces
-are data, and a heredoc that never terminates fails closed: a rename
-must not silently pass.
+are data -- whatever quoting the delimiter carries (`<<'EOF'`, `<< \\EOF`,
+`<<E\\OF`: bash matches the terminator on the unquoted word) -- and a
+heredoc that never terminates fails closed: a rename must not silently
+pass.
 
   scripts/check_pdk_root.py               check the committed script (CI)
   scripts/check_pdk_root.py --self-test   check this checker, on fixtures
@@ -64,10 +66,13 @@ TARGET_RE = re.compile(
 )
 ASSIGN_RE = re.compile(r"^\s*([A-Za-z_]\w*)=(.+?)\s*$")
 VARREF_RE = re.compile(r"^\$\{([A-Za-z_]\w*)\}$")
-# A `<<`/`<<-` heredoc introduction: quoted or unquoted delimiter, optional
-# whitespace before it. The lookbehind keeps `<<<` (a here-string, whose
-# text sits on the same line) from matching as a heredoc.
-HEREDOC_RE = re.compile(r"(?<!<)<<-?\s*['\"]?(\w+)['\"]?")
+# A `<<`/`<<-` heredoc introduction: quoted, escaped, or bare delimiter,
+# optional whitespace before it. A backslash in the delimiter (`<< \EOF`,
+# `<<E\OF`, `<<-\EOF`) is a bash quoting character, so the word is captured
+# with escapes and unescaped below -- bash matches the terminator line on
+# the unquoted word. The lookbehind keeps `<<<` (a here-string, whose text
+# sits on the same line) from matching as a heredoc.
+HEREDOC_RE = re.compile(r"(?<!<)<<-?\s*['\"]?((?:\\?\w+)+)['\"]?")
 
 failures = []
 
@@ -79,7 +84,10 @@ def function_body(text, name):
     quotes JSON braces) and pauses across heredoc bodies (issue #158): a
     `<<`/`<<-` heredoc is a string literal, so its braces are data -- a
     bare `}` inside one must not truncate the body and hide every later
-    target. Counting resumes after the delimiter line (at column 0, or
+    target. The delimiter may be quoted or backslash-escaped (`<<'EOF'`,
+    `<< \\EOF`, `<<E\\OF`, issue #162); the escape/quote characters are not
+    part of the word, so the terminator is matched on the unquoted word.
+    Counting resumes after the delimiter line (at column 0, or
     tab-indented for `<<-`); a heredoc that never terminates fails closed,
     since the function's real `}` would otherwise be swallowed as heredoc
     content. Every ${...} expansion outside a heredoc carries balanced
@@ -107,7 +115,7 @@ def function_body(text, name):
             if not line.lstrip().startswith("#"):
                 depth += line.count("{") - line.count("}")
                 for m in HEREDOC_RE.finditer(line):
-                    pending.append((m.group(0).startswith("<<-"), m.group(1)))
+                    pending.append((m.group(0).startswith("<<-"), m.group(1).replace("\\", "")))
             if j > i and depth <= 0:
                 if line.rstrip() == "}":
                     return "\n".join(lines[i + 1 : j])
@@ -380,6 +388,40 @@ def self_test():
         False,
     )
     record(ok and REPO_VAR in out, "fixture: <<- with a tab-indented terminator still judges the repo-rooted export", out)
+
+    # Issue #162: a backslash in the delimiter (`<< \EOF`, `<<E\OF`) is a
+    # bash quoting character, not part of the word; bash matches the
+    # terminator line on the unquoted word, so the checker must too.
+    ok, out = check_fixture(
+        "unbalanced heredoc, escaped delimiter",
+        heredoc_fixture("cat << \\EOF", "}\nEOF"),
+        False,
+    )
+    record(ok and REPO_VAR in out, "fixture: a bare } in a << \\EOF heredoc truncates nothing; the repo-rooted export fails", out)
+
+    ok, out = check_fixture(
+        "escaped delimiter inside word",
+        heredoc_fixture("cat <<E\\OF", "}\nEOF"),
+        False,
+    )
+    record(ok and REPO_VAR in out, "fixture: a bare } in a <<E\\OF heredoc truncates nothing; the repo-rooted export fails", out)
+
+    ok, out = check_fixture(
+        "dash heredoc, escaped delimiter",
+        heredoc_fixture("cat <<-\\EOF", "\t}\n\tEOF"),
+        False,
+    )
+    record(ok and REPO_VAR in out, "fixture: <<-\\EOF with a tab-indented terminator still judges the repo-rooted export", out)
+
+    # The issue's false-positive probes must stay fail-closed: a `<<` that
+    # is not a heredoc introduction must never let a bad shape pass.
+    for probe_line in ("x=$(( 1 << 2 ))", 'log "a << b"', "cat <<EOF.1"):
+        ok, out = check_fixture(
+            f"probe {probe_line!r}",
+            heredoc_fixture(probe_line, "no bare terminator follows", repo_export=False),
+            False,
+        )
+        record(ok, f"fixture: {probe_line} is not a heredoc introduction and still fails closed", out)
 
     ok, out = check_fixture(
         "unterminated heredoc",
