@@ -4,7 +4,7 @@ Roadmap generated from GitHub label state by the Guide triage role.
 Only the region between the markers is machine-generated.
 
 <!-- guide:plan-body:start -->
-_Generated: 2026-11-18T12:52:50Z (snapshot; compare against live labels)_
+_Generated: 2026-11-18T23:03:00Z (snapshot; compare against live labels)_
 ## Operator Attention: Merge-Risk-Hold Pileup
 
 Judge-approved PRs under a hold (`loom:blocked` or `loom:operator`) — only a human merge decision is missing.
@@ -33,13 +33,13 @@ _None._
 
 Issues currently being built (`loom:building`).
 
-- **#158**: check_pdk_root.py: a bare } inside a heredoc truncates the ensure_pdk body and hides a repo-rooted PDK_ROOT
+_None._
 
 ## PRs Awaiting Review
 
 PRs waiting on Judge (`loom:review-requested`).
 
-- **#159**: fix: make check_pdk_root body extraction heredoc-aware
+_None._
 
 ## Approved (Awaiting Merge)
 
@@ -53,7 +53,6 @@ Issues carrying `loom:curated`.
 
 - **#2**: Draft and ratify the target spec *(curated)* *(held)*
 - **#5**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
-- **#158**: check_pdk_root.py: a bare } inside a heredoc truncates the ensure_pdk body and hides a repo-rooted PDK_ROOT *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -62,6 +61,7 @@ Issues carrying `loom:curated`.
 - **#84**: Remove vendored design-evidence-tiers.md: the pinned klt wheel ships a byte-identical copy *(hermit)* *(held)*
 - **#103**: Stop restating six toolchain pins in docs/environment.md: a hand-maintained copy nothing checks *(hermit)* *(held)*
 - **#114**: Remove toolchain smoke flow: make smoke duplicates what the controller flow now exercises *(hermit)* *(held)*
+- **#160**: Replace check_pdk_root.py (329-line shell parser) with a 4-line runtime assertion *(hermit)* *(held)*
 
 ## Epics
 
@@ -75,10 +75,10 @@ _None._
 | Very important | 1 |
 | Important | 0 |
 | Ready (`loom:issue`, net of holds/building/merge-pending) | 0 |
-| In Progress (`loom:building`) | 1 |
-| PRs awaiting review | 1 |
+| In Progress (`loom:building`) | 0 |
+| PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 3 |
-| Architect / Hermit proposals | 5 |
+| Curated | 2 |
+| Architect / Hermit proposals | 6 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
