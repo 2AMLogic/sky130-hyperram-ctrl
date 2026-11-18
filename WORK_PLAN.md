@@ -20,7 +20,7 @@ _None._
 
 `loom:important`; taken before unlabelled work.
 
-- **#52**: Regenerate place-and-route and layout-dependent evidence after rd_flush ST_LAT fix (#48) *(held)*
+- **#52**: Regenerate place-and-route and layout-dependent evidence after rd_flush ST_LAT fix (#48)
 
 ## Ready
 
@@ -32,7 +32,7 @@ _None._
 
 Issues currently being built (`loom:building`).
 
-_None._
+- **#52**: Regenerate place-and-route and layout-dependent evidence after rd_flush ST_LAT fix (#48)
 
 ## PRs Awaiting Review
 
@@ -52,7 +52,7 @@ Issues carrying `loom:curated`.
 
 - **#2**: Draft and ratify the target spec *(curated)* *(held)*
 - **#5**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
-- **#52**: Regenerate place-and-route and layout-dependent evidence after rd_flush ST_LAT fix (#48) *(curated)* *(held)*
+- **#52**: Regenerate place-and-route and layout-dependent evidence after rd_flush ST_LAT fix (#48) *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -75,7 +75,7 @@ _None._
 | Very important | 1 |
 | Important | 1 |
 | Ready (`loom:issue`) | 0 |
-| In Progress (`loom:building`) | 0 |
+| In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
 | Curated | 3 |
