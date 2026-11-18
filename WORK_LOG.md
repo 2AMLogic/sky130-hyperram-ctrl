@@ -3,6 +3,11 @@
 Chronological record of merged PRs and closed issues, newest first.
 Maintained by the Guide triage role; entries are append-only.
 
+### 2026-11-18
+
+- **PR #140**: data: regenerate routed layout and layout-dependent evidence from the post-#51 netlist
+- **Issue #52** (closed): Regenerate place-and-route and layout-dependent evidence after rd_flush ST_LAT fix (#48)
+
 ### 2026-11-15
 
 - **PR #136**: ci: replace check_help_text.py with an inline shell assertion in check_ci.sh
