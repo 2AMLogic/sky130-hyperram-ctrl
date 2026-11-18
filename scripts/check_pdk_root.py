@@ -27,7 +27,9 @@ asserting every assignment to PDK_ROOT inside `ensure_pdk` -- an
 and never anything containing ${REPO_ROOT}. Any other target fails closed,
 as does a missing `ensure_pdk`, a body with no PDK_ROOT assignment at all,
 or a body whose braces do not close on a bare `}` line (a stray brace
-mid-line would truncate the body and hide the later targets): a rename
+mid-line would truncate the body and hide the later targets); heredoc
+bodies inside the function are skipped as string literals, so their braces
+are data, and a heredoc that never terminates fails closed: a rename
 must not silently pass.
 
   scripts/check_pdk_root.py               check the committed script (CI)
@@ -62,6 +64,10 @@ TARGET_RE = re.compile(
 )
 ASSIGN_RE = re.compile(r"^\s*([A-Za-z_]\w*)=(.+?)\s*$")
 VARREF_RE = re.compile(r"^\$\{([A-Za-z_]\w*)\}$")
+# A `<<`/`<<-` heredoc introduction: quoted or unquoted delimiter, optional
+# whitespace before it. The lookbehind keeps `<<<` (a here-string, whose
+# text sits on the same line) from matching as a heredoc.
+HEREDOC_RE = re.compile(r"(?<!<)<<-?\s*['\"]?(\w+)['\"]?")
 
 failures = []
 
@@ -70,23 +76,40 @@ def function_body(text, name):
     """The body of `name() { ... }`, or None when absent or unbalanced.
 
     Brace counting skips comment lines (the function's rationale comment
-    quotes JSON braces); every ${...} expansion carries balanced braces on
-    one line, so the closing `}` at column 0 is where depth returns to 0.
-    The body fails closed (None) unless that terminator is exactly `}`: an
-    ordinary line carrying a stray `}` (a quoting typo, a `tr -d '}'`)
-    would otherwise truncate the body early and hide every later target
-    behind the one allowed export the truncation leaves behind.
+    quotes JSON braces) and pauses across heredoc bodies (issue #158): a
+    `<<`/`<<-` heredoc is a string literal, so its braces are data -- a
+    bare `}` inside one must not truncate the body and hide every later
+    target. Counting resumes after the delimiter line (at column 0, or
+    tab-indented for `<<-`); a heredoc that never terminates fails closed,
+    since the function's real `}` would otherwise be swallowed as heredoc
+    content. Every ${...} expansion outside a heredoc carries balanced
+    braces on one line, so the closing `}` at column 0 is where depth
+    returns to 0. The body fails closed (None) unless that terminator is
+    exactly `}`: an ordinary line carrying a stray `}` (a quoting typo, a
+    `tr -d '}'`) would otherwise truncate the body early and hide every
+    later target behind the one allowed export the truncation leaves
+    behind.
     """
     lines = text.splitlines()
     for i, ln in enumerate(lines):
         if not re.match(rf"{re.escape(name)}\s*\(\)\s*\{{", ln):
             continue
         depth = 0
+        pending = []  # open heredoc terminators, in body order
         for j in range(i, len(lines)):
-            if not lines[j].lstrip().startswith("#"):
-                depth += lines[j].count("{") - lines[j].count("}")
+            line = lines[j]
+            if pending:
+                dash, delimiter = pending[0]
+                candidate = line.lstrip("\t") if dash else line
+                if candidate == delimiter:
+                    pending.pop(0)
+                continue
+            if not line.lstrip().startswith("#"):
+                depth += line.count("{") - line.count("}")
+                for m in HEREDOC_RE.finditer(line):
+                    pending.append((m.group(0).startswith("<<-"), m.group(1)))
             if j > i and depth <= 0:
-                if lines[j].rstrip() == "}":
+                if line.rstrip() == "}":
                     return "\n".join(lines[i + 1 : j])
                 return None
         return None
@@ -237,6 +260,20 @@ def fixture_with(staging_export=GOOD_STAGING_EXPORT, shared_line=GOOD_SHARED_LIN
     return text.replace(GOOD_SHARED_LINE, shared_line)
 
 
+def heredoc_fixture(open_line, content, repo_export=True):
+    """The good shape with a heredoc spliced in after `local shared_root
+    staging` (issue #158's mutation), and -- unless repo_export is False --
+    the staging export swapped for a repo-rooted one. The heredoc body is
+    literal text, so for `<<-` a content line may carry leading tabs."""
+    text = GOOD_FIXTURE.replace(
+        "  local shared_root staging",
+        "  local shared_root staging\n  " + open_line + "\n" + content,
+    )
+    if repo_export:
+        text = text.replace(GOOD_STAGING_EXPORT, f'export PDK_ROOT="{REPO_VAR}/.fleet-pdk"')
+    return text
+
+
 def record(ok, msg, detail=""):
     if ok:
         print(f"ok {msg}")
@@ -311,6 +348,45 @@ def self_test():
     ).replace(GOOD_STAGING_EXPORT, f'export PDK_ROOT="{REPO_VAR}/.fleet-pdk"')
     ok, out = check_fixture("stray-brace truncation", truncated, False)
     record(ok, "fixture: a stray } truncating the body hides no repo-rooted export", out)
+
+    # Issue #158: a heredoc body is a string literal, not shell; its braces
+    # are data and must never move the depth that finds the function's `}`.
+    # Each repo-rooted-export case must fail *with the ${REPO_ROOT} message*,
+    # proving the export was judged rather than the body merely truncated.
+    ok, out = check_fixture(
+        "balanced heredoc",
+        heredoc_fixture("cat <<'EOF'", "{\n}\nEOF"),
+        False,
+    )
+    record(ok and REPO_VAR in out, "fixture: a balanced {/} heredoc still fails on the repo-rooted export", out)
+
+    ok, out = check_fixture(
+        "unbalanced heredoc, quoted",
+        heredoc_fixture("cat <<'EOF'", "}\nEOF"),
+        False,
+    )
+    record(ok and REPO_VAR in out, "fixture: a bare } in a <<'EOF' heredoc truncates nothing; the repo-rooted export fails", out)
+
+    ok, out = check_fixture(
+        "unbalanced heredoc, unquoted",
+        heredoc_fixture("cat <<EOF", "}\nEOF"),
+        False,
+    )
+    record(ok and REPO_VAR in out, "fixture: a bare } in an unquoted-<<EOF heredoc truncates nothing; the repo-rooted export fails", out)
+
+    ok, out = check_fixture(
+        "dash heredoc, tab-indented",
+        heredoc_fixture("cat <<-EOF", "\t}\n\tEOF"),
+        False,
+    )
+    record(ok and REPO_VAR in out, "fixture: <<- with a tab-indented terminator still judges the repo-rooted export", out)
+
+    ok, out = check_fixture(
+        "unterminated heredoc",
+        heredoc_fixture("cat <<'EOF'", "the body keeps going\nand never terminates", repo_export=False),
+        False,
+    )
+    record(ok, "fixture: a heredoc that never terminates fails closed", out)
 
     if failures:
         print(f"\n{len(failures)} self-test case(s) failed: {failures}")
