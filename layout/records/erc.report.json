@@ -8,7 +8,7 @@
   "pdk": null,
   "findings_only": true,
   "gate_role": "poly",
-  "gate_count": 6521,
+  "gate_count": 6469,
   "antenna_tables_omitted": true,
   "gates": [],
   "nets": [
@@ -87,7 +87,7 @@
   "ties_disclosure": null,
   "provenance": {
     "klt_version": "0.8.0",
-    "klayout_version": "0.30.12",
+    "klayout_version": "0.30.13",
     "pdk": null,
     "deck": {
       "name": "sky130",
@@ -95,7 +95,7 @@
       "released": true
     },
     "input": {
-      "content_hash": "sha256:b23e5f6c85c6e8546bce2b5d4d6c7c38521c692e2f3603dba368e126aecd57d6",
+      "content_hash": "sha256:dcae5cc3dff52094515113ff5cf8a47e5e5807b4024992bdd9df53a93c9113fa",
       "role": "layout"
     },
     "spec": {
@@ -107,12 +107,12 @@
       {
         "name": "li1",
         "label_layer": "67/5",
-        "label_text_count": 15837
+        "label_text_count": 15926
       },
       {
         "name": "met1",
         "label_layer": "68/5",
-        "label_text_count": 24728
+        "label_text_count": 23352
       },
       {
         "name": "met3",
@@ -127,10 +127,10 @@
     ]
   },
   "compact": {
-    "gate_count": 6521,
-    "antenna_levels_skipped": 39126,
-    "antenna_reference_levels": 6521,
-    "floating_gate_checked": 6521,
+    "gate_count": 6469,
+    "antenna_levels_skipped": 38814,
+    "antenna_reference_levels": 6469,
+    "floating_gate_checked": 6469,
     "skipped_reason": "findings_only"
   }
 }
