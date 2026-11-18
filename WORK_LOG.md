@@ -5,6 +5,8 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-11-18
 
+- **PR #168**: docs: remove un-closed Issue #101 entry from WORK_LOG
+- **Issue #167** (closed): WORK_LOG.md: the pre-#166 Issue #101 entry lacks (closed) and truncates the title, leaving #101 logged twice
 - **Issue #101** (closed): Share the tap delay line: hr_dq_out and hr_rd_capture build the same 16-cell chain twice
 - **PR #164**: fix: match backslash-escaped heredoc delimiters in check_pdk_root
 - **Issue #162** (closed): check_pdk_root.py: a backslash-escaped heredoc delimiter (cat << EOF) still truncates the ensure_pdk body
