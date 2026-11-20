@@ -19,9 +19,11 @@ requires the ngspice characterization; this is spec open question (a)'s own
 "arcs … only at a corner subset" branch.
 
 This record is the committed, reproducible form of that experiment. Tool
-output per session is committed next to this file (`opensta-*.log`), and the
-failed attempt to drive the experiment through the pinned `klt sta` is
-committed under `klt-0.8.0-attempt/` (see [Tool gap](#tool-gap-klt-080)).
+output per session is committed next to this file (`opensta-*.log`), the
+failed attempt to drive the experiment through the pinned `klt sta` 0.8.0 is
+committed under `klt-0.8.0-attempt/`, and the 0.9.2 re-run (which closes that
+gap) under `klt-0.9.2-attempt/` (see
+[Tool gap](#tool-gap-klt-sta-080-closed-at-092)).
 
 ## Provenance
 
@@ -30,7 +32,7 @@ committed under `klt-0.8.0-attempt/` (see [Tool gap](#tool-gap-klt-080)).
 | Repo | `2AMLogic/sky130-hyperram-ctrl`, worktree for issue #98 off `origin/main` @ `00633b1` |
 | PDK | open_pdks `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7` at `~/.ciel/sky130A` (the `CIEL_SKY130_VERSION` pin in `scripts/setup-env.sh`) |
 | Engine | `openroad 26Q3-1510-g6cb3f2b704` (its embedded OpenSTA; there is no standalone `sta` binary and the host rules forbid installing one) |
-| klt pin | `0.8.0` (`scripts/klt.sh`) |
+| klt pin | `0.8.0` at the experiment (2026-11-14); `0.9.2` as this record is updated (`scripts/klt.sh`) — the 0.9.2 `klt sta` behaviour is committed under `klt-0.9.2-attempt/` |
 | Date | 2026-11-14 |
 | Inventory | `inventory.tsv` (regenerable; command in [Reproducing](#reproducing)) |
 
@@ -221,27 +223,30 @@ must pick its load deliberately with the sibling I/O ring.
    ever mistaken for a timing result.
 3. **Unpairable corner** (`ff_n40C_1v95` has no in-window pad liberty):
    the mechanism that was supposed to reject it — a per-corner `macros.lib`
-   map keyed on the core corner with a missing key erroring out — **does not
-   exist in the pinned `klt` 0.8.0** (see Tool gap), so there is no rejection
-   to observe at the pin; the request in `sta-request.json` deliberately
-   includes `ff_n40C_1v95` in `pdk.corners` with no `lib` entry for it. What
-   actually happens is worse than a substitution: the tool never reaches
-   timing at all (it fails at link, and it would silently ignore the whole
-   `macros` field if link had passed). The labelled `ff` comparison above is
-   the honest stand-in for "what a fast edge would look like".
+   map keyed on the core corner with a missing key erroring out — **did not
+   exist in the pinned `klt` 0.8.0** (see Tool gap), so at that pin there was
+   no rejection to observe; the request in `sta-request.json` deliberately
+   includes `ff_n40C_1v95` in `pdk.corners` with no `lib` entry for it. At
+   the 0.8.0 pin the tool never reached timing at all (it failed at link,
+   and it silently ignored the whole `macros` field). **At the 0.9.2 pin the
+   designed rejection fires**: the request is refused naming the macro, the
+   corner, and the keys that are available (committed in
+   `klt-0.9.2-attempt/error-probe3-missing-ff-lib.stderr.json`). The
+   labelled `ff` comparison above remains the honest stand-in for "what a
+   fast edge would look like".
 
-## Tool gap: `klt sta` 0.8.0
+## Tool gap: `klt sta` 0.8.0 (closed at 0.9.2)
 
-**The pinned `klt sta` cannot drive this experiment, and the gap is worse
-than a clean refusal — the unsupported field is silently ignored.** Committed
-evidence: `sta-request.json` (the request as written, using the documented
-`macros: [{name, lef, lib: {<core-corner>: <pad-liberty>}}]` shape) and
-`klt-0.8.0-attempt/` (the generated engine script, the engine stderr —
-empty, because OpenROAD wrote its `ORD-*` diagnostics to stdout, which was
-not captured — and the invocation record).
+**At the 0.8.0 pin, `klt sta` could not drive this experiment, and the gap
+was worse than a clean refusal — the unsupported field was silently
+ignored.** Committed evidence: `sta-request.json` (the request as written,
+using the documented `macros: [{name, lef, lib: {<core-corner>:
+<pad-liberty>}}]` shape) and `klt-0.8.0-attempt/` (the generated engine
+script, the engine stderr — empty, because OpenROAD wrote its `ORD-*`
+diagnostics to stdout, which was not captured — and the invocation record).
 
-Observed on the pinned wheel (checked in the 0.8.0 wheel contents
-themselves, not inferred from the failure alone):
+Observed on the 0.8.0 wheel (checked in the wheel contents themselves, not
+inferred from the failure alone):
 
 1. `klt sta` 0.8.0 reads **exactly one liberty** per session
    (`pdk.cell_library` at `pdk.corner`/`pdk.corners`) — there is no field to
@@ -260,26 +265,67 @@ themselves, not inferred from the failure alone):
    and only the (empty) stderr was captured there.
 3. The per-corner `lib` map's documented property — "a `lib` map with no
    entry for the corner being analysed is a request error, not a silent
-   fallback" — cannot hold at this pin, because the map itself is ignored;
-   the missing-entry rejection (and any per-corner pairing) arrives only
-   with a version that implements the field. (`macros[].lib` does exist in
-   `klt` 0.9.2-dev builds; the repo pin is 0.8.0 and `scripts/klt.sh` is the
-   one pin.)
+   fallback" — could not hold at that pin, because the map itself was
+   ignored.
 
-**A `2AMLogic/klayout-tools` issue has been filed for this gap**
-([klayout-tools#5748](https://github.com/2AMLogic/klayout-tools/issues/5748),
-generic form: "`klt sta` cannot load a second liberty/LEF for a macro/IP
-cell, and unknown top-level request fields are silently ignored instead of
-rejected"), so consumers of this record know the pin cannot run it and the
-tool can close the gap. Until the pin moves, `sim/pad-sta/run-opensta.sh` (the
-committed OpenROAD session driver, exactly the fallback the issue named) is
-this record's reproduction path.
+**The gap is closed at the 0.9.2 pin** (the repo pin since the #170 bump,
+2026-11-20; `macros` support is klayout-tools#2635 — the gap issue
+[klayout-tools#5748](https://github.com/2AMLogic/klayout-tools/issues/5748)
+had already been closed as not planned on 2026-11-16, so it was never the
+tracking issue for the fix). `klt sta` 0.9.2 reads and validates `macros[]`
+and rejects loudly; the re-run is committed under `klt-0.9.2-attempt/` as
+four successive probes of the standing `sta-request.json`:
+
+1. **The request as committed is rejected at validation**
+   (`error-probe1-as-committed.stderr.json`): `request.macros[0].lef not
+   found: ../../.ciel/...` — the relative `lef` path resolves against the
+   request's directory to `<repo-root>/.ciel`, which does not exist in any
+   checkout. At 0.8.0 this latent path bug was invisible: the field was
+   never read.
+2. **The `lef` made absolute (a probe variant) is rejected again**
+   (`error-probe2-abslef.stderr.json`): the shipped
+   `sky130_fd_io.lef` is a 32-cell library LEF, and `macros[].lef` must
+   declare **exactly one MACRO**. The pinned PDK ships no per-cell
+   `sky130_fd_io` LEF (only `sky130_fd_io.lef` and the 39-macro
+   `sky130_ef_io.lef`), so a single-macro view has to be derived: the
+   committed `top_gpiov2.macro.lef` is the `sky130_fd_io__top_gpiov2` MACRO
+   block extracted verbatim (awk `/^MACRO sky130_fd_io__top_gpiov2$/,
+   /^END sky130_fd_io__top_gpiov2$/` plus `END LIBRARY`) from the shipped
+   `sky130_fd_io.lef`
+   (sha256 `448b07e84ff763d7a22d7f54c892449965866385f7acb555d2d657e69c15b2ca`).
+3. **The designed rejection fires**
+   (`error-probe3-missing-ff-lib.stderr.json`): with the single-macro LEF,
+   the request is refused with exactly the documented semantics — *"declares
+   a liberty for ss_100C_1v60, tt_025C_1v80 but nothing for corner
+   'ff_n40C_1v95' (and no 'default' entry)"* — naming the macro, the
+   missing corner and the available keys, never a silent fallback. This is
+   the observable the negative control above was designed around.
+4. **With the map completed by a `default` entry, the request runs to
+   completion** (`response-probe4-default.json`, status `ok`, all three
+   corners `constrained`; the per-corner engine scripts are in
+   `generated-scripts/`, each `read_liberty`-ing the corner's pad liberty
+   and `read_lef`-ing the macro LEF before `link_design`). The `default`
+   entry here substitutes the 5.5 V-class `ff_ff_n40C_1v95_5v50` liberty
+   for the ff corner — the same **labelled out-of-window substitution** as
+   `opensta-ff-oow-10pf.log` above, not a decision-0002 corner; its slack
+   numbers are that comparison's shape, not an in-window result.
+
+What did not change: the PDK still ships no in-window fast pad liberty, so
+no runnable request can pair the `ff_n40C_1v95` core corner with an
+in-window pad liberty — that is a PDK property (the corner-coverage result
+above), not a tool gap. `run-opensta.sh` therefore stays this record's
+reproduction path: it regenerates the committed per-load session logs and
+the two negative-control sessions (`opensta-nolib*.log`), which the request
+schema does not express. No new klayout-tools issue is needed — the tool
+now does what its docs promise.
 
 ## Why not the other paths
 
-- *Hand-written OpenROAD Tcl* — is what `run-opensta.sh` now is, by
-  necessity; it produces committed per-session logs, though not `klt`'s
-  response schema/provenance envelope.
+- *Hand-written OpenROAD Tcl* — is what `run-opensta.sh` is (at the 0.8.0
+  pin, by necessity; at 0.9.2 by continuity); it produces committed
+  per-session logs, though not `klt`'s response schema/provenance envelope.
+  The 0.9.2 probe run (`klt-0.9.2-attempt/response-probe4-default.json`)
+  shows the `klt`-driven form.
 - *Standalone OpenSTA* — not installed; host rules forbid installing it.
   "Loaded in OpenSTA" here means OpenROAD's embedded OpenSTA.
 - *`klt place-and-route` then STA* — N placements for N corners is a sweep

@@ -16,7 +16,7 @@
   `klt` pin regenerates it in the same PR:
 
   ```
-  uvx --from klayout-tools==0.8.0 klt signoff \
+  uvx --from klayout-tools==0.9.2 klt signoff \
       --manifest manifests/sky130-hyperram-ctrl.json \
       --tiers-doc manifests/design-evidence-tiers.md \
       --format json > manifests/sky130-hyperram-ctrl.signoff.json
@@ -25,13 +25,13 @@
   Exit 3 (grader ran, some item unmet) is expected and accepted.
 - **`design-evidence-tiers.md`**: vendored from
   [klayout-tools](https://github.com/2AMLogic/klayout-tools)
-  `docs/design-evidence-tiers.md` at tag `v0.8.0`
-  (commit `c572046be644e0407f693f2410f3abb799d68a3a`). Its license is
+  `docs/design-evidence-tiers.md` at tag `v0.9.2`
+  (commit `046ba74652fc096bd97071fc3237f7159dd40183`). Its license is
   klayout-tools', not this repo's.
 
 ## klt pin
 
-`klayout-tools==0.8.0`, set in exactly one place: `KLT_VERSION` in
+`klayout-tools==0.9.2`, set in exactly one place: `KLT_VERSION` in
 `scripts/klt.sh`. That script is also the one rule for choosing which `klt`
 runs (the `klt` on `$PATH` when its version is the pin, else `uvx`), and
 `scripts/klt.sh --pin` prints the pin. `scripts/check_ci.sh`,
@@ -67,9 +67,9 @@ rather than left only in the JSON.
 Re-run (about one minute, no PDK needed) and re-check:
 
 ```
-uvx --from klayout-tools==0.8.0 klt drc --deck sky130 --format json \
+uvx --from klayout-tools==0.9.2 klt drc --deck sky130 --format json \
     layout/records/hyperram_ctrl.gds > layout/records/drc.report.json
-uvx --from klayout-tools==0.8.0 klt drc --check layout/records/drc.report.json
+uvx --from klayout-tools==0.9.2 klt drc --check layout/records/drc.report.json
 ```
 
 `make drc` does the same. A clean verdict is bounded by what the deck
@@ -97,11 +97,11 @@ the manifest's `content_hash` (the inventory's hash) and the signoff record
 are refreshed. Any PR touching those files must do all three, in this order:
 
 ```
-uvx --from klayout-tools==0.8.0 klt signoff --attest 10 \
+uvx --from klayout-tools==0.9.2 klt signoff --attest 10 \
     --inventory attest/item10.json -o evidence/item10.json
 # if attest/item10.json changed, update evidence."10".content_hash in the
 # manifest to provenance.input.content_hash of the new envelope, then:
-uvx --from klayout-tools==0.8.0 klt signoff \
+uvx --from klayout-tools==0.9.2 klt signoff \
     --manifest manifests/sky130-hyperram-ctrl.json \
     --tiers-doc manifests/design-evidence-tiers.md \
     --format json > manifests/sky130-hyperram-ctrl.signoff.json

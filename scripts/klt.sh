@@ -2,7 +2,7 @@
 # scripts/klt.sh -- the one klt pin and the one rule for choosing which klt runs.
 #
 #   scripts/klt.sh <args...>   run the pinned klt with <args...>
-#   scripts/klt.sh --pin       print the pinned version ("0.8.0") and exit
+#   scripts/klt.sh --pin       print the pinned version ("0.9.2") and exit
 #
 # Resolution rule (one place, so CI and local runs cannot use different klt
 # builds): use the `klt` on $PATH when its version is exactly the pin -- that
@@ -18,7 +18,7 @@
 # tier doc and the signoff record (see manifests/README.md).
 set -euo pipefail
 
-KLT_VERSION="0.8.0"
+KLT_VERSION="0.9.2"
 
 if [ "${1:-}" = "--pin" ]; then
   printf '%s\n' "${KLT_VERSION}"

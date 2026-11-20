@@ -22,7 +22,7 @@
 #   infra/aws/repo-script-submit.py --source-dir <checkout> --commit <sha> \
 #     --repo 2AMLogic/sky130-hyperram-ctrl --issue 52 --image-profile heavy \
 #     --timeout 7200 --wait-for-capacity 600 \
-#     --pip klayout-tools==0.8.0 --pip ciel==2.6.1 \
+#     --pip klayout-tools==0.9.2 --pip ciel==2.6.1 \
 #     --script scripts/fleet-regen-layout.sh [--shard probe] \
 #     --output sim/hyperram/records --output evidence/item1.json \
 #     --output layout/records --output layout/lvs/records \
@@ -34,7 +34,7 @@
 # It deliberately does NOT call scripts/setup-env.sh: that script hard-fails on
 # missing iverilog/verilator/ngspice, which the layout flow never runs, and the
 # heavy image carries only the synthesis/P&R toolchain. What the flow needs is
-# the pinned klt (0.8.0), an OpenROAD that runs, and the pinned sky130A PDK --
+# the pinned klt (0.9.2), an OpenROAD that runs, and the pinned sky130A PDK --
 # provisioned here from the image's baked PDK when it matches the pin, else
 # fetched with ciel.
 set -euo pipefail
