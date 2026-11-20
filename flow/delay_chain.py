@@ -16,12 +16,15 @@ klt runs through scripts/klt.sh (the pin and the resolution rule). The
 campaign itself is a batch-fleet job submitted with --wait-for-capacity 600
 (never a hand-run ngspice grid: the dispatch hosts forbid it and a hand grid
 would carry no machine-checkable corner provenance). The request sets
-batch.runner_version_check to "warn": the fleet image's runner is NEWER than
-this repo's pinned client (it refused an unqualified submit with the
-runner-side preflight, exit 87), a newer runner cannot silently drop a
-request feature an older one would, and the skew is recorded in the report's
-environment.remote (runner_klt_version vs client_klt_version) and quoted in
-RECORD.md. The derivation is pure;
+batch.runner_version_check to "warn": the fleet image's runner and this
+repo's pinned client can skew in either direction (an unqualified submit
+was once refused with the runner-side preflight, exit 87), so the skew is
+recorded in the report's environment.remote (runner_klt_version vs
+client_klt_version) and quoted in RECORD.md with its direction: a newer
+runner cannot silently drop a request feature an older one would, while a
+newer client could have fields the runner ignores -- which is why the
+report's own environment.runner_compatibility_warning (the tool-side
+check) is quoted alongside when present. The derivation is pure;
 scripts/check_delay_chain_derive.py unit-checks it, including a deliberately
 non-monotonic fixture that must be reported as a failure rather than smoothed
 over. Every corner that returns a measurement error appears in taps.csv as a
@@ -264,11 +267,27 @@ def render_provenance(report):
     amb = f" (also installed via {', '.join(amb)}; client pinned $PDK_ROOT)" if amb else ""
     skew = ""
     if remote.get("runner_klt_version"):
+        runner_v = str(remote.get("runner_klt_version"))
+        client_v = str(remote.get("client_klt_version", "?"))
+        try:
+            newer = "runner" if tuple(int(x) for x in runner_v.split(".")[:3]) > \
+                    tuple(int(x) for x in client_v.split(".")[:3]) else "client"
+        except ValueError:
+            newer = "unknown"
+        if newer == "runner":
+            note = ("the runner is the newer side, so no request feature can "
+                    "be silently dropped")
+        elif newer == "client":
+            note = ("the client is the newer side (the repo pin moved past "
+                    "the fleet image's runner), so a request field only the "
+                    "newer client knows could be silently ignored; the "
+                    "tool-side check is the report's "
+                    "environment.runner_compatibility_warning, empty on this "
+                    "run")
+        else:
+            note = "the newer side could not be determined from the versions"
         skew = (f"- runner/client klt skew (deliberate, runner_version_check=warn): "
-                f"runner {remote.get('runner_klt_version')} vs client "
-                f"{remote.get('client_klt_version', '?')} (the repo pin); the "
-                f"runner is the newer side, so no request feature can be "
-                f"silently dropped")
+                f"runner {runner_v} vs client {client_v} (the repo pin); {note}")
     return "\n".join([
         "## Provenance (from the run's own report)", "",
         f"- engine: ngspice {env.get('engine_version', '?')} "
