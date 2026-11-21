@@ -513,7 +513,7 @@ def sta_note(doc, cells):
         f"- **{unclocked[0] if len(unclocked) == 1 else unclocked} unclocked registers.**"
         f" Every sampled pin is under `u_cap/`, the `hr_rd_capture` instance. That module"
         f" clocks its capture flops off `rwds_d` -- the input strobe after the delay chain"
-        f" -- on both edges, and a `klt sta` request names exactly one `clock_port`, so"
+        f" -- on both edges, and this request constrains exactly one clock port, so"
         f" OpenSTA sees no clock on them. **The read-capture path is unconstrained and"
         f" unreported in this record.**",
         f"- **{endpoints[0] if len(endpoints) == 1 else endpoints} unconstrained"
@@ -521,11 +521,14 @@ def sta_note(doc, cells):
         f" delay or load is set (above).",
         "",
         "Neither is masked. `constraints.false_path_from` would have hidden the capture"
-        " path instead of recording the gap, and the request schema cannot express a"
-        " second or generated clock for `rwds_d` at the pinned klt. Constraining that"
-        " domain is a modelling choice that belongs to the spec (#2); its real delays"
-        " belong to the ngspice delay-chain campaign (#99) and its pad-facing half to"
-        " #98.",
+        f" path instead of recording the gap, and the pinned klt's"
+        f" ({prov['klt_version']}) request schema can declare a second clock port and"
+        " asynchronous clock groups (`constraints.clocks`/`constraints.clock_groups`,"
+        " klayout-tools#4241) but still cannot express a generated clock on `rwds_d`"
+        " -- an internal net, not a port -- so the capture domain stays unconstrained"
+        " here. Constraining that domain is a modelling choice that belongs to the"
+        " spec (#2); its real delays belong to the ngspice delay-chain campaign (#99)"
+        " and its pad-facing half to #98.",
         "",
         f"All {len(cells)} cells yosys left as blackboxes"
         f" ({', '.join('`' + c + '`' for c in cells)}) are defined in the liberty every"

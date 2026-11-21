@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "error": {
+    "command": "sta",
+    "message": "request.macros entry for macro 'sky130_fd_io__top_gpiov2' declares a liberty for ss_100C_1v60, tt_025C_1v80 but nothing for corner 'ff_n40C_1v95' (and no 'default' entry) -- add that corner's macro liberty, or key one entry 'default' to use it at every corner"
+  }
+}

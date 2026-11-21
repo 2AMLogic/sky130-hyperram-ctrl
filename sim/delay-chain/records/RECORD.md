@@ -22,9 +22,9 @@ Result of the `make delay-chain` campaign (decision 0004 ngspice corner set) ove
 ## Provenance (from the run's own report)
 
 - engine: ngspice 47 (engine_host: worker); build banner: ****** ** ngspice-47 : Circuit level simulation program ** Compiled with KLU Direct Linear Solver ** The U. C. Berkeley CAD Group ** Copyright 1985-1994, Regents of the University of California. ** Co
-- batch job(s): klt-sim-7f61c0d68dcf (state: done)
-- runner/client klt skew (deliberate, runner_version_check=warn): runner 0.9.0 vs client 0.8.0 (the repo pin); the runner is the newer side, so no request feature can be silently dropped
-- klt: 0.8.0
+- batch job(s): klt-sim-734d25eaa60f (state: done)
+- runner/client klt skew (deliberate, runner_version_check=warn): runner 0.9.0 vs client 0.9.2 (the repo pin); the client is the newer side (the repo pin moved past the fleet image's runner), so a request field only the newer client knows could be silently ignored; the tool-side check is the report's environment.runner_compatibility_warning, empty on this run
+- klt: 0.9.2
 - PDK: open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7 (also installed via search root: ~/.volare; client pinned $PDK_ROOT); models_lib: external (sha256 17c208a699228f5acb87bf59c09c22a4c4d3937b6766b4957737d34e8e075f64)
 
 ## Assumptions (stated, per AC1)

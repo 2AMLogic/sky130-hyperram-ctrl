@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "error": {
+    "command": "sta",
+    "message": "request.macros[0].lef not found: ../../.ciel/sky130A/libs.ref/sky130_fd_io/lef/sky130_fd_io.lef"
+  }
+}

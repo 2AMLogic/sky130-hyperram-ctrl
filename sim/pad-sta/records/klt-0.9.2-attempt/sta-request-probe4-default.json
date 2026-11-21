@@ -1,0 +1,29 @@
+{
+  "verilog": "/home/ubuntu/GitHub/sky130-hyperram-ctrl/.loom/worktrees/issue-170/sim/pad-sta/records/padwrap.v",
+  "hdl_toplevel": "padwrap",
+  "pdk": {
+    "cell_library": "sky130_fd_sc_hd",
+    "corners": [
+      "tt_025C_1v80",
+      "ss_100C_1v60",
+      "ff_n40C_1v95"
+    ]
+  },
+  "constraints": {
+    "clock_port": "clk",
+    "clock_period_ns": 20.0,
+    "input_delay_ns": 0.0,
+    "output_delay_ns": 0.0
+  },
+  "macros": [
+    {
+      "name": "sky130_fd_io__top_gpiov2",
+      "lef": "/home/ubuntu/GitHub/sky130-hyperram-ctrl/.loom/worktrees/issue-170/sim/pad-sta/records/klt-0.9.2-attempt/top_gpiov2.macro.lef",
+      "lib": {
+        "tt_025C_1v80": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_io/lib/sky130_fd_io__top_gpiov2_tt_tt_025C_1v80_3v30.lib",
+        "ss_100C_1v60": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_io/lib/sky130_fd_io__top_gpiov2_ss_ss_100C_1v60_3v00.lib",
+        "default": "/home/ubuntu/.ciel/sky130A/libs.ref/sky130_fd_io/lib/sky130_fd_io__top_gpiov2_ff_ff_n40C_1v95_5v50.lib"
+      }
+    }
+  ]
+}

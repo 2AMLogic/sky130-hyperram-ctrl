@@ -31,7 +31,7 @@
         "role": "testbench",
         "path": "verification/README.md",
         "passed": true,
-        "content_hash": "sha256:e3615f608f474017c3e3ff212fedd03fc89f30da14667a206d3138061a800a81"
+        "content_hash": "sha256:e29ec2f60c58bc714bdc9b9d37970ecbb14d0a422cb2a8c7b0f8c4a77527a2e9"
       },
       {
         "check": "present",
@@ -195,14 +195,14 @@
         "value": {
           "cocotb": "2.0.1",
           "icarus": "13.0",
-          "klayout-tools": "0.8.0",
+          "klayout-tools": "0.9.2",
           "yosys": "0.68.0.0.post1208"
         }
       }
     ]
   },
   "provenance": {
-    "klt_version": "0.8.0",
+    "klt_version": "0.9.2",
     "klayout_version": null,
     "pdk": null,
     "deck": null,
@@ -211,7 +211,7 @@
         "path": "attest/item9.json",
         "scope": "repo"
       },
-      "content_hash": "sha256:3588a2ffb894dd808039ee93a2f4e17517cd05a53950ebf40926821f1530158c"
+      "content_hash": "sha256:6d40239a82033ed0d374146a10adc509c962c8407cb989ad895ab7835bec84b1"
     }
   }
 }

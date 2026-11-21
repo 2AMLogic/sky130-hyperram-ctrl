@@ -12,7 +12,7 @@ Status as of 2026-11-15, `main` @ `aacd7a7`.
 
 The verdict of record is
 [`manifests/sky130-hyperram-ctrl.signoff.json`](../manifests/sky130-hyperram-ctrl.signoff.json)
-(`klt signoff`, klayout-tools 0.8.0): `tier: null`, **7 of 11** T1 items `met`,
+(`klt signoff`, klayout-tools 0.9.2): `tier: null`, **7 of 11** T1 items `met`,
 all graded against a **draft** spec, so every verdict is provisional.
 
 | Item | State | Evidence, or what is missing |
