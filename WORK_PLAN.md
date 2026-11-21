@@ -4,7 +4,7 @@ Roadmap generated from GitHub label state by the Guide triage role.
 Only the region between the markers is machine-generated.
 
 <!-- guide:plan-body:start -->
-_Generated: 2026-11-18T23:03:00Z (snapshot; compare against live labels)_
+_Generated: 2026-11-20T20:08:30Z (snapshot; compare against live labels)_
 ## Operator Attention: Merge-Risk-Hold Pileup
 
 Judge-approved PRs under a hold (`loom:blocked` or `loom:operator`) — only a human merge decision is missing.
@@ -53,6 +53,7 @@ Issues carrying `loom:curated`.
 
 - **#2**: Draft and ratify the target spec *(curated)* *(held)*
 - **#5**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
+- **#170**: Bump the klayout-tools pin 0.8.0 -> 0.9.2 and regenerate the records and signoff render under it *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -78,7 +79,7 @@ _None._
 | In Progress (`loom:building`) | 0 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 2 |
+| Curated | 3 |
 | Architect / Hermit proposals | 6 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
