@@ -33,17 +33,96 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:fb4abbf736b1abdf5ca8a38e5f73390fc281addfa1fe4a7c1d3e745ed334e4f9",
+        "content_hash": "sha256:6f1d7dff8e22b8025844f5ef194083fca8ccbbc0884ba3dedc8458fb4ef5df09",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
           "t1_item": 1,
-          "path": {
-            "path": "attest/item1.json",
-            "scope": "repo"
-          },
-          "content_hash": "sha256:fb4abbf736b1abdf5ca8a38e5f73390fc281addfa1fe4a7c1d3e745ed334e4f9",
+          "path": null,
+          "content_hash": "sha256:6f1d7dff8e22b8025844f5ef194083fca8ccbbc0884ba3dedc8458fb4ef5df09",
           "input_verified": true,
+          "members": [
+            {
+              "path": {
+                "path": "attest/item1.json",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:fb4abbf736b1abdf5ca8a38e5f73390fc281addfa1fe4a7c1d3e745ed334e4f9",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "flow/synthesize-hyperram.json",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:e1a9e9cc56a430f8e4ece38a819fc7c4d1c2eeac83003214c9664fdbb7ab3c49",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "rtl/hyperram_ctrl/hr_cmd_fsm.v",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:9d8d347b9497b68cb9e632b033b507ccc11dd97bc72262f3b8a20eb1aabe2dcd",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "rtl/hyperram_ctrl/hr_dq_out.v",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:7d64bb959fa25600679c796b3955ee8bd7d76683985ec2189eed90282afe4b53",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "rtl/hyperram_ctrl/hr_rd_capture.v",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:d48032b78b278e155472aed5afc26cadb6d9401a1bb1fb80a856f8efc7f5d337",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "rtl/hyperram_ctrl/hr_tap_delay.v",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:a6f6272732655095426d0d3df6fc87424ccdd27227aecfb1da5b29c0728e8029",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "rtl/hyperram_ctrl/hyperram_ctrl.v",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:ab9f1580785366e1d90915e15bd58635bb15f06b68c9ab40bf74d1e8e8c3dbfa",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "rtl/hyperram_ctrl/sim/sky130_cells_behav.v",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:d358d263ef7b4072a00e8315423832ebafc542fdfb6f614ca552536f66df0d38",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "rtl/hyperram_ctrl/synth/sky130_cells_bb.v",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:73f6e3049f91a1c66cfc48c4786c3879eac4de99d6120bdd80fe981c4b7c3e11",
+              "status": "verified"
+            },
+            {
+              "path": {
+                "path": "sim/hyperram/records/hyperram_ctrl.netlist.v",
+                "scope": "repo"
+              },
+              "content_hash": "sha256:0f03005ab04a2fc45365680d543d13e1742a8e4288228c28eb279b0b94e463d7",
+              "status": "verified"
+            }
+          ],
           "summary": "T1 item 1 (Design sources): 10/10 attestation checks passed (klt signoff --attest)",
           "source": "attest/item1.json",
           "attestation": {
@@ -70,7 +149,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:a99f532488cfd59ec1137567f4bcc44292a30196cf0e08daa3e3514c6d398d32",
+        "content_hash": "sha256:ed95e8b575ec52c9a0664a996074a70647338f4e1620f621ea62fe182a1750fc",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -79,7 +158,7 @@
             "path": "layout/records/hyperram_ctrl.gds",
             "scope": "repo"
           },
-          "content_hash": "sha256:a99f532488cfd59ec1137567f4bcc44292a30196cf0e08daa3e3514c6d398d32",
+          "content_hash": "sha256:ed95e8b575ec52c9a0664a996074a70647338f4e1620f621ea62fe182a1750fc",
           "input_verified": true,
           "summary": "T1 item 2 (Layout): routed GDS from klt place-and-route (stage route, power.pdn true, tapcell sky130_fd_sc_hd__tapvpwrvgnd_1) of the item-1 netlist; request layout/place-and-route.json",
           "source": "layout/records/place-and-route.response.json"
@@ -101,7 +180,7 @@
         "command": null,
         "kind": "drc",
         "check_status": "clean",
-        "content_hash": "sha256:a99f532488cfd59ec1137567f4bcc44292a30196cf0e08daa3e3514c6d398d32",
+        "content_hash": "sha256:ed95e8b575ec52c9a0664a996074a70647338f4e1620f621ea62fe182a1750fc",
         "input_verified": true,
         "exit_status": 0,
         "coverage": {
@@ -218,7 +297,7 @@
         "command": null,
         "kind": "lvs",
         "check_status": "match",
-        "content_hash": "sha256:98928c9f348c3a4716cd819f9f7c4438683586c42445e16d650f94f557a459a7",
+        "content_hash": "sha256:a0a4b1c39854964effc5471be5a7d5421f74ebd8d2d80f4df77f67b780d6ac93",
         "input_verified": true,
         "exit_status": 0
       }
@@ -370,7 +449,7 @@
         "command": null,
         "kind": "erc",
         "check_status": "not_checked",
-        "content_hash": "sha256:a99f532488cfd59ec1137567f4bcc44292a30196cf0e08daa3e3514c6d398d32",
+        "content_hash": "sha256:ed95e8b575ec52c9a0664a996074a70647338f4e1620f621ea62fe182a1750fc",
         "input_verified": true,
         "exit_status": 0,
         "parts": [
@@ -379,7 +458,7 @@
             "command": null,
             "kind": "erc",
             "check_status": "not_checked",
-            "content_hash": "sha256:a99f532488cfd59ec1137567f4bcc44292a30196cf0e08daa3e3514c6d398d32",
+            "content_hash": "sha256:ed95e8b575ec52c9a0664a996074a70647338f4e1620f621ea62fe182a1750fc",
             "input_verified": true,
             "exit_status": 0
           },
@@ -388,7 +467,7 @@
             "command": null,
             "kind": "lvs",
             "check_status": "match",
-            "content_hash": "sha256:98928c9f348c3a4716cd819f9f7c4438683586c42445e16d650f94f557a459a7",
+            "content_hash": "sha256:a0a4b1c39854964effc5471be5a7d5421f74ebd8d2d80f4df77f67b780d6ac93",
             "input_verified": true,
             "exit_status": 0
           },
@@ -397,7 +476,7 @@
             "command": null,
             "kind": "place-and-route",
             "check_status": "ok",
-            "content_hash": "sha256:5ea579ba0640d6d73dc84e04e410a889b0588b313785f2697c4f4cfbc38a9f64",
+            "content_hash": "sha256:0f03005ab04a2fc45365680d543d13e1742a8e4288228c28eb279b0b94e463d7",
             "input_verified": null,
             "exit_status": 0
           }
@@ -420,7 +499,11 @@
           "ties_checked_by_well_assertion": [
             "erc.missing_tie:[\"psub_tap_vgnd\"]"
           ],
-          "supply_unlabelled_islands": {}
+          "supply_unlabelled_islands": {},
+          "substrate_continuity": {
+            "checked": true,
+            "by_assertion": false
+          }
         }
       }
     },

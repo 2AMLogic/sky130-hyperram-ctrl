@@ -31,7 +31,7 @@
         "role": "testbench",
         "path": "verification/README.md",
         "passed": true,
-        "content_hash": "sha256:c2433a887608c2694603044bd45cf9533bce7eed9f56743d02bf41bb56be7a5f"
+        "content_hash": "sha256:e29ec2f60c58bc714bdc9b9d37970ecbb14d0a422cb2a8c7b0f8c4a77527a2e9"
       },
       {
         "check": "present",

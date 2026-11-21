@@ -111,7 +111,7 @@ real cell functions. Zero delay: no timing claim (SDF re-run is item 7).
   (absolute PDK model paths, since klt expands no variables; edit them if the
   PDK lives elsewhere). Its report is
   `sim/hyperram/records/functional-verification-ctrl-gl.report.json`, with the
-  `inputs` block (netlist sha256 `038c7e9a…`, PDK model hashes) added by hand.
+  `inputs` block (netlist sha256 `0f03005a…`, PDK model hashes) added by hand.
   Neither file is in `attest/item9.json`.
 
 ## What these benches do and do not claim

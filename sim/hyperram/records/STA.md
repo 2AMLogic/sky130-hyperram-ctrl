@@ -3,8 +3,8 @@
 `make hyperram-sta` -> [`sta.json`](sta.json), the unmodified `klt sta` response.
 Request: [`flow/sta-hyperram.json`](../../../flow/sta-hyperram.json) -- `clk` at 20.0 ns (50 MHz, spec/target-spec.md row 1's target, not the 100 MHz stretch), 16 corners in one round trip.
 
-- Netlist: `sim/hyperram/records/hyperram_ctrl.netlist.v`, sha256:5ea579ba0640d6d73dc84e04e410a889b0588b313785f2697c4f4cfbc38a9f64.
-- Engine: openroad 26Q4-1310-g98c6045c72; klt 0.8.0; PDK open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7.
+- Netlist: `sim/hyperram/records/hyperram_ctrl.netlist.v`, sha256:0f03005ab04a2fc45365680d543d13e1742a8e4288228c28eb279b0b94e463d7.
+- Engine: openroad 26Q4-1310-g98c6045c72; klt 0.9.2; PDK open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7.
 - `hyperram_ctrl`, status `ok`, `geometry_source: netlist_estimate`.
 
 ## What was assumed
@@ -22,14 +22,14 @@ Decision 0004 puts the core supply at 1.8 V +/- 10 %, i.e. 1.62-1.98 V. `make hy
 
 | corner | supply (V) | setup slack (ns) | hold slack (ns) | fmax (MHz) | status |
 |---|---|---|---|---|---|
-| `ff_100C_1v65` | 1.65 | 9.64408 | 0.27604 | 271.845 | constrained |
-| `ff_100C_1v95` | 1.95 | 9.72145 | 0.21974 | 349.256 | constrained |
-| `ff_n40C_1v65` | 1.65 | 9.61458 | 0.27562 | 256.342 | constrained |
-| `ff_n40C_1v76` | 1.76 | 9.66518 | 0.24213 | 297.682 | constrained |
-| `ff_n40C_1v95` | 1.95 | 9.72341 | 0.20407 | 363.35 | constrained |
-| `ss_n40C_1v76` | 1.76 | 9.24029 | 0.519 | 128.852 | constrained |
-| `tt_025C_1v80` | 1.80 | 9.55587 | 0.33121 | 214.138 | constrained |
-| `tt_100C_1v80` | 1.80 | 9.56054 | 0.33955 | 215.878 | constrained |
+| `ff_100C_1v65` | 1.65 | 9.64408 | 0.27604 | 280.6 | constrained |
+| `ff_100C_1v95` | 1.95 | 9.72145 | 0.21974 | 364.291 | constrained |
+| `ff_n40C_1v65` | 1.65 | 9.61458 | 0.27562 | 250.445 | constrained |
+| `ff_n40C_1v76` | 1.76 | 9.66518 | 0.24213 | 293.449 | constrained |
+| `ff_n40C_1v95` | 1.95 | 9.72341 | 0.20407 | 364.402 | constrained |
+| `ss_n40C_1v76` | 1.76 | 9.24029 | 0.519 | 131.404 | constrained |
+| `tt_025C_1v80` | 1.80 | 9.55587 | 0.33121 | 221.529 | constrained |
+| `tt_100C_1v80` | 1.80 | 9.56054 | 0.33955 | 224.929 | constrained |
 
 ## Corners outside it (reported, not graded)
 
@@ -37,25 +37,25 @@ The PDK ships liberty at supplies decision 0004's window excludes. These 8 corne
 
 | corner | supply (V) | setup slack (ns) | hold slack (ns) | fmax (MHz) | status |
 |---|---|---|---|---|---|
-| `ff_n40C_1v56` | 1.56 | 9.55665 | 0.31153 | 221.297 | constrained |
-| `ss_100C_1v40` | 1.40 | 5.88001 | 0.98269 | 70.8216 | constrained |
-| `ss_100C_1v60` | 1.60 | 9.03149 | 0.67759 | 104.819 | constrained |
-| `ss_n40C_1v28` | 1.28 | -17.3491 | 2.00452 | 26.7744 | constrained |
-| `ss_n40C_1v35` | 1.35 | -5.31591 | 1.45077 | 39.5008 | constrained |
-| `ss_n40C_1v40` | 1.40 | -0.36499 | 1.19796 | 49.1039 | constrained |
-| `ss_n40C_1v44` | 1.44 | 2.49099 | 1.05445 | 57.1134 | constrained |
-| `ss_n40C_1v60` | 1.60 | 8.9227 | 0.69001 | 92.1626 | constrained |
+| `ff_n40C_1v56` | 1.56 | 9.55665 | 0.31153 | 214.746 | constrained |
+| `ss_100C_1v40` | 1.40 | 6.58385 | 0.98269 | 74.5371 | constrained |
+| `ss_100C_1v60` | 1.60 | 9.03149 | 0.67759 | 110.066 | constrained |
+| `ss_n40C_1v28` | 1.28 | -17.9418 | 2.00452 | 26.3561 | constrained |
+| `ss_n40C_1v35` | 1.35 | -5.52991 | 1.45077 | 39.1697 | constrained |
+| `ss_n40C_1v40` | 1.40 | -0.43424 | 1.19796 | 48.9375 | constrained |
+| `ss_n40C_1v44` | 1.44 | 2.56021 | 1.05445 | 57.3401 | constrained |
+| `ss_n40C_1v60` | 1.60 | 8.9227 | 0.69001 | 93.0207 | constrained |
 
 ## What was not timed
 
 `constraint_completeness` is `incomplete` at every corner and the target does not gate on it. The counts are identical across all 16 corners:
 
-- **143 unclocked registers.** Every sampled pin is under `u_cap/`, the `hr_rd_capture` instance. That module clocks its capture flops off `rwds_d` -- the input strobe after the delay chain -- on both edges, and a `klt sta` request names exactly one `clock_port`, so OpenSTA sees no clock on them. **The read-capture path is unconstrained and unreported in this record.**
+- **143 unclocked registers.** Every sampled pin is under `u_cap/`, the `hr_rd_capture` instance. That module clocks its capture flops off `rwds_d` -- the input strobe after the delay chain -- on both edges, and this request constrains exactly one clock port, so OpenSTA sees no clock on them. **The read-capture path is unconstrained and unreported in this record.**
 - **341 unconstrained endpoints** -- the design's output ports and `cfg_rdata`, since no output delay or load is set (above).
 
-Neither is masked. `constraints.false_path_from` would have hidden the capture path instead of recording the gap, and the request schema cannot express a second or generated clock for `rwds_d` at the pinned klt. Constraining that domain is a modelling choice that belongs to the spec (#2); its real delays belong to the ngspice delay-chain campaign (#99) and its pad-facing half to #98.
+Neither is masked. `constraints.false_path_from` would have hidden the capture path instead of recording the gap, and the pinned klt's (0.9.2) request schema can declare a second clock port and asynchronous clock groups (`constraints.clocks`/`constraints.clock_groups`, klayout-tools#4241) but still cannot express a generated clock on `rwds_d` -- an internal net, not a port -- so the capture domain stays unconstrained here. Constraining that domain is a modelling choice that belongs to the spec (#2); its real delays belong to the ngspice delay-chain campaign (#99) and its pad-facing half to #98.
 
-All 3 cells yosys left as blackboxes (`sky130_fd_sc_hd__dlclkp_1`, `sky130_fd_sc_hd__dlygate4sd3_1`, `sky130_fd_sc_hd__mux2_1`) are defined in the liberty every corner read, so the delay chain is timed with real cell delays rather than as zero delay. `make hyperram-sta` fails if that is ever untrue.
+All 0 cells yosys left as blackboxes () are defined in the liberty every corner read, so the delay chain is timed with real cell delays rather than as zero delay. `make hyperram-sta` fails if that is ever untrue.
 
 ## What this does not prove
 

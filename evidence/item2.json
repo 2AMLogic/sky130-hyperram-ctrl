@@ -6,7 +6,9 @@
   "summary": "T1 item 2 (Layout): routed GDS from klt place-and-route (stage route, power.pdn true, tapcell sky130_fd_sc_hd__tapvpwrvgnd_1) of the item-1 netlist; request layout/place-and-route.json",
   "source": "layout/records/place-and-route.response.json",
   "provenance": {
-    "klt_version": "0.8.0",
+    "klt_version": "0.9.2",
+    "klt_git_commit": "046ba74652fc096bd97071fc3237f7159dd40183",
+    "klt_reinstall_spec": "klayout-tools==0.9.2",
     "klayout_version": "0.30.13",
     "pdk": {
       "name": "sky130A",
@@ -18,8 +20,8 @@
       "content_hash": "sha256:8e78e14442062dba34d414fca6490b2f6b96038d4510d1438ca44fee31487135",
       "released": false,
       "path": {
-        "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib",
-        "scope": "repo"
+        "path": null,
+        "scope": "external"
       }
     },
     "input": {
@@ -27,7 +29,7 @@
         "path": "layout/records/hyperram_ctrl.gds",
         "scope": "repo"
       },
-      "content_hash": "sha256:a99f532488cfd59ec1137567f4bcc44292a30196cf0e08daa3e3514c6d398d32"
+      "content_hash": "sha256:ed95e8b575ec52c9a0664a996074a70647338f4e1620f621ea62fe182a1750fc"
     }
   }
 }
