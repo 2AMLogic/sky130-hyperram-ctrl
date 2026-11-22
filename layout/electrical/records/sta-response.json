@@ -30,7 +30,7 @@
     },
     "deck": null,
     "input": {
-      "content_hash": "sha256:8e96c63781bd3c7c93257f3d5b39ba0031db317b1dd1cc63ba6c47d24a8e89b1",
+      "content_hash": "sha256:a25188f95f9f85651a42ed9c6b181b229a9deb15c9daa3cb04ca6a4f142102a7",
       "role": "layout"
     }
   },
@@ -38,13 +38,13 @@
     {
       "corner": "ff_100C_1v65",
       "engine_log": {
-        "invocation_id": "d0ba87d2b42444138aea283a8d48b060",
+        "invocation_id": "a4434fa12d164071bebb99aa3d4f3063",
         "script_name": "sta_hyperram_ctrl__ff_100C_1v65.tcl",
         "script_path": {
           "path": "layout/electrical/.klt/sta/sta_hyperram_ctrl__ff_100C_1v65.tcl",
           "scope": "repo"
         },
-        "script_sha256": "1691625dead33648bb5da47ef4407dbe4a9f4f7aca851f7e63ea376a6a813814",
+        "script_sha256": "c155e527bae59a6806f76a8d8bda8f0bd6366bff2f03c51d71985817e1802e0e",
         "metrics_path": {
           "path": "layout/electrical/.klt/sta/hyperram_ctrl__ff_100C_1v65_metrics.json",
           "scope": "repo"
@@ -52,28 +52,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/d0ba87d2b42444138aea283a8d48b060",
+          "path": "layout/electrical/.klt/sta/openroad-logs/a4434fa12d164071bebb99aa3d4f3063",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/d0ba87d2b42444138aea283a8d48b060/stdout.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/a4434fa12d164071bebb99aa3d4f3063/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/d0ba87d2b42444138aea283a8d48b060/stderr.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/a4434fa12d164071bebb99aa3d4f3063/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/d0ba87d2b42444138aea283a8d48b060/invocation.json",
+          "path": "layout/electrical/.klt/sta/openroad-logs/a4434fa12d164071bebb99aa3d4f3063/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": 9.6325,
+      "worst_slack_ns": 9.62999,
       "total_negative_slack_ns": 0,
-      "worst_hold_slack_ns": 0.28484,
+      "worst_hold_slack_ns": 0.28448,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 236.208,
+      "fmax_mhz": 238.814,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -143,7 +143,7 @@
         "engine_check_role": "setup",
         "startpoint": "u_out/_47_/Q",
         "endpoint": "u_out/_27_/D",
-        "slack_ns": 9.6325,
+        "slack_ns": 9.62999,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -151,14 +151,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_937_/Q",
-        "endpoint": "u_cap/_941_/D",
-        "slack_ns": 0.28484,
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
+        "slack_ns": 0.28448,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.34958,
-      "estimated_power_mw": 2.7418,
+      "clock_skew_ns": 0.27449,
+      "estimated_power_mw": 2.9154,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -166,10 +166,10 @@
         "parasitics": "spef_annotated"
       },
       "spef_annotation": {
-        "nets_annotated": 2416,
-        "nets_total": 2416,
-        "design_nets_annotated": 2416,
-        "design_nets_total": 2434,
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
         "design_nets_missing_sample": [
           "VDD",
           "u_fsm/_0996_",
@@ -192,15 +192,15 @@
         ],
         "reader_warning_count": 1043,
         "reader_warning_sample": [
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 396, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 397, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 398, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 399, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 400, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
         ],
-        "unannotated_driver_count": 239,
+        "unannotated_driver_count": 218,
         "partially_unannotated_driver_count": 7,
-        "floating_driver_count": 90,
+        "floating_driver_count": 69,
         "floating_driver_sample": [
           "clkload0/X",
           "clkload1/Y",
@@ -365,7 +365,7 @@
         ],
         "delay_changed": true,
         "annotation_complete": false,
-        "annotation_warning": "only 2416 of 2434 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
       },
       "electrical_checks": {
         "parasitics_source": "spef",
@@ -373,19 +373,19 @@
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "ns",
-          "violation_count": 34,
-          "net_count": 1,
-          "worst_excess": 0.01908,
-          "worst_pin": "fanout7/X"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         },
         "max_capacitance": {
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "pF",
-          "violation_count": 1,
-          "net_count": 1,
-          "worst_excess": 0.00428,
-          "worst_pin": "fanout7/X"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         }
       },
       "clock_propagation": null,
@@ -403,13 +403,13 @@
     {
       "corner": "ff_100C_1v95",
       "engine_log": {
-        "invocation_id": "bdb814b96454412ca9452f05ba19d662",
+        "invocation_id": "3f8d6dc22c05434b9ebb12ab5f313829",
         "script_name": "sta_hyperram_ctrl__ff_100C_1v95.tcl",
         "script_path": {
           "path": "layout/electrical/.klt/sta/sta_hyperram_ctrl__ff_100C_1v95.tcl",
           "scope": "repo"
         },
-        "script_sha256": "64dbc904fb592f09c694a77652d9e39ed7dc71dc660c2707e2cf2993dc42b0a9",
+        "script_sha256": "f02a9b198a0ea2bd1a49a9572cded363a92da6b92427dc6a6aef219b0217c042",
         "metrics_path": {
           "path": "layout/electrical/.klt/sta/hyperram_ctrl__ff_100C_1v95_metrics.json",
           "scope": "repo"
@@ -417,28 +417,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/bdb814b96454412ca9452f05ba19d662",
+          "path": "layout/electrical/.klt/sta/openroad-logs/3f8d6dc22c05434b9ebb12ab5f313829",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/bdb814b96454412ca9452f05ba19d662/stdout.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/3f8d6dc22c05434b9ebb12ab5f313829/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/bdb814b96454412ca9452f05ba19d662/stderr.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/3f8d6dc22c05434b9ebb12ab5f313829/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/bdb814b96454412ca9452f05ba19d662/invocation.json",
+          "path": "layout/electrical/.klt/sta/openroad-logs/3f8d6dc22c05434b9ebb12ab5f313829/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": 9.71206,
+      "worst_slack_ns": 9.71003,
       "total_negative_slack_ns": 0,
-      "worst_hold_slack_ns": 0.22635,
+      "worst_hold_slack_ns": 0.22608,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 304.363,
+      "fmax_mhz": 307.586,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -508,7 +508,7 @@
         "engine_check_role": "setup",
         "startpoint": "u_out/_47_/Q",
         "endpoint": "u_out/_27_/D",
-        "slack_ns": 9.71206,
+        "slack_ns": 9.71003,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -516,14 +516,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_937_/Q",
-        "endpoint": "u_cap/_941_/D",
-        "slack_ns": 0.22635,
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
+        "slack_ns": 0.22608,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.29905,
-      "estimated_power_mw": 3.9864,
+      "clock_skew_ns": 0.23677,
+      "estimated_power_mw": 4.1998,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -531,10 +531,10 @@
         "parasitics": "spef_annotated"
       },
       "spef_annotation": {
-        "nets_annotated": 2416,
-        "nets_total": 2416,
-        "design_nets_annotated": 2416,
-        "design_nets_total": 2434,
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
         "design_nets_missing_sample": [
           "VDD",
           "u_fsm/_0996_",
@@ -557,15 +557,15 @@
         ],
         "reader_warning_count": 1043,
         "reader_warning_sample": [
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 396, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 397, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 398, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 399, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 400, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
         ],
-        "unannotated_driver_count": 239,
+        "unannotated_driver_count": 218,
         "partially_unannotated_driver_count": 7,
-        "floating_driver_count": 90,
+        "floating_driver_count": 69,
         "floating_driver_sample": [
           "clkload0/X",
           "clkload1/Y",
@@ -730,7 +730,7 @@
         ],
         "delay_changed": true,
         "annotation_complete": false,
-        "annotation_warning": "only 2416 of 2434 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
       },
       "electrical_checks": {
         "parasitics_source": "spef",
@@ -768,13 +768,13 @@
     {
       "corner": "ff_n40C_1v56",
       "engine_log": {
-        "invocation_id": "f1549d44742146b3ad9289f5802cfc74",
+        "invocation_id": "e90624ac4f9a445bac116cae0350ff03",
         "script_name": "sta_hyperram_ctrl__ff_n40C_1v56.tcl",
         "script_path": {
           "path": "layout/electrical/.klt/sta/sta_hyperram_ctrl__ff_n40C_1v56.tcl",
           "scope": "repo"
         },
-        "script_sha256": "cf4e3fd57dd971f7fe6988d42055b8be2e9d4b7ecd572b66906179f80eb80f09",
+        "script_sha256": "0d68cd9caa143ec1fc631f70e7607859f281e747ea8b98bd085978fb0f557835",
         "metrics_path": {
           "path": "layout/electrical/.klt/sta/hyperram_ctrl__ff_n40C_1v56_metrics.json",
           "scope": "repo"
@@ -782,28 +782,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/f1549d44742146b3ad9289f5802cfc74",
+          "path": "layout/electrical/.klt/sta/openroad-logs/e90624ac4f9a445bac116cae0350ff03",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/f1549d44742146b3ad9289f5802cfc74/stdout.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/e90624ac4f9a445bac116cae0350ff03/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/f1549d44742146b3ad9289f5802cfc74/stderr.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/e90624ac4f9a445bac116cae0350ff03/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/f1549d44742146b3ad9289f5802cfc74/invocation.json",
+          "path": "layout/electrical/.klt/sta/openroad-logs/e90624ac4f9a445bac116cae0350ff03/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": 9.5439,
+      "worst_slack_ns": 9.54113,
       "total_negative_slack_ns": 0,
-      "worst_hold_slack_ns": 0.32235,
+      "worst_hold_slack_ns": 0.32191,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 189.878,
+      "fmax_mhz": 193.194,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -873,7 +873,7 @@
         "engine_check_role": "setup",
         "startpoint": "u_out/_47_/Q",
         "endpoint": "u_out/_27_/D",
-        "slack_ns": 9.5439,
+        "slack_ns": 9.54113,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -881,14 +881,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_937_/Q",
-        "endpoint": "u_cap/_941_/D",
-        "slack_ns": 0.32235,
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
+        "slack_ns": 0.32191,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.32347,
-      "estimated_power_mw": 2.3026,
+      "clock_skew_ns": 0.24063,
+      "estimated_power_mw": 2.4647,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -896,10 +896,10 @@
         "parasitics": "spef_annotated"
       },
       "spef_annotation": {
-        "nets_annotated": 2416,
-        "nets_total": 2416,
-        "design_nets_annotated": 2416,
-        "design_nets_total": 2434,
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
         "design_nets_missing_sample": [
           "VDD",
           "u_fsm/_0996_",
@@ -922,15 +922,15 @@
         ],
         "reader_warning_count": 1043,
         "reader_warning_sample": [
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 396, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 397, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 398, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 399, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 400, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
         ],
-        "unannotated_driver_count": 239,
+        "unannotated_driver_count": 218,
         "partially_unannotated_driver_count": 7,
-        "floating_driver_count": 90,
+        "floating_driver_count": 69,
         "floating_driver_sample": [
           "clkload0/X",
           "clkload1/Y",
@@ -1095,7 +1095,7 @@
         ],
         "delay_changed": true,
         "annotation_complete": false,
-        "annotation_warning": "only 2416 of 2434 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
       },
       "electrical_checks": {
         "parasitics_source": "spef",
@@ -1103,19 +1103,19 @@
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "ns",
-          "violation_count": 136,
-          "net_count": 3,
-          "worst_excess": 0.50735,
-          "worst_pin": "fanout7/X"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         },
         "max_capacitance": {
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "pF",
-          "violation_count": 3,
-          "net_count": 3,
-          "worst_excess": 0.04693,
-          "worst_pin": "fanout7/X"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         }
       },
       "clock_propagation": null,
@@ -1133,13 +1133,13 @@
     {
       "corner": "ff_n40C_1v65",
       "engine_log": {
-        "invocation_id": "52c6729c083e47809b2f89845f95bb5f",
+        "invocation_id": "7792e5451cb24d94be18c20ff028221b",
         "script_name": "sta_hyperram_ctrl__ff_n40C_1v65.tcl",
         "script_path": {
           "path": "layout/electrical/.klt/sta/sta_hyperram_ctrl__ff_n40C_1v65.tcl",
           "scope": "repo"
         },
-        "script_sha256": "4339bef1c82a00153c008590720522fa139231a7a5a04490ddf2681095393c92",
+        "script_sha256": "12a603b82da7eb32f562d9f6c63bf68911537fffb33c3b52ce18156ef8d337b9",
         "metrics_path": {
           "path": "layout/electrical/.klt/sta/hyperram_ctrl__ff_n40C_1v65_metrics.json",
           "scope": "repo"
@@ -1147,28 +1147,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/52c6729c083e47809b2f89845f95bb5f",
+          "path": "layout/electrical/.klt/sta/openroad-logs/7792e5451cb24d94be18c20ff028221b",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/52c6729c083e47809b2f89845f95bb5f/stdout.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/7792e5451cb24d94be18c20ff028221b/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/52c6729c083e47809b2f89845f95bb5f/stderr.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/7792e5451cb24d94be18c20ff028221b/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/52c6729c083e47809b2f89845f95bb5f/invocation.json",
+          "path": "layout/electrical/.klt/sta/openroad-logs/7792e5451cb24d94be18c20ff028221b/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": 9.60299,
+      "worst_slack_ns": 9.60048,
       "total_negative_slack_ns": 0,
-      "worst_hold_slack_ns": 0.28494,
+      "worst_hold_slack_ns": 0.28456,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 219.571,
+      "fmax_mhz": 223.094,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -1238,7 +1238,7 @@
         "engine_check_role": "setup",
         "startpoint": "u_out/_47_/Q",
         "endpoint": "u_out/_27_/D",
-        "slack_ns": 9.60299,
+        "slack_ns": 9.60048,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -1246,14 +1246,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_937_/Q",
-        "endpoint": "u_cap/_941_/D",
-        "slack_ns": 0.28494,
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
+        "slack_ns": 0.28456,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.3035,
-      "estimated_power_mw": 2.5922,
+      "clock_skew_ns": 0.2283,
+      "estimated_power_mw": 2.7743,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -1261,10 +1261,10 @@
         "parasitics": "spef_annotated"
       },
       "spef_annotation": {
-        "nets_annotated": 2416,
-        "nets_total": 2416,
-        "design_nets_annotated": 2416,
-        "design_nets_total": 2434,
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
         "design_nets_missing_sample": [
           "VDD",
           "u_fsm/_0996_",
@@ -1287,15 +1287,15 @@
         ],
         "reader_warning_count": 1043,
         "reader_warning_sample": [
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 396, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 397, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 398, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 399, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 400, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
         ],
-        "unannotated_driver_count": 239,
+        "unannotated_driver_count": 218,
         "partially_unannotated_driver_count": 7,
-        "floating_driver_count": 90,
+        "floating_driver_count": 69,
         "floating_driver_sample": [
           "clkload0/X",
           "clkload1/Y",
@@ -1460,7 +1460,7 @@
         ],
         "delay_changed": true,
         "annotation_complete": false,
-        "annotation_warning": "only 2416 of 2434 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
       },
       "electrical_checks": {
         "parasitics_source": "spef",
@@ -1468,19 +1468,19 @@
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "ns",
-          "violation_count": 34,
-          "net_count": 1,
-          "worst_excess": 0.2644,
-          "worst_pin": "fanout7/X"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         },
         "max_capacitance": {
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "pF",
-          "violation_count": 1,
-          "net_count": 1,
-          "worst_excess": 0.02797,
-          "worst_pin": "fanout7/X"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         }
       },
       "clock_propagation": null,
@@ -1498,13 +1498,13 @@
     {
       "corner": "ff_n40C_1v76",
       "engine_log": {
-        "invocation_id": "f9f43c9a60a7426d931a0f6292fb8256",
+        "invocation_id": "fa05c2bc5cde4558b63d37a0099ff71e",
         "script_name": "sta_hyperram_ctrl__ff_n40C_1v76.tcl",
         "script_path": {
           "path": "layout/electrical/.klt/sta/sta_hyperram_ctrl__ff_n40C_1v76.tcl",
           "scope": "repo"
         },
-        "script_sha256": "a88af21fd0c2831fc5ff9e43c950fff0507365946ae5894708d02d1993c51df6",
+        "script_sha256": "0efcb23efdad70334e2a2c09b5fb9a3ff62823f134399b0e9a35a08e775ad77b",
         "metrics_path": {
           "path": "layout/electrical/.klt/sta/hyperram_ctrl__ff_n40C_1v76_metrics.json",
           "scope": "repo"
@@ -1512,28 +1512,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/f9f43c9a60a7426d931a0f6292fb8256",
+          "path": "layout/electrical/.klt/sta/openroad-logs/fa05c2bc5cde4558b63d37a0099ff71e",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/f9f43c9a60a7426d931a0f6292fb8256/stdout.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/fa05c2bc5cde4558b63d37a0099ff71e/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/f9f43c9a60a7426d931a0f6292fb8256/stderr.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/fa05c2bc5cde4558b63d37a0099ff71e/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/f9f43c9a60a7426d931a0f6292fb8256/invocation.json",
+          "path": "layout/electrical/.klt/sta/openroad-logs/fa05c2bc5cde4558b63d37a0099ff71e/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": 9.65465,
+      "worst_slack_ns": 9.65237,
       "total_negative_slack_ns": 0,
-      "worst_hold_slack_ns": 0.25018,
+      "worst_hold_slack_ns": 0.24986,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 254.807,
+      "fmax_mhz": 258.437,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -1603,7 +1603,7 @@
         "engine_check_role": "setup",
         "startpoint": "u_out/_47_/Q",
         "endpoint": "u_out/_27_/D",
-        "slack_ns": 9.65465,
+        "slack_ns": 9.65237,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -1611,14 +1611,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_937_/Q",
-        "endpoint": "u_cap/_941_/D",
-        "slack_ns": 0.25018,
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
+        "slack_ns": 0.24986,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.28286,
-      "estimated_power_mw": 2.9693,
+      "clock_skew_ns": 0.21476,
+      "estimated_power_mw": 3.1756,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -1626,10 +1626,10 @@
         "parasitics": "spef_annotated"
       },
       "spef_annotation": {
-        "nets_annotated": 2416,
-        "nets_total": 2416,
-        "design_nets_annotated": 2416,
-        "design_nets_total": 2434,
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
         "design_nets_missing_sample": [
           "VDD",
           "u_fsm/_0996_",
@@ -1652,15 +1652,15 @@
         ],
         "reader_warning_count": 1043,
         "reader_warning_sample": [
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 396, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 397, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 398, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 399, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 400, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
         ],
-        "unannotated_driver_count": 239,
+        "unannotated_driver_count": 218,
         "partially_unannotated_driver_count": 7,
-        "floating_driver_count": 90,
+        "floating_driver_count": 69,
         "floating_driver_sample": [
           "clkload0/X",
           "clkload1/Y",
@@ -1825,7 +1825,7 @@
         ],
         "delay_changed": true,
         "annotation_complete": false,
-        "annotation_warning": "only 2416 of 2434 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
       },
       "electrical_checks": {
         "parasitics_source": "spef",
@@ -1833,19 +1833,19 @@
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "ns",
-          "violation_count": 34,
-          "net_count": 1,
-          "worst_excess": 0.07332,
-          "worst_pin": "_381_/RESET_B"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         },
         "max_capacitance": {
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "pF",
-          "violation_count": 1,
-          "net_count": 1,
-          "worst_excess": 0.00941,
-          "worst_pin": "fanout7/X"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         }
       },
       "clock_propagation": null,
@@ -1863,13 +1863,13 @@
     {
       "corner": "ff_n40C_1v95",
       "engine_log": {
-        "invocation_id": "55054ddf4ae44268bf3b578578473d1b",
+        "invocation_id": "6a7d0ab3a2fe4926a14e9077c05b15a8",
         "script_name": "sta_hyperram_ctrl__ff_n40C_1v95.tcl",
         "script_path": {
           "path": "layout/electrical/.klt/sta/sta_hyperram_ctrl__ff_n40C_1v95.tcl",
           "scope": "repo"
         },
-        "script_sha256": "d0c39b6a52185f1b01e01229827af52614fec6db1f04fc728b52b50a26aeaf85",
+        "script_sha256": "1b16a75ea1a20a04434995a544af9cbc52abd2c072e6323db9ff5a4974ac6187",
         "metrics_path": {
           "path": "layout/electrical/.klt/sta/hyperram_ctrl__ff_n40C_1v95_metrics.json",
           "scope": "repo"
@@ -1877,28 +1877,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/55054ddf4ae44268bf3b578578473d1b",
+          "path": "layout/electrical/.klt/sta/openroad-logs/6a7d0ab3a2fe4926a14e9077c05b15a8",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/55054ddf4ae44268bf3b578578473d1b/stdout.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/6a7d0ab3a2fe4926a14e9077c05b15a8/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/55054ddf4ae44268bf3b578578473d1b/stderr.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/6a7d0ab3a2fe4926a14e9077c05b15a8/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/55054ddf4ae44268bf3b578578473d1b/invocation.json",
+          "path": "layout/electrical/.klt/sta/openroad-logs/6a7d0ab3a2fe4926a14e9077c05b15a8/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": 9.71416,
+      "worst_slack_ns": 9.71215,
       "total_negative_slack_ns": 0,
-      "worst_hold_slack_ns": 0.21058,
+      "worst_hold_slack_ns": 0.21032,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 311.452,
+      "fmax_mhz": 315.313,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -1968,7 +1968,7 @@
         "engine_check_role": "setup",
         "startpoint": "u_out/_47_/Q",
         "endpoint": "u_out/_27_/D",
-        "slack_ns": 9.71415,
+        "slack_ns": 9.71215,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -1976,14 +1976,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_937_/Q",
-        "endpoint": "u_cap/_941_/D",
-        "slack_ns": 0.21058,
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
+        "slack_ns": 0.21032,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.25564,
-      "estimated_power_mw": 3.7037,
+      "clock_skew_ns": 0.19629,
+      "estimated_power_mw": 3.948,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -1991,10 +1991,10 @@
         "parasitics": "spef_annotated"
       },
       "spef_annotation": {
-        "nets_annotated": 2416,
-        "nets_total": 2416,
-        "design_nets_annotated": 2416,
-        "design_nets_total": 2434,
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
         "design_nets_missing_sample": [
           "VDD",
           "u_fsm/_0996_",
@@ -2017,15 +2017,15 @@
         ],
         "reader_warning_count": 1043,
         "reader_warning_sample": [
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 396, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 397, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 398, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 399, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 400, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
         ],
-        "unannotated_driver_count": 239,
+        "unannotated_driver_count": 218,
         "partially_unannotated_driver_count": 7,
-        "floating_driver_count": 90,
+        "floating_driver_count": 69,
         "floating_driver_sample": [
           "clkload0/X",
           "clkload1/Y",
@@ -2190,7 +2190,7 @@
         ],
         "delay_changed": true,
         "annotation_complete": false,
-        "annotation_warning": "only 2416 of 2434 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
       },
       "electrical_checks": {
         "parasitics_source": "spef",
@@ -2228,13 +2228,13 @@
     {
       "corner": "ss_100C_1v40",
       "engine_log": {
-        "invocation_id": "70e6fbcb1a48434b972d86d758fd0cf6",
+        "invocation_id": "f8d38fccd9994d97a8223214a38bcf2d",
         "script_name": "sta_hyperram_ctrl__ss_100C_1v40.tcl",
         "script_path": {
           "path": "layout/electrical/.klt/sta/sta_hyperram_ctrl__ss_100C_1v40.tcl",
           "scope": "repo"
         },
-        "script_sha256": "e6f7eb6057a9a28eeaa1c67a2f8ac828bdb1bccb2b24814f4b979c0d67137e90",
+        "script_sha256": "531d26ab24bf87d9c687963f6f997572e50b75c958803559a9ba4e03a4936464",
         "metrics_path": {
           "path": "layout/electrical/.klt/sta/hyperram_ctrl__ss_100C_1v40_metrics.json",
           "scope": "repo"
@@ -2242,28 +2242,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/70e6fbcb1a48434b972d86d758fd0cf6",
+          "path": "layout/electrical/.klt/sta/openroad-logs/f8d38fccd9994d97a8223214a38bcf2d",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/70e6fbcb1a48434b972d86d758fd0cf6/stdout.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/f8d38fccd9994d97a8223214a38bcf2d/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/70e6fbcb1a48434b972d86d758fd0cf6/stderr.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/f8d38fccd9994d97a8223214a38bcf2d/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/70e6fbcb1a48434b972d86d758fd0cf6/invocation.json",
+          "path": "layout/electrical/.klt/sta/openroad-logs/f8d38fccd9994d97a8223214a38bcf2d/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": 4.48035,
+      "worst_slack_ns": 4.71913,
       "total_negative_slack_ns": 0,
-      "worst_hold_slack_ns": 1.00584,
+      "worst_hold_slack_ns": 1.00489,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 64.4344,
+      "fmax_mhz": 65.4413,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -2333,7 +2333,7 @@
         "engine_check_role": "setup",
         "startpoint": "u_cap/_943_/Q",
         "endpoint": "u_fsm/_2290_/D",
-        "slack_ns": 4.48035,
+        "slack_ns": 4.71913,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -2341,14 +2341,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_937_/Q",
-        "endpoint": "u_cap/_941_/D",
-        "slack_ns": 1.00584,
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
+        "slack_ns": 1.00489,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 1.04917,
-      "estimated_power_mw": 1.8848,
+      "clock_skew_ns": 0.82435,
+      "estimated_power_mw": 2.0337,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -2356,10 +2356,10 @@
         "parasitics": "spef_annotated"
       },
       "spef_annotation": {
-        "nets_annotated": 2416,
-        "nets_total": 2416,
-        "design_nets_annotated": 2416,
-        "design_nets_total": 2434,
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
         "design_nets_missing_sample": [
           "VDD",
           "u_fsm/_0996_",
@@ -2382,15 +2382,15 @@
         ],
         "reader_warning_count": 1043,
         "reader_warning_sample": [
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 396, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 397, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 398, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 399, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 400, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
         ],
-        "unannotated_driver_count": 239,
+        "unannotated_driver_count": 218,
         "partially_unannotated_driver_count": 7,
-        "floating_driver_count": 90,
+        "floating_driver_count": 69,
         "floating_driver_sample": [
           "clkload0/X",
           "clkload1/Y",
@@ -2555,7 +2555,7 @@
         ],
         "delay_changed": true,
         "annotation_complete": false,
-        "annotation_warning": "only 2416 of 2434 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
       },
       "electrical_checks": {
         "parasitics_source": "spef",
@@ -2593,13 +2593,13 @@
     {
       "corner": "ss_100C_1v60",
       "engine_log": {
-        "invocation_id": "6dfa1e5a18f94a5899a2e9844128902d",
+        "invocation_id": "64071a234a33466786cb5550e430922c",
         "script_name": "sta_hyperram_ctrl__ss_100C_1v60.tcl",
         "script_path": {
           "path": "layout/electrical/.klt/sta/sta_hyperram_ctrl__ss_100C_1v60.tcl",
           "scope": "repo"
         },
-        "script_sha256": "a22f0626a45cf66df56a7148a83e8aea5d7820e94b02522660b0bbc85bfb1204",
+        "script_sha256": "7d91db3c7d96391b29450e1cb9b942f38d8b613f3e064c27e7e634c4a892ab4b",
         "metrics_path": {
           "path": "layout/electrical/.klt/sta/hyperram_ctrl__ss_100C_1v60_metrics.json",
           "scope": "repo"
@@ -2607,28 +2607,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/6dfa1e5a18f94a5899a2e9844128902d",
+          "path": "layout/electrical/.klt/sta/openroad-logs/64071a234a33466786cb5550e430922c",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/6dfa1e5a18f94a5899a2e9844128902d/stdout.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/64071a234a33466786cb5550e430922c/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/6dfa1e5a18f94a5899a2e9844128902d/stderr.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/64071a234a33466786cb5550e430922c/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/6dfa1e5a18f94a5899a2e9844128902d/invocation.json",
+          "path": "layout/electrical/.klt/sta/openroad-logs/64071a234a33466786cb5550e430922c/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": 9.00648,
+      "worst_slack_ns": 9.00106,
       "total_negative_slack_ns": 0,
-      "worst_hold_slack_ns": 0.695,
+      "worst_hold_slack_ns": 0.69428,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 94.4873,
+      "fmax_mhz": 95.7596,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -2698,7 +2698,7 @@
         "engine_check_role": "setup",
         "startpoint": "u_out/_47_/Q",
         "endpoint": "u_out/_27_/D",
-        "slack_ns": 9.00648,
+        "slack_ns": 9.00106,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -2706,14 +2706,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_937_/Q",
-        "endpoint": "u_cap/_941_/D",
-        "slack_ns": 0.69499,
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
+        "slack_ns": 0.69428,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.76428,
-      "estimated_power_mw": 2.5648,
+      "clock_skew_ns": 0.60395,
+      "estimated_power_mw": 2.7565,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -2721,10 +2721,10 @@
         "parasitics": "spef_annotated"
       },
       "spef_annotation": {
-        "nets_annotated": 2416,
-        "nets_total": 2416,
-        "design_nets_annotated": 2416,
-        "design_nets_total": 2434,
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
         "design_nets_missing_sample": [
           "VDD",
           "u_fsm/_0996_",
@@ -2747,15 +2747,15 @@
         ],
         "reader_warning_count": 1043,
         "reader_warning_sample": [
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 396, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 397, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 398, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 399, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 400, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
         ],
-        "unannotated_driver_count": 239,
+        "unannotated_driver_count": 218,
         "partially_unannotated_driver_count": 7,
-        "floating_driver_count": 90,
+        "floating_driver_count": 69,
         "floating_driver_sample": [
           "clkload0/X",
           "clkload1/Y",
@@ -2920,7 +2920,7 @@
         ],
         "delay_changed": true,
         "annotation_complete": false,
-        "annotation_warning": "only 2416 of 2434 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
       },
       "electrical_checks": {
         "parasitics_source": "spef",
@@ -2928,19 +2928,19 @@
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "ns",
-          "violation_count": 537,
-          "net_count": 18,
-          "worst_excess": 0.98242,
-          "worst_pin": "fanout7/X"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         },
         "max_capacitance": {
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "pF",
-          "violation_count": 18,
-          "net_count": 18,
-          "worst_excess": 0.07797,
-          "worst_pin": "fanout7/X"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         }
       },
       "clock_propagation": null,
@@ -2958,13 +2958,13 @@
     {
       "corner": "ss_n40C_1v28",
       "engine_log": {
-        "invocation_id": "cf887d8b7c8342b595ebc0ce737c90d3",
+        "invocation_id": "d451364475424056a3ad400bf264344e",
         "script_name": "sta_hyperram_ctrl__ss_n40C_1v28.tcl",
         "script_path": {
           "path": "layout/electrical/.klt/sta/sta_hyperram_ctrl__ss_n40C_1v28.tcl",
           "scope": "repo"
         },
-        "script_sha256": "cc62899f1d4bddf8e11b777765f6a85f54363416f54df4a4e6d247b2c32ef346",
+        "script_sha256": "2649693b16a328e09c22a655d457ea0b967685f0d08f7fdb8c902091bc51fcb2",
         "metrics_path": {
           "path": "layout/electrical/.klt/sta/hyperram_ctrl__ss_n40C_1v28_metrics.json",
           "scope": "repo"
@@ -2972,28 +2972,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/cf887d8b7c8342b595ebc0ce737c90d3",
+          "path": "layout/electrical/.klt/sta/openroad-logs/d451364475424056a3ad400bf264344e",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/cf887d8b7c8342b595ebc0ce737c90d3/stdout.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/d451364475424056a3ad400bf264344e/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/cf887d8b7c8342b595ebc0ce737c90d3/stderr.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/d451364475424056a3ad400bf264344e/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/cf887d8b7c8342b595ebc0ce737c90d3/invocation.json",
+          "path": "layout/electrical/.klt/sta/openroad-logs/d451364475424056a3ad400bf264344e/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": -21.3531,
-      "total_negative_slack_ns": -2641.99,
-      "worst_hold_slack_ns": 2.0649,
+      "worst_slack_ns": -17.9171,
+      "total_negative_slack_ns": -1259.35,
+      "worst_hold_slack_ns": 2.06244,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 24.182,
+      "fmax_mhz": 26.3733,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -3055,15 +3055,15 @@
         },
         "sample_limit": 20
       },
-      "setup_violation_count": 249,
+      "setup_violation_count": 228,
       "hold_violation_count": 0,
       "worst_setup_path": {
         "status": "ok",
         "check_type": "setup",
         "engine_check_role": "setup",
         "startpoint": "u_cap/_943_/Q",
-        "endpoint": "u_fsm/_2130_/D",
-        "slack_ns": -21.35305,
+        "endpoint": "u_fsm/_2290_/D",
+        "slack_ns": -17.91711,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -3071,14 +3071,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_937_/Q",
-        "endpoint": "u_cap/_941_/D",
-        "slack_ns": 2.0649,
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
+        "slack_ns": 2.06244,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 1.23132,
-      "estimated_power_mw": 1.3193,
+      "clock_skew_ns": 1.06531,
+      "estimated_power_mw": 1.426,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -3086,10 +3086,10 @@
         "parasitics": "spef_annotated"
       },
       "spef_annotation": {
-        "nets_annotated": 2416,
-        "nets_total": 2416,
-        "design_nets_annotated": 2416,
-        "design_nets_total": 2434,
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
         "design_nets_missing_sample": [
           "VDD",
           "u_fsm/_0996_",
@@ -3112,15 +3112,15 @@
         ],
         "reader_warning_count": 1043,
         "reader_warning_sample": [
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 396, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 397, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 398, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 399, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 400, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
         ],
-        "unannotated_driver_count": 239,
+        "unannotated_driver_count": 218,
         "partially_unannotated_driver_count": 7,
-        "floating_driver_count": 90,
+        "floating_driver_count": 69,
         "floating_driver_sample": [
           "clkload0/X",
           "clkload1/Y",
@@ -3285,7 +3285,7 @@
         ],
         "delay_changed": true,
         "annotation_complete": false,
-        "annotation_warning": "only 2416 of 2434 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
       },
       "electrical_checks": {
         "parasitics_source": "spef",
@@ -3293,19 +3293,19 @@
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "ns",
-          "violation_count": 544,
-          "net_count": 20,
-          "worst_excess": 4.63078,
-          "worst_pin": "_381_/RESET_B"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         },
         "max_capacitance": {
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "pF",
-          "violation_count": 19,
-          "net_count": 19,
-          "worst_excess": 0.0928,
-          "worst_pin": "fanout11/X"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         }
       },
       "clock_propagation": null,
@@ -3323,13 +3323,13 @@
     {
       "corner": "ss_n40C_1v35",
       "engine_log": {
-        "invocation_id": "b30c267d5d574a679004f6e6f7bfb8bd",
+        "invocation_id": "8b8d249f4fd140f79d2642d9de0b09db",
         "script_name": "sta_hyperram_ctrl__ss_n40C_1v35.tcl",
         "script_path": {
           "path": "layout/electrical/.klt/sta/sta_hyperram_ctrl__ss_n40C_1v35.tcl",
           "scope": "repo"
         },
-        "script_sha256": "39882ae1a8894e2f9f5f332f5794ce1715dc00b29e18a06b8655f05e9c2af478",
+        "script_sha256": "8c5d1b6ac2f5274f0df79bfb604d026daa4cb7f6cb85e8ac1caac4703977f75e",
         "metrics_path": {
           "path": "layout/electrical/.klt/sta/hyperram_ctrl__ss_n40C_1v35_metrics.json",
           "scope": "repo"
@@ -3337,28 +3337,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/b30c267d5d574a679004f6e6f7bfb8bd",
+          "path": "layout/electrical/.klt/sta/openroad-logs/8b8d249f4fd140f79d2642d9de0b09db",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/b30c267d5d574a679004f6e6f7bfb8bd/stdout.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/8b8d249f4fd140f79d2642d9de0b09db/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/b30c267d5d574a679004f6e6f7bfb8bd/stderr.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/8b8d249f4fd140f79d2642d9de0b09db/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/b30c267d5d574a679004f6e6f7bfb8bd/invocation.json",
+          "path": "layout/electrical/.klt/sta/openroad-logs/8b8d249f4fd140f79d2642d9de0b09db/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": -7.9253,
-      "total_negative_slack_ns": -381.315,
-      "worst_hold_slack_ns": 1.49266,
+      "worst_slack_ns": -6.23741,
+      "total_negative_slack_ns": -77.2174,
+      "worst_hold_slack_ns": 1.49095,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 35.8098,
+      "fmax_mhz": 38.1135,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -3420,15 +3420,15 @@
         },
         "sample_limit": 20
       },
-      "setup_violation_count": 178,
+      "setup_violation_count": 34,
       "hold_violation_count": 0,
       "worst_setup_path": {
         "status": "ok",
         "check_type": "setup",
         "engine_check_role": "setup",
         "startpoint": "u_cap/_943_/Q",
-        "endpoint": "u_fsm/_2130_/D",
-        "slack_ns": -7.9253,
+        "endpoint": "u_fsm/_2290_/D",
+        "slack_ns": -6.23741,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -3436,14 +3436,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_937_/Q",
-        "endpoint": "u_cap/_941_/D",
-        "slack_ns": 1.49266,
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
+        "slack_ns": 1.49095,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.9322,
-      "estimated_power_mw": 1.5444,
+      "clock_skew_ns": 0.72755,
+      "estimated_power_mw": 1.6671,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -3451,10 +3451,10 @@
         "parasitics": "spef_annotated"
       },
       "spef_annotation": {
-        "nets_annotated": 2416,
-        "nets_total": 2416,
-        "design_nets_annotated": 2416,
-        "design_nets_total": 2434,
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
         "design_nets_missing_sample": [
           "VDD",
           "u_fsm/_0996_",
@@ -3477,15 +3477,15 @@
         ],
         "reader_warning_count": 1043,
         "reader_warning_sample": [
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 396, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 397, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 398, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 399, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 400, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
         ],
-        "unannotated_driver_count": 239,
+        "unannotated_driver_count": 218,
         "partially_unannotated_driver_count": 7,
-        "floating_driver_count": 90,
+        "floating_driver_count": 69,
         "floating_driver_sample": [
           "clkload0/X",
           "clkload1/Y",
@@ -3650,7 +3650,7 @@
         ],
         "delay_changed": true,
         "annotation_complete": false,
-        "annotation_warning": "only 2416 of 2434 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
       },
       "electrical_checks": {
         "parasitics_source": "spef",
@@ -3688,13 +3688,13 @@
     {
       "corner": "ss_n40C_1v40",
       "engine_log": {
-        "invocation_id": "cacb1504ba514d6688e690e1cf785ca9",
+        "invocation_id": "c6b32c537dcc49aba7af67740ced8957",
         "script_name": "sta_hyperram_ctrl__ss_n40C_1v40.tcl",
         "script_path": {
           "path": "layout/electrical/.klt/sta/sta_hyperram_ctrl__ss_n40C_1v40.tcl",
           "scope": "repo"
         },
-        "script_sha256": "7c8ca8083a4107062ce43dd0e950783dc1059290a152196c212c2e2546bbd5dd",
+        "script_sha256": "3fc1e133d663e23dca7c62c2b987786dd339e01e28f058dc99e7a9751c4bfbdb",
         "metrics_path": {
           "path": "layout/electrical/.klt/sta/hyperram_ctrl__ss_n40C_1v40_metrics.json",
           "scope": "repo"
@@ -3702,28 +3702,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/cacb1504ba514d6688e690e1cf785ca9",
+          "path": "layout/electrical/.klt/sta/openroad-logs/c6b32c537dcc49aba7af67740ced8957",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/cacb1504ba514d6688e690e1cf785ca9/stdout.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/c6b32c537dcc49aba7af67740ced8957/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/cacb1504ba514d6688e690e1cf785ca9/stderr.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/c6b32c537dcc49aba7af67740ced8957/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/cacb1504ba514d6688e690e1cf785ca9/invocation.json",
+          "path": "layout/electrical/.klt/sta/openroad-logs/c6b32c537dcc49aba7af67740ced8957/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": -2.40626,
-      "total_negative_slack_ns": -23.506,
-      "worst_hold_slack_ns": 1.2323,
+      "worst_slack_ns": -1.26257,
+      "total_negative_slack_ns": -4.35067,
+      "worst_hold_slack_ns": 1.23089,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 44.6304,
+      "fmax_mhz": 47.031,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -3785,15 +3785,15 @@
         },
         "sample_limit": 20
       },
-      "setup_violation_count": 14,
+      "setup_violation_count": 5,
       "hold_violation_count": 0,
       "worst_setup_path": {
         "status": "ok",
         "check_type": "setup",
         "engine_check_role": "setup",
         "startpoint": "u_cap/_943_/Q",
-        "endpoint": "u_fsm/_2130_/D",
-        "slack_ns": -2.40626,
+        "endpoint": "u_fsm/_2290_/D",
+        "slack_ns": -1.26257,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -3801,14 +3801,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_937_/Q",
-        "endpoint": "u_cap/_941_/D",
-        "slack_ns": 1.2323,
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
+        "slack_ns": 1.23089,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.84736,
-      "estimated_power_mw": 1.7262,
+      "clock_skew_ns": 0.59298,
+      "estimated_power_mw": 1.8616,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -3816,10 +3816,10 @@
         "parasitics": "spef_annotated"
       },
       "spef_annotation": {
-        "nets_annotated": 2416,
-        "nets_total": 2416,
-        "design_nets_annotated": 2416,
-        "design_nets_total": 2434,
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
         "design_nets_missing_sample": [
           "VDD",
           "u_fsm/_0996_",
@@ -3842,15 +3842,15 @@
         ],
         "reader_warning_count": 1043,
         "reader_warning_sample": [
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 396, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 397, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 398, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 399, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 400, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
         ],
-        "unannotated_driver_count": 239,
+        "unannotated_driver_count": 218,
         "partially_unannotated_driver_count": 7,
-        "floating_driver_count": 90,
+        "floating_driver_count": 69,
         "floating_driver_sample": [
           "clkload0/X",
           "clkload1/Y",
@@ -4015,7 +4015,7 @@
         ],
         "delay_changed": true,
         "annotation_complete": false,
-        "annotation_warning": "only 2416 of 2434 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
       },
       "electrical_checks": {
         "parasitics_source": "spef",
@@ -4053,13 +4053,13 @@
     {
       "corner": "ss_n40C_1v44",
       "engine_log": {
-        "invocation_id": "d770f2bdedeb40e8a5473bc6d9e5e237",
+        "invocation_id": "075cca6ffedb42f3bec09e52c243cb6c",
         "script_name": "sta_hyperram_ctrl__ss_n40C_1v44.tcl",
         "script_path": {
           "path": "layout/electrical/.klt/sta/sta_hyperram_ctrl__ss_n40C_1v44.tcl",
           "scope": "repo"
         },
-        "script_sha256": "3fa4cc74acf7adb9dfa5576b9982b5546dd98e43431406b17172ece4f9b9ae77",
+        "script_sha256": "1109279b4c7a9263dff54b3bb7bd5a32a898ebcba614040999d69b051eed512f",
         "metrics_path": {
           "path": "layout/electrical/.klt/sta/hyperram_ctrl__ss_n40C_1v44_metrics.json",
           "scope": "repo"
@@ -4067,28 +4067,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/d770f2bdedeb40e8a5473bc6d9e5e237",
+          "path": "layout/electrical/.klt/sta/openroad-logs/075cca6ffedb42f3bec09e52c243cb6c",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/d770f2bdedeb40e8a5473bc6d9e5e237/stdout.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/075cca6ffedb42f3bec09e52c243cb6c/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/d770f2bdedeb40e8a5473bc6d9e5e237/stderr.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/075cca6ffedb42f3bec09e52c243cb6c/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/d770f2bdedeb40e8a5473bc6d9e5e237/invocation.json",
+          "path": "layout/electrical/.klt/sta/openroad-logs/075cca6ffedb42f3bec09e52c243cb6c/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": 0.69288,
+      "worst_slack_ns": 1.62471,
       "total_negative_slack_ns": 0,
-      "worst_hold_slack_ns": 1.08582,
+      "worst_hold_slack_ns": 1.08454,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 51.7944,
+      "fmax_mhz": 54.4209,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -4157,8 +4157,8 @@
         "check_type": "setup",
         "engine_check_role": "setup",
         "startpoint": "u_cap/_943_/Q",
-        "endpoint": "u_fsm/_2130_/D",
-        "slack_ns": 0.69288,
+        "endpoint": "u_fsm/_2290_/D",
+        "slack_ns": 1.62471,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -4166,14 +4166,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_937_/Q",
-        "endpoint": "u_cap/_941_/D",
-        "slack_ns": 1.08582,
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
+        "slack_ns": 1.08454,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.77802,
-      "estimated_power_mw": 1.883,
+      "clock_skew_ns": 0.55093,
+      "estimated_power_mw": 2.0261,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -4181,10 +4181,10 @@
         "parasitics": "spef_annotated"
       },
       "spef_annotation": {
-        "nets_annotated": 2416,
-        "nets_total": 2416,
-        "design_nets_annotated": 2416,
-        "design_nets_total": 2434,
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
         "design_nets_missing_sample": [
           "VDD",
           "u_fsm/_0996_",
@@ -4207,15 +4207,15 @@
         ],
         "reader_warning_count": 1043,
         "reader_warning_sample": [
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 396, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 397, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 398, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 399, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 400, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
         ],
-        "unannotated_driver_count": 239,
+        "unannotated_driver_count": 218,
         "partially_unannotated_driver_count": 7,
-        "floating_driver_count": 90,
+        "floating_driver_count": 69,
         "floating_driver_sample": [
           "clkload0/X",
           "clkload1/Y",
@@ -4380,7 +4380,7 @@
         ],
         "delay_changed": true,
         "annotation_complete": false,
-        "annotation_warning": "only 2416 of 2434 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
       },
       "electrical_checks": {
         "parasitics_source": "spef",
@@ -4388,19 +4388,19 @@
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "ns",
-          "violation_count": 34,
-          "net_count": 1,
-          "worst_excess": 0.07458,
-          "worst_pin": "_381_/RESET_B"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         },
         "max_capacitance": {
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "pF",
-          "violation_count": 1,
-          "net_count": 1,
-          "worst_excess": 0.00255,
-          "worst_pin": "fanout7/X"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         }
       },
       "clock_propagation": null,
@@ -4418,13 +4418,13 @@
     {
       "corner": "ss_n40C_1v60",
       "engine_log": {
-        "invocation_id": "2acadd05e1484db89615e93759cf8b1f",
+        "invocation_id": "364ae50e824547c086cd3fe0a182123e",
         "script_name": "sta_hyperram_ctrl__ss_n40C_1v60.tcl",
         "script_path": {
           "path": "layout/electrical/.klt/sta/sta_hyperram_ctrl__ss_n40C_1v60.tcl",
           "scope": "repo"
         },
-        "script_sha256": "d09eb71e43cb2c086030e31d0782b75170bd662a721ee8b969e3d6f99082c9d2",
+        "script_sha256": "9e881cd16318848759b0d90c0cdfd7f2f8f2408de281cd279c8c178589196eb4",
         "metrics_path": {
           "path": "layout/electrical/.klt/sta/hyperram_ctrl__ss_n40C_1v60_metrics.json",
           "scope": "repo"
@@ -4432,28 +4432,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/2acadd05e1484db89615e93759cf8b1f",
+          "path": "layout/electrical/.klt/sta/openroad-logs/364ae50e824547c086cd3fe0a182123e",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/2acadd05e1484db89615e93759cf8b1f/stdout.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/364ae50e824547c086cd3fe0a182123e/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/2acadd05e1484db89615e93759cf8b1f/stderr.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/364ae50e824547c086cd3fe0a182123e/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/2acadd05e1484db89615e93759cf8b1f/invocation.json",
+          "path": "layout/electrical/.klt/sta/openroad-logs/364ae50e824547c086cd3fe0a182123e/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": 8.11447,
+      "worst_slack_ns": 8.38404,
       "total_negative_slack_ns": 0,
-      "worst_hold_slack_ns": 0.71056,
+      "worst_hold_slack_ns": 0.70972,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 84.1359,
+      "fmax_mhz": 86.0885,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -4522,8 +4522,8 @@
         "check_type": "setup",
         "engine_check_role": "setup",
         "startpoint": "u_cap/_943_/Q",
-        "endpoint": "u_fsm/_2130_/D",
-        "slack_ns": 8.11447,
+        "endpoint": "u_fsm/_2290_/D",
+        "slack_ns": 8.38404,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -4531,14 +4531,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_937_/Q",
-        "endpoint": "u_cap/_941_/D",
-        "slack_ns": 0.71056,
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
+        "slack_ns": 0.70972,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.59754,
-      "estimated_power_mw": 2.4485,
+      "clock_skew_ns": 0.44082,
+      "estimated_power_mw": 2.6292,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -4546,10 +4546,10 @@
         "parasitics": "spef_annotated"
       },
       "spef_annotation": {
-        "nets_annotated": 2416,
-        "nets_total": 2416,
-        "design_nets_annotated": 2416,
-        "design_nets_total": 2434,
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
         "design_nets_missing_sample": [
           "VDD",
           "u_fsm/_0996_",
@@ -4572,15 +4572,15 @@
         ],
         "reader_warning_count": 1043,
         "reader_warning_sample": [
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 396, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 397, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 398, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 399, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 400, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
         ],
-        "unannotated_driver_count": 239,
+        "unannotated_driver_count": 218,
         "partially_unannotated_driver_count": 7,
-        "floating_driver_count": 90,
+        "floating_driver_count": 69,
         "floating_driver_sample": [
           "clkload0/X",
           "clkload1/Y",
@@ -4745,7 +4745,7 @@
         ],
         "delay_changed": true,
         "annotation_complete": false,
-        "annotation_warning": "only 2416 of 2434 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
       },
       "electrical_checks": {
         "parasitics_source": "spef",
@@ -4753,19 +4753,19 @@
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "ns",
-          "violation_count": 633,
-          "net_count": 25,
-          "worst_excess": 1.82324,
-          "worst_pin": "_381_/RESET_B"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         },
         "max_capacitance": {
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "pF",
-          "violation_count": 24,
-          "net_count": 24,
-          "worst_excess": 0.12816,
-          "worst_pin": "fanout11/X"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         }
       },
       "clock_propagation": null,
@@ -4783,13 +4783,13 @@
     {
       "corner": "ss_n40C_1v76",
       "engine_log": {
-        "invocation_id": "ed97238dbfb44bfb92708c7414955f09",
+        "invocation_id": "ba2e4c2d5af6440a862a5be9589706c0",
         "script_name": "sta_hyperram_ctrl__ss_n40C_1v76.tcl",
         "script_path": {
           "path": "layout/electrical/.klt/sta/sta_hyperram_ctrl__ss_n40C_1v76.tcl",
           "scope": "repo"
         },
-        "script_sha256": "23cb91efd30b084248c4615c132bc1ea75d7adb3672de071f5b22623a5b75e79",
+        "script_sha256": "e3648a19b3c34ea43c05c2a3ba07b6f6d178614421d0d92a572a9bf8b6534f41",
         "metrics_path": {
           "path": "layout/electrical/.klt/sta/hyperram_ctrl__ss_n40C_1v76_metrics.json",
           "scope": "repo"
@@ -4797,28 +4797,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/ed97238dbfb44bfb92708c7414955f09",
+          "path": "layout/electrical/.klt/sta/openroad-logs/ba2e4c2d5af6440a862a5be9589706c0",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/ed97238dbfb44bfb92708c7414955f09/stdout.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/ba2e4c2d5af6440a862a5be9589706c0/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/ed97238dbfb44bfb92708c7414955f09/stderr.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/ba2e4c2d5af6440a862a5be9589706c0/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/ed97238dbfb44bfb92708c7414955f09/invocation.json",
+          "path": "layout/electrical/.klt/sta/openroad-logs/ba2e4c2d5af6440a862a5be9589706c0/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": 9.22189,
+      "worst_slack_ns": 9.21845,
       "total_negative_slack_ns": 0,
-      "worst_hold_slack_ns": 0.53645,
+      "worst_hold_slack_ns": 0.53573,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 117.13,
+      "fmax_mhz": 118.432,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -4888,7 +4888,7 @@
         "engine_check_role": "setup",
         "startpoint": "u_out/_47_/Q",
         "endpoint": "u_out/_27_/D",
-        "slack_ns": 9.22189,
+        "slack_ns": 9.21845,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -4896,14 +4896,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_937_/Q",
-        "endpoint": "u_cap/_941_/D",
-        "slack_ns": 0.53645,
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
+        "slack_ns": 0.53573,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.48606,
-      "estimated_power_mw": 3.0055,
+      "clock_skew_ns": 0.36559,
+      "estimated_power_mw": 3.2245,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -4911,10 +4911,10 @@
         "parasitics": "spef_annotated"
       },
       "spef_annotation": {
-        "nets_annotated": 2416,
-        "nets_total": 2416,
-        "design_nets_annotated": 2416,
-        "design_nets_total": 2434,
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
         "design_nets_missing_sample": [
           "VDD",
           "u_fsm/_0996_",
@@ -4937,15 +4937,15 @@
         ],
         "reader_warning_count": 1043,
         "reader_warning_sample": [
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 396, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 397, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 398, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 399, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 400, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
         ],
-        "unannotated_driver_count": 239,
+        "unannotated_driver_count": 218,
         "partially_unannotated_driver_count": 7,
-        "floating_driver_count": 90,
+        "floating_driver_count": 69,
         "floating_driver_sample": [
           "clkload0/X",
           "clkload1/Y",
@@ -5110,7 +5110,7 @@
         ],
         "delay_changed": true,
         "annotation_complete": false,
-        "annotation_warning": "only 2416 of 2434 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
       },
       "electrical_checks": {
         "parasitics_source": "spef",
@@ -5118,19 +5118,19 @@
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "ns",
-          "violation_count": 511,
-          "net_count": 16,
-          "worst_excess": 1.02853,
-          "worst_pin": "fanout7/X"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         },
         "max_capacitance": {
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "pF",
-          "violation_count": 16,
-          "net_count": 16,
-          "worst_excess": 0.08155,
-          "worst_pin": "fanout11/X"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         }
       },
       "clock_propagation": null,
@@ -5148,13 +5148,13 @@
     {
       "corner": "tt_025C_1v80",
       "engine_log": {
-        "invocation_id": "729fb9cdd8714b8aa290e3336fb6cb94",
+        "invocation_id": "000a874d8a734e45ade70ada6209da3d",
         "script_name": "sta_hyperram_ctrl__tt_025C_1v80.tcl",
         "script_path": {
           "path": "layout/electrical/.klt/sta/sta_hyperram_ctrl__tt_025C_1v80.tcl",
           "scope": "repo"
         },
-        "script_sha256": "3ee06cd224bb000cc8f34980aa5018ac81ee513406daa5c88c7e8615a74e433a",
+        "script_sha256": "7376befde84ffe58055bc242033749458979e59bd7cda013597bf5a1249a82da",
         "metrics_path": {
           "path": "layout/electrical/.klt/sta/hyperram_ctrl__tt_025C_1v80_metrics.json",
           "scope": "repo"
@@ -5162,28 +5162,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/729fb9cdd8714b8aa290e3336fb6cb94",
+          "path": "layout/electrical/.klt/sta/openroad-logs/000a874d8a734e45ade70ada6209da3d",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/729fb9cdd8714b8aa290e3336fb6cb94/stdout.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/000a874d8a734e45ade70ada6209da3d/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/729fb9cdd8714b8aa290e3336fb6cb94/stderr.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/000a874d8a734e45ade70ada6209da3d/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/729fb9cdd8714b8aa290e3336fb6cb94/invocation.json",
+          "path": "layout/electrical/.klt/sta/openroad-logs/000a874d8a734e45ade70ada6209da3d/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": 9.54192,
+      "worst_slack_ns": 9.5389,
       "total_negative_slack_ns": 0,
-      "worst_hold_slack_ns": 0.34171,
+      "worst_hold_slack_ns": 0.34128,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 191.642,
+      "fmax_mhz": 193.388,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -5253,7 +5253,7 @@
         "engine_check_role": "setup",
         "startpoint": "u_out/_47_/Q",
         "endpoint": "u_out/_27_/D",
-        "slack_ns": 9.54192,
+        "slack_ns": 9.5389,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -5261,14 +5261,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_937_/Q",
-        "endpoint": "u_cap/_941_/D",
-        "slack_ns": 0.34171,
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
+        "slack_ns": 0.34128,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.38666,
-      "estimated_power_mw": 3.2119,
+      "clock_skew_ns": 0.30162,
+      "estimated_power_mw": 3.4379,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -5276,10 +5276,10 @@
         "parasitics": "spef_annotated"
       },
       "spef_annotation": {
-        "nets_annotated": 2416,
-        "nets_total": 2416,
-        "design_nets_annotated": 2416,
-        "design_nets_total": 2434,
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
         "design_nets_missing_sample": [
           "VDD",
           "u_fsm/_0996_",
@@ -5302,15 +5302,15 @@
         ],
         "reader_warning_count": 1043,
         "reader_warning_sample": [
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 396, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 397, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 398, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 399, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 400, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
         ],
-        "unannotated_driver_count": 239,
+        "unannotated_driver_count": 218,
         "partially_unannotated_driver_count": 7,
-        "floating_driver_count": 90,
+        "floating_driver_count": 69,
         "floating_driver_sample": [
           "clkload0/X",
           "clkload1/Y",
@@ -5475,7 +5475,7 @@
         ],
         "delay_changed": true,
         "annotation_complete": false,
-        "annotation_warning": "only 2416 of 2434 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
       },
       "electrical_checks": {
         "parasitics_source": "spef",
@@ -5483,19 +5483,19 @@
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "ns",
-          "violation_count": 34,
-          "net_count": 1,
-          "worst_excess": 0.28973,
-          "worst_pin": "fanout7/X"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         },
         "max_capacitance": {
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "pF",
-          "violation_count": 1,
-          "net_count": 1,
-          "worst_excess": 0.03118,
-          "worst_pin": "fanout7/X"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         }
       },
       "clock_propagation": null,
@@ -5513,13 +5513,13 @@
     {
       "corner": "tt_100C_1v80",
       "engine_log": {
-        "invocation_id": "f7a27c4626fa4ad3aaba9ad609542820",
+        "invocation_id": "f6452fcce2834eeb9c1fe07d8e442ba3",
         "script_name": "sta_hyperram_ctrl__tt_100C_1v80.tcl",
         "script_path": {
           "path": "layout/electrical/.klt/sta/sta_hyperram_ctrl__tt_100C_1v80.tcl",
           "scope": "repo"
         },
-        "script_sha256": "39ca238fff3d81a0e151acf14514acee96a33054acc6152cabd3a0406065fe5d",
+        "script_sha256": "79e261eaee80ab2ab5bcc446af042437f25c796d4f7c72a815f199c75e5dde63",
         "metrics_path": {
           "path": "layout/electrical/.klt/sta/hyperram_ctrl__tt_100C_1v80_metrics.json",
           "scope": "repo"
@@ -5527,28 +5527,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/f7a27c4626fa4ad3aaba9ad609542820",
+          "path": "layout/electrical/.klt/sta/openroad-logs/f6452fcce2834eeb9c1fe07d8e442ba3",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/f7a27c4626fa4ad3aaba9ad609542820/stdout.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/f6452fcce2834eeb9c1fe07d8e442ba3/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/f7a27c4626fa4ad3aaba9ad609542820/stderr.log",
+          "path": "layout/electrical/.klt/sta/openroad-logs/f6452fcce2834eeb9c1fe07d8e442ba3/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "layout/electrical/.klt/sta/openroad-logs/f7a27c4626fa4ad3aaba9ad609542820/invocation.json",
+          "path": "layout/electrical/.klt/sta/openroad-logs/f6452fcce2834eeb9c1fe07d8e442ba3/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": 9.5461,
+      "worst_slack_ns": 9.54298,
       "total_negative_slack_ns": 0,
-      "worst_hold_slack_ns": 0.35003,
+      "worst_hold_slack_ns": 0.34961,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 191.674,
+      "fmax_mhz": 193.127,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -5618,7 +5618,7 @@
         "engine_check_role": "setup",
         "startpoint": "u_out/_47_/Q",
         "endpoint": "u_out/_27_/D",
-        "slack_ns": 9.5461,
+        "slack_ns": 9.54298,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -5626,14 +5626,14 @@
         "status": "ok",
         "check_type": "hold",
         "engine_check_role": "hold",
-        "startpoint": "u_cap/_937_/Q",
-        "endpoint": "u_cap/_941_/D",
-        "slack_ns": 0.35003,
+        "startpoint": "u_cap/_936_/Q",
+        "endpoint": "u_cap/_940_/D",
+        "slack_ns": 0.34961,
         "consistent_with_aggregate": true,
         "reason": null
       },
-      "clock_skew_ns": 0.42224,
-      "estimated_power_mw": 3.3095,
+      "clock_skew_ns": 0.33437,
+      "estimated_power_mw": 3.5321,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -5641,10 +5641,10 @@
         "parasitics": "spef_annotated"
       },
       "spef_annotation": {
-        "nets_annotated": 2416,
-        "nets_total": 2416,
-        "design_nets_annotated": 2416,
-        "design_nets_total": 2434,
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
         "design_nets_missing_sample": [
           "VDD",
           "u_fsm/_0996_",
@@ -5667,15 +5667,15 @@
         ],
         "reader_warning_count": 1043,
         "reader_warning_sample": [
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 396, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 397, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 398, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 399, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
-          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 400, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
         ],
-        "unannotated_driver_count": 239,
+        "unannotated_driver_count": 218,
         "partially_unannotated_driver_count": 7,
-        "floating_driver_count": 90,
+        "floating_driver_count": 69,
         "floating_driver_sample": [
           "clkload0/X",
           "clkload1/Y",
@@ -5840,7 +5840,7 @@
         ],
         "delay_changed": true,
         "annotation_complete": false,
-        "annotation_warning": "only 2416 of 2434 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
       },
       "electrical_checks": {
         "parasitics_source": "spef",
@@ -5848,19 +5848,19 @@
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "ns",
-          "violation_count": 34,
-          "net_count": 1,
-          "worst_excess": 0.18995,
-          "worst_pin": "fanout7/X"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         },
         "max_capacitance": {
           "coverage": "checked",
           "limit_source": "liberty",
           "unit": "pF",
-          "violation_count": 1,
-          "net_count": 1,
-          "worst_excess": 0.02148,
-          "worst_pin": "fanout7/X"
+          "violation_count": 0,
+          "net_count": 0,
+          "worst_excess": null,
+          "worst_pin": null
         }
       },
       "clock_propagation": null,

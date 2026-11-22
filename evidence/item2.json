@@ -18,8 +18,8 @@
       "content_hash": "sha256:8e78e14442062dba34d414fca6490b2f6b96038d4510d1438ca44fee31487135",
       "released": false,
       "path": {
-        "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib",
-        "scope": "repo"
+        "path": null,
+        "scope": "external"
       }
     },
     "input": {
@@ -27,7 +27,7 @@
         "path": "layout/records/hyperram_ctrl.gds",
         "scope": "repo"
       },
-      "content_hash": "sha256:a99f532488cfd59ec1137567f4bcc44292a30196cf0e08daa3e3514c6d398d32"
+      "content_hash": "sha256:2566d33c284e678b938e82d3fc8c93c12b51ee5ec5b63d36abee4550e4909be8"
     }
   }
 }

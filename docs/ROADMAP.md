@@ -58,10 +58,12 @@ Also in the tree, outside the tier record:
   I/O-timing evidence: it loads only `sky130_fd_sc_hd` — no pads, no I/O
   constraints. `design/` still holds no custom cell.
 - Findings recorded in `layout/README.md` and left as found: post-route setup
-  slack is negative at the four `ss_n40C` liberty corners below 1.62 V (worst
-  -27.28 ns at `ss_n40C_1v28`), which decision 0004's "all liberty corners"
-  does not reconcile with its 1.8 V ±10 % supply; 284 max-transition and 15
-  max-capacitance violations against the library limits are uninvestigated.
+  slack is negative at the `ss_n40C` liberty corners below 1.62 V (worst
+  -15.41 ns at `ss_n40C_1v28` after #173), which decision 0004's "all liberty
+  corners" does not reconcile with its 1.8 V ±10 % supply. The
+  max-transition / max-capacitance violations (612 and 22 against the library
+  limits after #101) were fixed by #173: 0 and 0 at every corner, classified
+  pin-by-pin in `layout/electrical/` and summarized in `layout/README.md`.
 
 ## Now
 
@@ -125,8 +127,10 @@ As of the header sha above; live label state is
   setup and hold margin at the capturing flop against the row-12 figure.
 - **Item 7, post-layout verification.** After #52. Done when the GL benches run
   with SDF from the fresh layout and the manifest cites the report.
-- **Max-transition and max-capacitance violations.** After #52, on the fresh
-  response. Done when each class is fixed or explained in `layout/README.md`.
+- **Max-transition and max-capacitance violations.** Done (#173): 0 and 0
+  against the library limits and 0 antenna at every corner on the regenerated
+  response; the per-pin classification is `layout/electrical/records/` and the
+  repair constraints are in `layout/README.md` § Request.
 
 ## Later
 
