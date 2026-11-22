@@ -1,0 +1,3639 @@
+{
+  "schema": "hyperram.electrical-checks/1",
+  "issue": 173,
+  "generated_by": "layout/electrical/classify.py (parses klt sta engine stdout; limits are the tool's own)",
+  "parasitics_model": "committed SPEF (layout/records/hyperram_ctrl.spef), one klt sta DEF+SPEF session per corner",
+  "geometry": {
+    "def": {
+      "path": "layout/records/hyperram_ctrl.def",
+      "sha256": "sha256:a25188f95f9f85651a42ed9c6b181b229a9deb15c9daa3cb04ca6a4f142102a7"
+    },
+    "spef": {
+      "path": "layout/records/hyperram_ctrl.spef",
+      "sha256": "sha256:b0cde1de202abd8f5aed9a3f2b2042fc08667bc99ae22254e1f25bb07b52f86f"
+    },
+    "routed_netlist": {
+      "path": "layout/records/hyperram_ctrl.routed.v",
+      "sha256": "sha256:af6546bb79753dd73bd8c680d188911f2124d37a308dd6b12059d392a13dc79e"
+    }
+  },
+  "engine": {
+    "openroad": "26Q3-1510-g6cb3f2b704",
+    "klt_pin": "0.8.0 (scripts/klt.sh)"
+  },
+  "engine_stdout_artifacts": [],
+  "place_and_route_sweep": {
+    "path": "layout/records/place-and-route.response.json",
+    "parasitics_model": "library limits with global-routing-estimated parasitics (estimate_parasitics -global_routing)",
+    "pin_row_reconciliation": "unavailable",
+    "evidence_gap": "https://github.com/2AMLogic/sky130-hyperram-ctrl/issues/179",
+    "top_counts": {
+      "max_transition_violation_count": 0,
+      "max_capacitance_violation_count": 0,
+      "antenna_violation_count": 0
+    }
+  },
+  "corners": [
+    {
+      "corner": "ff_100C_1v65",
+      "spef_annotation": {
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
+        "design_nets_missing_sample": [
+          "VDD",
+          "u_fsm/_0996_",
+          "u_fsm/_0997_",
+          "u_fsm/_0998_",
+          "u_fsm/_0999_",
+          "u_fsm/_1000_",
+          "u_fsm/_1001_",
+          "u_fsm/_1002_",
+          "u_fsm/_1003_",
+          "u_fsm/_1004_",
+          "u_fsm/_1005_",
+          "u_fsm/_1006_",
+          "u_fsm/_1007_",
+          "u_fsm/_1008_",
+          "u_fsm/_1009_",
+          "u_fsm/_1010_",
+          "u_fsm/_1011_",
+          "u_fsm/_1012_"
+        ],
+        "reader_warning_count": 1043,
+        "reader_warning_sample": [
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+        ],
+        "unannotated_driver_count": 218,
+        "partially_unannotated_driver_count": 7,
+        "floating_driver_count": 69,
+        "floating_driver_sample": [
+          "clkload0/X",
+          "clkload1/Y",
+          "clkload10/Y",
+          "clkload11/Y",
+          "clkload12/Y",
+          "clkload13/Y",
+          "clkload14/Y",
+          "clkload15/Y",
+          "clkload16/Y",
+          "clkload17/Y",
+          "clkload18/Y",
+          "clkload19/Y",
+          "clkload2/Y",
+          "clkload20/Y",
+          "clkload21/Y",
+          "clkload22/Y",
+          "clkload23/Y",
+          "clkload24/Y",
+          "clkload25/Y",
+          "clkload26/Y"
+        ],
+        "unannotated_driver_sample": [
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X"
+        ],
+        "unannotated_driver_detail": [
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          }
+        ],
+        "partially_unannotated_driver_sample": [
+          "u_out/u_ck_dly/g_dly\\[11\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/A",
+          "u_out/u_ck_dly/g_dly\\[13\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/A",
+          "u_out/u_ck_dly/g_dly\\[1\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/A",
+          "u_out/u_ck_dly/g_dly\\[3\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/A",
+          "u_out/u_ck_dly/g_dly\\[5\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/A",
+          "u_out/u_ck_dly/g_dly\\[7\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/A",
+          "u_out/u_ck_dly/g_dly\\[9\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/A"
+        ],
+        "delay_changed": true,
+        "annotation_complete": false,
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+      },
+      "place_and_route_sweep_counts": {
+        "max_transition": 0,
+        "max_capacitance": 0
+      },
+      "max_transition": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      },
+      "max_capacitance": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      }
+    },
+    {
+      "corner": "ff_100C_1v95",
+      "spef_annotation": {
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
+        "design_nets_missing_sample": [
+          "VDD",
+          "u_fsm/_0996_",
+          "u_fsm/_0997_",
+          "u_fsm/_0998_",
+          "u_fsm/_0999_",
+          "u_fsm/_1000_",
+          "u_fsm/_1001_",
+          "u_fsm/_1002_",
+          "u_fsm/_1003_",
+          "u_fsm/_1004_",
+          "u_fsm/_1005_",
+          "u_fsm/_1006_",
+          "u_fsm/_1007_",
+          "u_fsm/_1008_",
+          "u_fsm/_1009_",
+          "u_fsm/_1010_",
+          "u_fsm/_1011_",
+          "u_fsm/_1012_"
+        ],
+        "reader_warning_count": 1043,
+        "reader_warning_sample": [
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+        ],
+        "unannotated_driver_count": 218,
+        "partially_unannotated_driver_count": 7,
+        "floating_driver_count": 69,
+        "floating_driver_sample": [
+          "clkload0/X",
+          "clkload1/Y",
+          "clkload10/Y",
+          "clkload11/Y",
+          "clkload12/Y",
+          "clkload13/Y",
+          "clkload14/Y",
+          "clkload15/Y",
+          "clkload16/Y",
+          "clkload17/Y",
+          "clkload18/Y",
+          "clkload19/Y",
+          "clkload2/Y",
+          "clkload20/Y",
+          "clkload21/Y",
+          "clkload22/Y",
+          "clkload23/Y",
+          "clkload24/Y",
+          "clkload25/Y",
+          "clkload26/Y"
+        ],
+        "unannotated_driver_sample": [
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X"
+        ],
+        "unannotated_driver_detail": [
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          }
+        ],
+        "partially_unannotated_driver_sample": [
+          "u_out/u_ck_dly/g_dly\\[11\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/A",
+          "u_out/u_ck_dly/g_dly\\[13\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/A",
+          "u_out/u_ck_dly/g_dly\\[1\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/A",
+          "u_out/u_ck_dly/g_dly\\[3\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/A",
+          "u_out/u_ck_dly/g_dly\\[5\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/A",
+          "u_out/u_ck_dly/g_dly\\[7\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/A",
+          "u_out/u_ck_dly/g_dly\\[9\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/A"
+        ],
+        "delay_changed": true,
+        "annotation_complete": false,
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+      },
+      "place_and_route_sweep_counts": {
+        "max_transition": 0,
+        "max_capacitance": 0
+      },
+      "max_transition": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      },
+      "max_capacitance": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      }
+    },
+    {
+      "corner": "ff_n40C_1v56",
+      "spef_annotation": {
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
+        "design_nets_missing_sample": [
+          "VDD",
+          "u_fsm/_0996_",
+          "u_fsm/_0997_",
+          "u_fsm/_0998_",
+          "u_fsm/_0999_",
+          "u_fsm/_1000_",
+          "u_fsm/_1001_",
+          "u_fsm/_1002_",
+          "u_fsm/_1003_",
+          "u_fsm/_1004_",
+          "u_fsm/_1005_",
+          "u_fsm/_1006_",
+          "u_fsm/_1007_",
+          "u_fsm/_1008_",
+          "u_fsm/_1009_",
+          "u_fsm/_1010_",
+          "u_fsm/_1011_",
+          "u_fsm/_1012_"
+        ],
+        "reader_warning_count": 1043,
+        "reader_warning_sample": [
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+        ],
+        "unannotated_driver_count": 218,
+        "partially_unannotated_driver_count": 7,
+        "floating_driver_count": 69,
+        "floating_driver_sample": [
+          "clkload0/X",
+          "clkload1/Y",
+          "clkload10/Y",
+          "clkload11/Y",
+          "clkload12/Y",
+          "clkload13/Y",
+          "clkload14/Y",
+          "clkload15/Y",
+          "clkload16/Y",
+          "clkload17/Y",
+          "clkload18/Y",
+          "clkload19/Y",
+          "clkload2/Y",
+          "clkload20/Y",
+          "clkload21/Y",
+          "clkload22/Y",
+          "clkload23/Y",
+          "clkload24/Y",
+          "clkload25/Y",
+          "clkload26/Y"
+        ],
+        "unannotated_driver_sample": [
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X"
+        ],
+        "unannotated_driver_detail": [
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          }
+        ],
+        "partially_unannotated_driver_sample": [
+          "u_out/u_ck_dly/g_dly\\[11\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/A",
+          "u_out/u_ck_dly/g_dly\\[13\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/A",
+          "u_out/u_ck_dly/g_dly\\[1\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/A",
+          "u_out/u_ck_dly/g_dly\\[3\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/A",
+          "u_out/u_ck_dly/g_dly\\[5\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/A",
+          "u_out/u_ck_dly/g_dly\\[7\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/A",
+          "u_out/u_ck_dly/g_dly\\[9\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/A"
+        ],
+        "delay_changed": true,
+        "annotation_complete": false,
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+      },
+      "place_and_route_sweep_counts": {
+        "max_transition": 0,
+        "max_capacitance": 0
+      },
+      "max_transition": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      },
+      "max_capacitance": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      }
+    },
+    {
+      "corner": "ff_n40C_1v65",
+      "spef_annotation": {
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
+        "design_nets_missing_sample": [
+          "VDD",
+          "u_fsm/_0996_",
+          "u_fsm/_0997_",
+          "u_fsm/_0998_",
+          "u_fsm/_0999_",
+          "u_fsm/_1000_",
+          "u_fsm/_1001_",
+          "u_fsm/_1002_",
+          "u_fsm/_1003_",
+          "u_fsm/_1004_",
+          "u_fsm/_1005_",
+          "u_fsm/_1006_",
+          "u_fsm/_1007_",
+          "u_fsm/_1008_",
+          "u_fsm/_1009_",
+          "u_fsm/_1010_",
+          "u_fsm/_1011_",
+          "u_fsm/_1012_"
+        ],
+        "reader_warning_count": 1043,
+        "reader_warning_sample": [
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+        ],
+        "unannotated_driver_count": 218,
+        "partially_unannotated_driver_count": 7,
+        "floating_driver_count": 69,
+        "floating_driver_sample": [
+          "clkload0/X",
+          "clkload1/Y",
+          "clkload10/Y",
+          "clkload11/Y",
+          "clkload12/Y",
+          "clkload13/Y",
+          "clkload14/Y",
+          "clkload15/Y",
+          "clkload16/Y",
+          "clkload17/Y",
+          "clkload18/Y",
+          "clkload19/Y",
+          "clkload2/Y",
+          "clkload20/Y",
+          "clkload21/Y",
+          "clkload22/Y",
+          "clkload23/Y",
+          "clkload24/Y",
+          "clkload25/Y",
+          "clkload26/Y"
+        ],
+        "unannotated_driver_sample": [
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X"
+        ],
+        "unannotated_driver_detail": [
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          }
+        ],
+        "partially_unannotated_driver_sample": [
+          "u_out/u_ck_dly/g_dly\\[11\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/A",
+          "u_out/u_ck_dly/g_dly\\[13\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/A",
+          "u_out/u_ck_dly/g_dly\\[1\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/A",
+          "u_out/u_ck_dly/g_dly\\[3\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/A",
+          "u_out/u_ck_dly/g_dly\\[5\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/A",
+          "u_out/u_ck_dly/g_dly\\[7\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/A",
+          "u_out/u_ck_dly/g_dly\\[9\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/A"
+        ],
+        "delay_changed": true,
+        "annotation_complete": false,
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+      },
+      "place_and_route_sweep_counts": {
+        "max_transition": 0,
+        "max_capacitance": 0
+      },
+      "max_transition": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      },
+      "max_capacitance": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      }
+    },
+    {
+      "corner": "ff_n40C_1v76",
+      "spef_annotation": {
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
+        "design_nets_missing_sample": [
+          "VDD",
+          "u_fsm/_0996_",
+          "u_fsm/_0997_",
+          "u_fsm/_0998_",
+          "u_fsm/_0999_",
+          "u_fsm/_1000_",
+          "u_fsm/_1001_",
+          "u_fsm/_1002_",
+          "u_fsm/_1003_",
+          "u_fsm/_1004_",
+          "u_fsm/_1005_",
+          "u_fsm/_1006_",
+          "u_fsm/_1007_",
+          "u_fsm/_1008_",
+          "u_fsm/_1009_",
+          "u_fsm/_1010_",
+          "u_fsm/_1011_",
+          "u_fsm/_1012_"
+        ],
+        "reader_warning_count": 1043,
+        "reader_warning_sample": [
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+        ],
+        "unannotated_driver_count": 218,
+        "partially_unannotated_driver_count": 7,
+        "floating_driver_count": 69,
+        "floating_driver_sample": [
+          "clkload0/X",
+          "clkload1/Y",
+          "clkload10/Y",
+          "clkload11/Y",
+          "clkload12/Y",
+          "clkload13/Y",
+          "clkload14/Y",
+          "clkload15/Y",
+          "clkload16/Y",
+          "clkload17/Y",
+          "clkload18/Y",
+          "clkload19/Y",
+          "clkload2/Y",
+          "clkload20/Y",
+          "clkload21/Y",
+          "clkload22/Y",
+          "clkload23/Y",
+          "clkload24/Y",
+          "clkload25/Y",
+          "clkload26/Y"
+        ],
+        "unannotated_driver_sample": [
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X"
+        ],
+        "unannotated_driver_detail": [
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          }
+        ],
+        "partially_unannotated_driver_sample": [
+          "u_out/u_ck_dly/g_dly\\[11\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/A",
+          "u_out/u_ck_dly/g_dly\\[13\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/A",
+          "u_out/u_ck_dly/g_dly\\[1\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/A",
+          "u_out/u_ck_dly/g_dly\\[3\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/A",
+          "u_out/u_ck_dly/g_dly\\[5\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/A",
+          "u_out/u_ck_dly/g_dly\\[7\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/A",
+          "u_out/u_ck_dly/g_dly\\[9\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/A"
+        ],
+        "delay_changed": true,
+        "annotation_complete": false,
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+      },
+      "place_and_route_sweep_counts": {
+        "max_transition": 0,
+        "max_capacitance": 0
+      },
+      "max_transition": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      },
+      "max_capacitance": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      }
+    },
+    {
+      "corner": "ff_n40C_1v95",
+      "spef_annotation": {
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
+        "design_nets_missing_sample": [
+          "VDD",
+          "u_fsm/_0996_",
+          "u_fsm/_0997_",
+          "u_fsm/_0998_",
+          "u_fsm/_0999_",
+          "u_fsm/_1000_",
+          "u_fsm/_1001_",
+          "u_fsm/_1002_",
+          "u_fsm/_1003_",
+          "u_fsm/_1004_",
+          "u_fsm/_1005_",
+          "u_fsm/_1006_",
+          "u_fsm/_1007_",
+          "u_fsm/_1008_",
+          "u_fsm/_1009_",
+          "u_fsm/_1010_",
+          "u_fsm/_1011_",
+          "u_fsm/_1012_"
+        ],
+        "reader_warning_count": 1043,
+        "reader_warning_sample": [
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+        ],
+        "unannotated_driver_count": 218,
+        "partially_unannotated_driver_count": 7,
+        "floating_driver_count": 69,
+        "floating_driver_sample": [
+          "clkload0/X",
+          "clkload1/Y",
+          "clkload10/Y",
+          "clkload11/Y",
+          "clkload12/Y",
+          "clkload13/Y",
+          "clkload14/Y",
+          "clkload15/Y",
+          "clkload16/Y",
+          "clkload17/Y",
+          "clkload18/Y",
+          "clkload19/Y",
+          "clkload2/Y",
+          "clkload20/Y",
+          "clkload21/Y",
+          "clkload22/Y",
+          "clkload23/Y",
+          "clkload24/Y",
+          "clkload25/Y",
+          "clkload26/Y"
+        ],
+        "unannotated_driver_sample": [
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X"
+        ],
+        "unannotated_driver_detail": [
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          }
+        ],
+        "partially_unannotated_driver_sample": [
+          "u_out/u_ck_dly/g_dly\\[11\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/A",
+          "u_out/u_ck_dly/g_dly\\[13\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/A",
+          "u_out/u_ck_dly/g_dly\\[1\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/A",
+          "u_out/u_ck_dly/g_dly\\[3\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/A",
+          "u_out/u_ck_dly/g_dly\\[5\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/A",
+          "u_out/u_ck_dly/g_dly\\[7\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/A",
+          "u_out/u_ck_dly/g_dly\\[9\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/A"
+        ],
+        "delay_changed": true,
+        "annotation_complete": false,
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+      },
+      "place_and_route_sweep_counts": {
+        "max_transition": 0,
+        "max_capacitance": 0
+      },
+      "max_transition": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      },
+      "max_capacitance": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      }
+    },
+    {
+      "corner": "ss_100C_1v40",
+      "spef_annotation": {
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
+        "design_nets_missing_sample": [
+          "VDD",
+          "u_fsm/_0996_",
+          "u_fsm/_0997_",
+          "u_fsm/_0998_",
+          "u_fsm/_0999_",
+          "u_fsm/_1000_",
+          "u_fsm/_1001_",
+          "u_fsm/_1002_",
+          "u_fsm/_1003_",
+          "u_fsm/_1004_",
+          "u_fsm/_1005_",
+          "u_fsm/_1006_",
+          "u_fsm/_1007_",
+          "u_fsm/_1008_",
+          "u_fsm/_1009_",
+          "u_fsm/_1010_",
+          "u_fsm/_1011_",
+          "u_fsm/_1012_"
+        ],
+        "reader_warning_count": 1043,
+        "reader_warning_sample": [
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+        ],
+        "unannotated_driver_count": 218,
+        "partially_unannotated_driver_count": 7,
+        "floating_driver_count": 69,
+        "floating_driver_sample": [
+          "clkload0/X",
+          "clkload1/Y",
+          "clkload10/Y",
+          "clkload11/Y",
+          "clkload12/Y",
+          "clkload13/Y",
+          "clkload14/Y",
+          "clkload15/Y",
+          "clkload16/Y",
+          "clkload17/Y",
+          "clkload18/Y",
+          "clkload19/Y",
+          "clkload2/Y",
+          "clkload20/Y",
+          "clkload21/Y",
+          "clkload22/Y",
+          "clkload23/Y",
+          "clkload24/Y",
+          "clkload25/Y",
+          "clkload26/Y"
+        ],
+        "unannotated_driver_sample": [
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X"
+        ],
+        "unannotated_driver_detail": [
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          }
+        ],
+        "partially_unannotated_driver_sample": [
+          "u_out/u_ck_dly/g_dly\\[11\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/A",
+          "u_out/u_ck_dly/g_dly\\[13\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/A",
+          "u_out/u_ck_dly/g_dly\\[1\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/A",
+          "u_out/u_ck_dly/g_dly\\[3\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/A",
+          "u_out/u_ck_dly/g_dly\\[5\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/A",
+          "u_out/u_ck_dly/g_dly\\[7\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/A",
+          "u_out/u_ck_dly/g_dly\\[9\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/A"
+        ],
+        "delay_changed": true,
+        "annotation_complete": false,
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+      },
+      "place_and_route_sweep_counts": {
+        "max_transition": 0,
+        "max_capacitance": 0
+      },
+      "max_transition": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      },
+      "max_capacitance": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      }
+    },
+    {
+      "corner": "ss_100C_1v60",
+      "spef_annotation": {
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
+        "design_nets_missing_sample": [
+          "VDD",
+          "u_fsm/_0996_",
+          "u_fsm/_0997_",
+          "u_fsm/_0998_",
+          "u_fsm/_0999_",
+          "u_fsm/_1000_",
+          "u_fsm/_1001_",
+          "u_fsm/_1002_",
+          "u_fsm/_1003_",
+          "u_fsm/_1004_",
+          "u_fsm/_1005_",
+          "u_fsm/_1006_",
+          "u_fsm/_1007_",
+          "u_fsm/_1008_",
+          "u_fsm/_1009_",
+          "u_fsm/_1010_",
+          "u_fsm/_1011_",
+          "u_fsm/_1012_"
+        ],
+        "reader_warning_count": 1043,
+        "reader_warning_sample": [
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+        ],
+        "unannotated_driver_count": 218,
+        "partially_unannotated_driver_count": 7,
+        "floating_driver_count": 69,
+        "floating_driver_sample": [
+          "clkload0/X",
+          "clkload1/Y",
+          "clkload10/Y",
+          "clkload11/Y",
+          "clkload12/Y",
+          "clkload13/Y",
+          "clkload14/Y",
+          "clkload15/Y",
+          "clkload16/Y",
+          "clkload17/Y",
+          "clkload18/Y",
+          "clkload19/Y",
+          "clkload2/Y",
+          "clkload20/Y",
+          "clkload21/Y",
+          "clkload22/Y",
+          "clkload23/Y",
+          "clkload24/Y",
+          "clkload25/Y",
+          "clkload26/Y"
+        ],
+        "unannotated_driver_sample": [
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X"
+        ],
+        "unannotated_driver_detail": [
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          }
+        ],
+        "partially_unannotated_driver_sample": [
+          "u_out/u_ck_dly/g_dly\\[11\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/A",
+          "u_out/u_ck_dly/g_dly\\[13\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/A",
+          "u_out/u_ck_dly/g_dly\\[1\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/A",
+          "u_out/u_ck_dly/g_dly\\[3\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/A",
+          "u_out/u_ck_dly/g_dly\\[5\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/A",
+          "u_out/u_ck_dly/g_dly\\[7\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/A",
+          "u_out/u_ck_dly/g_dly\\[9\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/A"
+        ],
+        "delay_changed": true,
+        "annotation_complete": false,
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+      },
+      "place_and_route_sweep_counts": {
+        "max_transition": 0,
+        "max_capacitance": 0
+      },
+      "max_transition": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      },
+      "max_capacitance": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      }
+    },
+    {
+      "corner": "ss_n40C_1v28",
+      "spef_annotation": {
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
+        "design_nets_missing_sample": [
+          "VDD",
+          "u_fsm/_0996_",
+          "u_fsm/_0997_",
+          "u_fsm/_0998_",
+          "u_fsm/_0999_",
+          "u_fsm/_1000_",
+          "u_fsm/_1001_",
+          "u_fsm/_1002_",
+          "u_fsm/_1003_",
+          "u_fsm/_1004_",
+          "u_fsm/_1005_",
+          "u_fsm/_1006_",
+          "u_fsm/_1007_",
+          "u_fsm/_1008_",
+          "u_fsm/_1009_",
+          "u_fsm/_1010_",
+          "u_fsm/_1011_",
+          "u_fsm/_1012_"
+        ],
+        "reader_warning_count": 1043,
+        "reader_warning_sample": [
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+        ],
+        "unannotated_driver_count": 218,
+        "partially_unannotated_driver_count": 7,
+        "floating_driver_count": 69,
+        "floating_driver_sample": [
+          "clkload0/X",
+          "clkload1/Y",
+          "clkload10/Y",
+          "clkload11/Y",
+          "clkload12/Y",
+          "clkload13/Y",
+          "clkload14/Y",
+          "clkload15/Y",
+          "clkload16/Y",
+          "clkload17/Y",
+          "clkload18/Y",
+          "clkload19/Y",
+          "clkload2/Y",
+          "clkload20/Y",
+          "clkload21/Y",
+          "clkload22/Y",
+          "clkload23/Y",
+          "clkload24/Y",
+          "clkload25/Y",
+          "clkload26/Y"
+        ],
+        "unannotated_driver_sample": [
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X"
+        ],
+        "unannotated_driver_detail": [
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          }
+        ],
+        "partially_unannotated_driver_sample": [
+          "u_out/u_ck_dly/g_dly\\[11\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/A",
+          "u_out/u_ck_dly/g_dly\\[13\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/A",
+          "u_out/u_ck_dly/g_dly\\[1\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/A",
+          "u_out/u_ck_dly/g_dly\\[3\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/A",
+          "u_out/u_ck_dly/g_dly\\[5\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/A",
+          "u_out/u_ck_dly/g_dly\\[7\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/A",
+          "u_out/u_ck_dly/g_dly\\[9\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/A"
+        ],
+        "delay_changed": true,
+        "annotation_complete": false,
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+      },
+      "place_and_route_sweep_counts": {
+        "max_transition": 0,
+        "max_capacitance": 0
+      },
+      "max_transition": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      },
+      "max_capacitance": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      }
+    },
+    {
+      "corner": "ss_n40C_1v35",
+      "spef_annotation": {
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
+        "design_nets_missing_sample": [
+          "VDD",
+          "u_fsm/_0996_",
+          "u_fsm/_0997_",
+          "u_fsm/_0998_",
+          "u_fsm/_0999_",
+          "u_fsm/_1000_",
+          "u_fsm/_1001_",
+          "u_fsm/_1002_",
+          "u_fsm/_1003_",
+          "u_fsm/_1004_",
+          "u_fsm/_1005_",
+          "u_fsm/_1006_",
+          "u_fsm/_1007_",
+          "u_fsm/_1008_",
+          "u_fsm/_1009_",
+          "u_fsm/_1010_",
+          "u_fsm/_1011_",
+          "u_fsm/_1012_"
+        ],
+        "reader_warning_count": 1043,
+        "reader_warning_sample": [
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+        ],
+        "unannotated_driver_count": 218,
+        "partially_unannotated_driver_count": 7,
+        "floating_driver_count": 69,
+        "floating_driver_sample": [
+          "clkload0/X",
+          "clkload1/Y",
+          "clkload10/Y",
+          "clkload11/Y",
+          "clkload12/Y",
+          "clkload13/Y",
+          "clkload14/Y",
+          "clkload15/Y",
+          "clkload16/Y",
+          "clkload17/Y",
+          "clkload18/Y",
+          "clkload19/Y",
+          "clkload2/Y",
+          "clkload20/Y",
+          "clkload21/Y",
+          "clkload22/Y",
+          "clkload23/Y",
+          "clkload24/Y",
+          "clkload25/Y",
+          "clkload26/Y"
+        ],
+        "unannotated_driver_sample": [
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X"
+        ],
+        "unannotated_driver_detail": [
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          }
+        ],
+        "partially_unannotated_driver_sample": [
+          "u_out/u_ck_dly/g_dly\\[11\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/A",
+          "u_out/u_ck_dly/g_dly\\[13\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/A",
+          "u_out/u_ck_dly/g_dly\\[1\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/A",
+          "u_out/u_ck_dly/g_dly\\[3\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/A",
+          "u_out/u_ck_dly/g_dly\\[5\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/A",
+          "u_out/u_ck_dly/g_dly\\[7\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/A",
+          "u_out/u_ck_dly/g_dly\\[9\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/A"
+        ],
+        "delay_changed": true,
+        "annotation_complete": false,
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+      },
+      "place_and_route_sweep_counts": {
+        "max_transition": 0,
+        "max_capacitance": 0
+      },
+      "max_transition": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      },
+      "max_capacitance": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      }
+    },
+    {
+      "corner": "ss_n40C_1v40",
+      "spef_annotation": {
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
+        "design_nets_missing_sample": [
+          "VDD",
+          "u_fsm/_0996_",
+          "u_fsm/_0997_",
+          "u_fsm/_0998_",
+          "u_fsm/_0999_",
+          "u_fsm/_1000_",
+          "u_fsm/_1001_",
+          "u_fsm/_1002_",
+          "u_fsm/_1003_",
+          "u_fsm/_1004_",
+          "u_fsm/_1005_",
+          "u_fsm/_1006_",
+          "u_fsm/_1007_",
+          "u_fsm/_1008_",
+          "u_fsm/_1009_",
+          "u_fsm/_1010_",
+          "u_fsm/_1011_",
+          "u_fsm/_1012_"
+        ],
+        "reader_warning_count": 1043,
+        "reader_warning_sample": [
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+        ],
+        "unannotated_driver_count": 218,
+        "partially_unannotated_driver_count": 7,
+        "floating_driver_count": 69,
+        "floating_driver_sample": [
+          "clkload0/X",
+          "clkload1/Y",
+          "clkload10/Y",
+          "clkload11/Y",
+          "clkload12/Y",
+          "clkload13/Y",
+          "clkload14/Y",
+          "clkload15/Y",
+          "clkload16/Y",
+          "clkload17/Y",
+          "clkload18/Y",
+          "clkload19/Y",
+          "clkload2/Y",
+          "clkload20/Y",
+          "clkload21/Y",
+          "clkload22/Y",
+          "clkload23/Y",
+          "clkload24/Y",
+          "clkload25/Y",
+          "clkload26/Y"
+        ],
+        "unannotated_driver_sample": [
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X"
+        ],
+        "unannotated_driver_detail": [
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          }
+        ],
+        "partially_unannotated_driver_sample": [
+          "u_out/u_ck_dly/g_dly\\[11\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/A",
+          "u_out/u_ck_dly/g_dly\\[13\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/A",
+          "u_out/u_ck_dly/g_dly\\[1\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/A",
+          "u_out/u_ck_dly/g_dly\\[3\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/A",
+          "u_out/u_ck_dly/g_dly\\[5\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/A",
+          "u_out/u_ck_dly/g_dly\\[7\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/A",
+          "u_out/u_ck_dly/g_dly\\[9\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/A"
+        ],
+        "delay_changed": true,
+        "annotation_complete": false,
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+      },
+      "place_and_route_sweep_counts": {
+        "max_transition": 0,
+        "max_capacitance": 0
+      },
+      "max_transition": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      },
+      "max_capacitance": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      }
+    },
+    {
+      "corner": "ss_n40C_1v44",
+      "spef_annotation": {
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
+        "design_nets_missing_sample": [
+          "VDD",
+          "u_fsm/_0996_",
+          "u_fsm/_0997_",
+          "u_fsm/_0998_",
+          "u_fsm/_0999_",
+          "u_fsm/_1000_",
+          "u_fsm/_1001_",
+          "u_fsm/_1002_",
+          "u_fsm/_1003_",
+          "u_fsm/_1004_",
+          "u_fsm/_1005_",
+          "u_fsm/_1006_",
+          "u_fsm/_1007_",
+          "u_fsm/_1008_",
+          "u_fsm/_1009_",
+          "u_fsm/_1010_",
+          "u_fsm/_1011_",
+          "u_fsm/_1012_"
+        ],
+        "reader_warning_count": 1043,
+        "reader_warning_sample": [
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+        ],
+        "unannotated_driver_count": 218,
+        "partially_unannotated_driver_count": 7,
+        "floating_driver_count": 69,
+        "floating_driver_sample": [
+          "clkload0/X",
+          "clkload1/Y",
+          "clkload10/Y",
+          "clkload11/Y",
+          "clkload12/Y",
+          "clkload13/Y",
+          "clkload14/Y",
+          "clkload15/Y",
+          "clkload16/Y",
+          "clkload17/Y",
+          "clkload18/Y",
+          "clkload19/Y",
+          "clkload2/Y",
+          "clkload20/Y",
+          "clkload21/Y",
+          "clkload22/Y",
+          "clkload23/Y",
+          "clkload24/Y",
+          "clkload25/Y",
+          "clkload26/Y"
+        ],
+        "unannotated_driver_sample": [
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X"
+        ],
+        "unannotated_driver_detail": [
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          }
+        ],
+        "partially_unannotated_driver_sample": [
+          "u_out/u_ck_dly/g_dly\\[11\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/A",
+          "u_out/u_ck_dly/g_dly\\[13\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/A",
+          "u_out/u_ck_dly/g_dly\\[1\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/A",
+          "u_out/u_ck_dly/g_dly\\[3\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/A",
+          "u_out/u_ck_dly/g_dly\\[5\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/A",
+          "u_out/u_ck_dly/g_dly\\[7\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/A",
+          "u_out/u_ck_dly/g_dly\\[9\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/A"
+        ],
+        "delay_changed": true,
+        "annotation_complete": false,
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+      },
+      "place_and_route_sweep_counts": {
+        "max_transition": 0,
+        "max_capacitance": 0
+      },
+      "max_transition": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      },
+      "max_capacitance": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      }
+    },
+    {
+      "corner": "ss_n40C_1v60",
+      "spef_annotation": {
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
+        "design_nets_missing_sample": [
+          "VDD",
+          "u_fsm/_0996_",
+          "u_fsm/_0997_",
+          "u_fsm/_0998_",
+          "u_fsm/_0999_",
+          "u_fsm/_1000_",
+          "u_fsm/_1001_",
+          "u_fsm/_1002_",
+          "u_fsm/_1003_",
+          "u_fsm/_1004_",
+          "u_fsm/_1005_",
+          "u_fsm/_1006_",
+          "u_fsm/_1007_",
+          "u_fsm/_1008_",
+          "u_fsm/_1009_",
+          "u_fsm/_1010_",
+          "u_fsm/_1011_",
+          "u_fsm/_1012_"
+        ],
+        "reader_warning_count": 1043,
+        "reader_warning_sample": [
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+        ],
+        "unannotated_driver_count": 218,
+        "partially_unannotated_driver_count": 7,
+        "floating_driver_count": 69,
+        "floating_driver_sample": [
+          "clkload0/X",
+          "clkload1/Y",
+          "clkload10/Y",
+          "clkload11/Y",
+          "clkload12/Y",
+          "clkload13/Y",
+          "clkload14/Y",
+          "clkload15/Y",
+          "clkload16/Y",
+          "clkload17/Y",
+          "clkload18/Y",
+          "clkload19/Y",
+          "clkload2/Y",
+          "clkload20/Y",
+          "clkload21/Y",
+          "clkload22/Y",
+          "clkload23/Y",
+          "clkload24/Y",
+          "clkload25/Y",
+          "clkload26/Y"
+        ],
+        "unannotated_driver_sample": [
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X"
+        ],
+        "unannotated_driver_detail": [
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          }
+        ],
+        "partially_unannotated_driver_sample": [
+          "u_out/u_ck_dly/g_dly\\[11\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/A",
+          "u_out/u_ck_dly/g_dly\\[13\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/A",
+          "u_out/u_ck_dly/g_dly\\[1\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/A",
+          "u_out/u_ck_dly/g_dly\\[3\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/A",
+          "u_out/u_ck_dly/g_dly\\[5\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/A",
+          "u_out/u_ck_dly/g_dly\\[7\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/A",
+          "u_out/u_ck_dly/g_dly\\[9\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/A"
+        ],
+        "delay_changed": true,
+        "annotation_complete": false,
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+      },
+      "place_and_route_sweep_counts": {
+        "max_transition": 0,
+        "max_capacitance": 0
+      },
+      "max_transition": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      },
+      "max_capacitance": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      }
+    },
+    {
+      "corner": "ss_n40C_1v76",
+      "spef_annotation": {
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
+        "design_nets_missing_sample": [
+          "VDD",
+          "u_fsm/_0996_",
+          "u_fsm/_0997_",
+          "u_fsm/_0998_",
+          "u_fsm/_0999_",
+          "u_fsm/_1000_",
+          "u_fsm/_1001_",
+          "u_fsm/_1002_",
+          "u_fsm/_1003_",
+          "u_fsm/_1004_",
+          "u_fsm/_1005_",
+          "u_fsm/_1006_",
+          "u_fsm/_1007_",
+          "u_fsm/_1008_",
+          "u_fsm/_1009_",
+          "u_fsm/_1010_",
+          "u_fsm/_1011_",
+          "u_fsm/_1012_"
+        ],
+        "reader_warning_count": 1043,
+        "reader_warning_sample": [
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+        ],
+        "unannotated_driver_count": 218,
+        "partially_unannotated_driver_count": 7,
+        "floating_driver_count": 69,
+        "floating_driver_sample": [
+          "clkload0/X",
+          "clkload1/Y",
+          "clkload10/Y",
+          "clkload11/Y",
+          "clkload12/Y",
+          "clkload13/Y",
+          "clkload14/Y",
+          "clkload15/Y",
+          "clkload16/Y",
+          "clkload17/Y",
+          "clkload18/Y",
+          "clkload19/Y",
+          "clkload2/Y",
+          "clkload20/Y",
+          "clkload21/Y",
+          "clkload22/Y",
+          "clkload23/Y",
+          "clkload24/Y",
+          "clkload25/Y",
+          "clkload26/Y"
+        ],
+        "unannotated_driver_sample": [
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X"
+        ],
+        "unannotated_driver_detail": [
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          }
+        ],
+        "partially_unannotated_driver_sample": [
+          "u_out/u_ck_dly/g_dly\\[11\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/A",
+          "u_out/u_ck_dly/g_dly\\[13\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/A",
+          "u_out/u_ck_dly/g_dly\\[1\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/A",
+          "u_out/u_ck_dly/g_dly\\[3\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/A",
+          "u_out/u_ck_dly/g_dly\\[5\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/A",
+          "u_out/u_ck_dly/g_dly\\[7\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/A",
+          "u_out/u_ck_dly/g_dly\\[9\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/A"
+        ],
+        "delay_changed": true,
+        "annotation_complete": false,
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+      },
+      "place_and_route_sweep_counts": {
+        "max_transition": 0,
+        "max_capacitance": 0
+      },
+      "max_transition": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      },
+      "max_capacitance": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      }
+    },
+    {
+      "corner": "tt_025C_1v80",
+      "spef_annotation": {
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
+        "design_nets_missing_sample": [
+          "VDD",
+          "u_fsm/_0996_",
+          "u_fsm/_0997_",
+          "u_fsm/_0998_",
+          "u_fsm/_0999_",
+          "u_fsm/_1000_",
+          "u_fsm/_1001_",
+          "u_fsm/_1002_",
+          "u_fsm/_1003_",
+          "u_fsm/_1004_",
+          "u_fsm/_1005_",
+          "u_fsm/_1006_",
+          "u_fsm/_1007_",
+          "u_fsm/_1008_",
+          "u_fsm/_1009_",
+          "u_fsm/_1010_",
+          "u_fsm/_1011_",
+          "u_fsm/_1012_"
+        ],
+        "reader_warning_count": 1043,
+        "reader_warning_sample": [
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+        ],
+        "unannotated_driver_count": 218,
+        "partially_unannotated_driver_count": 7,
+        "floating_driver_count": 69,
+        "floating_driver_sample": [
+          "clkload0/X",
+          "clkload1/Y",
+          "clkload10/Y",
+          "clkload11/Y",
+          "clkload12/Y",
+          "clkload13/Y",
+          "clkload14/Y",
+          "clkload15/Y",
+          "clkload16/Y",
+          "clkload17/Y",
+          "clkload18/Y",
+          "clkload19/Y",
+          "clkload2/Y",
+          "clkload20/Y",
+          "clkload21/Y",
+          "clkload22/Y",
+          "clkload23/Y",
+          "clkload24/Y",
+          "clkload25/Y",
+          "clkload26/Y"
+        ],
+        "unannotated_driver_sample": [
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X"
+        ],
+        "unannotated_driver_detail": [
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          }
+        ],
+        "partially_unannotated_driver_sample": [
+          "u_out/u_ck_dly/g_dly\\[11\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/A",
+          "u_out/u_ck_dly/g_dly\\[13\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/A",
+          "u_out/u_ck_dly/g_dly\\[1\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/A",
+          "u_out/u_ck_dly/g_dly\\[3\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/A",
+          "u_out/u_ck_dly/g_dly\\[5\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/A",
+          "u_out/u_ck_dly/g_dly\\[7\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/A",
+          "u_out/u_ck_dly/g_dly\\[9\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/A"
+        ],
+        "delay_changed": true,
+        "annotation_complete": false,
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+      },
+      "place_and_route_sweep_counts": {
+        "max_transition": 0,
+        "max_capacitance": 0
+      },
+      "max_transition": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      },
+      "max_capacitance": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      }
+    },
+    {
+      "corner": "tt_100C_1v80",
+      "spef_annotation": {
+        "nets_annotated": 2689,
+        "nets_total": 2689,
+        "design_nets_annotated": 2689,
+        "design_nets_total": 2707,
+        "design_nets_missing_sample": [
+          "VDD",
+          "u_fsm/_0996_",
+          "u_fsm/_0997_",
+          "u_fsm/_0998_",
+          "u_fsm/_0999_",
+          "u_fsm/_1000_",
+          "u_fsm/_1001_",
+          "u_fsm/_1002_",
+          "u_fsm/_1003_",
+          "u_fsm/_1004_",
+          "u_fsm/_1005_",
+          "u_fsm/_1006_",
+          "u_fsm/_1007_",
+          "u_fsm/_1008_",
+          "u_fsm/_1009_",
+          "u_fsm/_1010_",
+          "u_fsm/_1011_",
+          "u_fsm/_1012_"
+        ],
+        "reader_warning_count": 1043,
+        "reader_warning_sample": [
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 390, net clknet_0_u_out\\/u_ck_dly\\/dly\\[10\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 391, net clknet_0_u_out\\/u_ck_dly\\/dly\\[12\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 392, net clknet_0_u_out\\/u_ck_dly\\/dly\\[14\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 393, net clknet_0_u_out\\/u_ck_dly\\/dly\\[2\\] not found.",
+          "[WARNING STA-1650] layout/records/hyperram_ctrl.spef line 394, net clknet_0_u_out\\/u_ck_dly\\/dly\\[4\\] not found."
+        ],
+        "unannotated_driver_count": 218,
+        "partially_unannotated_driver_count": 7,
+        "floating_driver_count": 69,
+        "floating_driver_sample": [
+          "clkload0/X",
+          "clkload1/Y",
+          "clkload10/Y",
+          "clkload11/Y",
+          "clkload12/Y",
+          "clkload13/Y",
+          "clkload14/Y",
+          "clkload15/Y",
+          "clkload16/Y",
+          "clkload17/Y",
+          "clkload18/Y",
+          "clkload19/Y",
+          "clkload2/Y",
+          "clkload20/Y",
+          "clkload21/Y",
+          "clkload22/Y",
+          "clkload23/Y",
+          "clkload24/Y",
+          "clkload25/Y",
+          "clkload26/Y"
+        ],
+        "unannotated_driver_sample": [
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+          "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+          "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X"
+        ],
+        "unannotated_driver_detail": [
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_0__f_u_out\\/u_ck_dly\\/dly[8]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[10]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[12]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[14]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[2]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[4]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          },
+          {
+            "pin": "clkbuf_1_1__f_u_out\\/u_ck_dly\\/dly[6]/X",
+            "net_status": "net_with_other_pins",
+            "net": null
+          }
+        ],
+        "partially_unannotated_driver_sample": [
+          "u_out/u_ck_dly/g_dly\\[11\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[12]/A",
+          "u_out/u_ck_dly/g_dly\\[13\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[14]/A",
+          "u_out/u_ck_dly/g_dly\\[1\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[2]/A",
+          "u_out/u_ck_dly/g_dly\\[3\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[4]/A",
+          "u_out/u_ck_dly/g_dly\\[5\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[6]/A",
+          "u_out/u_ck_dly/g_dly\\[7\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[8]/A",
+          "u_out/u_ck_dly/g_dly\\[9\\].u_dly/X",
+          "clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/A"
+        ],
+        "delay_changed": true,
+        "annotation_complete": false,
+        "annotation_warning": "only 2689 of 2707 nets in the linked design are named by this SPEF; read_spef discarded annotation for 1043 SPEF record(s) it could not resolve against the linked design (OpenSTA STA-1650/STA-1648 'not found' warnings); report_parasitic_annotation found 149 driver(s) with no parasitics attached after read_spef (first: clkbuf_0_u_out\\/u_ck_dly\\/dly[10]/X, net_with_other_pins) -- the worst_slack_ns/etc. fields above are NOT a real-parasitics measurement to the extent annotation is missing."
+      },
+      "place_and_route_sweep_counts": {
+        "max_transition": 0,
+        "max_capacitance": 0
+      },
+      "max_transition": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      },
+      "max_capacitance": {
+        "coverage": "checked",
+        "violation_count": 0,
+        "net_count": 0,
+        "worst": null,
+        "by_class": {},
+        "rows": []
+      }
+    }
+  ],
+  "nets": {}
+}

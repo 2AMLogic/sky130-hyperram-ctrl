@@ -50,6 +50,10 @@ for f in flow/*.json layout/*.json manifests/*.json; do
   echo "ok $f"
 done
 
+echo "== Routed electrical evidence =="
+layout/electrical/run.sh check
+python3 -I layout/electrical/test_classify.py
+
 echo "== 2/7 README relative links =="
 python3 -I scripts/check_links.py README.md
 

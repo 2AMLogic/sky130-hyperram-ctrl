@@ -27,12 +27,28 @@ re-render — as one batch-fleet `repo-script` job
 dispatch worker is not a place-and-route host. Placement is never edited by
 hand.
 
+The electrical-limit classification is re-run separately:
+`layout/electrical/run.sh` (klt sta, DEF + SPEF, one session per shipped
+liberty corner, ~1 min). `layout/electrical/run.sh check` verifies that both
+reports reproduce from the measured inputs and retained engine output.
+
 ## Request
 
 `layout/place-and-route.json`: `sky130_fd_sc_hd`, `tt_025C_1v80`, clock port
 `clk` at 20 ns (50 MHz, target-spec row 1), 30 % utilisation, `sky130hd` PDN
 preset (tapcells and `power.pdn`), seed 1, `target_stage: route`,
 `post_route_spef`, `portable_paths`.
+
+**Electrical constraints (#173).** `max_fanout` 8, `max_transition_ns` 0.45
+and `max_antenna_repair_iterations` 3 steer the `repair_design` /
+`repair_timing` / `repair_antennas` passes klt already runs at the single tt
+deck. The fanout bound targets control, enable and reset nets with 10–50
+sinks. The 0.45 ns slew target comes from the worst in-supply corner's
+~1.5 ns liberty limit divided by its measured tt degradation (~3.3x). The
+extra antenna iterations clear the one violation the default pass left. The plain
+`max_transition_violation_count` fields in the response measure against that
+0.45 ns request target, not the library; the `_vs_library` fields and
+`layout/electrical/` are the graded evidence.
 
 **Corner.** The request names one liberty corner, `tt_025C_1v80`. Decision 0004
 (still *proposed (unratified)*) sets the core STA corner set to every liberty
@@ -43,6 +59,21 @@ timing across the set; that is item 5.
 
 ## Records (`layout/records/`)
 
+> Regenerated for #173 on a batch-fleet heavy instance (2026-11-22,
+> `scripts/fleet-regen-layout.sh`, job group `rs-20261122T033123Z-7b4f3dda`,
+> pinned klt 0.8.0 + OpenROAD 26Q4-1310 + ciel-provisioned sky130A at
+> open_pdks `f6eeac7dad085`): the same #101 netlist
+> (`sha256:5ea579ba0640d6d73dc84e04e410a889b0588b313785f2697c4f4cfbc38a9f64`,
+> re-synthesized byte-identical in the job), routed under the electrical
+> constraints #173 added to the request (`max_fanout` 8,
+> `max_transition_ns` 0.45, `max_antenna_repair_iterations` 3 — see
+> Request). **0 max-transition, 0 max-capacitance (library limits) and 0
+> antenna violations at every one of the 16 corners** (the #101 records:
+> 612, 22, 1); the DEF/SPEF classification agrees (`layout/electrical/`).
+> Core area 80 417.1 µm² unchanged (utilisation 35.2 % after the inserted
+> repair buffers), route DRC 0, worst setup slack across corners -15.41 ns
+> at `ss_n40C_1v28` (the #101 records: -18.75 ns).
+>
 > Regenerated for #101 on a batch-fleet heavy instance (2026-11-18,
 > `scripts/fleet-regen-layout.sh` with its new netlist phase, pinned klt 0.8.0 +
 > OpenROAD 26Q4-1310 + ciel-provisioned sky130A at open_pdks `f6eeac7dad085`):
@@ -85,19 +116,24 @@ From the committed response (`tt_025C_1v80` unless a corner is named):
 - Core area 80 417.1 µm² (0.0804 mm²) against row 17's ≤ 0.10 mm² budget (the
   #52 records: 82 372.8 µm²). Row 17 is a proposal, so this is a number, not a
   pass.
-- Route DRC (the router's own) 0; antenna violations 1 (the #52 records had 0).
-  This is not `klt drc` (#16), which is clean on the routed GDS, and not LVS
-  (#17), which matches; it is the router's own checker, reported as found.
-- Setup slack +9.54 ns at tt, hold +0.20 ns. Across the 16 corners the worst
-  setup slack is **-18.75 ns at `ss_n40C_1v28`** (the #52 records: -27.28 ns),
-  and negative at `v1p35` and `v1p40` at -40 °C (`v1p44` moved positive,
-  +1.87 ns; `ss_n40C_1v60` is +8.82 ns). The negative corners sit below the
-  1.8 V -10 % supply (1.62 V) of decision 0004, which the decision's corner
-  list does not reconcile. Left as found.
-- `max_transition_violation_count` 612 and `max_capacitance_violation_count`
-  22 against the library limits (the #52 records: 284 and 15). Not investigated
-  here.
-- The SPEF session names 2416 of 2434 design nets (`annotation_complete:
+- Route DRC (the router's own) 0; antenna violations 0 (three
+  `repair_antennas` iterations, #173; the #101 records had 1). This is not
+  `klt drc` (#16), which is clean on the routed GDS, and not LVS
+  (#17), which matches; the router's own checker is reported as found.
+- Setup slack +9.54 ns at tt, hold +0.21 ns. Across the 16 corners the worst
+  setup slack is **-15.41 ns at `ss_n40C_1v28`** (the #101 records: -18.75 ns),
+  and negative at `ss_n40C_1v28` (-15.41 ns) and `ss_n40C_1v35` (-4.49 ns)
+  only — `ss_n40C_1v40` moved positive (+0.14 ns; `ss_n40C_1v44` +2.85 ns,
+  `ss_n40C_1v60` +8.90 ns). The negative corners sit below the 1.8 V -10 %
+  supply (1.62 V) of decision 0004, which the decision's corner list does not
+  reconcile. Left as found (item 5 / #2).
+- `max_transition_violation_count_vs_library` 0 and
+  `max_capacitance_violation_count_vs_library` 0 at every corner (the #101
+  records: 612 and 22). See "Electrical limits" below for the separate
+  SPEF classification and the archived P&R pin-report gap. The unsuffixed `max_transition_violation_count` (5 088 at
+  `ss_n40C_1v28`) counts against the request's 0.45 ns repair target, not the
+  library: those pins are legal at every corner.
+- The SPEF session names 2689 of 2707 design nets (`annotation_complete:
   false`), so its slack (+9.54 ns) is not a full real-parasitics measurement.
 - Pins are placed by the tool on arbitrary edges; no pad-facing pin plan exists
   (the pads belong to the I/O ring sibling).
@@ -112,3 +148,64 @@ From the committed response (`tt_025C_1v80` unless a corner is named):
 `klt lvs` requests), `run.sh` (re-run, or `check` to re-hash), and `records/`
 (abstracted gate-level SPICE, extract response, LVS report). Details and
 warnings in `manifests/README.md` § "Item-4 LVS".
+
+## Electrical limits (#173)
+
+`layout/electrical/` classifies the max-transition / max-capacitance
+violations the response only counts: `run.sh` drives `klt sta` over the
+committed DEF + SPEF at every shipped liberty corner, keeps each corner's
+engine stdout as the pin/limit/value evidence
+(`records/opensta-<corner>.log`), and `classify.py` renders
+`records/electrical-checks.{json,md}` — class, driver, sink population and
+worst slew/load per violating net. The classifier checks the rows against
+the STA response counts and each engine log's pin map. Before starting STA, the runner hashes the
+DEF, SPEF and routed netlist. It saves those hashes with the hashes of
+the completed response and stdout logs in `records/sta-inputs.json`.
+Both a rerender and `run.sh check` verify these bindings and KLT's own DEF
+input hash. The check also compares both rendered files byte-for-byte.
+
+**Before the repair (#101 geometry).** The SPEF sessions found violations
+on 26 distinct nets. All eight reset-distribution drivers were inserted
+during routing and drove 33–50 sinks. They include `fanout7`, a
+`clkdlybuf4s50_1`. The other 18 drivers occur in the synthesized hierarchy
+with the same cell types. They drive nine control-fanout nets (10–32
+sinks), four enable-fanout nets (16–17 sinks) and five weak-driver nets
+(2–7 sinks).
+The enable nets account for 18 slew rows at `ss_100C_1v60` and 69 at
+`ss_n40C_1v60`. At nominal, all 34 slew rows and the one capacitance row
+belong to the reset net `net7`. At the in-supply slow corner
+`ss_n40C_1v76`, the SPEF session has 513 slew and 16 capacitance rows.
+[Corrected baseline tables](electrical/baseline/electrical-checks.md) ·
+[All baseline pins](electrical/baseline/electrical-checks.json).
+
+The corrected baseline uses the original response, stdout and geometry
+from commit `982a62fc534039f27173579d94110e61e19dc2ff`. A fresh STA run
+on that geometry reproduced the pins, nets, limits and values of all 2,660
+corner/check rows. The file `electrical/baseline/sta-inputs.json` preserves the geometry hashes recorded in that
+commit and identifies the archived STA files by hash. To reproduce it,
+extract that commit into a temporary directory, copy the current
+`layout/electrical/classify.py` into the same path there, copy
+`layout/electrical/baseline/sta-inputs.json` into its
+`layout/electrical/records/` and run
+the classifier. The two resulting reports match `electrical/baseline/`.
+
+**P&R pin evidence.** The original P&R sweeps used global-routing-estimated
+parasitics. At `ss_n40C_1v60`, the baseline P&R response reports 609 slew
+and 21 capacitance violations. The baseline extracted-SPEF session reports
+636 and 24. The fleet records retain each P&R corner's counts and invocation
+ID. The library-only pin rows stayed in scratch and are unavailable in
+the archived outputs for either route. Pin-by-pin reconciliation of those
+P&R counts remains open. [P&R evidence gap #179](https://github.com/2AMLogic/sky130-hyperram-ctrl/issues/179).
+
+**After (the current records):** 0 max-transition, 0 max-capacitance rows
+at all 16 corners in the DEF/SPEF sessions (2689 of 2707 design nets
+annotated), matching the response's `_vs_library` counts of 0/0 and
+antenna 0. Signal nets grew 2434 → 2707 (the inserted repair buffers) in
+the same utilisation-sized core.
+
+The engine stdout garbles the odd violator row (duplicated slack columns,
+interleaved-write fragments); `classify.py` recovers them token-wise,
+records what it recovered in `engine_stdout_artifacts`, and refuses to
+render a record whose row count cannot be reconciled. The `klt sta`
+response itself undercounts those garbled rows — filed as
+2AMLogic/klayout-tools#7161.

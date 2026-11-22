@@ -3,7 +3,7 @@
   "core_area_um2": 80417.1,
   "core_area_mm2": 0.08042,
   "die_area_um2": 86668.4,
-  "utilization_pct": 32.7156,
+  "utilization_pct": 35.2253,
   "row17_max_core_um2": 100000,
   "within_row17_budget": true,
   "synth_stdcell_area_um2": 24264.5216

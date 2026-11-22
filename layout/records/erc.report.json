@@ -8,7 +8,7 @@
   "pdk": null,
   "findings_only": true,
   "gate_role": "poly",
-  "gate_count": 6339,
+  "gate_count": 6901,
   "antenna_tables_omitted": true,
   "gates": [],
   "nets": [
@@ -95,7 +95,7 @@
       "released": true
     },
     "input": {
-      "content_hash": "sha256:a99f532488cfd59ec1137567f4bcc44292a30196cf0e08daa3e3514c6d398d32",
+      "content_hash": "sha256:2566d33c284e678b938e82d3fc8c93c12b51ee5ec5b63d36abee4550e4909be8",
       "role": "layout"
     },
     "spec": {
@@ -107,12 +107,12 @@
       {
         "name": "li1",
         "label_layer": "67/5",
-        "label_text_count": 15374
+        "label_text_count": 16874
       },
       {
         "name": "met1",
         "label_layer": "68/5",
-        "label_text_count": 23164
+        "label_text_count": 23404
       },
       {
         "name": "met3",
@@ -127,10 +127,10 @@
     ]
   },
   "compact": {
-    "gate_count": 6339,
-    "antenna_levels_skipped": 38034,
-    "antenna_reference_levels": 6339,
-    "floating_gate_checked": 6339,
+    "gate_count": 6901,
+    "antenna_levels_skipped": 41406,
+    "antenna_reference_levels": 6901,
+    "floating_gate_checked": 6901,
     "skipped_reason": "findings_only"
   }
 }
