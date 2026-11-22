@@ -10,14 +10,18 @@ at import and reach no tool until a function is called, so importing the runner
 costs nothing.
 
 What the $PATH fixtures are, stated plainly rather than implied. A fake
-yowasp-yosys environment is a bin/ directory shaped exactly like the one
-scripts/setup-env.sh builds -- a `yosys` relative symlink to a sibling
-`yowasp-yosys` file -- next to a `python3` *stand-in*: a small script that runs
-the gate's own hashing snippet with a fabricated `yowasp_yosys` package on
-sys.path. So the snippet really executes and really hashes a real file on disk,
-and the comparison is the real one. What these fixtures do NOT cover is a real
-wheel install; that half is the pinned-path regression (`scripts/setup-env.sh`
-then `make hyperram-check`), which needs yosys and the PDK and is recorded on
+yowasp-yosys environment is a throwaway venv (`venv.EnvBuilder`, the same way
+scripts/setup-env.sh builds one) whose bin/ carries a `yowasp-yosys` file and
+the `yosys` relative symlink to it, with a synthetic `yowasp_yosys` package in
+the venv's own purelib. The gate then invokes the venv's real interpreter with
+its usual `-I -B` isolation flags, so the snippet really executes and really
+hashes a real file on disk, and the comparison is the real one. A real venv is
+also the isolation a hand-written launcher once had to reconstruct and twice
+got subtly wrong (the host's site-packages and user-site must stay out, the
+stdlib's C extensions must stay in -- PR #95), which is why it replaces that
+launcher here. What these fixtures do NOT cover is a real wheel install; that
+half is the pinned-path regression (`scripts/setup-env.sh` then
+`make hyperram-check`), which needs yosys and the PDK and is recorded on
 the PR instead of run here.
 
 The last case is a mutation check, because every other case here would stay
@@ -35,6 +39,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import venv
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
@@ -50,50 +55,6 @@ WHEEL, ENGINE, PINNED_SHA = hyperram.pinned_yosys()
 MUTATE_FROM = "if got_sha != want_sha:"
 MUTATE_TO = "if False:  # neutralised by scripts/check_yosys_gate.py"
 
-# Stands in for a python interpreter that has yowasp_yosys installed. The gate
-# runs `<env>/bin/python3 -I -B -c <snippet>`; this executes that snippet.
-#
-# sys.path is pinned to the stdlib plus the fixture's own site dir, because -I
-# arrives as an argv string here, not as an interpreter flag, so without this
-# the host's site-packages leak in -- and this dispatch host turns out to have
-# the pinned yowasp-yosys installed user-wide, which silently made the
-# "module will not import" case pass by importing a real pinned wheel instead.
-# Absolute shebang on purpose: $PATH is replaced during these cases, so
-# `env python3` would resolve back to this script.
-#
-# The pin keeps the stdlib's *subdirectories*, by prefix and not by exact path
-# equality. `lib-dynload` lives under platstdlib rather than being equal to it,
-# and dropping it unimports every C extension the interpreter keeps there --
-# `_hashlib`/`_sha256` among them. On a build whose sha256 is a builtin that is
-# survivable; on one where it is a lib-dynload shared object (CI's
-# /opt/hostedtoolcache 3.10 is one) `import hashlib` still succeeds but
-# `hashlib.sha256` does not exist, the snippet exits non-zero, and every
-# fixture below collapses to "cannot identify this build" -- which is how this
-# check came to pass on its author's interpreter and fail in CI (PR #95).
-#
-# What the pin must still exclude is the leak it was written for: the host's
-# site-packages/dist-packages and user-site. Those are matched by name, not by
-# prefix, because a venv puts `site-packages` *inside* platstdlib, where a
-# prefix test alone would re-admit it.
-PY_STANDIN = '''#!{python}
-import os, sys, sysconfig
-roots = [os.path.realpath(sysconfig.get_paths()[k]) for k in ("stdlib", "platstdlib")]
-
-
-def keep(p):
-    if p.endswith(".zip"):
-        return True
-    if os.path.basename(p.rstrip(os.sep)) in ("site-packages", "dist-packages"):
-        return False
-    real = os.path.realpath(p)
-    return any(real == r or real.startswith(r + os.sep) for r in roots)
-
-
-sys.path[:] = [{site!r}] + [p for p in sys.path if keep(p)]
-exec(compile(sys.argv[sys.argv.index("-c") + 1], "<standin>", "exec"),
-     {{"__name__": "__main__"}})
-'''
-
 failures = []
 
 
@@ -103,29 +64,31 @@ def record(ok, name, detail=""):
         failures.append(name)
 
 
-def fake_env(root, *, wasm=b"", with_python=True, with_module=True):
-    """A bin/ shaped like scripts/setup-env.sh's; returns it, to put on $PATH."""
-    bin_dir, site = root / "bin", root / "site"
-    bin_dir.mkdir(parents=True)
-    site.mkdir(parents=True)
+def fake_env(root, *, wasm=b"", with_module=True):
+    """A throwaway venv shaped like scripts/setup-env.sh's; returns its bin/,
+    to put on $PATH."""
+    venv.EnvBuilder(with_pip=False, symlinks=True).create(root)
+    bin_dir = root / "bin"
     script = bin_dir / "yowasp-yosys"
     script.write_text("# console script; never executed here\n")
     script.chmod(0o755)  # pip's real console script is executable; which() needs it
     os.symlink("yowasp-yosys", bin_dir / "yosys")  # relative, as setup-env.sh:90
     if with_module:
-        pkg = site / "yowasp_yosys"
+        # The synthetic package goes where a pip install would put it: the
+        # venv's own purelib, located by asking the venv's interpreter.
+        out = subprocess.run([str(bin_dir / "python3"), "-I", "-c",
+                              "import sysconfig; "
+                              "print(sysconfig.get_paths()['purelib'])"],
+                             capture_output=True, text=True, check=True)
+        pkg = Path(out.stdout.strip()) / "yowasp_yosys"
         pkg.mkdir()
         (pkg / "__init__.py").write_text("")
         (pkg / "yosys.wasm").write_bytes(wasm)
-    if with_python:
-        py = bin_dir / "python3"
-        py.write_text(PY_STANDIN.format(python=sys.executable, site=str(site)))
-        py.chmod(0o755)
     return bin_dir
 
 
-def standin_hash(bin_dir):
-    """Run the gate's own hashing snippet through a fixture's python3 stand-in.
+def fixture_hash(bin_dir):
+    """Run the gate's own hashing snippet on a fixture venv's python3.
 
     -> (sha256 it printed or None, a line describing the failure or "").
 
@@ -142,10 +105,10 @@ def standin_hash(bin_dir):
                           capture_output=True, text=True)
     got = proc.stdout.strip()
     if proc.returncode != 0:
-        return None, (f"the stand-in exited {proc.returncode}; "
+        return None, (f"the fixture python3 exited {proc.returncode}; "
                       f"stderr: {proc.stderr.strip()[:400]!r}")
     if not re.fullmatch(r"[0-9a-f]{64}", got):
-        return None, (f"the stand-in exited 0 but printed no sha256: "
+        return None, (f"the fixture python3 exited 0 but printed no sha256: "
                       f"stdout {got[:120]!r}, stderr {proc.stderr.strip()[:200]!r}")
     return got, ""
 
@@ -197,16 +160,16 @@ def main():
         no_module = fake_env(tmp / "no-module", with_module=False)
 
         # --- the fixtures must be able to hash at all ----------------------
-        # Checked first and fatally, because every case below reads a stand-in
-        # that cannot hash as "not the pinned build": one environmental
-        # breakage would otherwise surface as a scatter of unrelated-looking
-        # assertion failures, and the accept case would fail for a reason that
-        # has nothing to do with the gate. Named here instead, with the
-        # snippet's own stderr.
-        got_sha, why = standin_hash(impostor)
+        # Checked first and fatally, because every case below reads a fixture
+        # interpreter that cannot hash as "not the pinned build": one
+        # environmental breakage would otherwise surface as a scatter of
+        # unrelated-looking assertion failures, and the accept case would fail
+        # for a reason that has nothing to do with the gate. Named here
+        # instead, with the snippet's own stderr.
+        got_sha, why = fixture_hash(impostor)
         if got_sha is None:
             record(False,
-                   "the fixture's python3 stand-in can run the gate's hashing "
+                   "the fixture's venv python3 can run the gate's hashing "
                    "snippet (so a rejection below means the gate, not a broken "
                    "fixture)", why)
             print(f"\n::error::the pinned-yosys gate check cannot run in this "
@@ -214,9 +177,9 @@ def main():
                   f"verdict on the gate")
             return 1
         record(got_sha == impostor_sha,
-               "the fixture's python3 stand-in hashes its own yosys.wasm "
+               "the fixture's venv python3 hashes its own yosys.wasm "
                "(the comparison below is a real one, on a real file)",
-               f"stand-in printed sha256:{got_sha}, fixture's wasm is "
+               f"fixture python3 printed sha256:{got_sha}, fixture's wasm is "
                f"sha256:{impostor_sha}")
 
         # --- the defect this closes (issue #89) ---------------------------
