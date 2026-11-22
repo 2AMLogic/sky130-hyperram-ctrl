@@ -2,7 +2,7 @@
 
 Tool-written record rendered by `layout/electrical/classify.py` from the `klt sta` DEF+SPEF response (`records/sta-response.json`) and each corner's engine stdout (`records/opensta-<corner>.log`). OpenROAD 26Q3-1510-g6cb3f2b704, klt 0.8.0. Limits are the liberty's own, as reported by the tool; nothing here is hand-typed.
 
-Parasitics model: committed SPEF. The place-and-route sweep's counts (global-routing-estimated parasitics) are quoted side by side and are a different measurement of the same routed geometry.
+Parasitics model: committed SPEF. The place-and-route sweep's counts (global-routing-estimated parasitics) are quoted side by side and are a different measurement of the same routed geometry. The archived P&R pin rows are unavailable for reconciliation. [Evidence gap #179](https://github.com/2AMLogic/sky130-hyperram-ctrl/issues/179).
 
 | Corner | P&R max-tran / max-cap | SPEF max-tran rows (nets) | SPEF max-cap rows (nets) | classes |
 |---|---|---|---|---|

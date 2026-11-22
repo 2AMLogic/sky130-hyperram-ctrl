@@ -25,6 +25,8 @@
   "place_and_route_sweep": {
     "path": "layout/records/place-and-route.response.json",
     "parasitics_model": "library limits with global-routing-estimated parasitics (estimate_parasitics -global_routing)",
+    "pin_row_reconciliation": "unavailable",
+    "evidence_gap": "https://github.com/2AMLogic/sky130-hyperram-ctrl/issues/179",
     "top_counts": {
       "max_transition_violation_count": 0,
       "max_capacitance_violation_count": 0,

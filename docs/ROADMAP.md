@@ -62,8 +62,9 @@ Also in the tree, outside the tier record:
   -15.41 ns at `ss_n40C_1v28` after #173), which decision 0004's "all liberty
   corners" does not reconcile with its 1.8 V ±10 % supply. The
   max-transition / max-capacitance violations (612 and 22 against the library
-  limits after #101) were fixed by #173: 0 and 0 at every corner, classified
-  pin-by-pin in `layout/electrical/` and summarized in `layout/README.md`.
+  limits after #101) fell to zero at every corner after #173. The extracted-SPEF
+  pin classification is in `layout/electrical/`. The archived P&R sweeps lack
+  pin rows for reconciliation. [Evidence gap #179](https://github.com/2AMLogic/sky130-hyperram-ctrl/issues/179).
 
 ## Now
 
@@ -129,8 +130,8 @@ As of the header sha above; live label state is
   with SDF from the fresh layout and the manifest cites the report.
 - **Max-transition and max-capacitance violations.** Done (#173): 0 and 0
   against the library limits and 0 antenna at every corner on the regenerated
-  response; the per-pin classification is `layout/electrical/records/` and the
-  repair constraints are in `layout/README.md` § Request.
+  response. The SPEF pin reports and repair constraints are in `layout/README.md`
+  § Electrical limits. [P&R pin evidence gap #179](https://github.com/2AMLogic/sky130-hyperram-ctrl/issues/179).
 
 ## Later
 

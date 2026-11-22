@@ -18,8 +18,8 @@ classification record -- it parses tool output, it never re-derives a limit:
      cell, pin), from which the instance class is decided.
   3. layout/records/place-and-route.response.json -- the P&R sweep's own
      per-corner counts (library limits, global-routing-estimated parasitics),
-     reconciled against the SPEF-annotated rows. The two parasitic models
-     are reported side by side and never mixed.
+     shown alongside the SPEF-annotated rows. The archived P&R sweep lacks
+     its corresponding pin reports.
 
 Writes layout/electrical/records/electrical-checks.json (the record) and
 electrical-checks.md (the rendered tables).
@@ -41,11 +41,17 @@ sim/hyperram/records/hyperram_ctrl.netlist.v already names it.
 """
 from __future__ import annotations
 
+import argparse
 import collections
 import hashlib
 import json
+import math
+import os
 import re
+import shutil
+import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
@@ -54,6 +60,7 @@ REC = ELEC / "records"
 ROUTED = REPO / "layout" / "records" / "hyperram_ctrl.routed.v"
 PR_RESPONSE = REPO / "layout" / "records" / "place-and-route.response.json"
 NETLIST = REPO / "sim" / "hyperram" / "records" / "hyperram_ctrl.netlist.v"
+REQUEST = ELEC / "sta-request.json"
 
 OUT_PINS = {"X", "Y", "Z", "COUT", "SUM", "Q", "Q_N"}
 RESET_PINS = {"RESET_B", "SET_B", "RESET", "SET"}
@@ -72,7 +79,7 @@ CLASS_RULES = [
     ("weak-driver", lambda d, s: s["count"] < 8),
 ]
 
-NET_ROW = re.compile(r"^KLT_ELECTRICAL_NET (\S+) (\S+)$", re.MULTILINE)
+NET_ROW = re.compile(r"KLT_ELECTRICAL_NET\s+(\S+)\s+(\S+)")
 _NUM = re.compile(r"^-?\d+(?:\.\d+)?(?:e[-+]?\d+)?$", re.IGNORECASE)
 
 
@@ -87,12 +94,10 @@ def parse_violator_line(line: str):
     rows where a ghost copy of the limit precedes the real columns
     (``pin  1.5000  1.50000  value slack``). The parse is therefore
     token-based rather than one regex: take the pin from the first token
-    (plus an optional ``(cell)`` disambiguation token), drop everything from
-    the first ``(VIOLATED``, and anchor the numbers from the RIGHT --
-    slack is the last token, then walk (value, limit) leftwards until
-    ``slack ~= limit - value`` holds. Any tokens the walk leaves unconsumed
-    (ghost columns, name fragments) are recorded as junk, and a row with no
-    self-consistent assignment is rejected, not guessed.
+    (plus an optional cell disambiguator), and keep the pair of measured
+    columns which best satisfies slack = limit - value to print precision.
+    The report sometimes interleaves a partial copy of a value between the
+    real limit and value. The last column before the marker is the slack.
     """
     body = line.split("(VIOLATED", 1)[0].strip()
     if not body:
@@ -106,33 +111,28 @@ def parse_violator_line(line: str):
     nums = []
     while rest and _NUM.match(rest[-1]):
         nums.insert(0, float(rest.pop()))
-    if len(nums) < 3:
+    if (len(nums) < 3 or not all(map(math.isfinite, nums))
+            or any(not pin.endswith(fragment) for fragment in rest)):
         return None
     slack = nums[-1]
-    for li in range(len(nums) - 3, -1, -1):
-        limit, value = nums[li], nums[li + 1]
-        if abs((limit - value) - slack) <= max(0.02, 0.01 * abs(limit)):
-            # `klt`'s own electrical_checks counter parses this same stdout
-            # with a stricter grammar and silently drops a row whose pin
-            # column carries junk tokens (a duplicated name fragment) or
-            # whose suffix garbled past a bare "(VIOLATED)". Those rows are
-            # real engine-reported violations (the KLT_ELECTRICAL_NET map,
-            # emitted from the engine's own pin iteration, still lists
-            # them), so this parser recovers them and flags
-            # `klt_dropped=True` -- the response-count reconciliation in
-            # main() requires the undercount to equal exactly this set.
-            klt_dropped = bool(rest) or not line.rstrip().endswith("(VIOLATED)")
-            return {
-                "pin": pin,
-                "cell": cell,
-                "limit": limit,
-                "value": value,
-                "slack": slack,
-                "extra_columns": (len(nums) - 3 - li) or (li and 1) or None,
-                "junk": " ".join(rest) or None,
-                "klt_dropped": klt_dropped,
-            }
-    return None
+    # Prefer the rightmost complete value on a tie. Independently rounded
+    # five-decimal columns can differ by 0.00001 in their printed equation.
+    candidates = [(nums[i], nums[j]) for j in range(len(nums) - 2, 0, -1)
+                  for i in range(j - 1, -1, -1) if 0 <= nums[i] <= nums[j]]
+    if not candidates or slack > 0:
+        return None
+    limit, value = min(candidates, key=lambda pair: abs(pair[0] - pair[1] - slack))
+    if abs(limit - value - slack) > 0.000016:
+        return None
+    # KLT 0.8.0 accepts fragments before its numeric columns as part of
+    # the pin name, but drops rows with a damaged violation suffix.
+    return {
+        "pin": pin, "cell": cell, "limit": limit, "value": value, "slack": slack,
+        "extra_columns": len(nums) - 3 or None, "junk": " ".join(rest) or None,
+        "klt_dropped": line.partition("(VIOLATED")[2].strip() != ")",
+    }
+
+
 INST = re.compile(r"(sky130_fd_sc_hd__\w+)\s+(\\?[^\s(]+)\s*\(\s*(\.[^;]*?)\);", re.S)
 
 
@@ -159,13 +159,33 @@ def parse_routed_netlist(path: Path):
     return insts, nets
 
 
-def netlist_instances(path: Path) -> set[str]:
-    return {m.group(2).lstrip("\\") for m in INST.finditer(path.read_text())}
+def netlist_instances(path: Path, top: str) -> dict[str, str]:
+    """Expand the structural Yosys modules into OpenROAD's instance paths."""
+    modules = dict(re.findall(r"^module\s+(\w+)\b(.*?)^endmodule\b",
+                              path.read_text(), re.M | re.S))
+    instances = {}
+
+    def visit(module, prefix):
+        for cell, inst in re.findall(r"^\s*(\w+)\s+(\S+)\s+\(", modules[module], re.M):
+            name = prefix + inst.lstrip("\\")
+            if cell in modules:
+                visit(cell, name + "/")
+            elif cell.startswith("sky130_fd_sc_hd__"):
+                instances[name] = cell
+
+    visit(top, "")
+    return instances
 
 
-def classify_net(net: str, nets: dict, origin_of) -> dict:
+def classify_net(net: str, nets: dict, synthesized: dict) -> dict:
     info = nets.get(net, {"drivers": [], "sinks": []})
     driver = info["drivers"][0] if info["drivers"] else None
+    if driver:
+        original_cell = synthesized.get(driver["instance"])
+        origin = "pnr-inserted" if original_cell is None else "netlist"
+        driver = {**driver, "origin": origin}
+        if original_cell and original_cell != driver["cell"]:
+            driver["synthesized_cell"] = original_cell
     sinks = {
         "count": len(info["sinks"]),
         "pins": dict(collections.Counter(s["pin"] for s in info["sinks"])),
@@ -175,7 +195,7 @@ def classify_net(net: str, nets: dict, origin_of) -> dict:
     klass = next((name for name, rule in CLASS_RULES if rule(driver, sinks)), "unclassified")
     return {
         "class": klass,
-        "driver": {**driver, "origin": origin_of(driver["instance"])} if driver else None,
+        "driver": driver,
         "sinks": sinks,
     }
 
@@ -186,112 +206,163 @@ def parse_log(path: Path):
 
     Each row is the tool's own violator line (see :func:`parse_violator_line`)
     plus the net the KLT_ELECTRICAL_NET map assigns it."""
-    text = path.read_text()
+    lines = path.read_text().splitlines()
     out = {}
     warnings = []
     for flag, tag in (("MAX_SLEW", "max_transition"), ("MAX_CAP", "max_capacitance")):
-        b = re.search(r"===KLT_STA_%s_BEGIN===(.*?)===KLT_STA_%s_END===" % (flag, flag), text, re.S)
-        if b is None:
-            out[tag] = {"coverage": "not_run", "rows": []}
-            continue
-        block = b.group(1)
-        if "KLT_ELECTRICAL_OK" not in block:
-            out[tag] = {"coverage": "unsupported", "rows": []}
-            continue
-        netmap = dict(NET_ROW.findall(block))
-        rows, rejected = [], []
-        for line in block.splitlines():
-            if "(VIOLATED" not in line:
+        begin, end = (f"===KLT_STA_{flag}_{side}===" for side in ("BEGIN", "END"))
+        if lines.count(begin) != 1 or lines.count(end) != 1:
+            sys.exit(f"{path.name}: missing or duplicate {tag} block")
+        block = [line.strip() for line in lines[lines.index(begin) + 1:lines.index(end)]
+                 if line.strip()]
+        if not block or block[-1] != "KLT_ELECTRICAL_OK":
+            sys.exit(f"{path.name}: incomplete {tag} report")
+        rows, netmap = [], {}
+        for line in block[:-1]:
+            if line in ("max slew", "max capacitance") or re.fullmatch(
+                    r"Pin\s+Limit\s+(?:Slew|Cap)\s+Slack|-+", line):
                 continue
-            parsed = parse_violator_line(line)
+            mapping = NET_ROW.fullmatch(line)
+            if mapping:
+                pin, net = mapping.groups()
+                if pin in netmap:
+                    sys.exit(f"{path.name}: duplicate {tag} mapping for {pin}")
+                netmap[pin] = net
+                continue
+            parsed = parse_violator_line(line) if "(VIOLATED" in line else None
             if parsed is None:
-                rejected.append(line.strip())
-                continue
-            parsed["net"] = netmap.get(parsed["pin"], parsed["pin"])
-            if parsed["klt_dropped"] or parsed["extra_columns"]:
+                sys.exit(f"{path.name}: unreadable {tag} row: {line}")
+            if parsed["klt_dropped"] or parsed["extra_columns"] or parsed["junk"]:
                 why = []
                 if parsed["junk"]:
                     why.append(f"junk tokens {parsed['junk']!r}")
-                if not why:
+                if parsed["klt_dropped"]:
                     why.append("garbled suffix")
                 if parsed["extra_columns"]:
                     why.append(f"{parsed['extra_columns']} extra numeric column(s)")
                 warnings.append(f"{tag}: {parsed['pin']}: {', '.join(why)} -- recovered")
             rows.append(parsed)
-        if rejected:
-            warnings.append(f"{tag}: {len(rejected)} unparseable row(s) dropped: " +
-                            "; ".join(rejected[:3]))
-        netmap_pins = {p for p, _ in
-                       re.findall(r"^KLT_ELECTRICAL_NET (\S+) (\S+)$", block, re.M)}
-        row_pins = {r["pin"] for r in rows}
-        if row_pins != netmap_pins:
-            warnings.append(
-                f"{tag}: stdout rows and KLT_ELECTRICAL_NET pins disagree "
-                f"(rows-only={sorted(row_pins - netmap_pins)[:3]}, "
-                f"netmap-only={sorted(netmap_pins - row_pins)[:3]})")
+        pins = [r["pin"] for r in rows]
+        if len(set(pins)) != len(rows) or set(pins) != netmap.keys():
+            sys.exit(f"{path.name}: {tag} violation rows disagree with the pin map")
+        for row in rows:
+            row["net"] = netmap[row["pin"]]
         out[tag] = {"coverage": "checked", "rows": rows}
     return out, warnings
 
 
-def main() -> int:
-    response = json.loads((REC / "sta-response.json").read_text())
-    corners = [c["corner"] for c in response["corners"]]
-    insts, nets = parse_routed_netlist(ROUTED)
-    prenet = netlist_instances(NETLIST)
-    origin_of = lambda inst: "pnr-inserted" if inst not in prenet else "netlist"
+def geometry():
+    request = json.loads(REQUEST.read_text())
+    paths = {key: (ELEC / request[key]).resolve() for key in ("def", "spef")}
+    paths["routed_netlist"] = ROUTED
+    return {key: {"path": str(path.relative_to(REPO)), "sha256": sha256(path)}
+            for key, path in paths.items()}
 
+
+def measurement_files(rec, corners):
+    names = ["sta-response.json", *(f"opensta-{corner}.log" for corner in corners)]
+    return {name: sha256(rec / name) for name in names}
+
+
+def measure():
+    # Publish only after the completed session agrees with the captured inputs.
+    corners = json.loads(REQUEST.read_text())["pdk"]["corners"]
+    with tempfile.TemporaryDirectory(dir=ELEC) as tmp:
+        stage = Path(tmp)
+        inputs = geometry()
+        with (stage / "sta-response.json").open("w") as output:
+            subprocess.run([REPO / "scripts/klt.sh", "sta", "--pdk", os.getenv("PDK", "sky130A"),
+                            "--format", "json", REQUEST.relative_to(REPO)],
+                           cwd=REPO, stdout=output, check=True)
+        response = json.loads((stage / "sta-response.json").read_text())
+        if response.get("status") != "ok":
+            sys.exit(f"STA failed with status {response.get('status')!r}")
+        for corner in response["corners"]:
+            log = corner["engine_log"]["stdout_path"]["path"]
+            if not log:
+                sys.exit(f"STA did not retain a stdout path for {corner['corner']}")
+            shutil.copyfile(REPO / log, stage / f"opensta-{corner['corner']}.log")
+        binding = {"geometry": inputs, "files": measurement_files(stage, corners)}
+        (stage / "sta-inputs.json").write_text(json.dumps(binding, indent=2) + "\n")
+        render(stage)
+        REC.mkdir(exist_ok=True)
+        for artifact in stage.iterdir():
+            artifact.replace(REC / artifact.name)
+
+
+def render(rec, check=False):
+    response = json.loads((rec / "sta-response.json").read_text())
+    corners = [c["corner"] for c in response["corners"]]
+    request = json.loads(REQUEST.read_text())
     pr = json.loads(PR_RESPONSE.read_text())
+    required = sorted(request["pdk"]["corners"])
+    if (not required or len(required) != len(set(required)) or sorted(corners) != required
+            or sorted(c["name"] for c in pr["corners"]) != required):
+        sys.exit("Incomplete or duplicate corner coverage in STA or P&R")
+    binding = json.loads((rec / "sta-inputs.json").read_text())
+    inputs = geometry()
+    if response["status"] != "ok" or response["provenance"]["input"]["content_hash"] != inputs["def"]["sha256"]:
+        sys.exit("STA response does not verify the measured DEF")
+    for key in ("def", "spef"):
+        if response[key + "_path"]["path"] != inputs[key]["path"]:
+            sys.exit(f"STA response used a different {key} path")
+    if binding["geometry"] != inputs:
+        sys.exit("STA inputs have changed since measurement")
+    if binding["files"] != measurement_files(rec, corners):
+        sys.exit("STA response or engine stdout has changed since measurement")
+    if pr["provenance"]["input"]["content_hash"] != sha256(NETLIST):
+        sys.exit("Synthesized netlist differs from the P&R input")
+    insts, nets = parse_routed_netlist(ROUTED)
+    synthesized = netlist_instances(NETLIST, response["hdl_toplevel"])
     pr_counts = {c["name"]: {
         "max_transition": c["max_transition_violation_count_vs_library"],
         "max_capacitance": c["max_capacitance_violation_count_vs_library"],
     } for c in pr.get("corners", [])}
 
     per_corner, net_names, all_warnings = {}, set(), []
-    for corner in corners:
-        log = REC / f"opensta-{corner}.log"
+    for resp_c in response["corners"]:
+        corner = resp_c["corner"]
+        log = rec / f"opensta-{corner}.log"
         parsed, warnings = parse_log(log)
         all_warnings += [f"{corner}: {w}" for w in warnings]
         # Reconcile against the response's own per-corner counts: the rows
         # parsed off the engine stdout must agree with what `klt sta` itself
         # counted, or the record refuses to render (a silently lossy parse
         # is worse than no record).
-        resp_c = next(c for c in response["corners"] if c["corner"] == corner)
         for tag in ("max_transition", "max_capacitance"):
             ec = resp_c["electrical_checks"][tag]
-            if ec["coverage"] != "checked":
-                continue
+            if ec["coverage"] != "checked" or resp_c["electrical_checks"]["parasitics_source"] != "spef":
+                sys.exit(f"{corner}: {tag} lacks checked SPEF coverage")
             rows = parsed[tag]["rows"]
+            for row in rows:
+                instance, separator, port = row["pin"].rpartition("/")
+                if separator and insts.get(instance, {}).get("pins", {}).get(port) != row["net"]:
+                    sys.exit(f"{corner}: {row['pin']} disagrees with the routed netlist pin map")
             got = len(rows)
-            anomalous = sum(1 for r in rows if r["klt_dropped"] or r["extra_columns"])
-            delta = got - ec["violation_count"]
-            if delta < 0:
-                sys.exit(
-                    f"FATAL: {corner} {tag}: parsed {got} violator rows but the "
-                    f"klt sta response counted {ec['violation_count']}")
-            if delta > anomalous:
-                sys.exit(
-                    f"FATAL: {corner} {tag}: response undercounts by {delta} rows "
-                    f"but only {anomalous} garbled/extra-column row(s) could "
-                    f"explain it")
+            delta = sum(r["klt_dropped"] for r in rows)
+            if got - delta != ec["violation_count"] or len({r["net"] for r in rows}) != ec["net_count"]:
+                sys.exit(f"{corner}: {tag} stdout disagrees with STA pin or net counts")
             if delta:
                 all_warnings.append(
                     f"{corner} {tag}: klt sta response counts "
                     f"{ec['violation_count']}, the retained engine stdout holds "
                     f"{got}; the difference is klt's stricter stdout parse "
                     f"dropping garbled rows that this parser recovered")
-            if rows and ec["worst_excess"] is not None:
-                mine = max(rows, key=lambda r: r["value"] - r["limit"])
-                excess = round(mine["value"] - mine["limit"], 5)
-                if abs(excess - ec["worst_excess"]) > 1e-4 and not mine["klt_dropped"]:
-                    sys.exit(
-                        f"FATAL: {corner} {tag}: worst excess parsed {excess} on "
-                        f"{mine['pin']} but the klt sta response reports "
-                        f"{ec['worst_excess']} on {ec['worst_pin']}")
+            counted = [r for r in rows if not r["klt_dropped"]]
+            pin = ec["worst_pin"]
+            if counted:
+                excess = max(r["value"] - r["limit"] for r in counted)
+                if (ec["worst_excess"] is None or abs(excess - ec["worst_excess"]) > 1e-4
+                        or not any(r["pin"] == pin and abs(r["value"] - r["limit"] - excess) < 1e-4
+                                   for r in counted)):
+                    sys.exit(f"{corner}: {tag} worst pin or excess disagrees with STA")
+            elif pin is not None or ec["worst_excess"] is not None:
+                sys.exit(f"{corner}: {tag} empty report has a worst violation")
         per_corner[corner] = parsed
         for tag in ("max_transition", "max_capacitance"):
             net_names.update(r["net"] for r in parsed[tag]["rows"])
 
-    net_details = {n: classify_net(n, nets, origin_of) for n in sorted(net_names)}
+    net_details = {n: classify_net(n, nets, synthesized) for n in sorted(net_names)}
 
     def worst(rows):
         if not rows:
@@ -305,17 +376,14 @@ def main() -> int:
         "issue": 173,
         "generated_by": "layout/electrical/classify.py (parses klt sta engine stdout; limits are the tool's own)",
         "parasitics_model": "committed SPEF (layout/records/hyperram_ctrl.spef), one klt sta DEF+SPEF session per corner",
-        "geometry": {
-            "def": {"path": str(ROUTED.relative_to(REPO)).replace("hyperram_ctrl.routed.v", "hyperram_ctrl.def"),
-                    "sha256": sha256(ROUTED.parent / "hyperram_ctrl.def")},
-            "spef": {"path": "layout/records/hyperram_ctrl.spef", "sha256": sha256(ROUTED.parent / "hyperram_ctrl.spef")},
-            "routed_netlist": {"path": str(ROUTED.relative_to(REPO)), "sha256": sha256(ROUTED)},
-        },
+        "geometry": inputs,
         "engine": {"openroad": response.get("engine_version"), "klt_pin": "0.8.0 (scripts/klt.sh)"},
         "engine_stdout_artifacts": all_warnings,
         "place_and_route_sweep": {
             "path": str(PR_RESPONSE.relative_to(REPO)),
             "parasitics_model": "library limits with global-routing-estimated parasitics (estimate_parasitics -global_routing)",
+            "pin_row_reconciliation": "unavailable",
+            "evidence_gap": "https://github.com/2AMLogic/sky130-hyperram-ctrl/issues/179",
             "top_counts": {
                 "max_transition_violation_count": pr.get("max_transition_violation_count_vs_library"),
                 "max_capacitance_violation_count": pr.get("max_capacitance_violation_count_vs_library"),
@@ -325,9 +393,11 @@ def main() -> int:
         "corners": [],
         "nets": net_details,
     }
-    for corner in corners:
+    if "source_commit" in binding:
+        record["source_commit"] = binding["source_commit"]
+    for resp_c in response["corners"]:
+        corner = resp_c["corner"]
         entry = {"corner": corner}
-        resp_c = next(c for c in response["corners"] if c["corner"] == corner)
         entry["spef_annotation"] = resp_c.get("spef_annotation")
         entry["place_and_route_sweep_counts"] = pr_counts.get(corner)
         for tag in ("max_transition", "max_capacitance"):
@@ -349,9 +419,6 @@ def main() -> int:
             }
         record["corners"].append(entry)
 
-    REC.mkdir(parents=True, exist_ok=True)
-    (REC / "electrical-checks.json").write_text(json.dumps(record, indent=2) + "\n")
-
     # ---- render the markdown summary -------------------------------------
     lines = [
         "# Electrical-limit violation classification (issue #173)", "",
@@ -362,10 +429,14 @@ def main() -> int:
         f" own, as reported by the tool; nothing here is hand-typed.", "",
         f"Parasitics model: committed SPEF. The place-and-route sweep's counts"
         f" (global-routing-estimated parasitics) are quoted side by side and are"
-        f" a different measurement of the same routed geometry.", "",
+        f" a different measurement of the same routed geometry. The archived P&R"
+        f" pin rows are unavailable for reconciliation. [Evidence gap #179]"
+        f"({record['place_and_route_sweep']['evidence_gap']}).", "",
         "| Corner | P&R max-tran / max-cap | SPEF max-tran rows (nets) | SPEF max-cap rows (nets) | classes |",
         "|---|---|---|---|---|",
     ]
+    if "source_commit" in binding:
+        lines[2:2] = [f"Baseline inputs and engine logs come from commit `{binding['source_commit']}`.", ""]
     for e in record["corners"]:
         pc = e["place_and_route_sweep_counts"]
         pc_s = f"{pc['max_transition']} / {pc['max_capacitance']}" if pc else "-"
@@ -390,11 +461,30 @@ def main() -> int:
         slew_s = f"`{slew_w[0]}` {slew_w[1]:.3f}/{slew_w[2]:.3f}" if slew_w else "-"
         cap_s = f"`{cap_w[0]}` {cap_w[1]:.3f}/{cap_w[2]:.3f}" if cap_w else "-"
         lines.append(f"| `{name}` | {d['class']} | {drv} | {origin} | {d['sinks']['count']} | {slew_s} | {cap_s} |")
-    (REC / "electrical-checks.md").write_text("\n".join(lines) + "\n")
-    print(f"electrical-checks: {len(corners)} corners, {len(net_names)} violating nets -> "
-          f"{REC / 'electrical-checks.json'}")
-    return 0
+    reports = {"electrical-checks.json": json.dumps(record, indent=2) + "\n",
+               "electrical-checks.md": "\n".join(lines) + "\n"}
+    for name, content in reports.items():
+        if check:
+            if (rec / name).read_text() != content:
+                sys.exit(f"STALE: {name} differs from its measured inputs")
+        else:
+            (rec / name).write_text(content)
+    print(f"electrical-checks: {len(corners)} corners, {len(net_names)} violating nets")
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--check", action="store_true", help="verify both committed reports")
+    mode.add_argument("--measure", action="store_true", help="run klt sta and capture its inputs")
+    args = parser.parse_args()
+    if args.measure:
+        measure()
+    elif args.check:
+        try:
+            render(REC, check=True)
+        except (SystemExit, OSError, ValueError, KeyError) as error:
+            print(f"Electrical evidence check failed: {error}", file=sys.stderr)
+            sys.exit(3)
+    else:
+        render(REC)
