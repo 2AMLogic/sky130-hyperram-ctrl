@@ -18,8 +18,11 @@
   },
   "constraints": {
     "clock_port": "clk",
-    "clock_period_ns": 20.0
+    "clock_period_ns": 20.0,
+    "max_transition_ns": 0.45,
+    "max_fanout": 8
   },
+  "max_antenna_repair_iterations": 3,
   "seed": 1,
   "target_stage": "route",
   "io": {
