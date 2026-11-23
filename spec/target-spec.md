@@ -73,6 +73,12 @@ this experiment (it cannot load a second liberty/LEF for a macro cell and
 silently ignores the unsupported request field), so the record carries the
 committed OpenROAD session driver as its reproduction path and the gap is
 filed on `2AMLogic/klayout-tools`.
+*Note, as of `klt` 0.9.2, 2026-11-23:* the pin is now 0.9.2, which honours
+`macros[]` and completes the probe (`sim/pad-sta/records/klt-0.9.2-attempt/response-probe4-default.json`);
+the committed OpenROAD session driver remains the record's reproduction path.
+That probe used a fast pad library outside the ratified 3.3 V ±10 % window, so
+the fast/min-corner coverage gap above is not closed by it. See
+[decision 0009](decisions/0009-pad-sta-tool-support-at-klt-0.9.2.md).
 
 **(b) Delay-chain monotonicity across PVT.** *Answered for the on-chip chain
 (schematic level), 2026-11-14.* The ngspice campaign over the 16-cell
