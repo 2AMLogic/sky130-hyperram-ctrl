@@ -5,6 +5,16 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-11-23
 
+- **PR #233**: refactor: move sta self-tests into flow/hyperram_selftest.py
+- **Issue #229** (closed): Split the two embedded self-tests (~580 lines) out of flow/hyperram.py
+- **PR #232**: chore: remove static PDK_ROOT checker, keep runtime guard
+- **Issue #228** (closed): Remove check_pdk_root.py: static checker duplicated by runtime guard
+- **PR #231**: chore: ignore daemon account-ranking state files
+- **Issue #227** (closed): .gitignore does not cover .loom/account-ranking.codex, so daemon token state trips check-main-clean
+- **PR #224**: docs: name the signoff-record CI gate instead of its step ordinal in check_signoff_reasons
+- **Issue #223** (closed): check_signoff_reasons.py docstring cites "CI step 7" but the signoff-record gate runs as step 8/8
+- **PR #217**: fix: derive check_signoff_reasons fixture list from klt 0.9.2 _REASON_* constants; reject unverifiable_provenance
+- **Issue #214** (closed): check_signoff_reasons.py: re-derive the klt unmet-reason inventory and decide whether unverifiable_provenance belongs in the reject-list
 - **Issue #193** (closed): No automated regression test for the runtime PDK_ROOT assertion in fleet-regen-layout.sh
 - **PR #219**: test: drive the fleet PDK_ROOT runtime guard over fixture shapes in CI
 - **Issue #215** (closed): Make sta()/sta-postroute note writers emit the canonical bytes their CI gates compare against
