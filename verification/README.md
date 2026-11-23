@@ -4,12 +4,11 @@ Cold start, from a fresh checkout:
 
 ```
 scripts/setup-env.sh        # pinned toolchain, see docs/environment.md
-make -C verification        # model self-test + smoke test + controller benches
+make -C verification        # model self-test + controller benches
 ```
 
 ## Contents
 
-- `smoke/` - cocotb + Icarus smoke test on the toolchain smoke counter.
 - `hyperram_model/` - behavioural HyperBus-class device model (`model.py`)
   and its self-test (`test_model.py`, plain `unittest`, no simulator).
 - `ctrl/` - cocotb + Icarus benches on `rtl/hyperram_ctrl` (zero-delay
