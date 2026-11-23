@@ -3,6 +3,50 @@
 Chronological record of merged PRs and closed issues, newest first.
 Maintained by the Guide triage role; entries are append-only.
 
+### 2026-11-23
+
+- **Issue #103** (closed): Stop restating six toolchain pins in docs/environment.md: a hand-maintained copy nothing checks
+- **Issue #160** (closed): Replace check_pdk_root.py (329-line shell parser) with a 4-line runtime assertion
+- **Issue #170** (closed): Bump the klayout-tools pin 0.8.0 -> 0.9.2 and regenerate the records and signoff render under it
+- **Issue #171** (closed): T1 item 7 (Post-layout verification): SDF-annotated run of the controller benches on the post-route netlist
+- **Issue #172** (closed): Post-route multi-corner STA record with the RWDS strobe clock (hb_rwds_i) declared (the timing half of T1 item 5)
+- **Issue #181** (closed): Remove the duplicate netlist freshness run from fleet layout regeneration
+- **Issue #187** (closed): Locate the first command/address mismatch on the 50 MHz SDF-annotated post-route CK path
+- **Issue #189** (closed): Item-7 SDF freshness gate does not bind the SDF to the DEF it was produced from
+- **Issue #190** (closed): ROADMAP item-7 completion criterion does not name the partial SDF annotation (504 TIMINGCHECK entries dropped)
+- **Issue #192** (closed): STA.md no longer reproduces from sta_note(): pre-layout note generator widened without re-minting the record
+- **Issue #199** (closed): Bench pad-sample position (+5 ns after each CK edge) double-counts the real CK delay under SDF annotation
+- **Issue #200** (closed): cfg_read's fixed 1 ns settle races the annotated cfg_rdata mux (no_calibration false failure)
+- **Issue #204** (closed): ROADMAP still says the annotated run fails 43/43 after the cfg_read settle fix
+- **Issue #205** (closed): Pin-edge bench sampling (HRBENCH_SAMPLE_NS=0) reads DQ/RWDS in the CK edge's own timestep with no settling sync
+- **Issue #208** (closed): No freshness gate binds sim/hyperram/records/STA.md to sta_note(): the pre-layout record can silently drift again
+- **Issue #212** (closed): scripts/check_ci.sh step 7 passes when klt signoff downgrades a met T1 item to stale_evidence
+- **Issue #70** (closed): Remove drifted layout/toolchain.json inventory and stale bring-up stubs
+- **Issue #84** (closed): Remove vendored design-evidence-tiers.md: the pinned klt wheel ships a byte-identical copy
+- **PR #175**: data: regenerate the layout-chain records and GL report at klt 0.9.2
+- **PR #183**: docs: point environment.md pins at their defining scripts
+- **PR #186**: flow: post-route multi-corner STA record with the RWDS strobe clock declared (issue #172)
+- **PR #188**: verify: SDF-annotated post-route bench run (T1 item 7 probe) — CK-path finding, design iteration filed
+- **PR #191**: fix: reject repo-local PDK roots before fleet regeneration
+- **PR #194**: docs: name the partial SDF annotation beside ROADMAP item 7's done-criterion
+- **PR #195**: fix: bind the SDF gate to the DEF it was produced from
+- **PR #196**: chore: drop the drifted layout/toolchain.json inventory and stale #3 comments
+- **PR #197**: fix: drop the standalone netlist freshness run from fleet regeneration
+- **PR #198**: chore: drop the vendored tier doc; the pinned klt selects the checklist
+- **PR #201**: Post-route CK/CA pin trace: refuted ICG/tap-chain cause; divergence located at bench sample position
+- **PR #202**: fix: sample on the annotated CK pin edge in the ctrl bench
+- **PR #203**: fix: settle cfg_read 2 ns for the annotated cfg_rdata mux
+- **PR #207**: docs: re-mint pre-layout STA.md corner tables from the widened sta_note renderer
+- **PR #209**: feat: bind pre-layout STA.md to its record with sta-note/sta-check CI gate
+- **PR #210**: docs: mark the #200 cfg-read settle fixed in ROADMAP item 7 residuals
+- **PR #211**: fix: settle the offset-0 pad sample in the CK edge timestep
+- **PR #213**: ci: reject signoff records with stale_evidence downgrades in step 7
+
+### 2026-11-22
+
+- **Issue #178** (closed): Use a temporary venv for the pinned-Yosys test fixture
+- **PR #180**: check: build the yosys-gate fixture's python3 as a real venv
+
 ### 2026-11-18
 
 - **PR #168**: docs: remove un-closed Issue #101 entry from WORK_LOG

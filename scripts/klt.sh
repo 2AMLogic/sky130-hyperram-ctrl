@@ -12,7 +12,7 @@
 #
 # This is the only executable copy of the klt version. scripts/check_ci.sh,
 # layout/erc/run.sh, layout/lvs/run.sh, the Makefile `drc` target and the flow
-# runners (flow/hyperram.py and flow/smoke.py, through flow/klt_run.py) call
+# runners (flow/hyperram.py and its siblings, through flow/klt_run.py) call
 # this script; scripts/setup-env.sh and .github/workflows/ci.yml read the pin
 # from `--pin`. Bumping klt means editing KLT_VERSION below, then the
 # signoff record (see manifests/README.md).

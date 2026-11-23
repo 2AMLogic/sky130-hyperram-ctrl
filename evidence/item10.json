@@ -31,7 +31,7 @@
         "role": "hygiene",
         "path": "README.md",
         "passed": true,
-        "content_hash": "sha256:33ac2112e7d021401fa164ba9fbf8320b1f4619537de066e0c2ffe4fe9e10c80"
+        "content_hash": "sha256:fbb48a00d4ecfd999e0d4e3e071a487880692e03985f1d44501892510121a16e"
       },
       {
         "check": "command",
@@ -64,10 +64,11 @@
       {
         "check": "command",
         "role": "audit",
-        "name": "smoke-flow",
+        "name": "controller-cold-start",
         "argv": [
           "make",
-          "smoke"
+          "hyperram-lint",
+          "hyperram-check"
         ],
         "cwd": ".",
         "exit_status": 0,
@@ -86,7 +87,7 @@
         "path": "attest/item10.json",
         "scope": "repo"
       },
-      "content_hash": "sha256:d8c2d58bea0a67170fe2f7d5cbd426ce9f0002073d725d590de0ea5964bb9930"
+      "content_hash": "sha256:12390e7fecf8b4c36ffa910a4618d0be464d9dc062db7a84471cb26945515926"
     }
   }
 }
