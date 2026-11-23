@@ -13,7 +13,7 @@
       "name": "random_traffic_scoreboard",
       "status": "failed",
       "sim_time_ns": 805580.0,
-      "real_time_s": 10.71303939819336,
+      "real_time_s": 10.791467666625977,
       "error_type": "AssertionError",
       "error_message": "transfer timed out: issued 5/24, acked 0"
     },
@@ -21,7 +21,7 @@
       "name": "ca_is_six_bytes_and_decodes",
       "status": "failed",
       "sim_time_ns": 5362.652000000002,
-      "real_time_s": 0.0642082691192627,
+      "real_time_s": 0.06361889839172363,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -29,7 +29,7 @@
       "name": "ca_address_bits_walk",
       "status": "failed",
       "sim_time_ns": 5362.652000000002,
-      "real_time_s": 0.06190681457519531,
+      "real_time_s": 0.06412601470947266,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -37,7 +37,7 @@
       "name": "ca_register_space_bit",
       "status": "failed",
       "sim_time_ns": 5362.652000000002,
-      "real_time_s": 0.060564517974853516,
+      "real_time_s": 0.06340193748474121,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -45,7 +45,7 @@
       "name": "ca_spans_three_ck_cycles",
       "status": "failed",
       "sim_time_ns": 5400.0,
-      "real_time_s": 0.06298422813415527,
+      "real_time_s": 0.06292343139648438,
       "error_type": "AssertionError",
       "error_message": "device-model violations:\n  tCK @ 826994.6 ns: half period 9.0 ns\n  tCK @ 827014.6 ns: half period 9.0 ns\n  burst_type @ 827025.6 ns: wrapped burst requested; only linear is modelled\n  tCK @ 827034.6 ns: half period 9.0 ns"
     },
@@ -53,7 +53,7 @@
       "name": "variable_latency_normal",
       "status": "failed",
       "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05648970603942871,
+      "real_time_s": 0.06387925148010254,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -61,7 +61,7 @@
       "name": "doubling_decision_at_the_pins",
       "status": "failed",
       "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05782294273376465,
+      "real_time_s": 0.05933332443237305,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -69,7 +69,7 @@
       "name": "variable_latency_doubled_by_rwds",
       "status": "failed",
       "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.06282448768615723,
+      "real_time_s": 0.05937004089355469,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -77,7 +77,7 @@
       "name": "fixed_latency_configuration",
       "status": "failed",
       "sim_time_ns": 5460.0,
-      "real_time_s": 0.06618332862854004,
+      "real_time_s": 0.059864044189453125,
       "error_type": "AssertionError",
       "error_message": null
     },
@@ -85,7 +85,7 @@
       "name": "controller_latency_shorter_than_device_is_caught",
       "status": "failed",
       "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05776262283325195,
+      "real_time_s": 0.058992624282836914,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -93,7 +93,7 @@
       "name": "clamp_below_four",
       "status": "failed",
       "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.058203935623168945,
+      "real_time_s": 0.05967211723327637,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -101,7 +101,7 @@
       "name": "linear_bursts_of_many_lengths",
       "status": "failed",
       "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05748462677001953,
+      "real_time_s": 0.0592195987701416,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -109,7 +109,7 @@
       "name": "single_word_register_style_beat_at_odd_addresses",
       "status": "failed",
       "sim_time_ns": 5362.652000000002,
-      "real_time_s": 0.056362152099609375,
+      "real_time_s": 0.05836129188537598,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -117,7 +117,7 @@
       "name": "burst_is_one_transaction_when_it_fits",
       "status": "failed",
       "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.0575406551361084,
+      "real_time_s": 0.05951738357543945,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -125,7 +125,7 @@
       "name": "every_byte_lane_pattern",
       "status": "failed",
       "sim_time_ns": 5362.652000000002,
-      "real_time_s": 0.056844234466552734,
+      "real_time_s": 0.05962538719177246,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -133,7 +133,7 @@
       "name": "mask_inside_a_burst",
       "status": "failed",
       "sim_time_ns": 5362.652000000002,
-      "real_time_s": 0.0573122501373291,
+      "real_time_s": 0.05283474922180176,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -141,7 +141,7 @@
       "name": "register_writes_are_not_masked",
       "status": "failed",
       "sim_time_ns": 5400.0,
-      "real_time_s": 0.05782604217529297,
+      "real_time_s": 0.05731630325317383,
       "error_type": "AssertionError",
       "error_message": null
     },
@@ -149,7 +149,7 @@
       "name": "read_id_and_config_registers",
       "status": "failed",
       "sim_time_ns": 5362.652000000002,
-      "real_time_s": 0.06058907508850098,
+      "real_time_s": 0.053298234939575195,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -157,7 +157,7 @@
       "name": "write_then_read_back_register",
       "status": "failed",
       "sim_time_ns": 5400.0,
-      "real_time_s": 0.06297516822814941,
+      "real_time_s": 0.05453634262084961,
       "error_type": "AssertionError",
       "error_message": null
     },
@@ -165,7 +165,7 @@
       "name": "read_only_register_ignores_write",
       "status": "failed",
       "sim_time_ns": 5582.652000000002,
-      "real_time_s": 0.06313061714172363,
+      "real_time_s": 0.060311079025268555,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -173,7 +173,7 @@
       "name": "register_access_does_not_touch_memory",
       "status": "failed",
       "sim_time_ns": 5362.652000000002,
-      "real_time_s": 0.05628824234008789,
+      "real_time_s": 0.053322553634643555,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -181,7 +181,7 @@
       "name": "interval_is_honoured_and_pads_quiet",
       "status": "failed",
       "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.057828664779663086,
+      "real_time_s": 0.056372642517089844,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -189,7 +189,7 @@
       "name": "interval_is_a_register",
       "status": "failed",
       "sim_time_ns": 322.65200000000186,
-      "real_time_s": 0.01586771011352539,
+      "real_time_s": 0.010924577713012695,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -197,7 +197,7 @@
       "name": "too_short_interval_is_flagged_by_the_model",
       "status": "failed",
       "sim_time_ns": 322.65200000000186,
-      "real_time_s": 0.015183210372924805,
+      "real_time_s": 0.014229297637939453,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -205,7 +205,7 @@
       "name": "long_bursts_are_split_and_never_exceed_tcsm",
       "status": "failed",
       "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.06256937980651855,
+      "real_time_s": 0.05745077133178711,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -213,7 +213,7 @@
       "name": "margin_holds_across_tcsm_and_latency",
       "status": "failed",
       "sim_time_ns": 5482.652000000002,
-      "real_time_s": 0.05976128578186035,
+      "real_time_s": 0.05715298652648926,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -221,7 +221,7 @@
       "name": "margin_is_tight_not_loose",
       "status": "failed",
       "sim_time_ns": 5482.652000000002,
-      "real_time_s": 0.05957961082458496,
+      "real_time_s": 0.056410789489746094,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -229,7 +229,7 @@
       "name": "negative_control_limit_disabled_is_flagged",
       "status": "failed",
       "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05802607536315918,
+      "real_time_s": 0.054483652114868164,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -237,7 +237,7 @@
       "name": "budget_too_small_sets_status_bit",
       "status": "failed",
       "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.057100534439086914,
+      "real_time_s": 0.054534196853637695,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -245,7 +245,7 @@
       "name": "doubles_only_when_rwds_high",
       "status": "failed",
       "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05751466751098633,
+      "real_time_s": 0.05469346046447754,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -253,7 +253,7 @@
       "name": "sampling_is_independent_of_rwds_skew_after_ck",
       "status": "failed",
       "sim_time_ns": 5482.652000000002,
-      "real_time_s": 0.07048225402832031,
+      "real_time_s": 0.05700373649597168,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -261,7 +261,7 @@
       "name": "doubled_latency_read_returns_correct_data",
       "status": "failed",
       "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05883526802062988,
+      "real_time_s": 0.05587434768676758,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -269,7 +269,7 @@
       "name": "doubled_latency_write_is_correct",
       "status": "failed",
       "sim_time_ns": 5422.651999999885,
-      "real_time_s": 0.058370113372802734,
+      "real_time_s": 0.060003042221069336,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -277,7 +277,7 @@
       "name": "no_calibration_port_or_status_bit",
       "status": "failed",
       "sim_time_ns": 5385.0,
-      "real_time_s": 0.05451655387878418,
+      "real_time_s": 0.052979469299316406,
       "error_type": "AssertionError",
       "error_message": "cfg 4: 0x0024 has bits set outside documented field 0x000f"
     },
@@ -285,7 +285,7 @@
       "name": "one_ack_per_accepted_beat_and_none_unasked",
       "status": "failed",
       "sim_time_ns": 5522.652000000002,
-      "real_time_s": 0.061942338943481445,
+      "real_time_s": 0.05436396598815918,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -293,7 +293,7 @@
       "name": "stall_back_pressures_and_data_is_not_lost",
       "status": "failed",
       "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05765485763549805,
+      "real_time_s": 0.05284571647644043,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -301,7 +301,7 @@
       "name": "pipelined_reads_overlap",
       "status": "failed",
       "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05833792686462402,
+      "real_time_s": 0.05513811111450195,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -309,7 +309,7 @@
       "name": "dropping_cyc_does_not_cancel_an_accepted_beat",
       "status": "failed",
       "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05890321731567383,
+      "real_time_s": 0.054732561111450195,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -317,7 +317,7 @@
       "name": "reads_see_earlier_writes_in_order",
       "status": "failed",
       "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.062407493591308594,
+      "real_time_s": 0.0545964241027832,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -325,7 +325,7 @@
       "name": "long_write_burst_with_random_host_gaps",
       "status": "failed",
       "sim_time_ns": 5442.652000000002,
-      "real_time_s": 0.057530879974365234,
+      "real_time_s": 0.05448627471923828,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -333,7 +333,7 @@
       "name": "long_read_burst_with_random_host_gaps",
       "status": "failed",
       "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05739855766296387,
+      "real_time_s": 0.054054975509643555,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -341,7 +341,7 @@
       "name": "burst_longer_than_cs_low_budget_loses_nothing",
       "status": "failed",
       "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05774092674255371,
+      "real_time_s": 0.05973172187805176,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     },
@@ -349,7 +349,7 @@
       "name": "non_sequential_beats_start_new_transactions",
       "status": "failed",
       "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05694222450256348,
+      "real_time_s": 0.05380749702453613,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host during CA"
     }
@@ -364,24 +364,24 @@
     "results_xml": {
       "path": "flow/.klt/functional-verification/results_icarus.xml",
       "scope": "repo",
-      "sha256": "sha256:5068a05e26c870cb5d37f123e1ae8e898644ee60342831295089a2545b47ee73"
+      "sha256": "sha256:c8db30ff1b4f6a398de0541dfee6d2b11ced003ab47dba94df7a756354ed1797"
     },
     "test_log": {
       "path": "flow/.klt/functional-verification/test_icarus.log",
       "scope": "repo",
-      "sha256": "sha256:41ba4735b9afe32c600e53c2210c2d3535dadf3246a335dd412d59a7d2c84315"
+      "sha256": "sha256:21900bdea35718ffb76a3330b42b8d44c1269205692ed683e3505fe86de48dfb"
     },
     "build_log": {
       "path": "flow/.klt/functional-verification/build_icarus.log",
       "scope": "repo",
       "sha256": "sha256:32d6de3225d3f08f0c91005c16e7243ed9d30ca69a886896b912472a4d51e5fb"
     },
-    "random_seed": 1795405540,
+    "random_seed": 1795425982,
     "source_defines": {},
     "env": {},
     "initial_state": null,
     "sdf": {
-      "file": "/home/ubuntu/GitHub/sky130-hyperram-ctrl/.loom/worktrees/issue-171/layout/records/hyperram_ctrl.tt_025C_1v80.sdf",
+      "file": "/home/ubuntu/GitHub/sky130-hyperram-ctrl/.loom/worktrees/issue-187/layout/records/hyperram_ctrl.tt_025C_1v80.sdf",
       "corner": "typ",
       "entries": "all",
       "annotated": true,

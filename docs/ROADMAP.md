@@ -40,10 +40,18 @@ Also in the tree, outside the tier record:
   `environment.sdf.annotated: true` — partial, though:
   `environment.sdf.partial: true`, 732 entries dropped in that report, 504
   `timingcheck` plus 208 + 20 zero-delay interconnect; see Next item 7).
-  The finding is the CK output path — the ICG enable opens CK one
-  clock before CA and the tap-chain/CTS delays skew CK duty to ~9/11 ns
-  half-periods — tracked as #187. The manifest cites the failing report, so
-  item 7 grades `unmet`/`check_failed`, not `no_evidence`.
+  #187 traced the annotated pins
+  (`sim/hyperram/records/CK-TRACE.md`, `make ck-trace`) and refuted the CK
+  output path as the cause: the first CK edge rises with CA byte 0 already
+  driven, every edge sits inside its byte window, and the ICG opens on the
+  CA-launch edge — the "ICG opens one clock early" observation is a
+  zero-delay ordering race that annotation resolves the correct way. The
+  43/43 decomposes into the bench's zero-delay stand-in assumptions meeting
+  real annotation — the +5 ns pad-sample position (#199) and the 1 ns
+  cfg-read settle (#200) — plus the ~11/9 ns CK duty the model flags and #2
+  owns. Item 7 stays `unmet` with the failing report cited. The manifest
+  cites the failing report, so item 7 grades `unmet`/`check_failed`, not
+  `no_evidence`.
 - The spec is drafted but unratified: `spec/target-spec.md` (20 rows), seven
   decision records, and the pad and clock interface tables with their gaps
   filed on the siblings (2AMLogic/sky130-io-ring#7, 2AMLogic/sky130-pll#332).
@@ -134,11 +142,13 @@ As of the header sha above; live label state is
   sibling (2AMLogic/sky130-io-ring#7) and the ngspice min/max pad-delay
   spread that question (a) left open. Done when `sim/` holds a per-corner
   setup and hold margin at the capturing flop against the row-12 figure.
-- **Item 7, post-layout verification.** The probe landed (#171): the SDF from
-  the committed DEF + SPEF exists in `layout/records/` with its producing STA
-  response, and the annotated bench run is recorded — it fails 43/43 from the
-  first CA byte, so item 7 stays `unmet` with the failing report cited. What
-  remains is the CK-path fix (#187); done when a re-run of
+- **Item 7, post-layout verification.** The probe landed (#171) and #187
+  traced the annotated CK/CA pins: the design's launch path meets the CA
+  contract (`sim/hyperram/records/CK-TRACE.md`), so the remaining 43/43 is
+  re-triaged narrower, not a design fix — the bench's +5 ns pad-sample
+  position (#199) and 1 ns cfg-read settle (#200) are what the annotated run
+  trips on, and the ~11/9 ns duty flag belongs to #2. Item 7 stays `unmet`
+  with the failing report cited; done when #199/#200 land and a re-run of
   `make post-route-verify` passes (or its remainders are re-triaged narrower).
   A `met` grade from that run carries a named assumption: Icarus drops every
   SDF TIMINGCHECK (504 entries in the landed report,

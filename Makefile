@@ -106,3 +106,21 @@ post-route-sdf:
 
 post-route-verify:
 	python3 flow/post_route.py verify
+
+.PHONY: ck-trace ck-trace-gl0
+
+# Issue #187 (item 7 follow-up): the post-route CK/CA pin-waveform trace bench
+# (sim/hyperram/ck_trace_tb.v, one CR0 register write + one memory read) on the
+# routed netlist. ck-trace runs it SDF-annotated on the committed post-route
+# SDF; ck-trace-gl0 with the zero-delay FUNCTIONAL stand-ins (the PR #188
+# configuration). The $monitor transcript each writes beside the request is the
+# evidence sim/hyperram/records/CK-TRACE.md is derived from; the run itself is
+# pass_marker-gated (TRACE_OK), never a functional verdict. local_only: needs
+# Icarus >= 13 + PDK.
+ck-trace:
+	scripts/klt.sh functional-verification flow/functional-verification-ck-trace.json --format json --outdir flow/.klt/ck-trace > /dev/null
+	@echo "transcript: flow/.klt/ck-trace/test_icarus.log"
+
+ck-trace-gl0:
+	scripts/klt.sh functional-verification flow/functional-verification-ck-trace-gl0.json --format json --outdir flow/.klt/ck-trace-gl0 > /dev/null
+	@echo "transcript: flow/.klt/ck-trace-gl0/test_icarus.log"
