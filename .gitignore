@@ -109,7 +109,7 @@ results.xml
 # Repo Skills machine-local install metadata (absolute source path + timestamp)
 .claude/skills/repo/.install-local.json
 
-# klt scratch from flow/smoke.py
+# klt scratch (flow/.klt/; the rendered ck-trace requests and their output)
 flow/.klt/
 
 # klt place-and-route scratch (layout/records/ holds the committed outputs)

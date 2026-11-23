@@ -15,7 +15,8 @@
 #   3. flow/hyperram.py's pinned-yosys gate rejects an unpinned yosys build
 #      (the synthesis it guards is local_only; the gate itself is not)
 #   4. the committed item-10 attestation still reproduces (klt signoff
-#      --attest 10 --check; local_only commands such as `make smoke` are skipped)
+#      --attest 10 --check; local_only commands such as the controller
+#      cold-start check are skipped)
 #   5. the committed item-1 attestation still reproduces (hashes of RTL + netlist;
 #      the local_only re-synthesis check is skipped)
 #   6. the committed klt drc report is bound to the cited GDS and deck (--check, no rerun)

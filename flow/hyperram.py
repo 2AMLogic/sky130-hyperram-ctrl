@@ -614,8 +614,7 @@ def sta_note(doc, cells):
 def sta():
     """`klt sta` on the committed netlist at every shipped liberty corner.
 
-    Mirrors flow/smoke.py's `sta` verb, with two differences the design (rather
-    than the smoke counter) forces:
+    Two things the design forces:
 
       * the gate is asymmetric -- graded inside decision 0004's supply window,
         reported outside it (see VMIN_V/VMAX_V);

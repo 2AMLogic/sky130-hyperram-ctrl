@@ -3,14 +3,14 @@
   "kind": "generic",
   "status": "pass",
   "t1_item": 9,
-  "summary": "T1 item 9 (Testbenches shipped): 28/28 attestation checks passed (klt signoff --attest)",
+  "summary": "T1 item 9 (Testbenches shipped): 26/26 attestation checks passed (klt signoff --attest)",
   "source": "attest/item9.json",
   "attestation": {
     "producer": "klt signoff --attest",
     "inventory_schema_version": 1,
     "hash_algorithm": "sha256-raw-bytes",
-    "check_count": 28,
-    "passed_count": 28,
+    "check_count": 26,
+    "passed_count": 26,
     "checks": [
       {
         "check": "present",
@@ -24,14 +24,14 @@
         "role": "testbench",
         "path": "verification/Makefile",
         "passed": true,
-        "content_hash": "sha256:fc853ae1e09deb077808d51ecf185e3797d0c655730e7371ca0c8fb0e2384041"
+        "content_hash": "sha256:174ac34d20943e27289cb90e2c85b9901c4f4fe79083812608296c1f58942abc"
       },
       {
         "check": "present",
         "role": "testbench",
         "path": "verification/README.md",
         "passed": true,
-        "content_hash": "sha256:103bb263f67d19890af7cc60ff3db6f3bfb7e236f73ba56ecbbd97bd717ea0dc"
+        "content_hash": "sha256:dace675edabe5b37ca5f343e2f8901baa1345c5e31a5aa1f8c616d99e3e89784"
       },
       {
         "check": "present",
@@ -174,20 +174,6 @@
         "content_hash": "sha256:a54b396e1bc29d6592c5d83b58df71edca1c3cd25629d837a25403a8b6d851cb"
       },
       {
-        "check": "present",
-        "role": "testbench",
-        "path": "verification/smoke/Makefile",
-        "passed": true,
-        "content_hash": "sha256:82b625c891e38630bdf8d99522152609d9908452b50e0e5a2ba4392f226624a0"
-      },
-      {
-        "check": "present",
-        "role": "testbench",
-        "path": "verification/smoke/test_smoke_counter.py",
-        "passed": true,
-        "content_hash": "sha256:0641f4827a99f0ba29dcba1270c33dffadce019178c72620a8dfe79630f7db40"
-      },
-      {
         "check": "command",
         "role": "cold_start",
         "argv": [
@@ -232,7 +218,7 @@
         "path": "attest/item9.json",
         "scope": "repo"
       },
-      "content_hash": "sha256:cc2aaf4222f472e6bfd4e51c84be82d5d40ac93b902b99167568e222f54b5893"
+      "content_hash": "sha256:2b97309cd6a43c0cf146b57a3fbdadc4890076b942f891edf04099cd2ccdab1b"
     }
   }
 }

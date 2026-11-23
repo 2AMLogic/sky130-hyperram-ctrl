@@ -33,18 +33,16 @@ most often [klayout-tools](https://github.com/2AMLogic/klayout-tools) — that
 friction is filed as a public issue against the tool itself, so the fix
 benefits everyone using sky130, not just this repo.
 
-## Setup and smoke flow
+## Setup
 
 ```bash
 ./scripts/setup-env.sh   # pinned klt, Yosys, cocotb, sky130A + sky130_fd_sc_hd; checks host tools
-make smoke               # toolchain smoke test: lint, cocotb sim, synthesis, three-corner STA on rtl/smoke/
+make hyperram-lint hyperram-check   # cheapest post-setup check: lint and netlist freshness on the real design
 ```
 
-`rtl/smoke/` only proves the toolchain works; it is not the design. The
-controller is in `rtl/hyperram_ctrl/`; see [Reproduce](#reproduce) for its flow.
+The controller is in `rtl/hyperram_ctrl/`; see [Reproduce](#reproduce) for its flow.
 
-Pins and the flow steps are in [docs/environment.md](docs/environment.md);
-the run record lands in `sim/smoke/records/`.
+Pins and the flow steps are in [docs/environment.md](docs/environment.md).
 
 ## Why this block, on this node
 
