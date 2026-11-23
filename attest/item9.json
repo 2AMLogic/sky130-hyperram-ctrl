@@ -2,7 +2,7 @@
   "schema_version": 1,
   "kind": "t1-attestation-inventory",
   "t1_item": 9,
-  "description": "Testbenches shipped: the behavioural device model and its self-test, and the controller benches (one module per CT row of spec/target-spec.md plus random traffic), with the one cold-start command and the pinned PDK and tool versions. The cold-start command needs the scripts/setup-env.sh toolchain, absent from the CI runner, so it is local_only (skipped, not passed, under --check; the per-file hashes still catch drift). Model timing values are placeholder stand-ins chosen for functional coverage: the spec/device-model-params.md rows are sourced (PR #94) but the placeholder set does not match them yet, left for issue 2; verification/README.md says so. No bench is expect_fail: the doubled-latency read defect (issue 48) is fixed in RTL.",
+  "description": "Testbenches shipped: the behavioural device model and its self-test, the controller benches (one module per CT row of spec/target-spec.md plus random traffic), and the pin-edge sampling suite (verification/pin_edge_sample: the bench's HRBENCH_SAMPLE_NS=0 pad sample against a stand-in host that moves DQ/RWDS on the CK pin edge itself, issue #205), with the one cold-start command and the pinned PDK and tool versions. The cold-start command needs the scripts/setup-env.sh toolchain, absent from the CI runner, so it is local_only (skipped, not passed, under --check; the per-file hashes still catch drift). Model timing values are placeholder stand-ins chosen for functional coverage: the spec/device-model-params.md rows are sourced (PR #94) but the placeholder set does not match them yet, left for issue 2; verification/README.md says so. No bench is expect_fail: the doubled-latency read defect (issue 48) is fixed in RTL.",
   "testbenches": [
     "verification/Makefile",
     "verification/README.md",
@@ -23,6 +23,9 @@
     "verification/ctrl/test_row15_host_interface.py",
     "verification/ctrl/test_row16_host_bursts.py",
     "verification/ctrl/Makefile",
+    "verification/pin_edge_sample/Makefile",
+    "verification/pin_edge_sample/pin_edge_host.v",
+    "verification/pin_edge_sample/test_pin_edge_sample.py",
     "flow/functional-verification-ctrl.json"
   ],
   "cold_start": {

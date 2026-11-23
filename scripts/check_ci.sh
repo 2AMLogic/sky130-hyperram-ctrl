@@ -24,7 +24,14 @@
 #       SDF vs its producing klt sta response) is fresh -- no simulator needed
 #   6c. the post-route STA records match the current requests, DEF and SPEF
 #       (self-tested first so `sta-postroute-note` cannot re-stamp stale inputs)
-#   7. the committed klt signoff record equals a fresh render of the manifest
+#   7. the committed pre-layout STA note equals a fresh render of the
+#       committed record it sits beside (self-tested first; only the
+#       note<->record binding -- the record's own binding to the netlist
+#       stays local_only)
+#   8. the committed klt signoff record equals a fresh render of the manifest
+#       and no item in it is downgraded to unmet/stale_evidence (a stale
+#       manifest content_hash pin re-rendered and committed would pass the
+#       byte-compare alone; issue #212)
 #   (the --help assertion for the two shell drivers runs as step 2b, beside
 #    the other tool-free gates; the delay-chain derivation unit check runs as
 #    step 3b; the tap-decode structural check runs as step 3c, self-tested
@@ -43,7 +50,7 @@ cd "$(dirname "$0")/.."
 
 KLT=(scripts/klt.sh)
 
-echo "== 1/7 JSON validity =="
+echo "== 1/8 JSON validity =="
 shopt -s nullglob
 for f in flow/*.json layout/*.json manifests/*.json; do
   python3 -I -c 'import json,sys; json.load(open(sys.argv[1]))' "$f" \
@@ -51,10 +58,10 @@ for f in flow/*.json layout/*.json manifests/*.json; do
   echo "ok $f"
 done
 
-echo "== 2/7 README relative links =="
+echo "== 2/8 README relative links =="
 python3 -I scripts/check_links.py README.md
 
-echo "== 2b/7 --help of the shell drivers prints comment text only =="
+echo "== 2b/8 --help of the shell drivers prints comment text only =="
 # setup-env.sh and sim/pad-sta/run-opensta.sh print their leading comment
 # block as --help through a pattern-anchored sed range (issue #124). Their
 # upper bounds used to be hardcoded line numbers that drifted on every edit
@@ -89,7 +96,7 @@ for s in scripts/setup-env.sh sim/pad-sta/run-opensta.sh; do
 done
 rm -f "$help_err"
 
-echo "== 3/7 pinned-yosys gate rejects an unpinned build =="
+echo "== 3/8 pinned-yosys gate rejects an unpinned build =="
 # flow/hyperram.py's gate is the only thing between a yosys that merely reports
 # the pinned version and a committed netlist or freshness result (issues #81,
 # #89). The synthesis it guards is local_only -- CI has no yosys and no PDK --
@@ -97,7 +104,7 @@ echo "== 3/7 pinned-yosys gate rejects an unpinned build =="
 # temporary $PATHs. Needs no yosys, no klt and no PDK.
 python3 -I scripts/check_yosys_gate.py
 
-echo "== 3b/7 delay-chain derivation unit check =="
+echo "== 3b/8 delay-chain derivation unit check =="
 # flow/delay_chain.py's derive turns the campaign report into the committed
 # record (taps.csv, summary.csv, RECORD.md) and is pure -- the ngspice
 # campaign itself is local_only -- so the derivation is unit-checked directly
@@ -105,7 +112,7 @@ echo "== 3b/7 delay-chain derivation unit check =="
 # one (issue #117). Needs no ngspice, no klt and no PDK.
 python3 -I scripts/check_delay_chain_derive.py
 
-echo "== 3c/7 tap-decode structural check =="
+echo "== 3c/8 tap-decode structural check =="
 # The controller benches cannot cover the tap arithmetic of hr_tap_delay: the
 # sim stand-ins are zero-delay pass-throughs, so no tap decode or chain-length
 # mutation can change a bench result (PR #148 review -- both mutations were
@@ -118,7 +125,7 @@ echo "== 3c/7 tap-decode structural check =="
 python3 -I scripts/check_tap_decode.py --self-test
 python3 -I scripts/check_tap_decode.py
 
-echo "== 3d/7 PDK-root provenance check =="
+echo "== 3d/8 PDK-root provenance check =="
 # ensure_pdk in scripts/fleet-regen-layout.sh fetches the pinned sky130A PDK
 # outside the repo root (issue #142): a PDK under ${REPO_ROOT} makes klt
 # record the liberty deck as repo-scoped evidence -- a path into a tree
@@ -136,13 +143,13 @@ echo "== 3d/7 PDK-root provenance check =="
 python3 -I scripts/check_pdk_root.py --self-test
 python3 -I scripts/check_pdk_root.py
 
-echo "== 4/7 item-10 attestation is fresh =="
+echo "== 4/8 item-10 attestation is fresh =="
 # Hashes are raw bytes: any edit to README.md, LICENSE, ci.yml or
 # attest/item10.json is drift until this is re-run and the envelope committed:
 #   klt signoff --attest 10 --inventory attest/item10.json -o evidence/item10.json
 "${KLT[@]}" signoff --attest 10 --inventory attest/item10.json --check evidence/item10.json
 
-echo "== 4b/7 item-9 attestation is fresh =="
+echo "== 4b/8 item-9 attestation is fresh =="
 # Hashes are raw bytes of every testbench file listed in attest/item9.json
 # (model, benches, README, the functional-verification request): editing any of
 # them is drift until this is re-run and the envelope, the manifest hash and the
@@ -151,7 +158,7 @@ echo "== 4b/7 item-9 attestation is fresh =="
 # The cold-start command (make -C verification) is local_only and is skipped here.
 "${KLT[@]}" signoff --attest 9 --inventory attest/item9.json --check evidence/item9.json
 
-echo "== 4c/7 item-9 attestation declares every controller bench on disk =="
+echo "== 4c/8 item-9 attestation declares every controller bench on disk =="
 # Step 4b hashes the paths attest/item9.json lists, so a bench file the
 # inventory omits is not drift -- it is invisible, and can ship unexecuted
 # inside append-only evidence (issue #93). This is the assertion that closes
@@ -162,21 +169,21 @@ echo "== 4c/7 item-9 attestation declares every controller bench on disk =="
 python3 -I scripts/check_bench_coverage.py --self-test
 python3 -I scripts/check_bench_coverage.py
 
-echo "== 5/7 item-1 attestation is fresh =="
+echo "== 5/8 item-1 attestation is fresh =="
 # Per-file hashes of the RTL and netlist; the re-synthesis freshness command is
 # local_only (needs yosys + PDK) and is skipped here. After any RTL change run:
 #   make hyperram-synth
 #   klt signoff --attest 1 --inventory attest/item1.json -o evidence/item1.json
 "${KLT[@]}" signoff --attest 1 --inventory attest/item1.json --check evidence/item1.json
 
-echo "== 6/7 DRC report is fresh =="
+echo "== 6/8 DRC report is fresh =="
 # Input and deck hashes only (no --rerun: the full DRC is local). After any GDS change:
 #   make drc
 "${KLT[@]}" drc --check layout/records/drc.report.json
 # Item-11 ERC supply report: cheap re-hash of layout and spec (full re-run: layout/erc/run.sh)
 "${KLT[@]}" erc --check layout/records/erc.report.json
 
-echo "== 6b/7 post-route SDF evidence is fresh =="
+echo "== 6b/8 post-route SDF evidence is fresh =="
 # The item-7 probe (issue #171): klt 0.9.2's functional-verification report
 # writer emits no design-input digests, so `make -C verification/ctrl sdf`
 # records them in a companion checksum file instead. This gate recomputes the
@@ -192,7 +199,7 @@ echo "== 6b/7 post-route SDF evidence is fresh =="
 python3 -I scripts/check_sdf_evidence.py --self-test
 python3 -I scripts/check_sdf_evidence.py
 
-echo "== 6c/7 post-route STA record is fresh =="
+echo "== 6c/8 post-route STA record is fresh =="
 # The multi-corner post-route STA itself is local_only (needs OpenROAD + PDK;
 # `make hyperram-sta-postroute`); CI re-derives only its input binding: the
 # DEF against each response's own provenance hash, and the DEF/SPEF/request
@@ -203,7 +210,19 @@ echo "== 6c/7 post-route STA record is fresh =="
 python3 -I flow/hyperram.py sta-postroute-check --self-test
 python3 -I flow/hyperram.py sta-postroute-check
 
-echo "== 7/7 klt signoff record is fresh =="
+echo "== 7/8 pre-layout STA note is fresh =="
+# The pre-layout STA itself is local_only (needs OpenROAD + PDK; `make
+# hyperram-sta`); this step checks only the note<->record binding: the
+# committed STA.md must equal byte-for-byte a fresh sta_note() render of the
+# committed sta.json + synth-stat.json blackbox list (issue #208, the drift
+# class of #81/#189/#192). It does NOT check that sta.json matches the
+# netlist it was minted from -- that binding needs the STA rerun and stays
+# local_only. Self-tested first over fixture trees, the way 6c gates the
+# post-route twin.
+python3 -I flow/hyperram.py sta-check --self-test
+python3 -I flow/hyperram.py sta-check
+
+echo "== 8/8 klt signoff record is fresh =="
 fresh="$(mktemp)"
 trap 'rm -f "$fresh"' EXIT
 rc=0
@@ -220,4 +239,16 @@ if ! cmp -s "$fresh" "$RECORD"; then
   diff <(python3 -m json.tool "$fresh") <(python3 -m json.tool "$RECORD") || true
   exit 1
 fi
+# A record can be byte-fresh and still wrong: klt signoff downgrades a
+# previously-met T1 item to unmet/stale_evidence when the manifest's pinned
+# content_hash no longer matches the cited evidence, and a downgraded record
+# re-rendered and committed passes the cmp above by comparing to itself
+# (issue #212). The reason token is the discriminator -- klt 0.9.2 documents
+# thirty legitimate unmet reasons, so this reject-lists stale_evidence alone,
+# self-tested first, over fixtures, because it is the only thing standing
+# between a silent T1 downgrade and a green CI. $RECORD is byte-equal to
+# $fresh here (the cmp above), so checking it checks both. Needs no klt
+# beyond the render above, no PDK and no network.
+python3 -I scripts/check_signoff_reasons.py --self-test
+python3 -I scripts/check_signoff_reasons.py "$RECORD"
 echo "committed signoff record is fresh"

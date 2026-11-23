@@ -15,6 +15,16 @@ ASSUMPTIONS stated here because the bench output depends on them:
     (flow/functional-verification-ctrl-sdf.json) therefore selects ``0`` --
     sampling on the CK edge itself, the device's actual relationship to its
     clock pin. Real pad/CK timing is NOT claimed by these benches.
+    At offset 0 the sample is taken in the read-only phase of the CK edge's
+    timestep, once every change in that timestep has settled: a DQ/RWDS/OE
+    change in the CK edge's own timestep is sampled at its new value, one
+    arriving 1 ps later at its old value, and no simulation time is added.
+    Reading in the wake-up timestep itself is order-dependent (issue #205):
+    a DQ change in the CK edge's own timestep that the simulator applies
+    after the CK update would be sampled as the previous byte, with nothing
+    raised. Nothing can be written in a read-only timestep, so a pin the
+    device does not drive is parked at 0 one timestep after the edge; the
+    delayed drives keep their edge-relative times.
   * Read strobe: the model's RWDS is placed ``RWDS_EYE_NS`` after its DQ so
     the zero-delay capture chain sees RWDS mid-eye. Same caveat.
   * Model timing values are PLACEHOLDERS: the spec/device-model-params.md rows
@@ -36,7 +46,7 @@ from typing import List, Optional, Sequence, Tuple
 
 import cocotb
 from cocotb.clock import Clock
-from cocotb.triggers import RisingEdge, Timer
+from cocotb.triggers import ReadOnly, RisingEdge, Timer
 from cocotb.utils import get_sim_time
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "hyperram_model"))
@@ -198,6 +208,8 @@ class Bench:
             self.ck_edges += 1
             if SAMPLE_NS:
                 await Timer(SAMPLE_NS, unit="ns")
+            else:
+                await ReadOnly()
             dq = int(d.hb_dq_o.value) if d.hb_dq_oe.value == 1 else None
             rw = int(d.hb_rwds_o.value) if d.hb_rwds_oe.value == 1 else None
             out = self.model.clock(t, ck, dq, rw)
@@ -207,15 +219,15 @@ class Bench:
 
     async def _drive(self, sig, val, delay_ns):
         """Drive a device output ``delay_ns`` after its CK edge; a pin the device
-        does not drive is parked at 0."""
-        if val is None:
-            sig.value = 0
-            return
-        wait = delay_ns - SAMPLE_NS
+        does not drive is parked at 0 (one timestep after the edge when the
+        sample was taken in the read-only phase, the earliest write it allows)."""
+        wait = 0.0 if val is None else delay_ns - SAMPLE_NS
         assert wait >= 0, "tCKD/tCKDS placeholder must be >= the sample offset"
+        if wait == 0 and SAMPLE_NS == 0:
+            await Timer(1, unit="step")
         if wait:
             await Timer(wait, unit="ns")
-        sig.value = val
+        sig.value = 0 if val is None else val
 
     # ------------------------------------------------------- configuration
     async def cfg_write(self, adr: int, val: int):

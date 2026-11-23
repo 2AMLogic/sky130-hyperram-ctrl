@@ -5,6 +5,7 @@ Cold start, from a fresh checkout:
 ```
 scripts/setup-env.sh        # pinned toolchain, see docs/environment.md
 make -C verification        # model self-test + controller benches
+                            # + pin-edge sampling suite
 ```
 
 ## Contents
@@ -16,6 +17,10 @@ make -C verification        # model self-test + controller benches
   Wishbone host, config port), one module per CT row, `test_random_traffic.py`
   (scoreboard) and `test_all.py` (aggregate for `klt functional-verification`).
   One module: `make -C verification/ctrl COCOTB_TEST_MODULES=test_row09_max_cs_low`.
+  `make -C verification/ctrl pin-edge` runs the same aggregate with the pad
+  driver sampling on the CK pin edge itself (`HRBENCH_SAMPLE_NS=0`, the SDF
+  request's mode) on the zero-delay RTL, where DQ/RWDS change in the CK
+  edge's own timestep (issue #205).
   **To add a bench, drop a `test_*.py` in `ctrl/` and add it to
   `../attest/item9.json`** - that inventory is the only list of bench names
   left. `ctrl/Makefile` and `ctrl/test_all.py` both glob `ctrl/test_*.py`
@@ -23,6 +28,16 @@ make -C verification        # model self-test + controller benches
   modules, and `scripts/check_bench_coverage.py` (CI step 4c) fails if the
   inventory does not declare a file the glob can see - without it a bench could
   ship hashed-as-absent and never execute (#93).
+- `pin_edge_sample/` - the bench's pin-edge pad sample (issue #205):
+  `pin_edge_host.v` is a stand-in HyperBus host that moves DQ, RWDS and
+  their output enables at a selectable offset from its own CK edge (in the
+  edge's timestep with either update order, 1 ps before, 1 ps after), and
+  `test_pin_edge_sample.py` runs the real `hrbench.Bench` pad monitor over
+  it at `HRBENCH_SAMPLE_NS=0`. Claim: what the monitor hands the device
+  model is the pins' settled value at the end of the CK edge's timestep
+  (the read-phase sync in `_ck_mon`), and the model's outputs keep their
+  edge-relative delays - no time offset was reintroduced. Not a controller
+  or device claim; the host is a fixture.
 - `../flow/functional-verification-ctrl.json` - the same benches as a
   `klt functional-verification` request (needs the `functional-verification`
   extra: `uvx --from "klayout-tools[functional-verification]==0.9.2" klt
@@ -128,6 +143,17 @@ real cell functions. Zero delay: no timing claim (SDF re-run is item 7).
   emulated by the bench: DQ/RWDS are sampled 5 ns after each CK edge and the
   model's RWDS is placed 5 ns after its DQ. Those rows are proved by SPICE and
   STA, not here.
+- **Pin-edge sampling (offset 0) is a settled-timestep read, not a timing
+  claim.** The SDF request selects `HRBENCH_SAMPLE_NS=0`; `_ck_mon` then
+  samples in the read-only phase of the CK edge's timestep, so a
+  DQ/RWDS/OE change inside that timestep is taken at its settled value and
+  one arriving 1 ps later at its old value — order-independent, and with no
+  simulation time added (issue #205; `pin_edge_sample/` proves it for both
+  same-timestep orders and the 1 ps-before/after cases, and
+  `make -C verification/ctrl pin-edge` runs the whole aggregate at the pin
+  edge on the zero-delay RTL, where the coincidence is real). A pin the
+  device does not drive is parked at 0 one timestep after the edge, the
+  earliest a read-only sample allows.
 - **Latency convention (changed in this PR).** The model now counts initial
   latency from the first CA clock, CA included (minimum 3; doubling doubles the
   whole count), which is how the controller counts. The earlier model counted

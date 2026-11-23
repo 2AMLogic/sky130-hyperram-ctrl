@@ -37,9 +37,8 @@ that is on `$PATH` but cannot run fails step 4 of the script.
 
 The smoke counter the flow originally brought up on (`rtl/smoke/`) is gone
 (issue #114): the controller flow now exercises every step it did, on the
-real design. The
-cheapest post-setup probe is `make hyperram-lint hyperram-check` — verilator
-`--lint-only -Wall` (warnings fatal) on the controller RTL, then a
+real design. The cheapest post-setup probe is
+`make hyperram-lint hyperram-check` — verilator `--lint-only -Wall` (warnings fatal) on the controller RTL, then a
 re-synthesis compared against the committed netlist. Both need the
 `scripts/setup-env.sh` toolchain.
 

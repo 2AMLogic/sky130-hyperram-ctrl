@@ -25,7 +25,7 @@ all graded against a **draft** spec, so every verdict is provisional.
 | 6 Monte Carlo for statistical claims | unmet | no evidence; whether the spec makes a statistical claim is #2's call |
 | 7 Post-layout verification | unmet, **probed** | the SDF-annotated run exists and fails: 39 of 43 benches on `hyperram_ctrl.routed.v` with the DEF+SPEF SDF at `tt_025C_1v80` fail — the bench samples on the annotated CK pin edge (#199), so the six CA bytes decode and the residuals are the ~9/11 ns annotated CK half-period vs the model's 20 ns placeholder (#2) and host acknowledgement under annotation — the register configuration-read settle race (#200) is fixed (#203, `no_calibration_port_or_status_bit` now passes); #187 traced the typ CK/CA pins and found no fault in the CK launch path or the ICG (`sim/hyperram/records/CK-TRACE.md`); report `sim/hyperram/records/functional-verification-ctrl-sdf.report.json` |
 | 8 Characterization report | unmet | no report; needs items 5 and 7 |
-| 9 Testbenches shipped | met | `verification/ctrl/` (43 cocotb tests, one module per CT row, plus random traffic), `verification/hyperram_model/`, `evidence/item9.json` |
+| 9 Testbenches shipped | met | `verification/ctrl/` (43 cocotb tests, one module per CT row, plus random traffic), `verification/pin_edge_sample/` (the bench's pin-edge pad sample, #205), `verification/hyperram_model/`, `evidence/item9.json` |
 | 10 Repo hygiene | met | `evidence/item10.json`, re-checked by `npm run check:ci` |
 | 11 Power delivery (structural) | met, **stale** | `layout/records/erc.report.json`, on the stale GDS |
 
@@ -53,8 +53,18 @@ Also in the tree, outside the tier record:
   annotated CK duty (~9/11 ns half-periods, which the model's 20 ns tCK
   placeholder flags; #2) and read host acknowledgement under annotation;
   the register configuration-read settle race (#200) is fixed (#203,
-  `no_calibration_port_or_status_bit` now passes). The manifest cites the
-  failing report, so item 7 grades `unmet`/`check_failed`, not `no_evidence`.
+  `no_calibration_port_or_status_bit` now passes). The bench's offset-0
+  sample is taken in the read-only phase of the CK edge's timestep (#205):
+  a DQ/RWDS/OE transition inside that timestep is sampled at its settled
+  value instead of whichever update the simulator applied first (an
+  order-dependent read; on the zero-delay RTL, where the coincidence is
+  real, it failed 42/43 with 126 "DQ must be driven by the host during
+  CA" assertions before the fix). The re-run after #205 is per-test
+  identical to the pre-#205 run (4/43, 0 "during CA") and keeps it
+  verbatim under
+  `sim/hyperram/records/functional-verification-ctrl-sdf.runs/` —
+  recorded results are append-only. The manifest cites the failing
+  report, so item 7 grades `unmet`/`check_failed`, not `no_evidence`.
 - The spec is drafted but unratified: `spec/target-spec.md` (20 rows), seven
   decision records, and the pad and clock interface tables with their gaps
   filed on the siblings (2AMLogic/sky130-io-ring#7, 2AMLogic/sky130-pll#332).

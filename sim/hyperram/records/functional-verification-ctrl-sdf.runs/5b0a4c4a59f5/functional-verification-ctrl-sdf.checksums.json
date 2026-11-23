@@ -1,0 +1,23 @@
+{
+  "note": "committer-written companion: klt 0.9.2's functional-verification report writer emits the annotation status, corner and SDF path but no design-input digests, so the run's exact inputs are bound here instead. scripts/check_sdf_evidence.py recomputes every digest from checkout-relative paths and cross-checks the SDF against the producing STA response; no simulator is needed.",
+  "request": "flow/functional-verification-ctrl-sdf.json",
+  "sta": {
+    "request": "flow/sta-sdf-hyperram.json",
+    "response": "layout/records/sta-sdf.response.json",
+    "sdf_content_hash": "sha256:29fc93e7f923a092f948aea263360d585f9b81a7a875261c2590cede73e1b4c5"
+  },
+  "inputs": [
+    {
+      "path": "layout/records/hyperram_ctrl.routed.v",
+      "sha256": "sha256:0f256c9137a76cddfed7ce23667a3ab53dcc4cdb00fa2c6f9984fd80fad09452"
+    },
+    {
+      "path": "layout/records/hyperram_ctrl.tt_025C_1v80.sdf",
+      "sha256": "sha256:29fc93e7f923a092f948aea263360d585f9b81a7a875261c2590cede73e1b4c5"
+    }
+  ],
+  "report": {
+    "path": "sim/hyperram/records/functional-verification-ctrl-sdf.report.json",
+    "sha256": "sha256:5b0a4c4a59f571f04ce09bf5d064811117539775a5aa75592110edbbb9f6936e"
+  }
+}

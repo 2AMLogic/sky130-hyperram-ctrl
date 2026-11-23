@@ -39,6 +39,18 @@ hyperram-check:
 hyperram-sta:
 	python3 flow/hyperram.py sta
 
+# regenerate only the pre-layout STA prose from the committed sta.json (no
+# OpenROAD, no PDK); and the cheap freshness check that binds the committed
+# STA.md to that record byte-for-byte (CI runs this one; the STA itself is
+# local_only)
+hyperram-sta-note:
+	python3 flow/hyperram.py sta-note
+
+hyperram-sta-check:
+	python3 flow/hyperram.py sta-check
+
+.PHONY: hyperram-sta-note hyperram-sta-check
+
 # klt sta in def+spef mode on the routed DEF/SPEF at all 16 shipped corners with
 # BOTH clocks declared (clk primary, hb_rwds_i the RWDS strobe, propagated;
 # issue #172), run twice: clocks related, then asynchronous clock_groups --
