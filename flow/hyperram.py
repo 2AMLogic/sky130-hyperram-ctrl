@@ -33,11 +33,14 @@
                       are provisional by construction
   hyperram.py sta-postroute-note
                       regenerate only STA-postroute.md from the committed
-                      responses (no OpenROAD run); used when an issue number
-                      baked into the prose changes
-  hyperram.py sta-postroute-check
+                      responses (no OpenROAD run), after verifying the existing
+                      input provenance marker and response bindings; refuses
+                      missing or stale provenance so only `sta-postroute` can
+                      record new request/DEF/SPEF hashes
+  hyperram.py sta-postroute-check [--self-test]
                       freshness gate for CI: request/DEF/SPEF hashes vs the
-                      committed records (no OpenROAD, no PDK)
+                      committed records (no OpenROAD, no PDK); --self-test
+                      checks that SPEF/request drift survives `sta-postroute-note`
 
 klt runs through scripts/klt.sh (the pin and the resolution rule), so it does
 not depend on $PATH; yosys and the PDK still do (scripts/setup-env.sh).
@@ -56,12 +59,14 @@ no yosys to run.
 """
 
 import hashlib
+import io
 import json
 import os
 import re
 import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 # flow/klt_run.py is the only way this runner reaches klt; `python3 -I` (how
@@ -315,8 +320,8 @@ def sha256(path):
     return "sha256:" + hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def rel(path):
-    return str(Path(path).relative_to(REPO))
+def rel(path, root=REPO):
+    return str(Path(path).relative_to(root))
 
 
 def remap(node):
@@ -766,10 +771,14 @@ def pr_findings(doc):
     return [(k[0], k[1], k[2], min(s for _, s in v), v) for k, v in sorted(agg.items())]
 
 
-def sta_postroute_note(doc, adoc):
+def sta_postroute_note(doc, adoc, req, *, marker):
     """The prose beside the records, in the form of STA.md, generated from the
-    two responses so no number in it can drift from what it sits next to."""
-    req = json.loads(STAPR_REQ.read_text())
+    two responses and a verified provenance marker (never reading or hashing
+    disk inputs itself) so note regeneration cannot mint provenance."""
+    parsed = parse_sta_postroute_marker(marker)
+    if parsed is None:
+        sys.exit("FATAL: sta_postroute_note requires a valid sta-postroute-inputs marker")
+    marker_line, (def_sha, spef_sha, _, _) = parsed
     prov = doc["provenance"]
     graded = [c for c in doc["corners"] if in_window(c["corner"])]
     ungraded = [c for c in doc["corners"] if not in_window(c["corner"])]
@@ -808,8 +817,8 @@ def sta_postroute_note(doc, adoc):
         " round trip per reading.".format(p=req["constraints"]["clocks"][0]["period_ns"],
                                           n=len(doc["corners"])),
         "",
-        f"- DEF: `{rel(RDEF)}`, {sha256(RDEF)}.",
-        f"- SPEF: `{rel(RSPEF)}`, {sha256(RSPEF)}.",
+        f"- DEF: `{rel(RDEF)}`, {def_sha}.",
+        f"- SPEF: `{rel(RSPEF)}`, {spef_sha}.",
         f"- Engine: {doc['engine']} {doc['engine_version']}; klt {prov['klt_version']};"
         f" PDK {prov['pdk']['version']}.",
         f"- `{doc['hdl_toplevel']}`, status `{doc['status']}`, `geometry_source:"
@@ -998,19 +1007,51 @@ def sta_postroute_note(doc, adoc):
         " may regenerate under it, and the freshness gate will catch that); any claim about"
         " 100 MHz.",
         "",
-        sta_postroute_marker(),
+        marker_line,
     ]
     return "\n".join(lines) + "\n"
 
 
-def sta_postroute_marker():
-    """Machine-readable input binding appended to the note: the hashes the
-    freshness gate re-derives (the response binds the DEF itself via
-    provenance.input.content_hash; the marker is what binds the SPEF and the
-    two request documents)."""
-    return ("<!-- sta-postroute-inputs"
-            f" def={sha256(RDEF)} spef={sha256(RSPEF)}"
-            f" request={sha256(STAPR_REQ)} request-async={sha256(STAPR_AREQ)} -->")
+STAPR_MARKER_RE = re.compile(
+    r"^<!-- sta-postroute-inputs"
+    r" def=(sha256:[0-9a-f]{64})"
+    r" spef=(sha256:[0-9a-f]{64})"
+    r" request=(sha256:[0-9a-f]{64})"
+    r" request-async=(sha256:[0-9a-f]{64}) -->$",
+    re.M,
+)
+
+
+def sta_postroute_paths(root=REPO):
+    root = Path(root)
+    return (
+        root / STAPR_REC.relative_to(REPO),
+        root / STAPR_AREC.relative_to(REPO),
+        root / STAPR_NOTE.relative_to(REPO),
+        root / STAPR_REQ.relative_to(REPO),
+        root / STAPR_AREQ.relative_to(REPO),
+        root / RDEF.relative_to(REPO),
+        root / RSPEF.relative_to(REPO),
+    )
+
+
+def format_sta_postroute_marker(def_sha, spef_sha, req_sha, areq_sha):
+    """Machine-readable input binding appended to the note by `sta_postroute`
+    (the only operation allowed to mint new input hashes). Each response binds
+    the DEF itself via provenance.input.content_hash; the marker binds the SPEF
+    and the two request documents."""
+    return (f"<!-- sta-postroute-inputs def={def_sha} spef={spef_sha}"
+            f" request={req_sha} request-async={areq_sha} -->")
+
+
+def parse_sta_postroute_marker(note_text):
+    """Return (marker_line, (def_sha, spef_sha, req_sha, areq_sha)), or None if
+    the note does not carry exactly one well-formed provenance marker."""
+    matches = list(STAPR_MARKER_RE.finditer(note_text))
+    if len(matches) != 1:
+        return None
+    m = matches[0]
+    return m.group(0), m.groups()
 
 
 def sta_postroute():
@@ -1027,16 +1068,34 @@ def sta_postroute():
     forbids. A *new* negative (one not in PR_FINDING_ISSUES) is warned about
     loudly so it cannot ship silently.
     """
-    for p in (RDEF, RSPEF):
+    for p in (RDEF, RSPEF, STAPR_REQ, STAPR_AREQ):
         if not p.exists():
             sys.exit(f"FATAL: {rel(p)} missing; run `make layout`")
+    for req_file in (STAPR_REQ, STAPR_AREQ):
+        req_chk = json.loads(req_file.read_text())
+        for req_key, target in (("def", RDEF), ("spef", RSPEF)):
+            raw = req_chk.get(req_key)
+            resolved = (req_file.parent / raw).resolve() if isinstance(raw, str) and raw else None
+            if resolved != target.resolve():
+                sys.exit(f"FATAL: {rel(req_file)} {req_key}={raw!r} does not resolve to {rel(target)}")
+    input_hashes = (sha256(RDEF), sha256(RSPEF), sha256(STAPR_REQ), sha256(STAPR_AREQ))
+    req_doc = json.loads(STAPR_REQ.read_text())
     doc = sta_postroute_run(STAPR_REQ)
     adoc = sta_postroute_run(STAPR_AREQ)
+    if (sha256(RDEF), sha256(RSPEF), sha256(STAPR_REQ), sha256(STAPR_AREQ)) != input_hashes:
+        sys.exit("FATAL: request/DEF/SPEF changed while `klt sta` was running;"
+                 " refusing to record mixed provenance")
+    for req_file, d in ((STAPR_REQ, doc), (STAPR_AREQ, adoc)):
+        got_def = (d.get("provenance") or {}).get("input", {}).get("content_hash")
+        if got_def != input_hashes[0]:
+            sys.exit(f"FATAL: {rel(req_file)} response provenance DEF hash {got_def!r}"
+                     f" != {input_hashes[0]}")
+    marker = format_sta_postroute_marker(*input_hashes)
 
     REC.mkdir(parents=True, exist_ok=True)
     STAPR_REC.write_text(json.dumps(doc, indent=2) + "\n")
     STAPR_AREC.write_text(json.dumps(adoc, indent=2) + "\n")
-    STAPR_NOTE.write_text(sta_postroute_note(doc, adoc))
+    STAPR_NOTE.write_text(sta_postroute_note(doc, adoc, req_doc, marker=marker))
 
     print(f"sta-postroute: {len(doc['corners'])} corners x 2 readings -> "
           f"{rel(STAPR_REC)}, {rel(STAPR_AREC)}, {rel(STAPR_NOTE)}")
@@ -1062,43 +1121,62 @@ def sta_postroute():
               f"response; prune them: {sorted(known - live)}", file=sys.stderr)
 
 
-def sta_postroute_note_cmd():
-    """Regenerate only the note from the committed responses (no klt run)."""
-    doc = json.loads(STAPR_REC.read_text())
-    adoc = json.loads(STAPR_AREC.read_text())
-    STAPR_NOTE.write_text(sta_postroute_note(doc, adoc))
-    print(f"sta-postroute-note: rewrote {rel(STAPR_NOTE)} from the committed responses")
+def sta_postroute_verify(root=REPO):
+    """Verify the existing provenance marker in STA-postroute.md and the
+    response bindings against `root`, without minting new input hashes.
 
-
-def sta_postroute_check():
-    """Freshness gate for CI: no OpenROAD, no PDK, hashes and echoes only.
-
-    Binds the committed responses to their inputs three ways: the DEF against
-    klt's own `provenance.input.content_hash` in each response, the DEF/SPEF
-    and both request documents against the marker line the runner appends to
-    the note, and the corner/clock/clock-group echoes in each response against
-    its request document.
+    Returns (doc, adoc, req, marker_line) when fresh, or exits non-zero (3 on
+    missing/stale provenance or drifted echoes, 1 on a missing artifact or a
+    non-'ok' response). Shared by `sta-postroute-check` and
+    `sta-postroute-note` so note regeneration cannot re-stamp stale responses.
     """
-    for p in (STAPR_REC, STAPR_AREC, STAPR_NOTE, STAPR_REQ, STAPR_AREQ, RDEF, RSPEF):
+    rec_p, arec_p, note_p, req_p, areq_p, rdef_p, rspef_p = sta_postroute_paths(root)
+    for p in (rec_p, arec_p, note_p, req_p, areq_p, rdef_p, rspef_p):
         if not p.exists():
-            sys.exit(f"FATAL: {rel(p)} missing; run `make hyperram-sta-postroute`")
-    note = STAPR_NOTE.read_text()
-    marker = sta_postroute_marker()
-    if marker not in note:
-        print(f"STALE: {rel(STAPR_NOTE)} does not carry the input marker for the current"
-              f" request/DEF/SPEF; run `make hyperram-sta-postroute`")
+            sys.exit(f"FATAL: {rel(p, root)} missing; run `make hyperram-sta-postroute`")
+    note = note_p.read_text()
+    parsed = parse_sta_postroute_marker(note)
+    if parsed is None:
+        print(f"STALE: {rel(note_p, root)} does not carry the input marker for the current"
+              " request/DEF/SPEF (marker missing or malformed); run `make hyperram-sta-postroute`")
         sys.exit(3)
-    for rec, req_path in ((STAPR_REC, STAPR_REQ), (STAPR_AREC, STAPR_AREQ)):
+    marker_line, got_hashes = parsed
+    want_hashes = (sha256(rdef_p), sha256(rspef_p), sha256(req_p), sha256(areq_p))
+    if got_hashes != want_hashes:
+        drifted = [rel(p, root) for p, g, w in zip((rdef_p, rspef_p, req_p, areq_p),
+                                                   got_hashes, want_hashes) if g != w]
+        print(f"STALE: {rel(note_p, root)} does not carry the input marker for the current"
+              f" request/DEF/SPEF ({', '.join(drifted)} changed); run `make hyperram-sta-postroute`")
+        sys.exit(3)
+    docs = []
+    reqs = []
+    for rec, req_file in ((rec_p, req_p), (arec_p, areq_p)):
         doc = json.loads(rec.read_text())
-        req = json.loads(Path(req_path).read_text())
+        req = json.loads(req_file.read_text())
         if doc.get("status") != "ok":
-            sys.exit(f"FATAL: {rel(rec)}: status is {doc.get('status')!r}")
-        if sha256(RDEF) != (doc.get("provenance") or {}).get("input", {}).get("content_hash"):
-            print(f"STALE: {rel(rec)} was minted against a different {rel(RDEF)};"
+            sys.exit(f"FATAL: {rel(rec, root)}: status is {doc.get('status')!r}")
+        for req_key, doc_key, target in (("def", "def_path", rdef_p),
+                                         ("spef", "spef_path", rspef_p)):
+            raw = req.get(req_key)
+            resolved = (req_file.parent / raw).resolve() if isinstance(raw, str) and raw else None
+            if resolved != target.resolve():
+                print(f"STALE: {rel(req_file, root)} {req_key}={raw!r} does not resolve to"
+                      f" {rel(target, root)}; run `make hyperram-sta-postroute`")
+                sys.exit(3)
+            if doc.get(doc_key) != {"path": rel(target, root), "scope": "repo"}:
+                print(f"STALE: {rel(rec, root)} {doc_key} is {json.dumps(doc.get(doc_key))},"
+                      f" expected repo-scoped {rel(target, root)}; run `make hyperram-sta-postroute`")
+                sys.exit(3)
+        if doc.get("geometry_source") != "routed" or doc.get("hdl_toplevel") != req.get("hdl_toplevel"):
+            print(f"STALE: {rel(rec, root)} geometry_source/hdl_toplevel does not match"
+                  f" {rel(req_file, root)}; run `make hyperram-sta-postroute`")
+            sys.exit(3)
+        if want_hashes[0] != (doc.get("provenance") or {}).get("input", {}).get("content_hash"):
+            print(f"STALE: {rel(rec, root)} was minted against a different {rel(rdef_p, root)};"
                   " run `make hyperram-sta-postroute`")
             sys.exit(3)
         if [c.get("corner") for c in doc.get("corners") or []] != list(req["pdk"]["corners"]):
-            print(f"STALE: {rel(rec)} does not answer {rel(req_path)}'s corner list;"
+            print(f"STALE: {rel(rec, root)} does not answer {rel(req_file, root)}'s corner list;"
                   " run `make hyperram-sta-postroute`")
             sys.exit(3)
         ct = doc.get("clock_targets") or {}
@@ -1106,10 +1184,284 @@ def sta_postroute_check():
                 or (ct.get("clock_groups") or []) != req["constraints"].get("clock_groups", [])
                 or doc.get("clock_mode") != ("propagated" if req["constraints"].get("propagated_clock")
                                              else "ideal")):
-            print(f"STALE: {rel(rec)}'s clock echoes do not match {rel(req_path)};"
+            print(f"STALE: {rel(rec, root)}'s clock echoes do not match {rel(req_file, root)};"
                   " run `make hyperram-sta-postroute`")
             sys.exit(3)
+        docs.append(doc)
+        reqs.append(req)
+    return docs[0], docs[1], reqs[0], marker_line
+
+
+def sta_postroute_note_cmd(root=REPO):
+    """Regenerate only the note from the committed responses (no klt run).
+
+    Verifies existing input provenance first and refuses missing or stale
+    provenance; only `sta-postroute` can record new request/DEF/SPEF hashes.
+    """
+    _, _, note_p, *_ = sta_postroute_paths(root)
+    doc, adoc, req, marker = sta_postroute_verify(root)
+    note_p.write_text(sta_postroute_note(doc, adoc, req, marker=marker))
+    print(f"sta-postroute-note: rewrote {rel(note_p, root)} from the committed responses")
+
+
+def sta_postroute_check(root=REPO):
+    """Freshness gate for CI: no OpenROAD, no PDK, hashes and echoes only.
+
+    Binds the committed responses to their inputs and to the note beside them:
+    the DEF against klt's own `provenance.input.content_hash` in each response,
+    the DEF/SPEF and both request documents against the marker line minted by
+    `sta-postroute`, the path/corner/clock/clock-group echoes in each response
+    against its request document, and the note body against a fresh render from
+    the committed responses.
+    """
+    _, _, note_p, *_ = sta_postroute_paths(root)
+    doc, adoc, req, marker = sta_postroute_verify(root)
+    if note_p.read_text() != sta_postroute_note(doc, adoc, req, marker=marker):
+        print(f"STALE: {rel(note_p, root)} differs from a fresh render of the committed"
+              " responses; run `python3 -I flow/hyperram.py sta-postroute-note`")
+        sys.exit(3)
     print("post-route STA record is fresh")
+
+
+def sta_postroute_self_test():
+    """Offline regression suite for `sta-postroute-note` + `sta-postroute-check`.
+
+    Verifies that editing the SPEF, either request, the DEF, or stripping/forging
+    the note's provenance marker causes `sta-postroute-note` to refuse without
+    touching the note and leaves `sta-postroute-check` failing with exit 3 --
+    including end-to-end CLI subprocess runs for SPEF drift and a request whose
+    `spef` field points to a missing file.
+    """
+    corners = ["ss_n40C_1v28", "tt_025C_1v80"]
+    clocks = [{"port": "clk", "period_ns": 20.0}, {"port": "hb_rwds_i", "period_ns": 20.0}]
+
+    def make_fixture(tmp, *, with_runner=False):
+        root = Path(tmp)
+        rec_p, arec_p, note_p, req_p, areq_p, rdef_p, rspef_p = sta_postroute_paths(root)
+        for p in (rec_p, req_p, rdef_p):
+            p.parent.mkdir(parents=True, exist_ok=True)
+        if with_runner:
+            shutil.copyfile(Path(__file__).resolve(), root / "flow/hyperram.py")
+            shutil.copyfile(Path(__file__).resolve().parent / "klt_run.py", root / "flow/klt_run.py")
+        rdef_p.write_text("VERSION 5.8 ;\nDESIGN hyperram_ctrl ;\nEND DESIGN\n")
+        rspef_p.write_text("*SPEF \"IEEE 1481-1998\"\n*D_NET *1 0.1200\n*CAP\n1 *1:1 0.1200\n*END\n")
+        base_req = {
+            "schema": "klt.sta.request/1",
+            "def": "../layout/records/hyperram_ctrl.def",
+            "spef": "../layout/records/hyperram_ctrl.spef",
+            "hdl_toplevel": "hyperram_ctrl",
+            "pdk": {"cell_library": "sky130_fd_sc_hd", "corners": corners},
+            "constraints": {"clocks": clocks, "propagated_clock": True},
+        }
+        async_req = {
+            **base_req,
+            "constraints": {**base_req["constraints"], "clock_groups": [["clk"], ["hb_rwds_i"]]},
+        }
+        req_p.write_text(json.dumps(base_req, indent=2) + "\n")
+        areq_p.write_text(json.dumps(async_req, indent=2) + "\n")
+        def_sha = sha256(rdef_p)
+
+        def make_resp(groups):
+            return {
+                "schema_version": 2,
+                "engine": "openroad",
+                "engine_version": "test",
+                "hdl_toplevel": "hyperram_ctrl",
+                "status": "ok",
+                "def_path": {"path": "layout/records/hyperram_ctrl.def", "scope": "repo"},
+                "spef_path": {"path": "layout/records/hyperram_ctrl.spef", "scope": "repo"},
+                "geometry_source": "routed",
+                "clock_mode": "propagated",
+                "clock_targets": {"clocks": clocks, "clock_groups": groups},
+                "provenance": {
+                    "klt_version": "0.9.2",
+                    "pdk": {"version": "open_pdks test"},
+                    "input": {"content_hash": def_sha, "role": "layout"},
+                },
+                "corners": [
+                    {
+                        "corner": name,
+                        "worst_slack_ns": 1.25,
+                        "worst_hold_slack_ns": 0.25,
+                        "setup_violation_count": 0,
+                        "total_negative_slack_ns": 0.0,
+                        "hold_violation_count": 0,
+                        "total_negative_hold_slack_ns": 0.0,
+                        "fmax_mhz": 53.3,
+                        "timing_status": "constrained",
+                        "spef_annotation": {
+                            "design_nets_annotated": 10,
+                            "design_nets_total": 10,
+                            "annotation_complete": True,
+                            "design_nets_missing_sample": [],
+                            "reader_warning_count": 0,
+                        },
+                        "clock_propagation": {
+                            "max_network_latency_ns": 0.5,
+                            "clock_sinks": 1,
+                            "clock_sinks_sample": ["u_fsm/q"],
+                        },
+                        "constraint_completeness": {
+                            "status": "ok",
+                            "unclocked_registers": {"status": "ok", "count": 0},
+                            "unconstrained_endpoints": {"count": 0},
+                        },
+                        "worst_paths_by_group": {"setup": [], "hold": []},
+                    }
+                    for name in corners
+                ],
+            }
+
+        doc = make_resp([])
+        adoc = make_resp([["clk"], ["hb_rwds_i"]])
+        rec_p.write_text(json.dumps(doc, indent=2) + "\n")
+        arec_p.write_text(json.dumps(adoc, indent=2) + "\n")
+        marker = format_sta_postroute_marker(def_sha, sha256(rspef_p), sha256(req_p), sha256(areq_p))
+        note_p.write_text(sta_postroute_note(doc, adoc, base_req, marker=marker))
+        return root
+
+    def call_quiet(fn, root):
+        out_buf, err_buf = io.StringIO(), io.StringIO()
+        old_out, old_err = sys.stdout, sys.stderr
+        sys.stdout, sys.stderr = out_buf, err_buf
+        try:
+            fn(root)
+            return 0, out_buf.getvalue() + err_buf.getvalue()
+        except SystemExit as exc:
+            code = exc.code if isinstance(exc.code, int) else 1
+            msg = exc.code if isinstance(exc.code, str) else ""
+            return code, out_buf.getvalue() + err_buf.getvalue() + msg
+        finally:
+            sys.stdout, sys.stderr = old_out, old_err
+
+    passed = 0
+
+    # 1. Clean baseline passes check, and prose-only drift repairs cleanly via
+    #    sta-postroute-note while preserving the input provenance marker.
+    with tempfile.TemporaryDirectory() as tmp:
+        root = make_fixture(tmp)
+        rc, out = call_quiet(sta_postroute_check, root)
+        assert rc == 0, f"clean fixture failed check (rc={rc}): {out}"
+        note_p = sta_postroute_paths(root)[2]
+        orig = note_p.read_text()
+        orig_marker = parse_sta_postroute_marker(orig)[0]
+        note_p.write_text("# stale prose heading\n\n" + orig_marker + "\n")
+        rc, out = call_quiet(sta_postroute_check, root)
+        assert rc == 3 and "differs from a fresh render" in out, f"prose drift missed (rc={rc}): {out}"
+        rc, out = call_quiet(sta_postroute_note_cmd, root)
+        assert rc == 0, f"note regen on fresh provenance failed (rc={rc}): {out}"
+        assert note_p.read_text() == orig, "regenerated note did not restore exact rendered text + marker"
+        rc, out = call_quiet(sta_postroute_check, root)
+        assert rc == 0, f"check after valid note regen failed (rc={rc}): {out}"
+        passed += 1
+
+    # 2 & 3. End-to-end CLI subprocess checks for the two exact regressions from
+    #        review: (a) SPEF capacitance increased by 100 fF, and (b) request
+    #        `spef` pointed at a missing file. In both cases: check exits 3 ->
+    #        sta-postroute-note exits 3 without modifying STA-postroute.md ->
+    #        check still exits 3 and response hashes are untouched.
+    def expect_cli_regression(name, mutate, needle):
+        nonlocal passed
+        with tempfile.TemporaryDirectory() as tmp:
+            root = make_fixture(tmp, with_runner=True)
+            rec_p, arec_p, note_p, *_ = sta_postroute_paths(root)
+            mutate(root)
+            note_before = note_p.read_bytes()
+            rec_before = (sha256(rec_p), sha256(arec_p))
+            runner = str(root / "flow/hyperram.py")
+            c1 = subprocess.run([sys.executable, "-I", runner, "sta-postroute-check"],
+                                capture_output=True, text=True)
+            assert c1.returncode == 3, f"{name}: pre-note check exited {c1.returncode}: {c1.stdout}{c1.stderr}"
+            assert needle in c1.stdout, f"{name}: pre-note check missed {needle!r}: {c1.stdout}"
+            n1 = subprocess.run([sys.executable, "-I", runner, "sta-postroute-note"],
+                                capture_output=True, text=True)
+            assert n1.returncode == 3, f"{name}: sta-postroute-note exited {n1.returncode}: {n1.stdout}{n1.stderr}"
+            assert needle in n1.stdout, f"{name}: sta-postroute-note missed {needle!r}: {n1.stdout}"
+            assert note_p.read_bytes() == note_before, f"{name}: sta-postroute-note rewrote STA-postroute.md"
+            c2 = subprocess.run([sys.executable, "-I", runner, "sta-postroute-check"],
+                                capture_output=True, text=True)
+            assert c2.returncode == 3, f"{name}: post-note check exited {c2.returncode}: {c2.stdout}{c2.stderr}"
+            assert (sha256(rec_p), sha256(arec_p)) == rec_before, f"{name}: responses changed"
+            passed += 1
+
+    def bump_spef_cap(root):
+        rspef_p = sta_postroute_paths(root)[6]
+        rspef_p.write_text(rspef_p.read_text().replace("0.1200", "0.2200"))
+
+    def break_req_spef(root):
+        req_p = sta_postroute_paths(root)[3]
+        doc = json.loads(req_p.read_text())
+        doc["spef"] = "../layout/records/missing.spef"
+        req_p.write_text(json.dumps(doc, indent=2) + "\n")
+
+    expect_cli_regression("spef-cap-bump", bump_spef_cap, "layout/records/hyperram_ctrl.spef")
+    expect_cli_regression("req-missing-spef", break_req_spef, "flow/sta-hyperram-postroute.json")
+
+    # 4..9. In-process checks covering async-request drift, DEF drift, stripped
+    #       marker, zeroed marker, missing STA-postroute.md, and a forged marker
+    #       whose request `spef` points at a different file.
+    def expect_refused(name, mutate, want_rc, needle):
+        nonlocal passed
+        with tempfile.TemporaryDirectory() as tmp:
+            root = make_fixture(tmp)
+            note_p = sta_postroute_paths(root)[2]
+            mutate(root)
+            existed_before = note_p.exists()
+            note_before = note_p.read_bytes() if existed_before else None
+            rc_n, out_n = call_quiet(sta_postroute_note_cmd, root)
+            assert rc_n == want_rc, f"{name}: note_cmd exited {rc_n}, expected {want_rc}: {out_n}"
+            assert needle in out_n, f"{name}: note_cmd missed {needle!r}: {out_n}"
+            if existed_before:
+                assert note_p.read_bytes() == note_before, f"{name}: note_cmd modified STA-postroute.md"
+            else:
+                assert not note_p.exists(), f"{name}: note_cmd minted a missing STA-postroute.md"
+            rc_c, out_c = call_quiet(sta_postroute_check, root)
+            assert rc_c == want_rc, f"{name}: check after note_cmd exited {rc_c}, expected {want_rc}: {out_c}"
+            assert needle in out_c, f"{name}: check missed {needle!r}: {out_c}"
+            passed += 1
+
+    def edit_async_req(root):
+        areq_p = sta_postroute_paths(root)[4]
+        doc = json.loads(areq_p.read_text())
+        doc["constraints"]["clocks"][0]["period_ns"] = 40.0
+        areq_p.write_text(json.dumps(doc, indent=2) + "\n")
+
+    def edit_def(root):
+        rdef_p = sta_postroute_paths(root)[5]
+        rdef_p.write_text(rdef_p.read_text() + "# drifted\n")
+
+    def strip_marker(root):
+        note_p = sta_postroute_paths(root)[2]
+        note_p.write_text(STAPR_MARKER_RE.sub("", note_p.read_text()))
+
+    def zero_marker(root):
+        note_p = sta_postroute_paths(root)[2]
+        z = "sha256:" + "0" * 64
+        forged = format_sta_postroute_marker(z, z, z, z)
+        note_p.write_text(STAPR_MARKER_RE.sub(forged, note_p.read_text()))
+
+    def delete_note(root):
+        sta_postroute_paths(root)[2].unlink()
+
+    def forge_redirected_spef(root):
+        _, _, note_p, req_p, areq_p, rdef_p, rspef_p = sta_postroute_paths(root)
+        other = rspef_p.parent / "other.spef"
+        other.write_text(rspef_p.read_text())
+        req_doc = json.loads(req_p.read_text())
+        req_doc["spef"] = "../layout/records/other.spef"
+        req_p.write_text(json.dumps(req_doc, indent=2) + "\n")
+        forged = format_sta_postroute_marker(sha256(rdef_p), sha256(rspef_p),
+                                             sha256(req_p), sha256(areq_p))
+        note_p.write_text(STAPR_MARKER_RE.sub(forged, note_p.read_text()))
+
+    expect_refused("async-req-drift", edit_async_req, 3, "flow/sta-hyperram-postroute-async.json")
+    expect_refused("def-drift", edit_def, 3, "layout/records/hyperram_ctrl.def")
+    expect_refused("missing-marker", strip_marker, 3, "marker missing or malformed")
+    expect_refused("zeroed-marker", zero_marker, 3, "does not carry the input marker")
+    expect_refused("missing-note-file", delete_note, 1, "STA-postroute.md missing")
+    expect_refused("forged-marker-redirected-spef", forge_redirected_spef, 3, "does not resolve to")
+
+    print(f"sta-postroute-check self-test: {passed}/{passed} cases passed")
 
 
 COMMANDS = {"synth": synth, "check": check, "sta": sta,
@@ -1118,6 +1470,9 @@ COMMANDS = {"synth": synth, "check": check, "sta": sta,
             "layout": layout, "layout-check": layout_check}
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2 or sys.argv[1] not in COMMANDS:
+    if sys.argv[1:] == ["sta-postroute-check", "--self-test"]:
+        sta_postroute_self_test()
+    elif len(sys.argv) != 2 or sys.argv[1] not in COMMANDS:
         sys.exit(__doc__)
-    COMMANDS[sys.argv[1]]()
+    else:
+        COMMANDS[sys.argv[1]]()
