@@ -868,7 +868,7 @@ def sta_check_self_test():
         rec_p = sta_note_paths(root)[0]
         doc = json.loads(rec_p.read_text(encoding="utf-8"))
         doc["corners"][1]["worst_slack_ns"] = 0.75
-        rec_p.write_text(json.dumps(doc, indent=2) + "\n")
+        rec_p.write_text(json.dumps(doc, indent=2) + "\n", encoding="utf-8")
         rc, out = call_quiet(sta_check, root)
         assert rc == 3 and "differs from a fresh render" in out, \
             f"record drift missed (rc={rc}): {out}"
@@ -907,9 +907,9 @@ def sta_check_self_test():
 
     def break_status(root):
         rec_p = sta_note_paths(root)[0]
-        doc = json.loads(rec_p.read_text())
+        doc = json.loads(rec_p.read_text(encoding="utf-8"))
         doc["status"] = "error"
-        rec_p.write_text(json.dumps(doc, indent=2) + "\n")
+        rec_p.write_text(json.dumps(doc, indent=2) + "\n", encoding="utf-8")
 
     expect_refused("missing-synth-stat", drop_stat, "synth-stat.json missing")
     expect_refused("missing-sta-json", drop_rec, "sta.json missing")
@@ -952,7 +952,10 @@ def sta_check_self_test():
         env = dict(os.environ, LC_ALL="C", LANG="C", PYTHONUTF8="0",
                    PYTHONCOERCECLOCALE="0")
         env.pop("PYTHONIOENCODING", None)
-        n1 = subprocess.run([sys.executable, "-I", runner, "sta-note"],
+        # No "-I" here: it implies -E and would ignore PYTHONUTF8 /
+        # PYTHONCOERCECLOCALE, letting PEP 538 coerce the C locale to UTF-8 and
+        # leaving this case inert against a text-mode write.
+        n1 = subprocess.run([sys.executable, runner, "sta-note"],
                             capture_output=True, env=env)
         assert n1.returncode == 0, \
             f"cli/C-locale: sta-note exited {n1.returncode}: {n1.stdout!r}{n1.stderr!r}"
@@ -960,7 +963,7 @@ def sta_check_self_test():
         assert got, "cli/C-locale: sta-note left a zero-byte STA.md"
         assert b"\r" not in got, "cli/C-locale: sta-note wrote CR bytes"
         assert "\u00b1".encode("utf-8") in got, "cli/C-locale: non-ASCII field not written as UTF-8"
-        c1 = subprocess.run([sys.executable, "-I", runner, "sta-check"],
+        c1 = subprocess.run([sys.executable, runner, "sta-check"],
                             capture_output=True, env=env)
         assert c1.returncode == 0, \
             f"cli/C-locale: sta-check exited {c1.returncode}: {c1.stdout!r}{c1.stderr!r}"
