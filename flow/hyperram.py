@@ -646,8 +646,11 @@ def sta():
     check_blackboxes_resolved(doc, cells)
 
     REC.mkdir(parents=True, exist_ok=True)
-    STA_REC.write_text(json.dumps(doc, indent=2) + "\n")
-    STA_NOTE.write_text(sta_note(doc, cells))
+    # Canonical bytes, the form sta-note writes and sta-check compares: UTF-8,
+    # LF, whatever the host locale or newline convention, and encoded before
+    # the file is opened so an encode failure cannot truncate a record.
+    STA_REC.write_bytes((json.dumps(doc, indent=2) + "\n").encode("utf-8"))
+    STA_NOTE.write_bytes(sta_note(doc, cells).encode("utf-8"))
 
     bad = 0
     for c in doc["corners"]:
@@ -745,6 +748,33 @@ def sta_check(root=None):
     print("pre-layout STA note is fresh")
 
 
+def c_locale_env():
+    """A subprocess environment whose preferred encoding is genuinely ASCII:
+    the C locale with PEP 538 locale coercion and PEP 540 UTF-8 mode both
+    switched off. Only meaningful without `-I`: it implies -E and would
+    ignore PYTHONUTF8 / PYTHONCOERCECLOCALE, letting PEP 538 coerce the C
+    locale back to UTF-8 and leaving a text-mode write failure unexercised."""
+    env = dict(os.environ, LC_ALL="C", LANG="C", PYTHONUTF8="0", PYTHONCOERCECLOCALE="0")
+    env.pop("PYTHONIOENCODING", None)
+    return env
+
+
+def install_fake_klt(root, responses):
+    """Stand klt in for a producer self-test: a scripts/klt.sh that prints the
+    canned response filed under its request's file stem, so `sta` /
+    `sta-postroute` run their real write path with no OpenROAD and no PDK.
+    `responses` maps a request stem (e.g. "sta-hyperram") to the JSON klt
+    returns for it."""
+    canned = root / "scripts/fake-klt"
+    canned.mkdir(parents=True, exist_ok=True)
+    for stem, doc in responses.items():
+        (canned / f"{stem}.json").write_bytes((json.dumps(doc) + "\n").encode("utf-8"))
+    klt_sh = root / "scripts/klt.sh"
+    klt_sh.write_bytes(b'#!/bin/sh\n'
+                       b'exec cat "$(dirname "$0")/fake-klt/$(basename "$2" .json).json"\n')
+    klt_sh.chmod(0o755)
+
+
 def sta_check_self_test():
     """Offline regression suite for `sta-note` + `sta-check` (issue #208).
 
@@ -753,7 +783,9 @@ def sta_check_self_test():
     mutated sta.json without regenerating the note fails with exit 3, that
     `sta-note` refuses missing inputs or a non-ok record without touching the
     note, and that it repairs the drifted-note case -- including an end-to-end
-    CLI subprocess run of the exact repair path CI relies on.
+    CLI subprocess run of the exact repair path CI relies on. Last, that a
+    live `sta` run (klt stood in) under a non-UTF-8 locale mints exactly the
+    bytes the gate binds (issue #215).
     """
     corners = ["ss_100C_1v60", "tt_025C_1v80"]  # one outside, one inside the window
     cells = ["sky130_fd_sc_hd__clkdlybuf4s50", "sky130_fd_sc_hd__dlygate4sd3_1"]
@@ -949,12 +981,7 @@ def sta_check_self_test():
         doc["engine_version"] = "test \u00b1 1.0"
         rec_p.write_bytes((json.dumps(doc, indent=2) + "\n").encode("utf-8"))
         runner = str(root / "flow/hyperram.py")
-        env = dict(os.environ, LC_ALL="C", LANG="C", PYTHONUTF8="0",
-                   PYTHONCOERCECLOCALE="0")
-        env.pop("PYTHONIOENCODING", None)
-        # No "-I" here: it implies -E and would ignore PYTHONUTF8 /
-        # PYTHONCOERCECLOCALE, letting PEP 538 coerce the C locale to UTF-8 and
-        # leaving this case inert against a text-mode write.
+        env = c_locale_env()
         n1 = subprocess.run([sys.executable, runner, "sta-note"],
                             capture_output=True, env=env)
         assert n1.returncode == 0, \
@@ -967,6 +994,47 @@ def sta_check_self_test():
                             capture_output=True, env=env)
         assert c1.returncode == 0, \
             f"cli/C-locale: sta-check exited {c1.returncode}: {c1.stdout!r}{c1.stderr!r}"
+        passed += 1
+
+    # 9. The `sta` producer under the same locale (issue #215): a live run must
+    #    mint the canonical bytes itself, so the gate never reports STALE
+    #    against a legitimate regeneration. scripts/klt.sh is stood in by a
+    #    replay of the fixture record with a non-ASCII engine_version, and the
+    #    blackbox liberty check by a stand-in OpenSTA script and liberty.
+    with tempfile.TemporaryDirectory() as tmp:
+        root = make_fixture(tmp, with_runner=True)
+        rec_p, note_p, _ = sta_note_paths(root)
+        req_p = root / "flow/sta-hyperram.json"
+        doc = json.loads(rec_p.read_text(encoding="utf-8"))
+        doc["engine_version"] = "test \u00b1 1.0"
+        tcl, lib = root / "flow/.klt/sta/fake.tcl", root / "flow/.klt/fake.lib"
+        tcl.parent.mkdir(parents=True)
+        tcl.write_bytes(f"read_liberty {lib}\n".encode("utf-8"))
+        lib.write_bytes("".join(f'cell ("{c}") {{}}\n' for c in cells).encode("utf-8"))
+        for c in doc["corners"]:
+            c["engine_log"] = {"script_path": {"path": "flow/.klt/sta/fake.tcl", "scope": "repo"}}
+        # sta() requires the response to answer the request's corner list.
+        req = json.loads(req_p.read_text(encoding="utf-8"))
+        req["pdk"]["corners"] = corners
+        req_p.write_bytes((json.dumps(req, indent=2) + "\n").encode("utf-8"))
+        (rec_p.parent / "hyperram_ctrl.netlist.v").write_bytes(b"")
+        install_fake_klt(root, {req_p.stem: doc})
+        runner = str(root / "flow/hyperram.py")
+        env = c_locale_env()
+        s1 = subprocess.run([sys.executable, runner, "sta"], capture_output=True, env=env)
+        assert s1.returncode == 0, \
+            f"cli/C-locale: sta exited {s1.returncode}: {s1.stdout!r}{s1.stderr!r}"
+        assert rec_p.read_bytes() == (json.dumps(doc, indent=2) + "\n").encode("utf-8"), \
+            "cli/C-locale: sta did not write sta.json as UTF-8/LF bytes"
+        got = note_p.read_bytes()
+        assert got, "cli/C-locale: sta left a zero-byte STA.md"
+        assert b"\r" not in got, "cli/C-locale: sta wrote CR bytes"
+        assert "\u00b1".encode("utf-8") in got, "cli/C-locale: non-ASCII field not written as UTF-8"
+        c1 = subprocess.run([sys.executable, runner, "sta-check"],
+                            capture_output=True, env=env)
+        assert c1.returncode == 0, \
+            f"cli/C-locale: sta-check rejected the note sta just minted: " \
+            f"{c1.returncode}: {c1.stdout!r}{c1.stderr!r}"
         passed += 1
 
     print(f"sta-check self-test: {passed}/{passed} cases passed")
@@ -1411,9 +1479,9 @@ def sta_postroute():
     marker = format_sta_postroute_marker(*input_hashes)
 
     REC.mkdir(parents=True, exist_ok=True)
-    STAPR_REC.write_text(json.dumps(doc, indent=2) + "\n")
-    STAPR_AREC.write_text(json.dumps(adoc, indent=2) + "\n")
-    STAPR_NOTE.write_text(sta_postroute_note(doc, adoc, req_doc, marker=marker))
+    STAPR_REC.write_bytes((json.dumps(doc, indent=2) + "\n").encode("utf-8"))
+    STAPR_AREC.write_bytes((json.dumps(adoc, indent=2) + "\n").encode("utf-8"))
+    STAPR_NOTE.write_bytes(sta_postroute_note(doc, adoc, req_doc, marker=marker).encode("utf-8"))
 
     print(f"sta-postroute: {len(doc['corners'])} corners x 2 readings -> "
           f"{rel(STAPR_REC)}, {rel(STAPR_AREC)}, {rel(STAPR_NOTE)}")
@@ -1518,7 +1586,7 @@ def sta_postroute_note_cmd(root=None):
     """
     _, _, note_p, *_ = sta_postroute_paths(root)
     doc, adoc, req, marker = sta_postroute_verify(root)
-    note_p.write_text(sta_postroute_note(doc, adoc, req, marker=marker))
+    note_p.write_bytes(sta_postroute_note(doc, adoc, req, marker=marker).encode("utf-8"))
     print(f"sta-postroute-note: rewrote {rel(note_p, root)} from the committed responses")
 
 
@@ -1548,7 +1616,10 @@ def sta_postroute_self_test():
     the note's provenance marker causes `sta-postroute-note` to refuse without
     touching the note and leaves `sta-postroute-check` failing with exit 3 --
     including end-to-end CLI subprocess runs for SPEF drift and a request whose
-    `spef` field points to a missing file.
+    `spef` field points to a missing file. Last, that the `sta-postroute` /
+    `sta-postroute-note` producers (klt stood in) under a non-UTF-8 locale
+    write a note carrying a non-ASCII field as UTF-8/LF bytes, and that the
+    gate accepts what they mint (issue #215).
     """
     corners = ["ss_n40C_1v28", "tt_025C_1v80"]
     clocks = [{"port": "clk", "period_ns": 20.0}, {"port": "hb_rwds_i", "period_ns": 20.0}]
@@ -1778,6 +1849,56 @@ def sta_postroute_self_test():
     expect_refused("zeroed-marker", zero_marker, 3, "does not carry the input marker")
     expect_refused("missing-note-file", delete_note, 1, "STA-postroute.md missing")
     expect_refused("forged-marker-redirected-spef", forge_redirected_spef, 3, "does not resolve to")
+
+    # 10. The `sta-postroute` and `sta-postroute-note` producers under a
+    #     non-UTF-8 locale (issue #215): with scripts/klt.sh stood in by a
+    #     replay of each request's committed response carrying a non-ASCII
+    #     engine_version, both must write the note as UTF-8/LF bytes -- neither
+    #     raise UnicodeEncodeError nor truncate it -- and what they mint must
+    #     pass sta-postroute-check.
+    with tempfile.TemporaryDirectory() as tmp:
+        root = make_fixture(tmp, with_runner=True)
+        rec_p, arec_p, note_p, req_p, areq_p, rdef_p, rspef_p = sta_postroute_paths(root)
+        canned = {}
+        for req_file, rec_file in ((req_p, rec_p), (areq_p, arec_p)):
+            d = json.loads(rec_file.read_text(encoding="utf-8"))
+            d["engine_version"] = "test \u00b1 1.0"
+            canned[req_file.stem] = d
+        doc, adoc = canned[req_p.stem], canned[areq_p.stem]
+        install_fake_klt(root, canned)
+        marker = format_sta_postroute_marker(sha256(rdef_p), sha256(rspef_p),
+                                             sha256(req_p), sha256(areq_p))
+        req = json.loads(req_p.read_text(encoding="utf-8"))
+        want = [(rec_p, (json.dumps(doc, indent=2) + "\n").encode("utf-8")),
+                (arec_p, (json.dumps(adoc, indent=2) + "\n").encode("utf-8")),
+                (note_p, sta_postroute_note(doc, adoc, req, marker=marker).encode("utf-8"))]
+        runner = str(root / "flow/hyperram.py")
+        env = c_locale_env()
+        s1 = subprocess.run([sys.executable, runner, "sta-postroute"],
+                            capture_output=True, env=env)
+        assert s1.returncode == 0, \
+            f"cli/C-locale: sta-postroute exited {s1.returncode}: {s1.stdout!r}{s1.stderr!r}"
+        for p, want_bytes in want:
+            assert p.read_bytes() == want_bytes, \
+                f"cli/C-locale: sta-postroute did not write {p.name} as UTF-8/LF bytes"
+        minted = note_p.read_bytes()
+        assert minted and b"\r" not in minted and "\u00b1".encode("utf-8") in minted, \
+            "cli/C-locale: the minted STA-postroute.md is empty, CRLF, or not UTF-8"
+        # Prose drift only: sta-postroute-note re-stamps nothing, so it refuses
+        # a note without its provenance marker rather than repairing that.
+        note_p.write_bytes(f"# stale prose heading\n\n{marker}\n".encode("utf-8"))
+        n1 = subprocess.run([sys.executable, runner, "sta-postroute-note"],
+                            capture_output=True, env=env)
+        assert n1.returncode == 0, \
+            f"cli/C-locale: sta-postroute-note exited {n1.returncode}: {n1.stdout!r}{n1.stderr!r}"
+        assert note_p.read_bytes() == minted, \
+            "cli/C-locale: sta-postroute-note did not restore the exact UTF-8/LF bytes"
+        c1 = subprocess.run([sys.executable, "-I", runner, "sta-postroute-check"],
+                            capture_output=True, text=True)
+        assert c1.returncode == 0, \
+            f"cli: sta-postroute-check rejected the minted record: " \
+            f"{c1.returncode}: {c1.stdout}{c1.stderr}"
+        passed += 1
 
     print(f"sta-postroute-check self-test: {passed}/{passed} cases passed")
 
