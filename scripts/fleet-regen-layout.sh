@@ -362,7 +362,7 @@ step checks
 # re-render the verdict of record (manifests/README.md: same PR as the change).
 #
 # The pinned content_hash is the INPUT artifact the cited envelope binds --
-# its self-reported provenance.input.content_hash (design-evidence-tiers.md,
+# its self-reported provenance.input.content_hash (the pinned klt's tier doc,
 # "Staleness is failure": klt signoff gates the pin against that self-report)
 # -- not the evidence file's own bytes. item2/DRC/ERC all bind the routed GDS,
 # LVS binds its extracted netlist, the P&R response binds the routed netlist.
@@ -416,11 +416,10 @@ mp.write_text(json.dumps(man, indent=2) + "\n")
 print("manifest citations re-pinned:", ", ".join(sorted(targets)))
 PY
 SIGNOFF_RC=0
-scripts/klt.sh signoff --manifest manifests/sky130-hyperram-ctrl.json \
-  --tiers-doc manifests/design-evidence-tiers.md --format json \
+scripts/klt.sh signoff --manifest manifests/sky130-hyperram-ctrl.json --format json \
   > manifests/sky130-hyperram-ctrl.signoff.json || SIGNOFF_RC=$?
 [ "${SIGNOFF_RC}" -eq 0 ] || [ "${SIGNOFF_RC}" -eq 3 ] \
-  || { echo "FATAL: klt signoff exited ${SIGNOFF_RC} (manifest, tier doc or cited evidence is broken)" >&2; exit "${SIGNOFF_RC}"; }
+  || { echo "FATAL: klt signoff exited ${SIGNOFF_RC} (manifest or cited evidence is broken)" >&2; exit "${SIGNOFF_RC}"; }
 log "signoff rendered (rc=${SIGNOFF_RC}; 3 = grader ran, some item unmet)"
 python3 -c 'import json; d=json.load(open("manifests/sky130-hyperram-ctrl.signoff.json")); print("signoff: t1_met", d["t1_met_count"], "of", d["t1_item_count"])'
 step signoff
