@@ -13,6 +13,9 @@
       "corner": "typ"
     }
   },
+  "env": {
+    "HRBENCH_SAMPLE_NS": "0"
+  },
   "testbench": {
     "module": "test_all",
     "search_path": "../verification/ctrl"
