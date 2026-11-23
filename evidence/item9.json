@@ -45,7 +45,7 @@
         "role": "testbench",
         "path": "verification/ctrl/hrbench.py",
         "passed": true,
-        "content_hash": "sha256:93931ac6b1a4ee5d1af8fb181e4f8f226949d72744ab5537f04e0b67b091c72a"
+        "content_hash": "sha256:72a66947062021bc48b545f591ceaacb1c01c5877cc0ae4cd0f5366e70f31ce9"
       },
       {
         "check": "present",

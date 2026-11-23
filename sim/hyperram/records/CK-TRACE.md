@@ -4,7 +4,7 @@ Issue #187 (item 7 follow-up): locate the first divergence between the routed
 controller and the expected six-byte CA transfer at 50 MHz, and correct the CK
 launch path **if** the waveform establishes a design defect. The waveform does
 not: this record traces the annotated pins, refutes the proposed ICG / tap-chain
-cause, and locates the divergence the 0/43 annotated suite actually reports --
+cause, and locates the divergence the 0/43 annotated suite (the pre-#199 bench) reported --
 in the bench's pad-sample position, not in the design (single typ corner). The design, the bench,
 the model and the spec rows are all left unchanged.
 
@@ -133,8 +133,13 @@ The bench logs both instants directly (`CK5` lines), register write, ns:
 
 ## The 43 failures: observations versus hypotheses
 
-Observed (the committed report, `functional-verification-ctrl-sdf.report.json`,
-reproduced 0/43 with identical messages):
+Observed on the pre-#199 bench (the committed report at merge-base `b60c730`,
+`functional-verification-ctrl-sdf.report.json`, reproduced 0/43 with identical
+messages). That report is superseded: `main` has since landed #199 (sample on
+the annotated CK pin edge) and #200 (cfg_read settle) and re-minted the
+report, now 4 passed / 39 failed. The sample-position divergence measured here
+is therefore a landed fix, not a hypothesis; the table below is kept as the
+evidence that motivated it and is not the current suite state:
 
 | count | failure message |
 |---|---|
@@ -145,7 +150,9 @@ reproduced 0/43 with identical messages):
 | 1 | `cfg 4: 0x0024 has bits set outside documented field 0x000f` (`no_calibration_port_or_status_bit`) |
 
 Only the sample-position observations above and these messages are
-evidence. What follows is hypothesis, not established by this trace:
+evidence of this trace. What follows was hypothesis when the trace was taken
+(the post-#199/#200 report on `main` is the later evidence for the first and
+last items; the rest remain unexplained by this trace):
 
 - The 37 CA-driven failures are consistent with the sixth CA sample landing
   after OE falls (read trace above); the 5 ns sample offset is the candidate
@@ -171,7 +178,8 @@ evidence. What follows is hypothesis, not established by this trace:
   annotation does not show. No other corner is claimed.
 - The measured effect on the bench is that its 5 ns post-edge sample lands in
   the next byte's transition (`40 01 01 00 00 00`). That is observed; its
-  causal role in each of the 43 failures is the hypothesis list above, and
+  causal role in each of the 43 failures was the hypothesis list above
+  (since exercised by #199/#200 landing on `main`: 43 -> 39 failing), and
   the design is left unchanged here with no bench, model or spec row touched.
 - Annotation metadata for the committed run: `environment.sdf` reports
   `annotated: true`, `partial: true`, dropped entries `timingcheck` 504,

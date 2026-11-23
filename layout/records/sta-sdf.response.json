@@ -156,10 +156,7 @@
     "pdk": {
       "name": "sky130A",
       "source": "PDK_ROOT environment variable",
-      "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7",
-      "ambiguous_sources": [
-        "search root: ~/.volare"
-      ]
+      "version": "open_pdks f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"
     },
     "deck": {
       "name": "sky130_fd_sc_hd__tt_025C_1v80",
@@ -381,7 +378,7 @@
   "sdf": {
     "path": "layout/records/hyperram_ctrl.tt_025C_1v80.sdf",
     "scope": "repo",
-    "content_hash": "sha256:1de6d24800a262c0eb5047875ee56654f1283e237a127938be16832511b1d72f"
+    "content_hash": "sha256:29fc93e7f923a092f948aea263360d585f9b81a7a875261c2590cede73e1b4c5"
   },
   "electrical_checks": {
     "parasitics_source": "spef",
@@ -421,13 +418,13 @@
     }
   },
   "engine_log": {
-    "invocation_id": "5cbe4c5b6b8f498f96e443382eae2c04",
+    "invocation_id": "d8c51e47ec5b4c44a2edaf425515e8c1",
     "script_name": "sta_hyperram_ctrl.tcl",
     "script_path": {
       "path": "flow/.klt/sta/sta_hyperram_ctrl.tcl",
       "scope": "repo"
     },
-    "script_sha256": "5f2de831bc5c688981bd3174893a56f92cccf346c5f2bed217e75d71e4214f22",
+    "script_sha256": "632cfceb9a9ab0834f92f0a2b5661f69b15f14d56be2a3bc2da554a520fb3e81",
     "metrics_path": {
       "path": "flow/.klt/sta/hyperram_ctrl_metrics.json",
       "scope": "repo"
@@ -435,19 +432,19 @@
     "outcome": "exited",
     "returncode": 0,
     "directory": {
-      "path": "flow/.klt/sta/openroad-logs/5cbe4c5b6b8f498f96e443382eae2c04",
+      "path": "flow/.klt/sta/openroad-logs/d8c51e47ec5b4c44a2edaf425515e8c1",
       "scope": "repo"
     },
     "stdout_path": {
-      "path": "flow/.klt/sta/openroad-logs/5cbe4c5b6b8f498f96e443382eae2c04/stdout.log",
+      "path": "flow/.klt/sta/openroad-logs/d8c51e47ec5b4c44a2edaf425515e8c1/stdout.log",
       "scope": "repo"
     },
     "stderr_path": {
-      "path": "flow/.klt/sta/openroad-logs/5cbe4c5b6b8f498f96e443382eae2c04/stderr.log",
+      "path": "flow/.klt/sta/openroad-logs/d8c51e47ec5b4c44a2edaf425515e8c1/stderr.log",
       "scope": "repo"
     },
     "metadata_path": {
-      "path": "flow/.klt/sta/openroad-logs/5cbe4c5b6b8f498f96e443382eae2c04/invocation.json",
+      "path": "flow/.klt/sta/openroad-logs/d8c51e47ec5b4c44a2edaf425515e8c1/invocation.json",
       "scope": "repo"
     },
     "retention_errors": []

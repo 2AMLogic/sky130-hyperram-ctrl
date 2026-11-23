@@ -5,11 +5,16 @@ device model (``hyperram_model.model``) from CK/CS#/RESET#/DQ/RWDS and drives
 read data back, and (b) a Wishbone-class host and the configuration port.
 
 ASSUMPTIONS stated here because the bench output depends on them:
-  * The sky130 cells in the RTL are zero-delay stand-ins, so CK is not delayed
-    by the quarter period that spec row 14 requires. The pad driver therefore
-    samples DQ/RWDS ``SAMPLE_NS`` (a quarter of the 50 MHz period) after each
-    CK edge, the position the real delayed CK would have. Real pad/CK timing is
-    NOT claimed by these benches.
+  * Where the pad driver samples DQ/RWDS: ``SAMPLE_NS`` after each CK edge,
+    selected by ``HRBENCH_SAMPLE_NS`` (read once at import; the offset in ns).
+    The default is a quarter of the 50 MHz period, the position the real
+    delayed CK would have while the design's sky130 cells are zero-delay
+    stand-ins (the plain RTL and synthesized zero-delay GL runs). On the
+    SDF-annotated post-route run the CK pin already carries the real tap
+    delay, so that offset would double-count it; the request
+    (flow/functional-verification-ctrl-sdf.json) therefore selects ``0`` --
+    sampling on the CK edge itself, the device's actual relationship to its
+    clock pin. Real pad/CK timing is NOT claimed by these benches.
   * Read strobe: the model's RWDS is placed ``RWDS_EYE_NS`` after its DQ so
     the zero-delay capture chain sees RWDS mid-eye. Same caveat.
   * Model timing values are PLACEHOLDERS: the spec/device-model-params.md rows
@@ -23,6 +28,7 @@ ASSUMPTIONS stated here because the bench output depends on them:
 from __future__ import annotations
 
 import dataclasses
+import os
 import random
 import sys
 from pathlib import Path
@@ -37,10 +43,28 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "hyperram_model"
 from model import PLACEHOLDER, HyperRamModel, ModelParams  # noqa: E402
 
 PERIOD_NS = 20
-SAMPLE_NS = PERIOD_NS // 4
+# Pad sample offset after each CK edge, in ns (see the header): the quarter
+# period stands in for the real CK delay while CK itself is zero-delay, and 0
+# samples on the edge once CK carries the SDF annotation. HRBENCH_SAMPLE_NS
+# selects it per run; flow/functional-verification-ctrl-sdf.json sets "0".
+SAMPLE_NS = float(os.environ.get("HRBENCH_SAMPLE_NS", PERIOD_NS // 4))
 RWDS_EYE_NS = 5.0
 TCSM_MARGIN_CLK = 3          # cfg_tcsm = floor(tCSM / T) - this; see test_row09
 MEM_BYTES = 1 << 24          # 16 MiB: host word addresses < 0x400000
+
+# cfg_read settle after driving cfg_adr, before sampling cfg_rdata. The read
+# port is a combinational mux on cfg_adr (hyperram_ctrl.v "Configuration
+# port"): zero delay with the stand-in cells, real gate delay under the
+# post-route SDF, so a 1 ns settle samples mid-transition there (issue #200:
+# row 13 read CFG_CS_HI back with bits outside its mask). Conservative typ
+# bound at tt_025C_1v80: 1.407 ns, the worst per-arc sum the SDF allows on
+# that path (cfg_adr[2] -> _165_ -> _179_ -> _180_ -> cfg_rdata[5], larger
+# rise/fall at each arc; this SDF's INTERCONNECTs are all 0.000 at typ), and
+# the row-13 CFG_PU -> CFG_CS_HI transition was measured settling at 1.121 ns
+# on the annotated netlist. 2 ns clears both with >= 0.59 ns margin and is a
+# tenth of the 20 ns period. A fixed settle, not an event on cfg_rdata:
+# repeated reads of an unchanged word must keep returning.
+CFG_SETTLE_NS = 2.0
 
 # Device values come from the one placeholder set (hyperram_model/model.py);
 # only the RWDS placement is added here, because it is bench stimulus rather
@@ -80,6 +104,9 @@ class Bench:
         d = self.dut
         print("model parameters (PLACEHOLDERS, not datasheet values):")
         print(self.params.describe())
+        print(f"pad sample offset {SAMPLE_NS:g} ns after each CK edge "
+              f"({'pin-edge' if SAMPLE_NS == 0 else 'quarter-period stand-in'} "
+              "sampling)")
         for s in (d.wb_cyc, d.wb_stb, d.wb_we, d.cfg_we):
             s.value = 0
         for s in (d.wb_adr, d.wb_sel, d.wb_dat_w, d.cfg_adr, d.cfg_wdata,
@@ -169,7 +196,8 @@ class Bench:
             t = now_ns()
             ck = int(d.hb_ck.value)
             self.ck_edges += 1
-            await Timer(SAMPLE_NS, unit="ns")
+            if SAMPLE_NS:
+                await Timer(SAMPLE_NS, unit="ns")
             dq = int(d.hb_dq_o.value) if d.hb_dq_oe.value == 1 else None
             rw = int(d.hb_rwds_o.value) if d.hb_rwds_oe.value == 1 else None
             out = self.model.clock(t, ck, dq, rw)
@@ -198,7 +226,7 @@ class Bench:
 
     async def cfg_read(self, adr: int) -> int:
         self.dut.cfg_adr.value = adr
-        await Timer(1, unit="ns")
+        await Timer(CFG_SETTLE_NS, unit="ns")
         return int(self.dut.cfg_rdata.value)
 
     def set_device_latency(self, clk: int):
