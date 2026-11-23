@@ -5,179 +5,179 @@
   "testbench": "test_all",
   "status": "fail",
   "test_count": 43,
-  "passed_count": 3,
-  "failed_count": 40,
+  "passed_count": 4,
+  "failed_count": 39,
   "skipped_count": 0,
   "tests": [
     {
       "name": "random_traffic_scoreboard",
       "status": "failed",
-      "sim_time_ns": 805580.0,
-      "real_time_s": 11.979148626327515,
+      "sim_time_ns": 805560.0,
+      "real_time_s": 16.421109199523926,
       "error_type": "AssertionError",
       "error_message": "transfer timed out: issued 5/24, acked 0"
     },
     {
       "name": "ca_is_six_bytes_and_decodes",
       "status": "failed",
-      "sim_time_ns": 5880.0,
-      "real_time_s": 0.09624409675598145,
+      "sim_time_ns": 5860.0,
+      "real_time_s": 0.16762638092041016,
       "error_type": "AssertionError",
-      "error_message": "device-model violations:\n  tCK @ 810906.6 ns: half period 8.900000000023283 ns\n  tCK @ 810926.6 ns: half period 8.900000000023283 ns\n  tCK @ 810946.6 ns: half period 8.900000000023283 ns\n  tCK @ 810966.6 ns: half period 8.900000000023283 ns\n  tCK @ 810986.6 ns: half period 8.900000000023283 ns\n  tCK @ 811006.6 ns: half period 8.900000000023283 ns\n  tCK @ 811026.6 ns: half period 8.900000000023283 ns\n  tCK @ 811226.6 ns: half period 8.900000000023283 ns\n  tCK @ 811246.6 ns: half period 8.900000000023283 ns\n  tCK @ 811266.6 ns: half period 8.900000000023283 ns\n  tCK @ 811286.6 ns: half period 8.900000000023283 ns\n  tCK @ 811306.6 ns: half period 8.900000000023283 ns\n  tCK @ 811326.6 ns: half period 8.900000000023283 ns\n  tCK @ 811346.6 ns: half period 8.900000000023283 ns\n  tCK @ 811366.6 ns: half period 8.900000000023283 ns\n  tCK @ 811386.6 ns: half period 8.900000000023283 ns\n  tCK @ 811406.6 ns: half period 8.900000000023283 ns\n  tCK @ 811426.6 ns: half period 8.900000000023283 ns\n  tCK @ 811446.6 ns: half period 8.900000000023283 ns"
+      "error_message": "device-model violations:\n  tCK @ 810866.6 ns: half period 8.900000000023283 ns\n  tCK @ 810886.6 ns: half period 8.900000000023283 ns\n  tCK @ 810906.6 ns: half period 8.900000000023283 ns\n  tCK @ 810926.6 ns: half period 8.900000000023283 ns\n  tCK @ 810946.6 ns: half period 8.900000000023283 ns\n  tCK @ 810966.6 ns: half period 8.900000000023283 ns\n  tCK @ 810986.6 ns: half period 8.900000000023283 ns\n  tCK @ 811186.6 ns: half period 8.900000000023283 ns\n  tCK @ 811206.6 ns: half period 8.900000000023283 ns\n  tCK @ 811226.6 ns: half period 8.900000000023283 ns\n  tCK @ 811246.6 ns: half period 8.900000000023283 ns\n  tCK @ 811266.6 ns: half period 8.900000000023283 ns\n  tCK @ 811286.6 ns: half period 8.900000000023283 ns\n  tCK @ 811306.6 ns: half period 8.900000000023283 ns\n  tCK @ 811326.6 ns: half period 8.900000000023283 ns\n  tCK @ 811346.6 ns: half period 8.900000000023283 ns\n  tCK @ 811366.6 ns: half period 8.900000000023283 ns\n  tCK @ 811386.6 ns: half period 8.900000000023283 ns\n  tCK @ 811406.6 ns: half period 8.900000000023283 ns"
     },
     {
       "name": "ca_address_bits_walk",
       "status": "failed",
-      "sim_time_ns": 17740.0,
-      "real_time_s": 0.696434497833252,
+      "sim_time_ns": 17720.0,
+      "real_time_s": 1.0582325458526611,
       "error_type": "AssertionError",
-      "error_message": "[Violation(param='tCK', t_ns=816786.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816806.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816826.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816846.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816866.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816886.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816906.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816926.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816946.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816966.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816986.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817006.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817026.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817206.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817226.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817246.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817266.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817286.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817306.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817326.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817346.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817366.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817386.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817406.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817426.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817446.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817626.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817646.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817666.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817686.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817706.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817726.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817746.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817766.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817786.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817806.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817826.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817846.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817866.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818046.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818066.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818086.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818106.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818126.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818146.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818166.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818186.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818206.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818226.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818246.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818266.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818286.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818466.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818486.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818506.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818526.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818546.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818566.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818586.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818606.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818626.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818646.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818666.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818686.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818706.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818886.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818906.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818926.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818946.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818966.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818986.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819006.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819026.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819046.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819066.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819086.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819106.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819126.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819306.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819326.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819346.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819366.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819386.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819406.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819426.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819446.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819466.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819486.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819506.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819526.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819546.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819726.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819746.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819766.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819786.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819806.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819826.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819846.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819866.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819886.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819906.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819926.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819946.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819966.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820146.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820166.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820186.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820206.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820226.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820246.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820266.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820286.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820306.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820326.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820346.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820366.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820386.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820566.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820586.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820606.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820626.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820646.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820666.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820686.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820706.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820726.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820746.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820766.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820786.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820806.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820986.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821006.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821026.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821046.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821066.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821086.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821106.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821126.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821146.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821166.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821186.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821206.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821226.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821406.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821426.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821446.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821466.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821486.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821506.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821526.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821546.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821566.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821586.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821606.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821626.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821646.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821826.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821846.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821866.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821886.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821906.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821926.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821946.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821966.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821986.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822006.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822026.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822046.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822066.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822246.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822266.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822286.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822306.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822326.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822346.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822366.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822386.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822406.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822426.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822446.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822466.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822486.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822666.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822686.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822706.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822726.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822746.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822766.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822786.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822806.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822826.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822846.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822866.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822886.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822906.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823086.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823106.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823126.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823146.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823166.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823186.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823206.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823226.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823246.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823266.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823286.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823306.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823326.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823506.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823526.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823546.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823566.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823586.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823606.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823626.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823646.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823666.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823686.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823706.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823726.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823746.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823926.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823946.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823966.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823986.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824006.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824026.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824046.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824066.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824086.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824106.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824126.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824146.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824166.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824346.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824366.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824386.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824406.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824426.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824446.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824466.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824486.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824506.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824526.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824546.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824566.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824586.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824766.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824786.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824806.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824826.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824846.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824866.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824886.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824906.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824926.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824946.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824966.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824986.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825006.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825186.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825206.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825226.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825246.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825266.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825286.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825306.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825326.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825346.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825366.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825386.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825406.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825426.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825606.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825626.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825646.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825666.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825686.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825706.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825726.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825746.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825766.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825786.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825806.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825826.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825846.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826026.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826046.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826066.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826086.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826106.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826126.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826146.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826166.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826186.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826206.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826226.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826246.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826266.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826446.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826466.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826486.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826506.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826526.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826546.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826566.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826586.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826606.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826626.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826646.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826666.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826686.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826866.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826886.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826906.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826926.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826946.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826966.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826986.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827006.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827026.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827046.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827066.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827086.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827106.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827286.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827306.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827326.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827346.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827366.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827386.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827406.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827426.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827446.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827466.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827486.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827506.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827526.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827706.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827726.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827746.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827766.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827786.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827806.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827826.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827846.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827866.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827886.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827906.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827926.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827946.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828126.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828146.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828166.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828186.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828206.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828226.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828246.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828266.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828286.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828306.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828326.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828346.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828366.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828546.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828566.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828586.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828606.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828626.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828646.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828666.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828686.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828706.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828726.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828746.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828766.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828786.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828966.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828986.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=829006.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=829026.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=829046.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=829066.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=829086.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=829106.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=829126.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=829146.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=829166.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=829186.6, detail='half period 8.900000000023283 ns')]"
+      "error_message": "[Violation(param='tCK', t_ns=816726.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816746.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816766.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816786.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816806.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816826.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816846.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816866.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816886.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816906.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816926.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816946.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=816966.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817146.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817166.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817186.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817206.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817226.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817246.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817266.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817286.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817306.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817326.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817346.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817366.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817386.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817566.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817586.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817606.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817626.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817646.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817666.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817686.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817706.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817726.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817746.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817766.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817786.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817806.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=817986.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818006.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818026.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818046.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818066.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818086.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818106.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818126.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818146.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818166.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818186.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818206.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818226.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818406.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818426.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818446.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818466.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818486.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818506.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818526.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818546.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818566.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818586.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818606.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818626.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818646.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818826.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818846.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818866.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818886.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818906.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818926.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818946.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818966.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=818986.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819006.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819026.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819046.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819066.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819246.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819266.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819286.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819306.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819326.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819346.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819366.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819386.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819406.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819426.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819446.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819466.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819486.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819666.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819686.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819706.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819726.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819746.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819766.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819786.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819806.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819826.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819846.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819866.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819886.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=819906.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820086.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820106.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820126.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820146.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820166.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820186.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820206.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820226.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820246.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820266.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820286.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820306.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820326.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820506.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820526.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820546.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820566.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820586.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820606.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820626.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820646.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820666.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820686.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820706.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820726.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820746.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820926.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820946.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820966.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=820986.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821006.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821026.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821046.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821066.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821086.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821106.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821126.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821146.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821166.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821346.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821366.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821386.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821406.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821426.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821446.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821466.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821486.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821506.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821526.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821546.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821566.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821586.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821766.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821786.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821806.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821826.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821846.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821866.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821886.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821906.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821926.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821946.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821966.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=821986.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822006.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822186.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822206.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822226.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822246.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822266.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822286.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822306.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822326.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822346.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822366.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822386.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822406.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822426.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822606.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822626.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822646.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822666.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822686.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822706.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822726.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822746.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822766.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822786.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822806.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822826.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=822846.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823026.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823046.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823066.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823086.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823106.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823126.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823146.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823166.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823186.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823206.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823226.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823246.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823266.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823446.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823466.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823486.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823506.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823526.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823546.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823566.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823586.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823606.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823626.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823646.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823666.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823686.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823866.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823886.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823906.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823926.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823946.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823966.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=823986.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824006.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824026.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824046.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824066.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824086.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824106.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824286.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824306.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824326.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824346.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824366.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824386.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824406.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824426.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824446.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824466.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824486.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824506.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824526.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824706.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824726.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824746.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824766.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824786.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824806.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824826.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824846.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824866.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824886.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824906.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824926.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=824946.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825126.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825146.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825166.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825186.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825206.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825226.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825246.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825266.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825286.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825306.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825326.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825346.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825366.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825546.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825566.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825586.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825606.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825626.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825646.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825666.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825686.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825706.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825726.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825746.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825766.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825786.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825966.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=825986.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826006.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826026.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826046.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826066.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826086.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826106.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826126.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826146.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826166.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826186.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826206.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826386.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826406.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826426.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826446.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826466.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826486.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826506.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826526.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826546.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826566.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826586.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826606.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826626.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826806.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826826.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826846.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826866.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826886.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826906.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826926.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826946.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826966.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=826986.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827006.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827026.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827046.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827226.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827246.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827266.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827286.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827306.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827326.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827346.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827366.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827386.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827406.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827426.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827446.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827466.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827646.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827666.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827686.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827706.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827726.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827746.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827766.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827786.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827806.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827826.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827846.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827866.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=827886.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828066.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828086.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828106.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828126.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828146.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828166.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828186.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828206.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828226.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828246.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828266.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828286.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828306.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828486.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828506.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828526.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828546.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828566.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828586.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828606.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828626.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828646.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828666.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828686.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828706.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828726.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828906.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828926.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828946.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828966.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=828986.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=829006.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=829026.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=829046.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=829066.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=829086.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=829106.6, detail='half period 8.900000000023283 ns'), Violation(param='tCK', t_ns=829126.6, detail='half period 8.900000000023283 ns')]"
     },
     {
       "name": "ca_register_space_bit",
       "status": "failed",
-      "sim_time_ns": 5900.0,
-      "real_time_s": 0.09027600288391113,
+      "sim_time_ns": 5880.0,
+      "real_time_s": 0.12488889694213867,
       "error_type": "AssertionError",
-      "error_message": "device-model violations:\n  tCK @ 834526.6 ns: half period 8.900000000023283 ns\n  tCK @ 834546.6 ns: half period 8.900000000023283 ns\n  tCK @ 834566.6 ns: half period 8.900000000023283 ns\n  tCK @ 834586.6 ns: half period 8.900000000023283 ns\n  tCK @ 834606.6 ns: half period 8.900000000023283 ns\n  tCK @ 834626.6 ns: half period 8.900000000023283 ns\n  tCK @ 834646.6 ns: half period 8.900000000023283 ns\n  tCK @ 834666.6 ns: half period 8.900000000023283 ns\n  tCK @ 834686.6 ns: half period 8.900000000023283 ns\n  tCK @ 834706.6 ns: half period 8.900000000023283 ns\n  tCK @ 834886.6 ns: half period 8.900000000023283 ns\n  tCK @ 834906.6 ns: half period 8.900000000023283 ns\n  tCK @ 834926.6 ns: half period 8.900000000023283 ns\n  tCK @ 834946.6 ns: half period 8.900000000023283 ns\n  tCK @ 834966.6 ns: half period 8.900000000023283 ns\n  tCK @ 834986.6 ns: half period 8.900000000023283 ns\n  tCK @ 835006.6 ns: half period 8.900000000023283 ns\n  tCK @ 835026.6 ns: half period 8.900000000023283 ns\n  tCK @ 835046.6 ns: half period 8.900000000023283 ns\n  tCK @ 835066.6 ns: half period 8.900000000023283 ns"
+      "error_message": "device-model violations:\n  tCK @ 834446.6 ns: half period 8.900000000023283 ns\n  tCK @ 834466.6 ns: half period 8.900000000023283 ns\n  tCK @ 834486.6 ns: half period 8.900000000023283 ns\n  tCK @ 834506.6 ns: half period 8.900000000023283 ns\n  tCK @ 834526.6 ns: half period 8.900000000023283 ns\n  tCK @ 834546.6 ns: half period 8.900000000023283 ns\n  tCK @ 834566.6 ns: half period 8.900000000023283 ns\n  tCK @ 834586.6 ns: half period 8.900000000023283 ns\n  tCK @ 834606.6 ns: half period 8.900000000023283 ns\n  tCK @ 834626.6 ns: half period 8.900000000023283 ns\n  tCK @ 834806.6 ns: half period 8.900000000023283 ns\n  tCK @ 834826.6 ns: half period 8.900000000023283 ns\n  tCK @ 834846.6 ns: half period 8.900000000023283 ns\n  tCK @ 834866.6 ns: half period 8.900000000023283 ns\n  tCK @ 834886.6 ns: half period 8.900000000023283 ns\n  tCK @ 834906.6 ns: half period 8.900000000023283 ns\n  tCK @ 834926.6 ns: half period 8.900000000023283 ns\n  tCK @ 834946.6 ns: half period 8.900000000023283 ns\n  tCK @ 834966.6 ns: half period 8.900000000023283 ns\n  tCK @ 834986.6 ns: half period 8.900000000023283 ns"
     },
     {
       "name": "ca_spans_three_ck_cycles",
       "status": "failed",
-      "sim_time_ns": 5400.0,
-      "real_time_s": 0.06718087196350098,
+      "sim_time_ns": 5380.0,
+      "real_time_s": 0.08776545524597168,
       "error_type": "AssertionError",
-      "error_message": "device-model violations:\n  tCK @ 840426.7 ns: half period 9.0 ns\n  tCK @ 840446.7 ns: half period 9.0 ns\n  tCK @ 840466.7 ns: half period 9.0 ns"
+      "error_message": "device-model violations:\n  tCK @ 840326.7 ns: half period 9.0 ns\n  tCK @ 840346.7 ns: half period 9.0 ns\n  tCK @ 840366.7 ns: half period 9.0 ns"
     },
     {
       "name": "variable_latency_normal",
       "status": "failed",
-      "sim_time_ns": 5446.64599999995,
-      "real_time_s": 0.06611871719360352,
+      "sim_time_ns": 5426.64599999995,
+      "real_time_s": 0.09293365478515625,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host on write data"
     },
     {
       "name": "doubling_decision_at_the_pins",
       "status": "passed",
-      "sim_time_ns": 5960.0,
-      "real_time_s": 0.08866500854492188
+      "sim_time_ns": 5940.0,
+      "real_time_s": 0.1458578109741211
     },
     {
       "name": "variable_latency_doubled_by_rwds",
       "status": "failed",
-      "sim_time_ns": 7000.0,
-      "real_time_s": 0.13242363929748535,
+      "sim_time_ns": 6980.0,
+      "real_time_s": 0.25649333000183105,
       "error_type": "AssertionError",
       "error_message": null
     },
     {
       "name": "fixed_latency_configuration",
       "status": "failed",
-      "sim_time_ns": 7460.0,
-      "real_time_s": 0.1545422077178955,
+      "sim_time_ns": 7440.0,
+      "real_time_s": 0.30713605880737305,
       "error_type": "AssertionError",
       "error_message": null
     },
     {
       "name": "controller_latency_shorter_than_device_is_caught",
       "status": "passed",
-      "sim_time_ns": 5880.0,
-      "real_time_s": 0.08417344093322754
+      "sim_time_ns": 5860.0,
+      "real_time_s": 0.194014310836792
     },
     {
       "name": "clamp_below_four",
       "status": "failed",
-      "sim_time_ns": 5446.646000000066,
-      "real_time_s": 0.06866335868835449,
+      "sim_time_ns": 5426.646000000066,
+      "real_time_s": 0.13363909721374512,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host on write data"
     },
     {
       "name": "linear_bursts_of_many_lengths",
       "status": "failed",
-      "sim_time_ns": 5940.0,
-      "real_time_s": 0.09108519554138184,
+      "sim_time_ns": 5920.0,
+      "real_time_s": 0.11164665222167969,
       "error_type": "AssertionError",
       "error_message": "read n=1"
     },
     {
       "name": "single_word_register_style_beat_at_odd_addresses",
       "status": "failed",
-      "sim_time_ns": 5880.0,
-      "real_time_s": 0.09377741813659668,
+      "sim_time_ns": 5860.0,
+      "real_time_s": 0.102447509765625,
       "error_type": "AssertionError",
       "error_message": null
     },
     {
       "name": "burst_is_one_transaction_when_it_fits",
       "status": "failed",
-      "sim_time_ns": 6000.0,
-      "real_time_s": 0.08519816398620605,
+      "sim_time_ns": 5980.0,
+      "real_time_s": 0.12054252624511719,
       "error_type": "AssertionError",
       "error_message": null
     },
     {
       "name": "every_byte_lane_pattern",
       "status": "failed",
-      "sim_time_ns": 6200.0,
-      "real_time_s": 0.0928506851196289,
+      "sim_time_ns": 6180.0,
+      "real_time_s": 0.12748336791992188,
       "error_type": "AssertionError",
       "error_message": null
     },
     {
       "name": "mask_inside_a_burst",
       "status": "failed",
-      "sim_time_ns": 6580.0,
-      "real_time_s": 0.10292267799377441,
+      "sim_time_ns": 6560.0,
+      "real_time_s": 0.13358306884765625,
       "error_type": "AssertionError",
       "error_message": null
     },
     {
       "name": "register_writes_are_not_masked",
       "status": "failed",
-      "sim_time_ns": 5400.0,
-      "real_time_s": 0.06574606895446777,
+      "sim_time_ns": 5380.0,
+      "real_time_s": 0.09955334663391113,
       "error_type": "AssertionError",
-      "error_message": "device-model violations:\n  tCK @ 913620.0 ns: half period 9.0 ns\n  tCK @ 913640.0 ns: half period 9.0 ns\n  tCK @ 913660.0 ns: half period 9.0 ns"
+      "error_message": "device-model violations:\n  tCK @ 913280.0 ns: half period 9.0 ns\n  tCK @ 913300.0 ns: half period 9.0 ns\n  tCK @ 913320.0 ns: half period 9.0 ns"
     },
     {
       "name": "read_id_and_config_registers",
       "status": "failed",
-      "sim_time_ns": 5540.0,
-      "real_time_s": 0.07629919052124023,
+      "sim_time_ns": 5520.0,
+      "real_time_s": 0.13951945304870605,
       "error_type": "AssertionError",
       "error_message": null
     },
     {
       "name": "write_then_read_back_register",
       "status": "failed",
-      "sim_time_ns": 5760.0,
-      "real_time_s": 0.08102726936340332,
+      "sim_time_ns": 5740.0,
+      "real_time_s": 0.1371173858642578,
       "error_type": "AssertionError",
       "error_message": null
     },
     {
       "name": "read_only_register_ignores_write",
       "status": "failed",
-      "sim_time_ns": 5760.0,
-      "real_time_s": 0.0807027816772461,
+      "sim_time_ns": 5740.0,
+      "real_time_s": 0.12720441818237305,
       "error_type": "AssertionError",
       "error_message": null
     },
     {
       "name": "register_access_does_not_touch_memory",
       "status": "failed",
-      "sim_time_ns": 5940.0,
-      "real_time_s": 0.08979487419128418,
+      "sim_time_ns": 5920.0,
+      "real_time_s": 0.14800190925598145,
       "error_type": "AssertionError",
-      "error_message": "device-model violations:\n  tCK @ 936080.0 ns: half period 9.0 ns\n  tCK @ 936100.0 ns: half period 9.0 ns\n  tCK @ 936120.0 ns: half period 9.0 ns\n  tCK @ 936140.0 ns: half period 9.0 ns\n  tCK @ 936160.0 ns: half period 9.0 ns\n  tCK @ 936180.0 ns: half period 9.0 ns\n  tCK @ 936200.0 ns: half period 9.0 ns\n  tCK @ 936400.0 ns: half period 9.0 ns\n  tCK @ 936420.0 ns: half period 9.0 ns\n  tCK @ 936440.0 ns: half period 9.0 ns\n  tCK @ 936620.0 ns: half period 9.0 ns\n  tCK @ 936640.0 ns: half period 9.0 ns\n  tCK @ 936660.0 ns: half period 9.0 ns"
+      "error_message": "device-model violations:\n  tCK @ 935660.0 ns: half period 9.0 ns\n  tCK @ 935680.0 ns: half period 9.0 ns\n  tCK @ 935700.0 ns: half period 9.0 ns\n  tCK @ 935720.0 ns: half period 9.0 ns\n  tCK @ 935740.0 ns: half period 9.0 ns\n  tCK @ 935760.0 ns: half period 9.0 ns\n  tCK @ 935780.0 ns: half period 9.0 ns\n  tCK @ 935980.0 ns: half period 9.0 ns\n  tCK @ 936000.0 ns: half period 9.0 ns\n  tCK @ 936020.0 ns: half period 9.0 ns\n  tCK @ 936200.0 ns: half period 9.0 ns\n  tCK @ 936220.0 ns: half period 9.0 ns\n  tCK @ 936240.0 ns: half period 9.0 ns"
     },
     {
       "name": "interval_is_honoured_and_pads_quiet",
       "status": "failed",
-      "sim_time_ns": 5940.0,
-      "real_time_s": 0.11454439163208008,
+      "sim_time_ns": 5920.0,
+      "real_time_s": 0.17754745483398438,
       "error_type": "AssertionError",
       "error_message": null
     },
@@ -185,7 +185,7 @@
       "name": "interval_is_a_register",
       "status": "failed",
       "sim_time_ns": 840.0,
-      "real_time_s": 0.03705286979675293,
+      "real_time_s": 0.056440114974975586,
       "error_type": "AssertionError",
       "error_message": "{40: 181.09999999997672, 120: 181.09999999997672}"
     },
@@ -193,157 +193,155 @@
       "name": "too_short_interval_is_flagged_by_the_model",
       "status": "failed",
       "sim_time_ns": 420.0,
-      "real_time_s": 0.0194246768951416,
+      "real_time_s": 0.024756908416748047,
       "error_type": "AssertionError",
       "error_message": null
     },
     {
       "name": "long_bursts_are_split_and_never_exceed_tcsm",
       "status": "failed",
-      "sim_time_ns": 7640.0,
-      "real_time_s": 0.2177126407623291,
+      "sim_time_ns": 7620.0,
+      "real_time_s": 0.26128292083740234,
       "error_type": "AssertionError",
       "error_message": null
     },
     {
       "name": "margin_holds_across_tcsm_and_latency",
       "status": "failed",
-      "sim_time_ns": 5506.64599999995,
-      "real_time_s": 0.07156705856323242,
+      "sim_time_ns": 5486.64599999995,
+      "real_time_s": 0.0972294807434082,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host on write data"
     },
     {
       "name": "margin_is_tight_not_loose",
       "status": "failed",
-      "sim_time_ns": 7300.0,
-      "real_time_s": 0.17926764488220215,
+      "sim_time_ns": 7280.0,
+      "real_time_s": 0.2166287899017334,
       "error_type": "AssertionError",
       "error_message": null
     },
     {
       "name": "negative_control_limit_disabled_is_flagged",
       "status": "failed",
-      "sim_time_ns": 7640.0,
-      "real_time_s": 0.204453706741333,
+      "sim_time_ns": 7620.0,
+      "real_time_s": 0.21761846542358398,
       "error_type": "AssertionError",
       "error_message": null
     },
     {
       "name": "budget_too_small_sets_status_bit",
       "status": "failed",
-      "sim_time_ns": 6241.0,
-      "real_time_s": 0.12308239936828613,
+      "sim_time_ns": 6222.0,
+      "real_time_s": 0.11261248588562012,
       "error_type": "AssertionError",
       "error_message": null
     },
     {
       "name": "doubles_only_when_rwds_high",
       "status": "failed",
-      "sim_time_ns": 5446.646000000066,
-      "real_time_s": 0.08278059959411621,
+      "sim_time_ns": 5426.646000000066,
+      "real_time_s": 0.07377028465270996,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host on write data"
     },
     {
       "name": "sampling_is_independent_of_rwds_skew_after_ck",
       "status": "failed",
-      "sim_time_ns": 5626.646000000066,
-      "real_time_s": 0.14686107635498047,
+      "sim_time_ns": 5606.646000000066,
+      "real_time_s": 0.09733176231384277,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host on write data"
     },
     {
       "name": "doubled_latency_read_returns_correct_data",
       "status": "failed",
-      "sim_time_ns": 5466.64599999995,
-      "real_time_s": 0.1356067657470703,
+      "sim_time_ns": 5446.64599999995,
+      "real_time_s": 0.08252286911010742,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host on write data"
     },
     {
       "name": "doubled_latency_write_is_correct",
       "status": "failed",
-      "sim_time_ns": 5566.64599999995,
-      "real_time_s": 0.12972378730773926,
+      "sim_time_ns": 5546.64599999995,
+      "real_time_s": 0.11474490165710449,
       "error_type": "AssertionError",
       "error_message": "DQ must be driven by the host on write data"
     },
     {
       "name": "no_calibration_port_or_status_bit",
-      "status": "failed",
-      "sim_time_ns": 5385.0,
-      "real_time_s": 0.059599876403808594,
-      "error_type": "AssertionError",
-      "error_message": "cfg 4: 0x0024 has bits set outside documented field 0x000f"
+      "status": "passed",
+      "sim_time_ns": 5376.0,
+      "real_time_s": 0.12837815284729004
     },
     {
       "name": "one_ack_per_accepted_beat_and_none_unasked",
       "status": "passed",
-      "sim_time_ns": 7620.0,
-      "real_time_s": 0.14799141883850098
+      "sim_time_ns": 7600.0,
+      "real_time_s": 0.267780065536499
     },
     {
       "name": "stall_back_pressures_and_data_is_not_lost",
       "status": "failed",
-      "sim_time_ns": 6720.0,
-      "real_time_s": 0.14882826805114746,
+      "sim_time_ns": 6700.0,
+      "real_time_s": 0.16297173500061035,
       "error_type": "AssertionError",
       "error_message": null
     },
     {
       "name": "pipelined_reads_overlap",
       "status": "failed",
-      "sim_time_ns": 6820.0,
-      "real_time_s": 0.12759923934936523,
+      "sim_time_ns": 6800.0,
+      "real_time_s": 0.16355395317077637,
       "error_type": "AssertionError",
       "error_message": "[0, 0, 0, 0]"
     },
     {
       "name": "dropping_cyc_does_not_cancel_an_accepted_beat",
       "status": "failed",
-      "sim_time_ns": 6500.0,
-      "real_time_s": 0.07750630378723145,
+      "sim_time_ns": 6480.0,
+      "real_time_s": 0.10434699058532715,
       "error_type": "AssertionError",
-      "error_message": "device-model violations:\n  tCK @ 1032259.2 ns: half period 9.0 ns\n  tCK @ 1032279.2 ns: half period 9.0 ns\n  tCK @ 1032299.2 ns: half period 9.0 ns\n  tCK @ 1032319.2 ns: half period 9.0 ns\n  tCK @ 1032339.2 ns: half period 9.0 ns\n  tCK @ 1032359.2 ns: half period 9.0 ns\n  tCK @ 1032379.2 ns: half period 9.0 ns"
+      "error_message": "device-model violations:\n  tCK @ 1031551.2 ns: half period 9.0 ns\n  tCK @ 1031571.2 ns: half period 9.0 ns\n  tCK @ 1031591.2 ns: half period 9.0 ns\n  tCK @ 1031611.2 ns: half period 9.0 ns\n  tCK @ 1031631.2 ns: half period 9.0 ns\n  tCK @ 1031651.2 ns: half period 9.0 ns\n  tCK @ 1031671.2 ns: half period 9.0 ns"
     },
     {
       "name": "reads_see_earlier_writes_in_order",
       "status": "failed",
-      "sim_time_ns": 8120.0,
-      "real_time_s": 0.1902313232421875,
+      "sim_time_ns": 8100.0,
+      "real_time_s": 0.19444775581359863,
       "error_type": "AssertionError",
       "error_message": null
     },
     {
       "name": "long_write_burst_with_random_host_gaps",
       "status": "failed",
-      "sim_time_ns": 13160.0,
-      "real_time_s": 0.31941890716552734,
+      "sim_time_ns": 13140.0,
+      "real_time_s": 0.4494342803955078,
       "error_type": "AssertionError",
       "error_message": "rep 0 n 33"
     },
     {
       "name": "long_read_burst_with_random_host_gaps",
       "status": "failed",
-      "sim_time_ns": 19420.0,
-      "real_time_s": 0.8302786350250244,
+      "sim_time_ns": 19400.0,
+      "real_time_s": 1.0438709259033203,
       "error_type": "AssertionError",
       "error_message": "burst at 0 n 40"
     },
     {
       "name": "burst_longer_than_cs_low_budget_loses_nothing",
       "status": "failed",
-      "sim_time_ns": 14900.0,
-      "real_time_s": 0.784761905670166,
+      "sim_time_ns": 14880.0,
+      "real_time_s": 0.9088695049285889,
       "error_type": "AssertionError",
       "error_message": null
     },
     {
       "name": "non_sequential_beats_start_new_transactions",
       "status": "failed",
-      "sim_time_ns": 6160.0,
-      "real_time_s": 0.10266947746276855,
+      "sim_time_ns": 6140.0,
+      "real_time_s": 0.17766261100769043,
       "error_type": "AssertionError",
       "error_message": null
     }
@@ -358,19 +356,19 @@
     "results_xml": {
       "path": "flow/.klt/functional-verification/results_icarus.xml",
       "scope": "repo",
-      "sha256": "sha256:7c74ed8614ffa857385080e115353967adf3ec45d1c1e6dd5ca0703c215fc6af"
+      "sha256": "sha256:19a823626bff3b15183575f017b31530362ba60997eaeda74657bafb15f9be46"
     },
     "test_log": {
       "path": "flow/.klt/functional-verification/test_icarus.log",
       "scope": "repo",
-      "sha256": "sha256:ac42407cb618d9fbe3d0e27fa0fa731cd0af94c0fba5f3e1a27b361ee7171cea"
+      "sha256": "sha256:ad697bbbc7479217fd17095e876575fa2c72ffae9bdde55aef16bd91448930f5"
     },
     "build_log": {
       "path": "flow/.klt/functional-verification/build_icarus.log",
       "scope": "repo",
       "sha256": "sha256:32d6de3225d3f08f0c91005c16e7243ed9d30ca69a886896b912472a4d51e5fb"
     },
-    "random_seed": 1795438323,
+    "random_seed": 1795438673,
     "source_defines": {},
     "env": {
       "HRBENCH_SAMPLE_NS": "0"

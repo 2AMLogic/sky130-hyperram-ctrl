@@ -66,6 +66,22 @@ hyperram-check:
 hyperram-sta:
 	python3 flow/hyperram.py sta
 
+# klt sta in def+spef mode on the routed DEF/SPEF at all 16 shipped corners with
+# BOTH clocks declared (clk primary, hb_rwds_i the RWDS strobe, propagated;
+# issue #172), run twice: clocks related, then asynchronous clock_groups --
+# both readings provisional pending #2 (C4). ~25 min per request; needs
+# OpenROAD + the pinned PDK (PDK_ROOT). Negative in-window slack is a filed
+# finding, not a gate. Not a prerequisite of anything.
+hyperram-sta-postroute:
+	python3 flow/hyperram.py sta-postroute
+
+# cheap freshness check: request/DEF/SPEF hashes vs the committed records
+# (CI runs this one; the STA itself is local_only)
+hyperram-sta-postroute-check:
+	python3 flow/hyperram.py sta-postroute-check
+
+.PHONY: hyperram-sta-postroute hyperram-sta-postroute-check
+
 .PHONY: layout layout-check
 
 # klt place-and-route (50 MHz, PDN + tapcells) on the committed netlist; ~25 min.
@@ -106,3 +122,30 @@ post-route-sdf:
 
 post-route-verify:
 	python3 flow/post_route.py verify
+
+.PHONY: ck-trace ck-trace-gl0
+
+# Issue #187 (item 7 follow-up): the post-route CK/CA pin-waveform trace bench
+# (sim/hyperram/ck_trace_tb.v, one CR0 register write + one memory read) on the
+# routed netlist. ck-trace runs it SDF-annotated on the committed post-route
+# SDF; ck-trace-gl0 with the zero-delay FUNCTIONAL stand-ins (the PR #188
+# configuration). The $monitor transcript each writes beside the request is the
+# evidence sim/hyperram/records/CK-TRACE.md is derived from; the run itself is
+# pass_marker-gated (TRACE_OK), never a functional verdict. local_only: needs
+# Icarus >= 13 + PDK.
+CK_PDK_ROOT = $(or $(PDK_ROOT),$(HOME)/.ciel)
+
+# The request files carry an @PDK_ROOT@ placeholder (never a host path); render
+# them against $(CK_PDK_ROOT) into flow/.klt/, re-anchoring the relative ../
+# source paths one directory down (the pinned klt has no --base-dir).
+ck-trace:
+	@mkdir -p flow/.klt/ck-trace
+	sed -e 's#@PDK_ROOT@#$(CK_PDK_ROOT)#' -e 's#"../#"../../#' flow/functional-verification-ck-trace.json > flow/.klt/ck-trace.request.json
+	scripts/klt.sh functional-verification flow/.klt/ck-trace.request.json --format json --outdir flow/.klt/ck-trace > /dev/null
+	@echo "transcript: flow/.klt/ck-trace/test_icarus.log"
+
+ck-trace-gl0:
+	@mkdir -p flow/.klt/ck-trace-gl0
+	sed -e 's#@PDK_ROOT@#$(CK_PDK_ROOT)#' -e 's#"../#"../../#' flow/functional-verification-ck-trace-gl0.json > flow/.klt/ck-trace-gl0.request.json
+	scripts/klt.sh functional-verification flow/.klt/ck-trace-gl0.request.json --format json --outdir flow/.klt/ck-trace-gl0 > /dev/null
+	@echo "transcript: flow/.klt/ck-trace-gl0/test_icarus.log"

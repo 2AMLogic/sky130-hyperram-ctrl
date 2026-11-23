@@ -1,0 +1,24 @@
+{
+  "schema": "klt.functional_verification.request/1",
+  "engine": "icarus",
+  "sources": [
+    "../sim/hyperram/ck_trace_tb.v",
+    "../layout/records/hyperram_ctrl.routed.v",
+    "@PDK_ROOT@/sky130A/libs.ref/sky130_fd_sc_hd/verilog/primitives.v",
+    "@PDK_ROOT@/sky130A/libs.ref/sky130_fd_sc_hd/verilog/sky130_fd_sc_hd.v"
+  ],
+  "hdl_toplevel": "hyperram_ctrl",
+  "options": {
+    "defines": {
+      "FUNCTIONAL": null
+    },
+    "build_args": [
+      "-DUNIT_DELAY=#0"
+    ]
+  },
+  "testbench": {
+    "verilog_top": "ck_trace_tb",
+    "pass_marker": "TRACE_OK",
+    "fail_marker": "TRACE_FAIL"
+  }
+}

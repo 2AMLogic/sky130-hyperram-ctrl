@@ -21,6 +21,8 @@
 #   6. the committed klt drc report is bound to the cited GDS and deck (--check, no rerun)
 #   6b. the committed SDF-annotated post-layout evidence (report checksums,
 #       SDF vs its producing klt sta response) is fresh -- no simulator needed
+#   6c. the post-route STA records match the current requests, DEF and SPEF
+#       (self-tested first so `sta-postroute-note` cannot re-stamp stale inputs)
 #   7. the committed klt signoff record equals a fresh render of the manifest
 #   (the --help assertion for the two shell drivers runs as step 2b, beside
 #    the other tool-free gates; the delay-chain derivation unit check runs as
@@ -191,6 +193,17 @@ echo "== 6b/7 post-route SDF evidence is fresh =="
 # standing between a stale SDF run and a green CI.
 python3 -I scripts/check_sdf_evidence.py --self-test
 python3 -I scripts/check_sdf_evidence.py
+
+echo "== 6c/7 post-route STA record is fresh =="
+# The multi-corner post-route STA itself is local_only (needs OpenROAD + PDK;
+# `make hyperram-sta-postroute`); CI re-derives only its input binding: the
+# DEF against each response's own provenance hash, and the DEF/SPEF/request
+# hashes against the marker line minted by `sta-postroute` in STA-postroute.md,
+# the way layout-check gates the place-and-route response (issue #172).
+# Self-tested first over fixture trees so `sta-postroute-note` cannot overwrite
+# stale SPEF or request provenance and mask a needed STA rerun.
+python3 -I flow/hyperram.py sta-postroute-check --self-test
+python3 -I flow/hyperram.py sta-postroute-check
 
 echo "== 7/7 klt signoff record is fresh =="
 fresh="$(mktemp)"

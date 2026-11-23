@@ -5,7 +5,7 @@
   "tier": null,
   "t1_item_count": 11,
   "build_t1_item_count": 11,
-  "t1_met_count": 7,
+  "t1_met_count": 6,
   "source_doc": "docs/design-evidence-tiers.md",
   "source_doc_content_hash": "sha256:d9287ec9dc6107e560e00b1a8b7a670f757722713b5c651dee3d2cbde058490a",
   "build": {
@@ -364,33 +364,17 @@
       "partition": null,
       "text": "every claimed measurement's testbench committed, with a documented cold-start invocation a third party can run; pinned PDK revision.",
       "notes": [],
-      "status": "met",
-      "reason": null,
+      "status": "unmet",
+      "reason": "stale_evidence",
       "graded_by_build": true,
-      "citation": {
-        "file": "evidence/item9.json",
-        "command": null,
-        "kind": "generic",
-        "check_status": "pass",
-        "content_hash": "sha256:cc2aaf4222f472e6bfd4e51c84be82d5d40ac93b902b99167568e222f54b5893",
-        "input_verified": true,
-        "exit_status": 0,
-        "artifact_binding": {
-          "t1_item": 9,
-          "path": {
-            "path": "attest/item9.json",
-            "scope": "repo"
-          },
-          "content_hash": "sha256:cc2aaf4222f472e6bfd4e51c84be82d5d40ac93b902b99167568e222f54b5893",
-          "input_verified": true,
-          "summary": "T1 item 9 (Testbenches shipped): 28/28 attestation checks passed (klt signoff --attest)",
-          "source": "attest/item9.json",
-          "attestation": {
-            "producer": "klt signoff --attest",
-            "inventory_schema_version": 1,
-            "check_count": 28,
-            "passed_count": 28
-          }
+      "citation": null,
+      "detail": {
+        "content_hash_pin": "stale",
+        "hash_check": {
+          "field": "provenance.input.content_hash",
+          "expected": "sha256:6d40239a82033ed0d374146a10adc509c962c8407cb989ad895ab7835bec84b1",
+          "actual": "sha256:cc2aaf4222f472e6bfd4e51c84be82d5d40ac93b902b99167568e222f54b5893",
+          "match": false
         }
       }
     },
