@@ -3,6 +3,28 @@
 Chronological record of merged PRs and closed issues, newest first.
 Maintained by the Guide triage role; entries are append-only.
 
+### 2026-11-23
+
+- **PR #202**: fix: sample on the annotated CK pin edge in the ctrl bench
+- **PR #198**: chore: drop the vendored tier doc; the pinned klt selects the checklist
+- **PR #195**: fix: bind the SDF gate to the DEF it was produced from
+- **PR #194**: docs: name the partial SDF annotation beside ROADMAP item 7's done-criterion
+- **PR #188**: verify: SDF-annotated post-route bench run (T1 item 7 probe) — CK-path finding, design iteration filed
+- **PR #183**: docs: point environment.md pins at their defining scripts
+- **PR #175**: data: regenerate the layout-chain records and GL report at klt 0.9.2
+- **Issue #199** (closed): Bench pad-sample position (+5 ns after each CK edge) double-counts the real CK delay under SDF annotation
+- **Issue #190** (closed): ROADMAP item-7 completion criterion does not name the partial SDF annotation (504 TIMINGCHECK entries dropped)
+- **Issue #189** (closed): Item-7 SDF freshness gate does not bind the SDF to the DEF it was produced from
+- **Issue #171** (closed): T1 item 7 (Post-layout verification): SDF-annotated run of the controller benches on the post-route netlist
+- **Issue #170** (closed): Bump the klayout-tools pin 0.8.0 -> 0.9.2 and regenerate the records and signoff render under it
+- **Issue #103** (closed): Stop restating six toolchain pins in docs/environment.md: a hand-maintained copy nothing checks
+- **Issue #84** (closed): Remove vendored design-evidence-tiers.md: the pinned klt wheel ships a byte-identical copy
+
+### 2026-11-22
+
+- **PR #180**: check: build the yosys-gate fixture's python3 as a real venv
+- **Issue #178** (closed): Use a temporary venv for the pinned-Yosys test fixture
+
 ### 2026-11-18
 
 - **PR #168**: docs: remove un-closed Issue #101 entry from WORK_LOG
