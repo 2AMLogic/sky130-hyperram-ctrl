@@ -35,7 +35,7 @@ Also in the tree, outside the tier record:
   zero delay (`make -C verification/ctrl GL=1`, #59, PR #60).
 - The SDF-annotated post-route run exists (#171): `klt sta` on the committed
   DEF + SPEF wrote `layout/records/hyperram_ctrl.tt_025C_1v80.sdf`, and the
-  same benches with that SDF back-annotated on the routed netlist fail 40/43
+  same benches with that SDF back-annotated on the routed netlist fail 39/43
   (`make -C verification/ctrl sdf`; the bench samples on the annotated CK
   pin edge — #199 fixed the +5 ns stand-in offset double-counting the tap
   delay, so the six CA bytes now decode and the probe transactions deliver
@@ -141,7 +141,7 @@ As of the header sha above; live label state is
   setup and hold margin at the capturing flop against the row-12 figure.
 - **Item 7, post-layout verification.** The probe landed (#171): the SDF from
   the committed DEF + SPEF exists in `layout/records/` with its producing STA
-  response, and the annotated bench run is recorded — it fails 40/43 now
+  response, and the annotated bench run is recorded — it fails 39/43 now
   that the bench samples on the annotated CK pin edge (#199) instead of
   double-counting the tap-3 CK delay, so item 7 stays `unmet` with the
   failing report cited. What remains is the CK-duty interpretation and model
