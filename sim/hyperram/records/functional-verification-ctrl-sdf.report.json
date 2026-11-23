@@ -1,0 +1,567 @@
+{
+  "schema_version": 2,
+  "engine": "icarus",
+  "hdl_toplevel": "hyperram_ctrl",
+  "testbench": "test_all",
+  "status": "fail",
+  "test_count": 43,
+  "passed_count": 0,
+  "failed_count": 43,
+  "skipped_count": 0,
+  "tests": [
+    {
+      "name": "random_traffic_scoreboard",
+      "status": "failed",
+      "sim_time_ns": 805580.0,
+      "real_time_s": 10.71303939819336,
+      "error_type": "AssertionError",
+      "error_message": "transfer timed out: issued 5/24, acked 0"
+    },
+    {
+      "name": "ca_is_six_bytes_and_decodes",
+      "status": "failed",
+      "sim_time_ns": 5362.652000000002,
+      "real_time_s": 0.0642082691192627,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "ca_address_bits_walk",
+      "status": "failed",
+      "sim_time_ns": 5362.652000000002,
+      "real_time_s": 0.06190681457519531,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "ca_register_space_bit",
+      "status": "failed",
+      "sim_time_ns": 5362.652000000002,
+      "real_time_s": 0.060564517974853516,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "ca_spans_three_ck_cycles",
+      "status": "failed",
+      "sim_time_ns": 5400.0,
+      "real_time_s": 0.06298422813415527,
+      "error_type": "AssertionError",
+      "error_message": "device-model violations:\n  tCK @ 826994.6 ns: half period 9.0 ns\n  tCK @ 827014.6 ns: half period 9.0 ns\n  burst_type @ 827025.6 ns: wrapped burst requested; only linear is modelled\n  tCK @ 827034.6 ns: half period 9.0 ns"
+    },
+    {
+      "name": "variable_latency_normal",
+      "status": "failed",
+      "sim_time_ns": 5422.652000000002,
+      "real_time_s": 0.05648970603942871,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "doubling_decision_at_the_pins",
+      "status": "failed",
+      "sim_time_ns": 5422.652000000002,
+      "real_time_s": 0.05782294273376465,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "variable_latency_doubled_by_rwds",
+      "status": "failed",
+      "sim_time_ns": 5422.652000000002,
+      "real_time_s": 0.06282448768615723,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "fixed_latency_configuration",
+      "status": "failed",
+      "sim_time_ns": 5460.0,
+      "real_time_s": 0.06618332862854004,
+      "error_type": "AssertionError",
+      "error_message": null
+    },
+    {
+      "name": "controller_latency_shorter_than_device_is_caught",
+      "status": "failed",
+      "sim_time_ns": 5422.652000000002,
+      "real_time_s": 0.05776262283325195,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "clamp_below_four",
+      "status": "failed",
+      "sim_time_ns": 5422.652000000002,
+      "real_time_s": 0.058203935623168945,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "linear_bursts_of_many_lengths",
+      "status": "failed",
+      "sim_time_ns": 5422.652000000002,
+      "real_time_s": 0.05748462677001953,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "single_word_register_style_beat_at_odd_addresses",
+      "status": "failed",
+      "sim_time_ns": 5362.652000000002,
+      "real_time_s": 0.056362152099609375,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "burst_is_one_transaction_when_it_fits",
+      "status": "failed",
+      "sim_time_ns": 5422.652000000002,
+      "real_time_s": 0.0575406551361084,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "every_byte_lane_pattern",
+      "status": "failed",
+      "sim_time_ns": 5362.652000000002,
+      "real_time_s": 0.056844234466552734,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "mask_inside_a_burst",
+      "status": "failed",
+      "sim_time_ns": 5362.652000000002,
+      "real_time_s": 0.0573122501373291,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "register_writes_are_not_masked",
+      "status": "failed",
+      "sim_time_ns": 5400.0,
+      "real_time_s": 0.05782604217529297,
+      "error_type": "AssertionError",
+      "error_message": null
+    },
+    {
+      "name": "read_id_and_config_registers",
+      "status": "failed",
+      "sim_time_ns": 5362.652000000002,
+      "real_time_s": 0.06058907508850098,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "write_then_read_back_register",
+      "status": "failed",
+      "sim_time_ns": 5400.0,
+      "real_time_s": 0.06297516822814941,
+      "error_type": "AssertionError",
+      "error_message": null
+    },
+    {
+      "name": "read_only_register_ignores_write",
+      "status": "failed",
+      "sim_time_ns": 5582.652000000002,
+      "real_time_s": 0.06313061714172363,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "register_access_does_not_touch_memory",
+      "status": "failed",
+      "sim_time_ns": 5362.652000000002,
+      "real_time_s": 0.05628824234008789,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "interval_is_honoured_and_pads_quiet",
+      "status": "failed",
+      "sim_time_ns": 5422.652000000002,
+      "real_time_s": 0.057828664779663086,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "interval_is_a_register",
+      "status": "failed",
+      "sim_time_ns": 322.65200000000186,
+      "real_time_s": 0.01586771011352539,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "too_short_interval_is_flagged_by_the_model",
+      "status": "failed",
+      "sim_time_ns": 322.65200000000186,
+      "real_time_s": 0.015183210372924805,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "long_bursts_are_split_and_never_exceed_tcsm",
+      "status": "failed",
+      "sim_time_ns": 5422.652000000002,
+      "real_time_s": 0.06256937980651855,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "margin_holds_across_tcsm_and_latency",
+      "status": "failed",
+      "sim_time_ns": 5482.652000000002,
+      "real_time_s": 0.05976128578186035,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "margin_is_tight_not_loose",
+      "status": "failed",
+      "sim_time_ns": 5482.652000000002,
+      "real_time_s": 0.05957961082458496,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "negative_control_limit_disabled_is_flagged",
+      "status": "failed",
+      "sim_time_ns": 5422.652000000002,
+      "real_time_s": 0.05802607536315918,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "budget_too_small_sets_status_bit",
+      "status": "failed",
+      "sim_time_ns": 5422.652000000002,
+      "real_time_s": 0.057100534439086914,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "doubles_only_when_rwds_high",
+      "status": "failed",
+      "sim_time_ns": 5422.652000000002,
+      "real_time_s": 0.05751466751098633,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "sampling_is_independent_of_rwds_skew_after_ck",
+      "status": "failed",
+      "sim_time_ns": 5482.652000000002,
+      "real_time_s": 0.07048225402832031,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "doubled_latency_read_returns_correct_data",
+      "status": "failed",
+      "sim_time_ns": 5422.652000000002,
+      "real_time_s": 0.05883526802062988,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "doubled_latency_write_is_correct",
+      "status": "failed",
+      "sim_time_ns": 5422.651999999885,
+      "real_time_s": 0.058370113372802734,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "no_calibration_port_or_status_bit",
+      "status": "failed",
+      "sim_time_ns": 5385.0,
+      "real_time_s": 0.05451655387878418,
+      "error_type": "AssertionError",
+      "error_message": "cfg 4: 0x0024 has bits set outside documented field 0x000f"
+    },
+    {
+      "name": "one_ack_per_accepted_beat_and_none_unasked",
+      "status": "failed",
+      "sim_time_ns": 5522.652000000002,
+      "real_time_s": 0.061942338943481445,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "stall_back_pressures_and_data_is_not_lost",
+      "status": "failed",
+      "sim_time_ns": 5422.652000000002,
+      "real_time_s": 0.05765485763549805,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "pipelined_reads_overlap",
+      "status": "failed",
+      "sim_time_ns": 5422.652000000002,
+      "real_time_s": 0.05833792686462402,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "dropping_cyc_does_not_cancel_an_accepted_beat",
+      "status": "failed",
+      "sim_time_ns": 5422.652000000002,
+      "real_time_s": 0.05890321731567383,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "reads_see_earlier_writes_in_order",
+      "status": "failed",
+      "sim_time_ns": 5422.652000000002,
+      "real_time_s": 0.062407493591308594,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "long_write_burst_with_random_host_gaps",
+      "status": "failed",
+      "sim_time_ns": 5442.652000000002,
+      "real_time_s": 0.057530879974365234,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "long_read_burst_with_random_host_gaps",
+      "status": "failed",
+      "sim_time_ns": 5422.652000000002,
+      "real_time_s": 0.05739855766296387,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "burst_longer_than_cs_low_budget_loses_nothing",
+      "status": "failed",
+      "sim_time_ns": 5422.652000000002,
+      "real_time_s": 0.05774092674255371,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    },
+    {
+      "name": "non_sequential_beats_start_new_transactions",
+      "status": "failed",
+      "sim_time_ns": 5422.652000000002,
+      "real_time_s": 0.05694222450256348,
+      "error_type": "AssertionError",
+      "error_message": "DQ must be driven by the host during CA"
+    }
+  ],
+  "coverage": null,
+  "trace": null,
+  "environment": {
+    "engine": "icarus",
+    "engine_version": "13.0",
+    "tools": [],
+    "cocotb_version": "2.0.1",
+    "results_xml": {
+      "path": "flow/.klt/functional-verification/results_icarus.xml",
+      "scope": "repo",
+      "sha256": "sha256:5068a05e26c870cb5d37f123e1ae8e898644ee60342831295089a2545b47ee73"
+    },
+    "test_log": {
+      "path": "flow/.klt/functional-verification/test_icarus.log",
+      "scope": "repo",
+      "sha256": "sha256:41ba4735b9afe32c600e53c2210c2d3535dadf3246a335dd412d59a7d2c84315"
+    },
+    "build_log": {
+      "path": "flow/.klt/functional-verification/build_icarus.log",
+      "scope": "repo",
+      "sha256": "sha256:32d6de3225d3f08f0c91005c16e7243ed9d30ca69a886896b912472a4d51e5fb"
+    },
+    "random_seed": 1795405540,
+    "source_defines": {},
+    "env": {},
+    "initial_state": null,
+    "sdf": {
+      "file": "/home/ubuntu/GitHub/sky130-hyperram-ctrl/.loom/worktrees/issue-171/layout/records/hyperram_ctrl.tt_025C_1v80.sdf",
+      "corner": "typ",
+      "entries": "all",
+      "annotated": true,
+      "partial": true,
+      "dropped": {
+        "timingcheck": {
+          "count": 504,
+          "reason": "Icarus Verilog implements SDF delay annotation (IOPATH/INTERCONNECT) but not SDF TIMINGCHECK -- every TIMINGCHECK section in the SDF is dropped, so $setup/$hold/$width checks run against the cell library's own placeholder timing, not the characterised limits in the SDF"
+        },
+        "zero_delay_bus_port_source_interconnect": {
+          "count": 208,
+          "reason": "Icarus Verilog can fail to insert an intermodpath for an INTERCONNECT entry whose source is a bit-selected top-level input port -- such an entry fails with 'Could not find intermodpath!'. Entries whose every min:typ:max delay value is zero model no delay at any corner, so they are removed before annotation and counted here instead of failing the run -- a non-zero-delay entry on the same source is left in place and still fails loudly"
+        },
+        "zero_delay_physical_only_interconnect": {
+          "count": 20,
+          "reason": "Icarus Verilog cannot insert an intermodpath for an INTERCONNECT entry that runs from a bit-selected top-level input port onto a pin of a physical-only instance (a router-inserted antenna diode, or a filler/tapcell whose model carries no timing) -- such an entry fails with 'Could not find intermodpath!'. The destination's elaborated model has no specify block and no output pin at all, so there is no modpath the entry could ever annotate and no logic that observes the pin; entries whose every min:typ:max delay value is zero are therefore removed before annotation and counted here instead of failing the run -- a non-zero-delay entry on the same destination is left in place and still fails loudly"
+        }
+      },
+      "renamed": [
+        {
+          "from": "u_cap/u_rwds_dly/g_dly[0].u_dly",
+          "to": "u_cap_u_rwds_dly_g_dly_0__u_dly"
+        },
+        {
+          "from": "u_cap/u_rwds_dly/g_dly[10].u_dly",
+          "to": "u_cap_u_rwds_dly_g_dly_10__u_dly"
+        },
+        {
+          "from": "u_cap/u_rwds_dly/g_dly[11].u_dly",
+          "to": "u_cap_u_rwds_dly_g_dly_11__u_dly"
+        },
+        {
+          "from": "u_cap/u_rwds_dly/g_dly[12].u_dly",
+          "to": "u_cap_u_rwds_dly_g_dly_12__u_dly"
+        },
+        {
+          "from": "u_cap/u_rwds_dly/g_dly[13].u_dly",
+          "to": "u_cap_u_rwds_dly_g_dly_13__u_dly"
+        },
+        {
+          "from": "u_cap/u_rwds_dly/g_dly[14].u_dly",
+          "to": "u_cap_u_rwds_dly_g_dly_14__u_dly"
+        },
+        {
+          "from": "u_cap/u_rwds_dly/g_dly[15].u_dly",
+          "to": "u_cap_u_rwds_dly_g_dly_15__u_dly"
+        },
+        {
+          "from": "u_cap/u_rwds_dly/g_dly[1].u_dly",
+          "to": "u_cap_u_rwds_dly_g_dly_1__u_dly"
+        },
+        {
+          "from": "u_cap/u_rwds_dly/g_dly[2].u_dly",
+          "to": "u_cap_u_rwds_dly_g_dly_2__u_dly"
+        },
+        {
+          "from": "u_cap/u_rwds_dly/g_dly[3].u_dly",
+          "to": "u_cap_u_rwds_dly_g_dly_3__u_dly"
+        },
+        {
+          "from": "u_cap/u_rwds_dly/g_dly[4].u_dly",
+          "to": "u_cap_u_rwds_dly_g_dly_4__u_dly"
+        },
+        {
+          "from": "u_cap/u_rwds_dly/g_dly[5].u_dly",
+          "to": "u_cap_u_rwds_dly_g_dly_5__u_dly"
+        },
+        {
+          "from": "u_cap/u_rwds_dly/g_dly[6].u_dly",
+          "to": "u_cap_u_rwds_dly_g_dly_6__u_dly"
+        },
+        {
+          "from": "u_cap/u_rwds_dly/g_dly[7].u_dly",
+          "to": "u_cap_u_rwds_dly_g_dly_7__u_dly"
+        },
+        {
+          "from": "u_cap/u_rwds_dly/g_dly[8].u_dly",
+          "to": "u_cap_u_rwds_dly_g_dly_8__u_dly"
+        },
+        {
+          "from": "u_cap/u_rwds_dly/g_dly[9].u_dly",
+          "to": "u_cap_u_rwds_dly_g_dly_9__u_dly"
+        },
+        {
+          "from": "u_out/g_ddr_dq[0].u_ddr_dq",
+          "to": "u_out_g_ddr_dq_0__u_ddr_dq"
+        },
+        {
+          "from": "u_out/g_ddr_dq[1].u_ddr_dq",
+          "to": "u_out_g_ddr_dq_1__u_ddr_dq"
+        },
+        {
+          "from": "u_out/g_ddr_dq[2].u_ddr_dq",
+          "to": "u_out_g_ddr_dq_2__u_ddr_dq"
+        },
+        {
+          "from": "u_out/g_ddr_dq[3].u_ddr_dq",
+          "to": "u_out_g_ddr_dq_3__u_ddr_dq"
+        },
+        {
+          "from": "u_out/g_ddr_dq[4].u_ddr_dq",
+          "to": "u_out_g_ddr_dq_4__u_ddr_dq"
+        },
+        {
+          "from": "u_out/g_ddr_dq[5].u_ddr_dq",
+          "to": "u_out_g_ddr_dq_5__u_ddr_dq"
+        },
+        {
+          "from": "u_out/g_ddr_dq[6].u_ddr_dq",
+          "to": "u_out_g_ddr_dq_6__u_ddr_dq"
+        },
+        {
+          "from": "u_out/g_ddr_dq[7].u_ddr_dq",
+          "to": "u_out_g_ddr_dq_7__u_ddr_dq"
+        },
+        {
+          "from": "u_out/u_ck_dly/g_dly[0].u_dly",
+          "to": "u_out_u_ck_dly_g_dly_0__u_dly"
+        },
+        {
+          "from": "u_out/u_ck_dly/g_dly[10].u_dly",
+          "to": "u_out_u_ck_dly_g_dly_10__u_dly"
+        },
+        {
+          "from": "u_out/u_ck_dly/g_dly[11].u_dly",
+          "to": "u_out_u_ck_dly_g_dly_11__u_dly"
+        },
+        {
+          "from": "u_out/u_ck_dly/g_dly[12].u_dly",
+          "to": "u_out_u_ck_dly_g_dly_12__u_dly"
+        },
+        {
+          "from": "u_out/u_ck_dly/g_dly[13].u_dly",
+          "to": "u_out_u_ck_dly_g_dly_13__u_dly"
+        },
+        {
+          "from": "u_out/u_ck_dly/g_dly[14].u_dly",
+          "to": "u_out_u_ck_dly_g_dly_14__u_dly"
+        },
+        {
+          "from": "u_out/u_ck_dly/g_dly[15].u_dly",
+          "to": "u_out_u_ck_dly_g_dly_15__u_dly"
+        },
+        {
+          "from": "u_out/u_ck_dly/g_dly[1].u_dly",
+          "to": "u_out_u_ck_dly_g_dly_1__u_dly"
+        },
+        {
+          "from": "u_out/u_ck_dly/g_dly[2].u_dly",
+          "to": "u_out_u_ck_dly_g_dly_2__u_dly"
+        },
+        {
+          "from": "u_out/u_ck_dly/g_dly[3].u_dly",
+          "to": "u_out_u_ck_dly_g_dly_3__u_dly"
+        },
+        {
+          "from": "u_out/u_ck_dly/g_dly[4].u_dly",
+          "to": "u_out_u_ck_dly_g_dly_4__u_dly"
+        },
+        {
+          "from": "u_out/u_ck_dly/g_dly[5].u_dly",
+          "to": "u_out_u_ck_dly_g_dly_5__u_dly"
+        },
+        {
+          "from": "u_out/u_ck_dly/g_dly[6].u_dly",
+          "to": "u_out_u_ck_dly_g_dly_6__u_dly"
+        },
+        {
+          "from": "u_out/u_ck_dly/g_dly[7].u_dly",
+          "to": "u_out_u_ck_dly_g_dly_7__u_dly"
+        },
+        {
+          "from": "u_out/u_ck_dly/g_dly[8].u_dly",
+          "to": "u_out_u_ck_dly_g_dly_8__u_dly"
+        },
+        {
+          "from": "u_out/u_ck_dly/g_dly[9].u_dly",
+          "to": "u_out_u_ck_dly_g_dly_9__u_dly"
+        }
+      ]
+    }
+  }
+}

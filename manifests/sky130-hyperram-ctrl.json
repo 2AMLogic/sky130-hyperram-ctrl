@@ -39,6 +39,10 @@
         "file": "layout/records/place-and-route.response.json",
         "content_hash": "sha256:0f03005ab04a2fc45365680d543d13e1742a8e4288228c28eb279b0b94e463d7"
       }
-    ]
+    ],
+    "7": {
+      "file": "sim/hyperram/records/functional-verification-ctrl-sdf.report.json",
+      "content_hash": "sha256:1d8cdb8416d290fd6fde0cbf98c68adfc4b10f3d5f92fa1de56a9133b0dd063b"
+    }
   }
 }
