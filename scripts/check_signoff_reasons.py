@@ -2,8 +2,9 @@
 """Assert no signoff-record item is graded `reason: "stale_evidence"`.
 
 Why this exists (issue #212). `klt signoff` legitimately exits 3 whenever any
-T1 item is unmet, so check_ci.sh step 7 accepts rc 0 or 3 and gates on bytes
-alone: a fresh render equal to the committed record passes. But a stale
+T1 item is unmet, so the `klt signoff record is fresh` gate in check_ci.sh
+accepts rc 0 or 3 and gates on bytes alone: a fresh render equal to the
+committed record passes. But a stale
 manifest pin -- an attested inventory or envelope regenerated without
 copying the new `provenance.input.content_hash` into the item's
 `evidence."N".content_hash` pin -- downgrades a previously-met T1 item to
@@ -22,7 +23,8 @@ never a legitimate resting state -- it is always a pin that must be
 refreshed (or an envelope that must be re-produced) before the record may
 be committed.
 
-  scripts/check_signoff_reasons.py RECORD [RECORD ...]   check record(s) (CI step 7)
+  scripts/check_signoff_reasons.py RECORD [RECORD ...]   check record(s) (the
+  `klt signoff record is fresh` gate in check_ci.sh)
   scripts/check_signoff_reasons.py --self-test           check this checker, on fixtures
 
 The self-test is here because this file is now the only thing standing
