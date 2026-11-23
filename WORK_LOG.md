@@ -5,6 +5,10 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-11-23
 
+- **Issue #193** (closed): No automated regression test for the runtime PDK_ROOT assertion in fleet-regen-layout.sh
+- **PR #219**: test: drive the fleet PDK_ROOT runtime guard over fixture shapes in CI
+- **Issue #215** (closed): Make sta()/sta-postroute note writers emit the canonical bytes their CI gates compare against
+- **PR #220**: fix: make STA record producers write explicit UTF-8 bytes
 - **Issue #114** (closed): Remove toolchain smoke flow: make smoke duplicates what the controller flow now exercises
 - **PR #216**: chore: remove the smoke flow the controller flow now covers
 - **Issue #103** (closed): Stop restating six toolchain pins in docs/environment.md: a hand-maintained copy nothing checks
