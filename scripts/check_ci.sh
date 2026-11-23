@@ -226,8 +226,9 @@ fi
 # previously-met T1 item to unmet/stale_evidence when the manifest's pinned
 # content_hash no longer matches the cited evidence, and a downgraded record
 # re-rendered and committed passes the cmp above by comparing to itself
-# (issue #212). The reason token is the discriminator -- klt 0.9.2 documents
-# thirty legitimate unmet reasons, so this reject-lists stale_evidence alone,
+# (issue #212). The reason token is the discriminator -- klt 0.9.2 defines
+# forty-eight `_REASON_*` tokens and the set grows release by release, so
+# this reject-lists stale_evidence alone,
 # self-tested first, over fixtures, because it is the only thing standing
 # between a silent T1 downgrade and a green CI. $RECORD is byte-equal to
 # $fresh here (the cmp above), so checking it checks both. Needs no klt

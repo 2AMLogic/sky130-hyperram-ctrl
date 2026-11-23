@@ -11,16 +11,28 @@ copying the new `provenance.input.content_hash` into the item's
 byte-compare compares the render to itself and CI stays green: a met T1 item
 silently dropped (`t1_met_count` 7 -> 6) with no failing check anywhere.
 
-The reason token is the discriminator. klt 0.9.2 documents thirty unmet
-reasons (`no_evidence`, `check_failed`, `tier_not_supported`, `wrong_kind`,
-...) and the vocabulary grows release by release, so this check reject-lists
-exactly one token -- an allow-list would break CI on every new legitimate
-klt reason (issue #212 curation). `"stale_evidence"` is klt's "the check
-passed, but its provenance.input.content_hash does not match the manifest's
-pinned content_hash": the pin and the cited evidence disagree, which is
-never a legitimate resting state -- it is always a pin that must be
-refreshed (or an envelope that must be re-produced) before the record may
-be committed.
+The reason token is the discriminator. klt 0.9.2 defines forty-eight
+`_REASON_*` tokens and the vocabulary grows release by release, so this
+check reject-lists exactly one token -- an allow-list would break CI on
+every new legitimate klt reason (issue #212 curation). `"stale_evidence"`
+is klt's "the check passed, but its provenance.input.content_hash does not
+match the manifest's pinned content_hash": the pin and the cited evidence
+disagree, which is never a legitimate resting state -- it is always a pin
+that must be refreshed (or an envelope that must be re-produced) before
+the record may be committed.
+
+`"unverifiable_provenance"` -- the nearest neighbour, where the resolved
+envelope records no input hash at all -- is deliberately NOT reject-listed
+(issue #214): klt 0.9.2 grades a passing `functional-verification`
+envelope `unmet`/`unverifiable_provenance` because that envelope kind
+carries no `provenance` block by design, and this repo's item 7 cites
+exactly such an envelope
+(`sim/hyperram/records/functional-verification-ctrl-sdf.report.json`;
+measured 2026-11-23 against the pinned wheel: no `provenance` key, and
+the committed record carries neither token). A passing run of that
+envelope rests there legitimately until re-produced by a
+provenance-recording producer; reject-listing the token would turn
+"item 7's sim passes" into a CI failure.
 
   scripts/check_signoff_reasons.py RECORD [RECORD ...]   check record(s) (CI step 7)
   scripts/check_signoff_reasons.py --self-test           check this checker, on fixtures
@@ -144,21 +156,38 @@ MAIN_SHAPED = [
     item(None, "T2 — signoff-validated", "unmet", "tier_not_supported"),
 ]
 
-#: One fixture entry per documented unmet reason that can legitimately rest
-#: in a committed record -- every token klt 0.9.2 emits except
-#: stale_evidence. Pins the reject-list: a token klt adds later must pass
-#: here without an edit, which an allow-list would not.
+#: Every `_REASON_*` constant value the pinned klt 0.9.2 wheel defines,
+#: except the reject-listed stale_evidence -- derived, not transcribed
+#: (issue #214): run against the klayout_tools==0.9.2 wheel scripts/klt.sh
+#: resolves (uv cache, klayout_tools/*.py),
+#:
+#:   grep -rhoE '_REASON_[A-Z_]+ *= *"[a-z_]+"' . | sed 's/.*= "//;s/"//' \
+#:     | sort -u | grep -v '^stale_evidence$'
+#:
+#: 47 tokens as of 2026-11-23. Pins the reject-list: each of these must
+#: pass, and a token klt adds later still passes without an edit (which an
+#: allow-list would not); re-derive when scripts/klt.sh's KLT_VERSION bumps.
 LEGITIMATE_REASONS = [
-    "no_evidence", "evidence_not_klt_native", "invalid_evidence",
-    "unreadable_evidence", "unrecognized_envelope", "envelope_version_skew",
-    "invalid_pointer", "command_timeout", "command_failed", "check_errored",
-    "check_failed", "unverifiable_provenance", "nothing_checked",
-    "no_limits_checked", "undersized_sample", "wrong_kind", "wrong_item",
-    "unanchored_evidence", "stale_artifact", "timing_margin_missing",
-    "ungradeable_by_build", "not_post_layout", "tier_not_supported",
-    "not_applicable_wrong_partition", "not_applicable_spec_unratified",
-    "not_applicable_statistical_row", "not_applicable_statement_incomplete",
-    "negative_control_not_detected", "partial_coverage",
+    "absent_input_layer", "check_errored", "check_failed",
+    "command_failed", "envelope_version_skew", "grid_not_representable",
+    "inapplicable_empty_checked_region", "invalid_evidence",
+    "invalid_pointer", "lef_power_pin_mismatch", "lef_power_pin_missing",
+    "lvs_did_not_pass", "lvs_supply_unproven",
+    "negative_control_not_detected", "no_applicable_geometry",
+    "no_edge_power_port", "no_evidence", "no_limits_checked", "no_pdn",
+    "no_tapcell_master", "not_applicable_spec_unratified",
+    "not_applicable_statement_incomplete",
+    "not_applicable_statistical_row", "not_applicable_wrong_partition",
+    "not_post_layout", "not_selected", "nothing_checked",
+    "partial_coverage", "power_delivery_parts_missing",
+    "power_port_interior_only", "power_port_layer_disallowed",
+    "power_port_unproven", "stale_artifact", "supply_not_continuous",
+    "supply_spec_disclosed_tool_limitation",
+    "supply_spec_disclosed_unexpressible", "supply_spec_incomplete",
+    "tier_not_supported", "timing_margin_missing", "unanchored_evidence",
+    "undersized_sample", "ungradeable_by_build", "unreadable_evidence",
+    "unrecognized_envelope", "unverifiable_provenance", "wrong_item",
+    "wrong_kind",
 ]
 
 
@@ -192,13 +221,14 @@ def self_test():
         record(got == [], "...and the same record passes once the pin is refreshed",
                f"got {got}")
 
-        # 3. Every other documented unmet reason passes: the reject-list is
-        #    stale_evidence alone, so a new klt token cannot break CI here.
+        # 3. Every other reason token klt 0.9.2 defines passes: the
+        #    reject-list is stale_evidence alone, so a new klt token cannot
+        #    break CI here.
         others = [item(i + 100, f"reason probe {i}", "unmet", r)
                   for i, r in enumerate(LEGITIMATE_REASONS)]
         got = stale_items({"items": others})
         record(got == [],
-               f"all {len(LEGITIMATE_REASONS)} other documented unmet reasons pass",
+               f"all {len(LEGITIMATE_REASONS)} other klt 0.9.2 reason tokens pass",
                f"got {got}")
 
         # 4. An id-less entry (a T2-T4 ladder row) is still caught, and the
