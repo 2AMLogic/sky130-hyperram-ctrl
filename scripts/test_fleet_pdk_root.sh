@@ -41,18 +41,18 @@
 # -- an external sibling whose name starts with the checkout directory's
 # name, the shared-prefix shape the prefix test must not over-reject.
 #
-# Refuses to run where /usr/local/bin is writable by the current user: the
-# fleet script's expose_klt_on_system_path would plant this fixture's stub
-# klt into it (harmless on an ephemeral runner, damage on a dev host).
+# One function of the copy is neutralised: expose_klt_on_system_path(), which
+# symlinks the PATH klt into /usr/local/bin when that is writable (CI runners,
+# not dev hosts). It runs before the guard and independently of it, and in
+# this fixture the klt is a throwaway stub -- left alone it would plant a
+# dangling /usr/local/bin/klt on the runner. Stubbing it keeps the fixture
+# host-agnostic and leaves the guard, ensure_pdk and the REPO_ROOT computation
+# (everything the two weakenings above touch) byte-for-byte production.
 set -euo pipefail
 
 REPO_ROOT="$(CDPATH='' cd -P -- "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
 
 fail() { echo "::error::test_fleet_pdk_root: $*" >&2; exit 1; }
-
-if [ -d /usr/local/bin ] && [ -w /usr/local/bin ]; then
-  fail "/usr/local/bin is writable by $(id -un): the fleet script's expose_klt_on_system_path would plant the fixture's stub klt into it"
-fi
 
 WORK="$(mktemp -d "${TMPDIR:-/tmp}/fleet-pdk-root-test.XXXXXXXX")"
 trap 'rm -rf "${WORK}"' EXIT
@@ -71,6 +71,17 @@ mkdir -p "${CHK}/scripts" "${STUB}" "${VENV_BIN}"
 cp "${REPO_ROOT}/scripts/fleet-regen-layout.sh" "${REPO_ROOT}/scripts/klt.sh" \
    "${REPO_ROOT}/scripts/setup-env.sh" "${CHK}/scripts/"
 chmod 755 "${CHK}/scripts/fleet-regen-layout.sh" "${CHK}/scripts/klt.sh"
+
+# The one deliberate deviation from verbatim (see the header): turn
+# expose_klt_on_system_path into a no-op in the copy by returning at its first
+# line. Fail loudly if the function is renamed so the stub silently stops
+# applying and the fixture starts writing to /usr/local/bin again.
+STUB_LINE='expose_klt_on_system_path() {'
+[ "$(grep -cFx -- "${STUB_LINE}" "${FLEET}")" -eq 1 ] \
+  || fail "fleet script no longer defines exactly one '${STUB_LINE}' -- update the fixture's stub"
+sed -i "s/^expose_klt_on_system_path() {\$/expose_klt_on_system_path() { return 0/" "${FLEET}"
+grep -qFx -- 'expose_klt_on_system_path() { return 0' "${FLEET}" \
+  || fail "could not neutralise expose_klt_on_system_path in the fixture copy"
 
 strip_quotes() { printf '%s' "${1//\"/}"; }
 KLT_PIN="$("${REPO_ROOT}/scripts/klt.sh" --pin)"
@@ -127,6 +138,11 @@ RC=0
 run_fleet() { # $1 = fleet script path, $2 = PDK_ROOT value
   RC=0
   OUT="$(env PATH="${STUB}:/usr/bin:/bin" PDK_ROOT="$2" "$1" 2>&1)" || RC=$?
+  # Proves the stub above held on a host where /usr/local/bin is writable (CI
+  # runners): the production function logs this line right after it links.
+  if printf '%s\n' "${OUT}" | grep -qF -- 'symlinked into /usr/local/bin'; then
+    fail "the fleet script touched /usr/local/bin: expose_klt_on_system_path stub did not apply"
+  fi
 }
 
 line_of() { printf '%s\n' "${OUT}" | grep -nF -- "$1" | head -1 | cut -d: -f1; }
