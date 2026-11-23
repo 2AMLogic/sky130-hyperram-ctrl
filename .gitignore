@@ -25,6 +25,8 @@ sim_build*/
 results.xml
 # local klt install, created by the setup script
 .venv/
+# daemon token-pool ranking state (machine-local, untracked in the main checkout)
+.loom/account-ranking.*
 # >>> loom-managed (do not edit) >>>
 # Loom runtime state (don't commit these)
 .loom-in-use

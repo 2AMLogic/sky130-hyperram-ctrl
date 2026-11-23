@@ -2,11 +2,12 @@
 """Assert no signoff-record item is graded `stale_evidence` or `unverifiable_provenance`.
 
 Why this exists (issues #212, #214). `klt signoff` legitimately exits 3
-whenever any T1 item is unmet, so check_ci.sh step 7 accepts rc 0 or 3 and
-gates on bytes alone: a fresh render equal to the committed record passes.
-But a downgraded record, once committed, is compared to itself and CI stays
-green: a met T1 item silently dropped (`t1_met_count` 7 -> 6) with no
-failing check anywhere. Two reason tokens are such downgrade vectors:
+whenever any T1 item is unmet, so the `klt signoff record is fresh` gate in
+check_ci.sh accepts rc 0 or 3 and gates on bytes alone: a fresh render equal to
+the committed record passes. But a downgraded record, once committed, is
+compared to itself and CI stays green: a met T1 item silently dropped
+(`t1_met_count` 7 -> 6) with no failing check anywhere. Two reason tokens are
+such downgrade vectors:
 
   * `stale_evidence` -- the check passed, but the cited evidence's
     provenance.input.content_hash (or, for a file-backed
@@ -38,7 +39,8 @@ item 7 (`sim/hyperram/records/functional-verification-ctrl-sdf.report.json`,
 file-backed and pinned) grades `met` on a matching pin and `stale_evidence`
 on a stale one -- never `unverifiable_provenance` while the file exists.
 
-  scripts/check_signoff_reasons.py RECORD [RECORD ...]   check record(s) (CI step 7)
+  scripts/check_signoff_reasons.py RECORD [RECORD ...]   check record(s) (the
+  `klt signoff record is fresh` gate in check_ci.sh)
   scripts/check_signoff_reasons.py --self-test           check this checker, on fixtures
 
 The self-test is here because this file is now the only thing standing
