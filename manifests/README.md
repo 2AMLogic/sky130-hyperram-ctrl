@@ -12,22 +12,22 @@
   they land.
 - **`sky130-hyperram-ctrl.signoff.json`**: the committed verdict of record,
   the output of `klt signoff --manifest ... --format json`. CI re-renders it
-  and byte-compares; whoever changes the manifest, the vendored doc, or the
-  `klt` pin regenerates it in the same PR:
+  and byte-compares; whoever changes the manifest or the `klt` pin
+  regenerates it in the same PR:
 
   ```
   uvx --from klayout-tools==0.9.2 klt signoff \
       --manifest manifests/sky130-hyperram-ctrl.json \
-      --tiers-doc manifests/design-evidence-tiers.md \
       --format json > manifests/sky130-hyperram-ctrl.signoff.json
   ```
 
   Exit 3 (grader ran, some item unmet) is expected and accepted.
-- **`design-evidence-tiers.md`**: vendored from
-  [klayout-tools](https://github.com/2AMLogic/klayout-tools)
-  `docs/design-evidence-tiers.md` at tag `v0.9.2`
-  (commit `046ba74652fc096bd97071fc3237f7159dd40183`). Its license is
-  klayout-tools', not this repo's.
+- The tier checklist is not vendored in this repo: the pinned
+  `klayout-tools==0.9.2` release alone selects it — its wheel bundles
+  [docs/design-evidence-tiers.md](https://github.com/2AMLogic/klayout-tools/blob/v0.9.2/docs/design-evidence-tiers.md)
+  (tag `v0.9.2`, commit `046ba74652fc096bd97071fc3237f7159dd40183`).
+  The CI byte-compare of a fresh signoff render against the committed record
+  is what surfaces a checklist change at a pin bump.
 
 ## klt pin
 
@@ -38,8 +38,8 @@ runs (the `klt` on `$PATH` when its version is the pin, else `uvx`), and
 `layout/erc/run.sh`, `layout/lvs/run.sh`, the `Makefile` `drc` target and the
 flow runners (`flow/hyperram.py` and `flow/smoke.py`, through the shared
 `flow/klt_run.py` helper) call it; `scripts/setup-env.sh` and the install step
-of `.github/workflows/ci.yml` read the pin from it. Bump that one line, the
-vendored doc and the signoff record together.
+of `.github/workflows/ci.yml` read the pin from it. Bump that one line and
+the signoff record together.
 
 Because the runners call the script rather than a bare `klt`, `klt synthesize`
 and `klt place-and-route` run at the pin even when the caller does not put
@@ -104,7 +104,6 @@ uvx --from klayout-tools==0.9.2 klt signoff --attest 10 \
 # manifest to provenance.input.content_hash of the new envelope, then:
 uvx --from klayout-tools==0.9.2 klt signoff \
     --manifest manifests/sky130-hyperram-ctrl.json \
-    --tiers-doc manifests/design-evidence-tiers.md \
     --format json > manifests/sky130-hyperram-ctrl.signoff.json
 ```
 
