@@ -84,6 +84,36 @@ point at `layout/records/` instead of the untracked scratch dir `layout/.klt/`,
 and the per-stage log/script paths are dropped (the logs stay in the scratch
 dir; their hashes stay in the response).
 
+### Per-pin library rows are not retained (#179)
+
+The `*_violation_count_vs_library` integers are all that is committed of the
+per-corner library-limit electrical check. The per-pin rows behind each count
+exist only in the OpenROAD engine stdout of the per-corner route sessions
+(klt scrapes the counts from marker-delimited `report_check_types` blocks
+there and keeps only the integer), and that stdout is retained nowhere:
+`flow/hyperram.py` drops the per-stage log paths when publishing, the next
+layout run clears the scratch dir, and the batch-fleet archive collects only
+the declared outputs plus the step console (`fleet-regen.log`, where
+`make layout` prints one summary line; the spot instance's disk, where the
+scratch logs lived, is destroyed at poweroff).
+
+Checked against the archive (2026-11-23, `aws --profile batch-runner-submit
+s3 ls --recursive s3://2am-batch-jobs-221082181346/jobs/<job>/outputs/` plus
+the collected `fleet-regen.log` / `harness.log`) for all three sweeps: the
+#101 baseline (job `rs-20261118T091157Z-9ab73754-s00`, whose archived
+response does bind the `ss_n40C_1v60` route invocation
+`e280ce93038343a19f5276b151e89a72` to its 609/21 counts), the #173 repair
+group (`rs-20261122T033123Z-7b4f3dda`) and the #170 regen
+(`rs-20261121T010947Z-25ca98ae-s00`). In every case the archived response is
+there and the engine stdout is not: **the historical per-pin rows are
+unavailable and are not back-filled**; the committed counts stand as the
+recorded evidence (append-only). A row-level reconciliation of the baseline
+609/21 (or the repair's 0/0 pairs) against these responses therefore cannot
+be re-derived from any committed artifact. Structured per-corner rows in the
+response itself are requested upstream
+(2AMLogic/klayout-tools#7588, klt 0.9.2 verified count-only); a future sweep
+that needs row-level evidence should wait for that and carry its own run ID.
+
 ## Reported, not graded
 
 From the committed response (`tt_025C_1v80` unless a corner is named):
