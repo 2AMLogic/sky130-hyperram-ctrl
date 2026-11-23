@@ -205,6 +205,28 @@ finally:
         if f.read_bytes() != before:
             f.write_bytes(before)
 
+# 6. render_provenance: runner/client klt version compare has THREE outcomes;
+#    equal versions must not claim a skew (append-only record, no false line).
+def _prov_skew_line(runner_v, client_v):
+    rep = json.loads(delay_chain.REPORT.read_text())
+    remote = rep["environment"]["remote"]
+    remote["runner_klt_version"] = runner_v
+    remote["client_klt_version"] = client_v
+    return [ln for ln in delay_chain.render_provenance(rep).split("\n")
+            if ln.startswith("- runner/client klt")][0]
+
+
+eq = _prov_skew_line("0.9.2", "0.9.2")
+check("provenance equal versions: no skew claimed",
+      ("no skew" in eq, "deliberate" in eq, "newer side" in eq),
+      (True, False, False))
+check("provenance runner older: client newer",
+      "the client is the newer side" in _prov_skew_line("0.9.0", "0.9.2"), True)
+check("provenance runner newer: runner newer",
+      "the runner is the newer side" in _prov_skew_line("0.9.3", "0.9.2"), True)
+check("provenance unparseable: unknown",
+      "could not be determined" in _prov_skew_line("dev", "0.9.2"), True)
+
 if failures:
     print()
     for f in failures:

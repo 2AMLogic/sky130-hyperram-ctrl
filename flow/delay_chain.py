@@ -270,11 +270,14 @@ def render_provenance(report):
         runner_v = str(remote.get("runner_klt_version"))
         client_v = str(remote.get("client_klt_version", "?"))
         try:
-            newer = "runner" if tuple(int(x) for x in runner_v.split(".")[:3]) > \
-                    tuple(int(x) for x in client_v.split(".")[:3]) else "client"
+            rt = tuple(int(x) for x in runner_v.split(".")[:3])
+            ct = tuple(int(x) for x in client_v.split(".")[:3])
+            newer = "runner" if rt > ct else ("client" if rt < ct else "neither")
         except ValueError:
             newer = "unknown"
-        if newer == "runner":
+        if newer == "neither":
+            note = "the versions are equal, so there is no skew on this run"
+        elif newer == "runner":
             note = ("the runner is the newer side, so no request feature can "
                     "be silently dropped")
         elif newer == "client":
@@ -286,7 +289,9 @@ def render_provenance(report):
                     "run")
         else:
             note = "the newer side could not be determined from the versions"
-        skew = (f"- runner/client klt skew (deliberate, runner_version_check=warn): "
+        label = ("runner/client klt versions" if newer == "neither" else
+                 "runner/client klt skew (deliberate, runner_version_check=warn)")
+        skew = (f"- {label}: "
                 f"runner {runner_v} vs client {client_v} (the repo pin); {note}")
     return "\n".join([
         "## Provenance (from the run's own report)", "",
