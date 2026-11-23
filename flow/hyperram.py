@@ -320,8 +320,8 @@ def sha256(path):
     return "sha256:" + hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def rel(path, root=REPO):
-    return str(Path(path).relative_to(root))
+def rel(path, root=None):
+    return str(Path(path).relative_to(REPO if root is None else root))
 
 
 def remap(node):
@@ -1022,16 +1022,16 @@ STAPR_MARKER_RE = re.compile(
 )
 
 
-def sta_postroute_paths(root=REPO):
-    root = Path(root)
+def sta_postroute_paths(root=None):
+    root = Path(REPO if root is None else root)
     return (
-        root / STAPR_REC.relative_to(REPO),
-        root / STAPR_AREC.relative_to(REPO),
-        root / STAPR_NOTE.relative_to(REPO),
-        root / STAPR_REQ.relative_to(REPO),
-        root / STAPR_AREQ.relative_to(REPO),
-        root / RDEF.relative_to(REPO),
-        root / RSPEF.relative_to(REPO),
+        root / "sim/hyperram/records/sta-postroute.json",
+        root / "sim/hyperram/records/sta-postroute-async.json",
+        root / "sim/hyperram/records/STA-postroute.md",
+        root / "flow/sta-hyperram-postroute.json",
+        root / "flow/sta-hyperram-postroute-async.json",
+        root / "layout/records/hyperram_ctrl.def",
+        root / "layout/records/hyperram_ctrl.spef",
     )
 
 
@@ -1121,7 +1121,7 @@ def sta_postroute():
               f"response; prune them: {sorted(known - live)}", file=sys.stderr)
 
 
-def sta_postroute_verify(root=REPO):
+def sta_postroute_verify(root=None):
     """Verify the existing provenance marker in STA-postroute.md and the
     response bindings against `root`, without minting new input hashes.
 
@@ -1192,7 +1192,7 @@ def sta_postroute_verify(root=REPO):
     return docs[0], docs[1], reqs[0], marker_line
 
 
-def sta_postroute_note_cmd(root=REPO):
+def sta_postroute_note_cmd(root=None):
     """Regenerate only the note from the committed responses (no klt run).
 
     Verifies existing input provenance first and refuses missing or stale
@@ -1204,7 +1204,7 @@ def sta_postroute_note_cmd(root=REPO):
     print(f"sta-postroute-note: rewrote {rel(note_p, root)} from the committed responses")
 
 
-def sta_postroute_check(root=REPO):
+def sta_postroute_check(root=None):
     """Freshness gate for CI: no OpenROAD, no PDK, hashes and echoes only.
 
     Binds the committed responses to their inputs and to the note beside them:
