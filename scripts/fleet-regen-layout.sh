@@ -301,18 +301,15 @@ step() { log "step $1 done in $(( $(date +%s) - STEP_T0 ))s"; STEP_T0=$(date +%s
 # The layout phase below place-and-routes the *committed* netlist, and the
 # item-1 envelope binds the RTL and netlist hashes, so the netlist is
 # regenerated first: pinned-yowasp synthesis, re-timing of the fresh netlist,
-# a byte-compare freshness check, the structural 32-chain-cell assertion
-# (issue #101: the refactor must be naming-only), then the item-1 attestation,
-# whose freshness command re-runs that check itself.
+# the structural 32-chain-cell assertion (issue #101: the refactor must be
+# naming-only), then the item-1 attestation, whose freshness command runs
+# the byte-compare check against a fresh synthesis itself.
 log "regenerating the netlist (pinned yowasp-yosys synthesis)"
 python3 flow/hyperram.py synth
 step synth
 log "re-timing the fresh netlist (klt sta, all shipped liberty corners)"
 python3 flow/hyperram.py sta
 step sta
-log "freshness: re-synthesize and byte-compare against the committed netlist"
-python3 -I flow/hyperram.py check
-step check
 log "structural check: 32 chain cells (2 x 16 in the shared module)"
 python3 -I <<'PY'
 import json, re
@@ -333,7 +330,7 @@ PY
 log "structural check: tap decode is one linear 16-cell series, taps at depths 2,4,..16"
 python3 -I scripts/check_tap_decode.py
 step cell-check
-log "re-recording the item-1 attestation (re-runs the freshness check itself)"
+log "re-recording the item-1 attestation (its freshness command runs the byte-compare check)"
 scripts/klt.sh signoff --attest 1 --inventory attest/item1.json -o evidence/item1.json
 step attest-item1
 

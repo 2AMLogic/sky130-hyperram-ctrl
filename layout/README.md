@@ -19,10 +19,11 @@ changed. After a re-run commit `layout/records/` and `evidence/item2.json`,
 re-pin `manifests/sky130-hyperram-ctrl.json` (items 2, 3, 4 and 11) to the new
 evidence and re-render the signoff record in the same PR.
 `scripts/fleet-regen-layout.sh` runs the whole sequence — netlist
-regeneration first (pinned yowasp-yosys synthesis, STA re-run, freshness
-check, the 32-chain-cell structural check, the item-1 attestation), then
-place-and-route and its dependents, checks, manifest re-pin, signoff
-re-render — as one batch-fleet `repo-script` job
+regeneration first (pinned yowasp-yosys synthesis, STA re-run, the
+32-chain-cell structural check, the item-1 attestation, whose freshness
+command runs the byte-compare check), then place-and-route and its
+dependents, checks, manifest re-pin, signoff re-render — as one batch-fleet
+`repo-script` job
 (heavy image), which is where these ~25-minute runs belong; the shared
 dispatch worker is not a place-and-route host. Placement is never edited by
 hand.
