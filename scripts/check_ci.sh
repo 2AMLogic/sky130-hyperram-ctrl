@@ -256,4 +256,11 @@ fi
 # beyond the render above, no PDK and no network.
 python3 -I scripts/check_signoff_reasons.py --self-test
 python3 -I scripts/check_signoff_reasons.py "$RECORD"
+# LEGITIMATE_REASONS claims to be the pinned wheel's _REASON_* set minus the
+# reject-list (issue #236). Unlike the self-test this needs the klt wheel: it
+# is located with uvx at the pin (never installing anything host-wide) and
+# the checker fails closed if the directory or tokens cannot be found.
+KLT_PKG_DIR="$(uvx --from "klayout-tools==$(scripts/klt.sh --pin)" python -I -c \
+  'import klayout_tools,os;print(os.path.dirname(klayout_tools.__file__))')"
+python3 -I scripts/check_signoff_reasons.py --check-inventory "$KLT_PKG_DIR"
 echo "committed signoff record is fresh"
