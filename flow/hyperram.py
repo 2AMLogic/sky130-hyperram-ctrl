@@ -485,11 +485,15 @@ def sta_note(doc, cells):
 
     def rows(entries):
         return [f"| `{c['corner']}` | {corner_volts(c['corner']):.2f} | {c['worst_slack_ns']} "
-                f"| {c['worst_hold_slack_ns']} | {c['fmax_mhz']} | {c['timing_status']} |"
+                f"| {c['worst_hold_slack_ns']} | {c.get('setup_violation_count')} "
+                f"| {c.get('total_negative_slack_ns')} | {c.get('hold_violation_count')} "
+                f"| {c.get('total_negative_hold_slack_ns')} | {c['fmax_mhz']} "
+                f"| {c['timing_status']} |"
                 for c in entries]
 
-    head = ["| corner | supply (V) | setup slack (ns) | hold slack (ns) | fmax (MHz) | status |",
-            "|---|---|---|---|---|---|"]
+    head = ["| corner | supply (V) | worst setup (ns) | worst hold (ns) | setup viol. endpoints"
+            " | setup TNS (ns) | hold viol. endpoints | hold TNS (ns) | fmax (MHz) | status |",
+            "|---|---|---|---|---|---|---|---|---|---|"]
     lines = [
         "# Pre-layout STA of the controller netlist (all shipped liberty corners)",
         "",
@@ -649,6 +653,8 @@ def sta():
 # the note renders them, and a gap here is visible in the committed prose.
 KLT_ISSUE_PER_CLOCK_IO_DELAY = 7399   # DQ-vs-RWDS input delay: per-clock I/O delays
 KLT_ISSUE_SPEF_ESCAPE = 7401          # read_spef discards escaped bracket net names
+KLT_ISSUE_SINK_COUNT = 7417          # clock_sinks reports its sample length
+KLT_ISSUE_ENDPOINT_LIST = 7418       # sta reports worst-per-group only, no violating-endpoint list
 KLT_ISSUE_SPEF_DANGLING = 7367        # name-correlation counts dangling tie cells / power nets
 # Design findings from the first mint of this record (issue #172 step 7): one
 # bounded design-iteration issue per distinct negative in-window worst-path
@@ -777,12 +783,16 @@ def sta_postroute_note(doc, adoc):
 
     def rows(d, names):
         return [f"| `{c['corner']}` | {corner_volts(c['corner']):.2f} | {c['worst_slack_ns']} "
-                f"| {c['worst_hold_slack_ns']} | {c['fmax_mhz']} | {c['timing_status']} |"
+                f"| {c['worst_hold_slack_ns']} | {c.get('setup_violation_count')} "
+                f"| {c.get('total_negative_slack_ns')} | {c.get('hold_violation_count')} "
+                f"| {c.get('total_negative_hold_slack_ns')} | {c['fmax_mhz']} "
+                f"| {c['timing_status']} |"
                 for c in d["corners"] if c["corner"] in names]
 
 
-    head = ["| corner | supply (V) | setup slack (ns) | hold slack (ns) | fmax (MHz) | status |",
-            "|---|---|---|---|---|---|"]
+    head = ["| corner | supply (V) | worst setup (ns) | worst hold (ns) | setup viol. endpoints"
+            " | setup TNS (ns) | hold viol. endpoints | hold TNS (ns) | fmax (MHz) | status |",
+            "|---|---|---|---|---|---|---|---|---|---|"]
     lines = [
         "# Post-route multi-corner STA of the routed DEF + SPEF, RWDS strobe clock declared (issue #172)",
         "",
@@ -815,9 +825,11 @@ def sta_postroute_note(doc, adoc):
         f"- **Propagated clock** (`clock_mode: {json.dumps(doc['clock_mode'])}`) on both declared"
         " clocks: hold/removal includes the clock-tree insertion delay and skew the DEF carries,"
         " and, for the strobe, the `hr_tap_delay` chain it propagates through. The latency"
-        f" evidence block reports {cp.get('clock_sinks')} clock sinks and a worst network latency"
-        f" of {cp.get('max_network_latency_ns')} ns (`clock_sinks_sample:"
-        f" {', '.join(cp.get('clock_sinks_sample') or [])}`).",
+        f" evidence block reports a worst network latency of {cp.get('max_network_latency_ns')} ns"
+        f" and a `clock_sinks` field of {cp.get('clock_sinks')} -- which equals the length of"
+        f" its own `clock_sinks_sample` ({', '.join(cp.get('clock_sinks_sample') or [])}), so it"
+        " is the sample size, **not** the design's sink count (the routed DEF has hundreds of"
+        f" flops), reported as {klt_issue(KLT_ISSUE_SINK_COUNT)}.",
         f"- **Routed geometry, real parasitics to the extent the SPEF annotated** (`def_path` and"
         f" `spef_path` name the committed `{rel(RDEF)}` / `{rel(RSPEF)}`). The SPEF session names"
         f" {sa.get('design_nets_annotated')} of {sa.get('design_nets_total')} design nets"
@@ -896,6 +908,18 @@ def sta_postroute_note(doc, adoc):
             lines.append(f"- **{side} {worst_slack} ns worst** (at `{worst_corner}`), `{sp}` ->"
                          f" `{ep}` -- {where}. Design-iteration issue:"
                          f" {pr_issue((side, sp, ep))}.")
+        lines += [
+            "",
+            "**Width.** The bullets above name only the *worst row per path group*; the response's"
+            " per-corner counts (the `viol. endpoints` / `TNS` columns of the tables above) show"
+            " the setup side is much wider than the named paths. Under the related reading the"
+            " nominal corners carry tens of violating setup endpoints, not two. **Which endpoints"
+            " they are is not measured here**: `worst_paths_by_group` is worst-per-group only and"
+            " the pinned klt emits no violating-endpoint list"
+            f" ({klt_issue(KLT_ISSUE_ENDPOINT_LIST)}). That they are all cross-domain paths into"
+            " one capture bus is a **hypothesis** (the count is of the order of a 32-bit"
+            " register bus), not a result of this record.",
+        ]
     else:
         lines.append("- None: no in-window corner reports a negative setup or hold slack in"
                      " either reading.")

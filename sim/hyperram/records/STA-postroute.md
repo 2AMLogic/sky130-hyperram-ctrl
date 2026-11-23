@@ -11,7 +11,7 @@
 
 Read out of the responses, not asserted here:
 
-- **Propagated clock** (`clock_mode: "propagated"`) on both declared clocks: hold/removal includes the clock-tree insertion delay and skew the DEF carries, and, for the strobe, the `hr_tap_delay` chain it propagates through. The latency evidence block reports 5 clock sinks and a worst network latency of 2.460365 ns (`clock_sinks_sample: u_fsm/_2164_/CLK, u_cap/_812_/CLK, u_out/_22_/CLK, u_out/_28_/CLK, _409_/CLK`).
+- **Propagated clock** (`clock_mode: "propagated"`) on both declared clocks: hold/removal includes the clock-tree insertion delay and skew the DEF carries, and, for the strobe, the `hr_tap_delay` chain it propagates through. The latency evidence block reports a worst network latency of 2.460365 ns and a `clock_sinks` field of 5 -- which equals the length of its own `clock_sinks_sample` (u_fsm/_2164_/CLK, u_cap/_812_/CLK, u_out/_22_/CLK, u_out/_28_/CLK, _409_/CLK), so it is the sample size, **not** the design's sink count (the routed DEF has hundreds of flops), reported as klayout-tools#7417.
 - **Routed geometry, real parasitics to the extent the SPEF annotated** (`def_path` and `spef_path` name the committed `layout/records/hyperram_ctrl.def` / `layout/records/hyperram_ctrl.spef`). The SPEF session names 2379 of 2397 design nets (`annotation_complete: false`) -- the gaps are named below.
 - **Two clocks, relationship unsettled.** `clk` is primary; `hb_rwds_i` is declared as a second clock at the same period so the capture domain is timed rather than unclocked. Whether the strobe domain is synchronous, asynchronous, or something phase-specific to the read burst is decision **C4 in #2**, not this record's: the two responses are the **related** reading (cross-domain paths timed as synchronous -- conservative) and the **asynchronous** reading (they are not timed at all). **Every number below is provisional on whichever of those two assumptions it sits beside, pending #2.**
 - **No I/O delays.** The draft spec states no setup/hold figure for any port relative to `clk` (its boundary figures -- tIS/tIH, tCSS, tCKD -- are HyperBus-pin-to-HyperBus-pin numbers, not core-clock numbers), so none is guessed: every input and output is left unconstrained and counted below. A scalar default is not an option either: the pinned klt applies I/O delays relative to the primary clock only, would land one on `hb_rwds_i` itself, and cannot express a DQ input delay relative to the strobe clock at all (klayout-tools#7399).
@@ -23,29 +23,29 @@ Decision 0004 puts the core supply at 1.8 V +/- 10 %, i.e. 1.62-1.98 V. Unlike `
 
 **Related-clocks reading** (cross-domain paths timed as synchronous):
 
-| corner | supply (V) | setup slack (ns) | hold slack (ns) | fmax (MHz) | status |
-|---|---|---|---|---|---|
-| `ff_100C_1v65` | 1.65 | 0.00662 | -0.55785 | 500.721 | constrained |
-| `ff_100C_1v95` | 1.95 | 2.25563 | -0.44937 | 628.463 | constrained |
-| `ff_n40C_1v65` | 1.65 | -0.67122 | -0.60923 | 465.464 | constrained |
-| `ff_n40C_1v76` | 1.76 | 0.88485 | -0.53343 | 530.476 | constrained |
-| `ff_n40C_1v95` | 1.95 | 2.60207 | -0.4472 | 633.764 | constrained |
-| `ss_n40C_1v76` | 1.76 | -6.76799 | -1.069 | 256.187 | constrained |
-| `tt_025C_1v80` | 1.80 | -1.5614 | -0.67362 | 414.173 | constrained |
-| `tt_100C_1v80` | 1.80 | -1.86471 | -0.6644 | 419.836 | constrained |
+| corner | supply (V) | worst setup (ns) | worst hold (ns) | setup viol. endpoints | setup TNS (ns) | hold viol. endpoints | hold TNS (ns) | fmax (MHz) | status |
+|---|---|---|---|---|---|---|---|---|---|
+| `ff_100C_1v65` | 1.65 | 0.00662 | -0.55785 | 0 | 0 | 1 | -0.55785 | 500.721 | constrained |
+| `ff_100C_1v95` | 1.95 | 2.25563 | -0.44937 | 0 | 0 | 1 | -0.44937 | 628.463 | constrained |
+| `ff_n40C_1v65` | 1.65 | -0.67122 | -0.60923 | 29 | -9.1299 | 1 | -0.60923 | 465.464 | constrained |
+| `ff_n40C_1v76` | 1.76 | 0.88485 | -0.53343 | 0 | 0 | 1 | -0.53343 | 530.476 | constrained |
+| `ff_n40C_1v95` | 1.95 | 2.60207 | -0.4472 | 0 | 0 | 1 | -0.4472 | 633.764 | constrained |
+| `ss_n40C_1v76` | 1.76 | -6.76799 | -1.069 | 36 | -209.515 | 1 | -1.069 | 256.187 | constrained |
+| `tt_025C_1v80` | 1.80 | -1.5614 | -0.67362 | 36 | -35.1205 | 1 | -0.67362 | 414.173 | constrained |
+| `tt_100C_1v80` | 1.80 | -1.86471 | -0.6644 | 36 | -46.1217 | 1 | -0.6644 | 419.836 | constrained |
 
 **Asynchronous-clock-groups reading** (cross-domain paths not timed):
 
-| corner | supply (V) | setup slack (ns) | hold slack (ns) | fmax (MHz) | status |
-|---|---|---|---|---|---|
-| `ff_100C_1v65` | 1.65 | 9.10244 | 0.29993 | 500.721 | constrained |
-| `ff_100C_1v95` | 1.95 | 9.35313 | 0.2392 | 628.463 | constrained |
-| `ff_n40C_1v65` | 1.65 | 8.69705 | 0.30291 | 465.464 | constrained |
-| `ff_n40C_1v76` | 1.76 | 8.91177 | 0.26722 | 530.476 | constrained |
-| `ff_n40C_1v95` | 1.95 | 9.15394 | 0.22593 | 633.764 | constrained |
-| `ss_n40C_1v76` | 1.76 | 8.51824 | 0.55869 | 256.187 | constrained |
-| `tt_025C_1v80` | 1.80 | 9.0379 | 0.3594 | 414.173 | constrained |
-| `tt_100C_1v80` | 1.80 | 9.06982 | 0.36708 | 419.836 | constrained |
+| corner | supply (V) | worst setup (ns) | worst hold (ns) | setup viol. endpoints | setup TNS (ns) | hold viol. endpoints | hold TNS (ns) | fmax (MHz) | status |
+|---|---|---|---|---|---|---|---|---|---|
+| `ff_100C_1v65` | 1.65 | 9.10244 | 0.29993 | 0 | 0 | 0 | 0 | 500.721 | constrained |
+| `ff_100C_1v95` | 1.95 | 9.35313 | 0.2392 | 0 | 0 | 0 | 0 | 628.463 | constrained |
+| `ff_n40C_1v65` | 1.65 | 8.69705 | 0.30291 | 0 | 0 | 0 | 0 | 465.464 | constrained |
+| `ff_n40C_1v76` | 1.76 | 8.91177 | 0.26722 | 0 | 0 | 0 | 0 | 530.476 | constrained |
+| `ff_n40C_1v95` | 1.95 | 9.15394 | 0.22593 | 0 | 0 | 0 | 0 | 633.764 | constrained |
+| `ss_n40C_1v76` | 1.76 | 8.51824 | 0.55869 | 0 | 0 | 0 | 0 | 256.187 | constrained |
+| `tt_025C_1v80` | 1.80 | 9.0379 | 0.3594 | 0 | 0 | 0 | 0 | 414.173 | constrained |
+| `tt_100C_1v80` | 1.80 | 9.06982 | 0.36708 | 0 | 0 | 0 | 0 | 419.836 | constrained |
 
 ### Per-clock worst paths (in-window corners)
 
@@ -116,35 +116,37 @@ The response reports one worst row per path group without naming the group; the 
 - **setup -6.76799 ns worst** (at `ss_n40C_1v76`), `u_cap/_828_/Q` -> `_519_/D` -- related reading at `ss_n40C_1v76` (-6.76799), `tt_025C_1v80` (-1.5614). Design-iteration issue: #184.
 - **setup -1.86471 ns worst** (at `tt_100C_1v80`), `u_cap/_844_/Q` -> `_519_/D` -- related reading at `ff_n40C_1v65` (-0.67122), `tt_100C_1v80` (-1.86471). Design-iteration issue: #184.
 
+**Width.** The bullets above name only the *worst row per path group*; the response's per-corner counts (the `viol. endpoints` / `TNS` columns of the tables above) show the setup side is much wider than the named paths. Under the related reading the nominal corners carry tens of violating setup endpoints, not two. **Which endpoints they are is not measured here**: `worst_paths_by_group` is worst-per-group only and the pinned klt emits no violating-endpoint list (klayout-tools#7418). That they are all cross-domain paths into one capture bus is a **hypothesis** (the count is of the order of a 32-bit register bus), not a result of this record.
+
 ## Corners outside it (reported, not graded)
 
 The PDK ships liberty at supplies decision 0004's window excludes. These 8 corners are recorded and printed, and the target does not fail on them, exactly as `make hyperram-sta` reports them.
 
 **Related-clocks reading:**
 
-| corner | supply (V) | setup slack (ns) | hold slack (ns) | fmax (MHz) | status |
-|---|---|---|---|---|---|
-| `ff_n40C_1v56` | 1.56 | -2.48384 | -0.69422 | 409.841 | constrained |
-| `ss_100C_1v40` | 1.40 | -25.7613 | -1.70745 | 162.284 | constrained |
-| `ss_100C_1v60` | 1.60 | -13.9717 | -1.21829 | 227.062 | constrained |
-| `ss_n40C_1v28` | 1.28 | -73.0595 | -4.27708 | 65.513 | constrained |
-| `ss_n40C_1v35` | 1.35 | -46.6379 | -3.05922 | 99.0636 | constrained |
-| `ss_n40C_1v40` | 1.40 | -35.3624 | -2.50072 | 118.723 | constrained |
-| `ss_n40C_1v44` | 1.44 | -28.7733 | -2.1782 | 124.029 | constrained |
-| `ss_n40C_1v60` | 1.60 | -13.8019 | -1.42909 | 200.308 | constrained |
+| corner | supply (V) | worst setup (ns) | worst hold (ns) | setup viol. endpoints | setup TNS (ns) | hold viol. endpoints | hold TNS (ns) | fmax (MHz) | status |
+|---|---|---|---|---|---|---|---|---|---|
+| `ff_n40C_1v56` | 1.56 | -2.48384 | -0.69422 | 36 | -71.8109 | 1 | -0.69422 | 409.841 | constrained |
+| `ss_100C_1v40` | 1.40 | -25.7613 | -1.70745 | 36 | -869.649 | 1 | -1.70745 | 162.284 | constrained |
+| `ss_100C_1v60` | 1.60 | -13.9717 | -1.21829 | 36 | -462.503 | 1 | -1.21829 | 227.062 | constrained |
+| `ss_n40C_1v28` | 1.28 | -73.0595 | -4.27708 | 271 | -4828.86 | 1 | -4.27708 | 65.513 | constrained |
+| `ss_n40C_1v35` | 1.35 | -46.6379 | -3.05922 | 168 | -2137.15 | 1 | -3.05922 | 99.0636 | constrained |
+| `ss_n40C_1v40` | 1.40 | -35.3624 | -2.50072 | 93 | -1284.87 | 1 | -2.50072 | 118.723 | constrained |
+| `ss_n40C_1v44` | 1.44 | -28.7733 | -2.1782 | 36 | -963.438 | 1 | -2.1782 | 124.029 | constrained |
+| `ss_n40C_1v60` | 1.60 | -13.8019 | -1.42909 | 36 | -450.578 | 1 | -1.42909 | 200.308 | constrained |
 
 **Asynchronous-clock-groups reading:**
 
-| corner | supply (V) | setup slack (ns) | hold slack (ns) | fmax (MHz) | status |
-|---|---|---|---|---|---|
-| `ff_n40C_1v56` | 1.56 | 8.44999 | 0.34168 | 409.841 | constrained |
-| `ss_100C_1v40` | 1.40 | 4.63834 | 1.05469 | 162.284 | constrained |
-| `ss_100C_1v60` | 1.60 | 8.44111 | 0.73147 | 227.062 | constrained |
-| `ss_n40C_1v28` | 1.28 | -23.1896 | 2.13478 | 65.513 | constrained |
-| `ss_n40C_1v35` | 1.35 | -9.18471 | 1.56669 | 99.0636 | constrained |
-| `ss_n40C_1v40` | 1.40 | -3.35421 | 1.29678 | 118.723 | constrained |
-| `ss_n40C_1v44` | 1.44 | 0.01228 | 1.13497 | 124.029 | constrained |
-| `ss_n40C_1v60` | 1.60 | 7.71156 | 0.75191 | 200.308 | constrained |
+| corner | supply (V) | worst setup (ns) | worst hold (ns) | setup viol. endpoints | setup TNS (ns) | hold viol. endpoints | hold TNS (ns) | fmax (MHz) | status |
+|---|---|---|---|---|---|---|---|---|---|
+| `ff_n40C_1v56` | 1.56 | 8.44999 | 0.34168 | 0 | 0 | 0 | 0 | 409.841 | constrained |
+| `ss_100C_1v40` | 1.40 | 4.63834 | 1.05469 | 0 | 0 | 0 | 0 | 162.284 | constrained |
+| `ss_100C_1v60` | 1.60 | 8.44111 | 0.73147 | 0 | 0 | 0 | 0 | 227.062 | constrained |
+| `ss_n40C_1v28` | 1.28 | -23.1896 | 2.13478 | 267 | -2634.08 | 0 | 0 | 65.513 | constrained |
+| `ss_n40C_1v35` | 1.35 | -9.18471 | 1.56669 | 132 | -560.731 | 0 | 0 | 99.0636 | constrained |
+| `ss_n40C_1v40` | 1.40 | -3.35421 | 1.29678 | 57 | -95.39 | 0 | 0 | 118.723 | constrained |
+| `ss_n40C_1v44` | 1.44 | 0.01228 | 1.13497 | 0 | 0 | 0 | 0 | 124.029 | constrained |
+| `ss_n40C_1v60` | 1.60 | 7.71156 | 0.75191 | 0 | 0 | 0 | 0 | 200.308 | constrained |
 
 ## What was not timed
 
