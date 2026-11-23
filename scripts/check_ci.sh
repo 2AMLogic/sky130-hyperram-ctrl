@@ -19,6 +19,9 @@
 #   5. the committed item-1 attestation still reproduces (hashes of RTL + netlist;
 #      the local_only re-synthesis check is skipped)
 #   6. the committed klt drc report is bound to the cited GDS and deck (--check, no rerun)
+#   6b. the committed SDF-annotated post-layout evidence (report checksums,
+#       SDF vs its producing klt sta response) is fresh -- no simulator needed
+#   6c. the post-route STA records match the current requests, DEF and SPEF
 #   7. the committed klt signoff record equals a fresh render of the manifest
 #   (the --help assertion for the two shell drivers runs as step 2b, beside
 #    the other tool-free gates; the delay-chain derivation unit check runs as
@@ -175,7 +178,23 @@ echo "== 6/7 DRC report is fresh =="
 # Item-11 ERC supply report: cheap re-hash of layout and spec (full re-run: layout/erc/run.sh)
 "${KLT[@]}" erc --check layout/records/erc.report.json
 
-echo "== 6b/7 post-route STA record is fresh =="
+echo "== 6b/7 post-route SDF evidence is fresh =="
+# The item-7 probe (issue #171): klt 0.9.2's functional-verification report
+# writer emits no design-input digests, so `make -C verification/ctrl sdf`
+# records them in a companion checksum file instead. This gate recomputes the
+# routed-netlist, SDF and raw-report digests from checkout-relative paths,
+# cross-checks the SDF against the producing klt sta response's
+# sdf.content_hash, binds that response to the DEF it was produced from via
+# its provenance.input.content_hash, and asserts the report's
+# environment.sdf.annotated is literal true. The SPEF is not bound: the
+# response records no SPEF digest, so a re-generated SPEF is not caught here.
+# Needs no simulator, no PDK and no klt. Self-tested first, over fixtures
+# carrying exactly the drift and unbind cases, because it is the only thing
+# standing between a stale SDF run and a green CI.
+python3 -I scripts/check_sdf_evidence.py --self-test
+python3 -I scripts/check_sdf_evidence.py
+
+echo "== 6c/7 post-route STA record is fresh =="
 # The multi-corner post-route STA itself is local_only (needs OpenROAD + PDK;
 # `make hyperram-sta-postroute`); CI re-derives only its input binding: the
 # DEF against each response's own provenance hash, and the DEF/SPEF/request

@@ -6,6 +6,10 @@
 # `make drc` runs klt drc on the routed GDS (T1 item 3);
 # `make delay-chain` runs the 45-corner ngspice RWDS delay-chain campaign on the
 # batch fleet (spec open question (b), issue 99; local_only: needs ngspice + PDK).
+# `make post-route-sdf` writes the post-route SDF (klt sta, def + spef, on the
+# committed layout; never re-routes) and `make post-route-verify` the
+# SDF-annotated controller bench run (T1 item 7, issue 171; local_only: needs
+# openroad/PDK/Icarus >= 13 respectively).
 # Run scripts/setup-env.sh first; targets use .venv/bin tools when present.
 
 SHELL := /bin/bash
@@ -103,3 +107,18 @@ drc:
 # local_only like smoke/layout/drc: needs ngspice and the PDK, absent from CI.
 delay-chain:
 	python3 flow/delay_chain.py sim
+
+.PHONY: post-route-sdf post-route-verify
+
+# T1 item 7 (issue 171): the post-route SDF and the SDF-annotated bench run.
+# post-route-sdf analyses the committed DEF + SPEF once (klt sta, def mode,
+# sdf: true, corner tt_025C_1v80) and commits layout/records/hyperram_ctrl.tt_025C_1v80.sdf
+# with the producing response; it never re-routes. post-route-verify runs the
+# controller benches on the routed netlist with that SDF back-annotated
+# (make -C verification/ctrl sdf is the same run) and records the report plus
+# its input digests. local_only: needs openroad + PDK, resp. Icarus >= 13 + PDK.
+post-route-sdf:
+	python3 flow/post_route.py sdf
+
+post-route-verify:
+	python3 flow/post_route.py verify
