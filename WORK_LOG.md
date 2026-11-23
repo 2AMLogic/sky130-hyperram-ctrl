@@ -5,6 +5,8 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-11-23
 
+- **Issue #114** (closed): Remove toolchain smoke flow: make smoke duplicates what the controller flow now exercises
+- **PR #216**: chore: remove the smoke flow the controller flow now covers
 - **Issue #103** (closed): Stop restating six toolchain pins in docs/environment.md: a hand-maintained copy nothing checks
 - **Issue #160** (closed): Replace check_pdk_root.py (329-line shell parser) with a 4-line runtime assertion
 - **Issue #170** (closed): Bump the klayout-tools pin 0.8.0 -> 0.9.2 and regenerate the records and signoff render under it
