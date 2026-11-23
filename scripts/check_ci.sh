@@ -36,7 +36,8 @@
 #    the other tool-free gates; the delay-chain derivation unit check runs as
 #    step 3b; the tap-decode structural check runs as step 3c, self-tested
 #    first; the PDK-root provenance check runs as step 3d, self-tested
-#    first; the item-9 testbench attestation is checked as step 4b, and
+#    first; the fleet PDK_ROOT runtime guard fixture runs as step 3e; the
+#    item-9 testbench attestation is checked as step 4b, and
 #    step 4c asserts that attestation declares every controller bench present
 #    on disk -- a bench the inventory omits is invisible to 4b rather than
 #    drift)
@@ -142,6 +143,25 @@ echo "== 3d/8 PDK-root provenance check =="
 # klt and no network.
 python3 -I scripts/check_pdk_root.py --self-test
 python3 -I scripts/check_pdk_root.py
+
+echo "== 3e/8 fleet PDK_ROOT runtime guard =="
+# The runtime PDK_ROOT guard in scripts/fleet-regen-layout.sh -- the
+# value-level assertion AFTER the ensure_pdk call, which rejects a
+# repo-local PDK even through a symlink (issue #142; guard landed with
+# issue #160 / PR #191) -- is covered by nothing else: step 3d parses only
+# the body of ensure_pdk, and the guard lives outside that function on
+# purpose, so it also covers the verified-PDK early return. This fixture
+# runs the production fleet script itself in a throwaway checkout against
+# fixture PDK roots, with stub tools and no network: every repo-local
+# shape (at the checkout root, in a subdirectory, through a symlink, and
+# through a symlinked checkout) must exit 4 with the issue #142
+# diagnostic, and an external sibling sharing the checkout's name prefix
+# must reach ensure_yowasp_yosys, the first step after the guard. It is
+# built to fail on both silent weakenings: a logical (non -P) REPO_ROOT
+# and a guard relocated where ensure_pdk's early return skips it
+# (issue #193). Needs no PDK, no EDA tools, no klt beyond
+# scripts/klt.sh --pin and no network.
+scripts/test_fleet_pdk_root.sh
 
 echo "== 4/8 item-10 attestation is fresh =="
 # Hashes are raw bytes: any edit to README.md, LICENSE, ci.yml or
