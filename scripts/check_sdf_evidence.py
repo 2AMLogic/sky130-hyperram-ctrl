@@ -10,9 +10,12 @@ cross-bind. What it checks, and why each check exists:
      klt 0.9.2 report writer emits no design-input digests of its own, so the
      companion is the only thing binding the verdict to its exact inputs;
   2. the SDF digest equals the producing STA response's sdf.content_hash
-     (layout/records/sta-sdf.response.json) and that response's sdf.path names
-     the committed SDF -- a re-generated layout whose SDF was not re-produced,
-     or a hand-edited SDF, fails here without a simulator;
+     (layout/records/sta-sdf.response.json), that response's sdf.path names
+     the committed SDF, and its provenance.input.content_hash still hashes
+     the DEF at its def_path -- a hand-edited SDF, or a re-route whose SDF
+     and STA response were not re-produced from the new DEF, fails here
+     without a simulator. The SPEF is deliberately NOT bound: the response
+     records no SPEF digest, so a re-generated SPEF is not caught here;
   3. the report's environment.sdf.annotated is literal true and the request's
      options.sdf.file resolves to the committed SDF and hashes to the same
      digest -- an unannotated report, or a request pointing elsewhere, is not
@@ -20,11 +23,13 @@ cross-bind. What it checks, and why each check exists:
 
 --self-test builds throwaway fixture trees carrying exactly the mutations the
 gate exists to catch (netlist edit, SDF edit, report edit, STA digest alone,
-unannotated report, remap broken) and asserts each one fails with the right
-file named, because nothing else stands between a stale SDF run and a green CI.
+DEF edit with the SDF and STA response left self-consistent, unannotated
+report, remap broken) and asserts each one fails with the right file named,
+because nothing else stands between a stale SDF run and a green CI.
 """
 
 import hashlib
+import io
 import json
 import shutil
 import subprocess
@@ -84,6 +89,26 @@ def run(root):
     if book["sta"]["sdf_content_hash"] != envelope["content_hash"]:
         fail("the checksums' sta.sdf_content_hash disagrees with the STA response's "
              "sdf.content_hash")
+    # ... and the response itself is still bound to the DEF it was produced
+    # from: a re-route that did not re-run STA leaves a byte-fresh SDF bound
+    # to the old layout's DEF, which is exactly the stale evidence this gate
+    # exists to refuse.
+    prov = (sta.get("provenance") or {}).get("input") or {}
+    def_env = sta.get("def_path")
+    prov_hash = prov.get("content_hash") if isinstance(prov, dict) else None
+    def_name = def_env.get("path") if isinstance(def_env, dict) else None
+    if not (isinstance(prov_hash, str) and prov_hash.startswith("sha256:")
+            and isinstance(def_name, str)):
+        fail(f"{STA_REC.relative_to(REPO).as_posix()} carries no def_path / "
+             "provenance.input.content_hash pair to bind the SDF to its layout")
+    def_path = root / def_name
+    if not def_path.exists():
+        fail(f"{def_name} is named by def_path but missing")
+    if digest(def_path) != prov_hash:
+        fail(f"{def_name} drifted: the STA response's provenance.input.content_hash "
+             f"{prov_hash} was produced from a different DEF; a re-route must "
+             "re-run `make post-route-sdf` so the SDF and its response are re-produced "
+             "from the new layout")
 
     # 3 -- the report is an annotated run of exactly that SDF
     report_path = root / book["report"]["path"]
@@ -109,10 +134,15 @@ def fixture(tmp, mutate=None):
     """A minimal self-consistent tree carrying the real shapes the gate reads."""
     root = Path(tmp)
     net = b"module routed(); endmodule\n"
+    dfn = b"VERSION 5.8 ; DIVIDERCHAR \"/\" ; BUSBITS \"[\" ;\n"
     sdf = b"(DELAYFILE (SDFVERSION \"3.0\") (CELL (CELLTYPE \"hyperram_ctrl\") (INSTANCE) ))\n"
     req = {"options": {"sdf": {"file": "../layout/records/hyperram_ctrl.tt_025C_1v80.sdf"}}}
     report = {"environment": {"sdf": {"annotated": True}}, "status": "pass"}
-    sta = {"sdf": {"path": SDF_NAME, "scope": "repo", "content_hash": digest_bytes(sdf)}}
+    sta = {
+        "def_path": {"path": "layout/records/hyperram_ctrl.def", "scope": "repo"},
+        "provenance": {"input": {"content_hash": digest_bytes(dfn), "role": "layout"}},
+        "sdf": {"path": SDF_NAME, "scope": "repo", "content_hash": digest_bytes(sdf)},
+    }
     book = {
         "note": "fixture",
         "request": "flow/functional-verification-ctrl-sdf.json",
@@ -130,6 +160,7 @@ def fixture(tmp, mutate=None):
     (root / "sim/hyperram/records").mkdir(parents=True)
     (root / "flow").mkdir(parents=True)
     (root / "layout/records/hyperram_ctrl.routed.v").write_bytes(net)
+    (root / "layout/records/hyperram_ctrl.def").write_bytes(dfn)
     (root / SDF_NAME).write_bytes(sdf)
     (root / "flow/functional-verification-ctrl-sdf.json").write_text(json.dumps(req))
     (root / "sim/hyperram/records/f.report.json").write_text(json.dumps(report))
@@ -151,14 +182,21 @@ def self_test():
         nonlocal ok
         with tempfile.TemporaryDirectory() as tmp:
             root = fixture(tmp, mutate)
+            # a fresh buffer per case -- case N's needle can never be
+            # satisfied by case N-1's output -- read only on failure, so a
+            # passing self-test emits no ::error:: lines to real stdout
+            buf = io.StringIO()
+            old, sys.stdout = sys.stdout, buf
             try:
                 run(root)
             except SystemExit as exc:
-                out = sys.stdout.getvalue()
+                out = buf.getvalue()
                 assert exc.code == 1, f"{name}: exited {exc.code}, not 1"
                 assert needle in out, f"{name}: error did not name {needle!r}: {out.strip()}"
                 ok += 1
                 return
+            finally:
+                sys.stdout = old
             raise AssertionError(f"{name}: the gate passed a mutated fixture")
 
     def flip_netlist(root):
@@ -174,6 +212,10 @@ def self_test():
         doc = json.loads(p.read_text())
         doc["status"] = "drifted"
         p.write_text(json.dumps(doc))
+
+    def flip_def(root):
+        p = root / "layout/records/hyperram_ctrl.def"
+        p.write_bytes(p.read_bytes() + b"# re-routed\n")
 
     def flip_sta_digest(root):
         p = root / "layout/records/sta-sdf.response.json"
@@ -200,26 +242,28 @@ def self_test():
         p.write_text(json.dumps(doc))
 
     with tempfile.TemporaryDirectory() as tmp:
-        run(fixture(tmp))  # must not raise
+        buf = io.StringIO()
+        old, sys.stdout = sys.stdout, buf
+        try:
+            run(fixture(tmp))  # must not raise
+        finally:
+            sys.stdout = old
+        assert "::error::" not in buf.getvalue(), \
+            f"clean fixture errored: {buf.getvalue().strip()}"
         ok += 1
     expect_fail("routed-netlist drift", flip_netlist, "hyperram_ctrl.routed.v drifted")
     expect_fail("sdf drift", flip_sdf, "tt_025C_1v80.sdf drifted")
     expect_fail("report drift", flip_report, "f.report.json drifted")
     expect_fail("sta digest alone", flip_sta_digest, "does not hash to the producing STA")
+    expect_fail("def drift, SDF/STA self-consistent", flip_def,
+                "was produced from a different DEF")
     expect_fail("string \"true\" annotation", unannotate, "not SDF-annotated")
     expect_fail("scratch-path remap lost", break_remap, "sdf.path is")
-    print(f"check_sdf_evidence.py self-test: {ok}/7 cases behaved")
+    print(f"check_sdf_evidence.py self-test: {ok}/8 cases behaved")
 
 
 if __name__ == "__main__":
-    import io
-    sys.stdout = io.StringIO() if "--self-test" in sys.argv else sys.stdout
     if "--self-test" in sys.argv:
-        try:
-            self_test()
-        finally:
-            printed = sys.stdout.getvalue()
-            sys.stdout = sys.__stdout__
-            print(printed, end="")
+        self_test()
         sys.exit(0)
     run(REPO)
