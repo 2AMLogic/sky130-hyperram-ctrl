@@ -36,8 +36,11 @@ Also in the tree, outside the tier record:
 - The SDF-annotated post-route run exists (#171): `klt sta` on the committed
   DEF + SPEF wrote `layout/records/hyperram_ctrl.tt_025C_1v80.sdf`, and the
   same benches with that SDF back-annotated on the routed netlist fail 43/43
-  from the first CA byte (`make -C verification/ctrl sdf`; `environment.sdf.annotated:
-  true`). The finding is the CK output path — the ICG enable opens CK one
+  from the first CA byte (`make -C verification/ctrl sdf`;
+  `environment.sdf.annotated: true` — partial, though:
+  `environment.sdf.partial: true`, 732 entries dropped in that report, 504
+  `timingcheck` plus 208 + 20 zero-delay interconnect; see Next item 7).
+  The finding is the CK output path — the ICG enable opens CK one
   clock before CA and the tap-chain/CTS delays skew CK duty to ~9/11 ns
   half-periods — tracked as #187. The manifest cites the failing report, so
   item 7 grades `unmet`/`check_failed`, not `no_evidence`.
@@ -137,6 +140,13 @@ As of the header sha above; live label state is
   first CA byte, so item 7 stays `unmet` with the failing report cited. What
   remains is the CK-path fix (#187); done when a re-run of
   `make post-route-verify` passes (or its remainders are re-triaged narrower).
+  A `met` grade from that run carries a named assumption: Icarus drops every
+  SDF TIMINGCHECK (504 entries in the landed report,
+  `sim/hyperram/records/functional-verification-ctrl-sdf.report.json`, PR
+  #188), so the run proves IOPATH/INTERCONNECT-annotated function only —
+  `$setup`/`$hold` run against the cell library's placeholder timing, not
+  the SDF's characterised limits. Setup/hold margin is the item-5 STA
+  record's claim (#172), not this run's.
 - **Max-transition and max-capacitance violations.** After #52, on the fresh
   response. Done when each class is fixed or explained in `layout/README.md`.
 
