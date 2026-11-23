@@ -23,11 +23,11 @@
 #       SDF vs its producing klt sta response) is fresh -- no simulator needed
 #   6c. the post-route STA records match the current requests, DEF and SPEF
 #       (self-tested first so `sta-postroute-note` cannot re-stamp stale inputs)
-#   6d. the committed pre-layout STA note equals a fresh render of the
+#   7. the committed pre-layout STA note equals a fresh render of the
 #       committed record it sits beside (self-tested first; only the
 #       note<->record binding -- the record's own binding to the netlist
 #       stays local_only)
-#   7. the committed klt signoff record equals a fresh render of the manifest
+#   8. the committed klt signoff record equals a fresh render of the manifest
 #   (the --help assertion for the two shell drivers runs as step 2b, beside
 #    the other tool-free gates; the delay-chain derivation unit check runs as
 #    step 3b; the tap-decode structural check runs as step 3c, self-tested
@@ -209,7 +209,7 @@ echo "== 6c/8 post-route STA record is fresh =="
 python3 -I flow/hyperram.py sta-postroute-check --self-test
 python3 -I flow/hyperram.py sta-postroute-check
 
-echo "== 6d/8 pre-layout STA note is fresh =="
+echo "== 7/8 pre-layout STA note is fresh =="
 # The pre-layout STA itself is local_only (needs OpenROAD + PDK; `make
 # hyperram-sta`); this step checks only the note<->record binding: the
 # committed STA.md must equal byte-for-byte a fresh sta_note() render of the
@@ -221,7 +221,7 @@ echo "== 6d/8 pre-layout STA note is fresh =="
 python3 -I flow/hyperram.py sta-check --self-test
 python3 -I flow/hyperram.py sta-check
 
-echo "== 7/8 klt signoff record is fresh =="
+echo "== 8/8 klt signoff record is fresh =="
 fresh="$(mktemp)"
 trap 'rm -f "$fresh"' EXIT
 rc=0

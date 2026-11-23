@@ -496,7 +496,7 @@ def sta_note(doc, cells):
     cc = [c["constraint_completeness"] for c in doc["corners"]]
     unclocked = sorted({c["unclocked_registers"]["count"] for c in cc})
     endpoints = sorted({c["unconstrained_endpoints"]["count"] for c in cc})
-    req = json.loads(STA_REQ.read_text())
+    req = json.loads(STA_REQ.read_text(encoding="utf-8"))
     prov = doc["provenance"]
 
     def rows(entries):
@@ -690,12 +690,19 @@ def sta_note_render(root=None):
         sys.exit(f"FATAL: {rel(rec_p, root)} missing; run `make hyperram-sta`")
     if not stat_p.exists():
         sys.exit(f"FATAL: {rel(stat_p, root)} missing; run `make hyperram-synth`")
-    doc = json.loads(rec_p.read_text())
+    doc = json.loads(rec_p.read_text(encoding="utf-8"))
     if doc.get("status") != "ok":
         sys.exit(f"FATAL: {rel(rec_p, root)} status is {doc.get('status')!r}, not 'ok';"
                  " run `make hyperram-sta`")
-    cells = json.loads(stat_p.read_text())["blackbox_modules"]
+    cells = json.loads(stat_p.read_text(encoding="utf-8"))["blackbox_modules"]
     return sta_note(doc, cells)
+
+
+def sta_note_bytes(root=None):
+    """The canonical on-disk form of the note: UTF-8, LF endings, regardless
+    of the host locale or platform newline convention. Both `sta-note` (write)
+    and `sta-check` (compare) use exactly these bytes."""
+    return sta_note_render(root).encode("utf-8")
 
 
 def sta_note_cmd(root=None):
@@ -709,7 +716,10 @@ def sta_note_cmd(root=None):
     """
     root = Path(REPO if root is None else root)
     _, note_p, _ = sta_note_paths(root)
-    note_p.write_text(sta_note_render(root))
+    # Render (and encode) fully before the output is opened, and write bytes:
+    # a render/encode failure must not truncate STA.md, and no host newline
+    # translation may change what sta-check compares against.
+    note_p.write_bytes(sta_note_bytes(root))
     print(f"sta-note: rewrote {rel(note_p, root)} from the committed record")
 
 
@@ -725,7 +735,7 @@ def sta_check(root=None):
     """
     root = Path(REPO if root is None else root)
     _, note_p, _ = sta_note_paths(root)
-    want = sta_note_render(root).encode()
+    want = sta_note_bytes(root)
     have = note_p.read_bytes() if note_p.exists() else None
     if have != want:
         how = "missing" if have is None else "differs from a fresh render of the committed record"
@@ -759,8 +769,8 @@ def sta_check_self_test():
             shutil.copyfile(Path(__file__).resolve().parent / "klt_run.py", root / "flow/klt_run.py")
         # sta_note() reads its own request; the fixture carries the committed
         # one so in-process and CLI renders agree byte-for-byte.
-        req_p.write_text(STA_REQ.read_text())
-        stat_p.write_text(json.dumps({"blackbox_modules": cells}, indent=2) + "\n")
+        req_p.write_bytes(STA_REQ.read_bytes())
+        stat_p.write_bytes((json.dumps({"blackbox_modules": cells}, indent=2) + "\n").encode("utf-8"))
         doc = {
             "engine": "openroad",
             "engine_version": "test",
@@ -799,8 +809,8 @@ def sta_check_self_test():
                 for name in corners
             ],
         }
-        rec_p.write_text(json.dumps(doc, indent=2) + "\n")
-        note_p.write_text(sta_note(doc, cells))
+        rec_p.write_bytes((json.dumps(doc, indent=2) + "\n").encode("utf-8"))
+        note_p.write_bytes(sta_note(doc, cells).encode("utf-8"))
         return root
 
     def call_quiet(fn, root):
@@ -856,7 +866,7 @@ def sta_check_self_test():
     with tempfile.TemporaryDirectory() as tmp:
         root = make_fixture(tmp)
         rec_p = sta_note_paths(root)[0]
-        doc = json.loads(rec_p.read_text())
+        doc = json.loads(rec_p.read_text(encoding="utf-8"))
         doc["corners"][1]["worst_slack_ns"] = 0.75
         rec_p.write_text(json.dumps(doc, indent=2) + "\n")
         rc, out = call_quiet(sta_check, root)
@@ -926,6 +936,34 @@ def sta_check_self_test():
                             capture_output=True, text=True)
         assert c2.returncode == 0, \
             f"cli: post-note check exited {c2.returncode}: {c2.stdout}{c2.stderr}"
+        passed += 1
+
+    # 8. Non-ASCII field under a non-UTF-8 locale: the repair command must
+    #    write the same UTF-8/LF bytes `sta-check` expects, and a failure must
+    #    never truncate the note. (The JSON record escapes the character; the
+    #    rendered note carries it raw.)
+    with tempfile.TemporaryDirectory() as tmp:
+        root = make_fixture(tmp, with_runner=True)
+        rec_p, note_p, _ = sta_note_paths(root)
+        doc = json.loads(rec_p.read_text(encoding="utf-8"))
+        doc["engine_version"] = "test \u00b1 1.0"
+        rec_p.write_bytes((json.dumps(doc, indent=2) + "\n").encode("utf-8"))
+        runner = str(root / "flow/hyperram.py")
+        env = dict(os.environ, LC_ALL="C", LANG="C", PYTHONUTF8="0",
+                   PYTHONCOERCECLOCALE="0")
+        env.pop("PYTHONIOENCODING", None)
+        n1 = subprocess.run([sys.executable, "-I", runner, "sta-note"],
+                            capture_output=True, env=env)
+        assert n1.returncode == 0, \
+            f"cli/C-locale: sta-note exited {n1.returncode}: {n1.stdout!r}{n1.stderr!r}"
+        got = note_p.read_bytes()
+        assert got, "cli/C-locale: sta-note left a zero-byte STA.md"
+        assert b"\r" not in got, "cli/C-locale: sta-note wrote CR bytes"
+        assert "\u00b1".encode("utf-8") in got, "cli/C-locale: non-ASCII field not written as UTF-8"
+        c1 = subprocess.run([sys.executable, "-I", runner, "sta-check"],
+                            capture_output=True, env=env)
+        assert c1.returncode == 0, \
+            f"cli/C-locale: sta-check exited {c1.returncode}: {c1.stdout!r}{c1.stderr!r}"
         passed += 1
 
     print(f"sta-check self-test: {passed}/{passed} cases passed")
