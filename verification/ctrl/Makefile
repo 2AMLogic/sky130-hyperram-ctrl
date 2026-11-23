@@ -53,3 +53,16 @@ gl-preflight:
 	@test -f $(PDK_VLOG)/sky130_fd_sc_hd.v || { echo "FATAL: PDK models not found under $(PDK_VLOG); run scripts/setup-env.sh or set PDK_ROOT"; exit 1; }
 	@$(GL_CHECK)
 endif
+
+# SDF-annotated post-route run (T1 item 7): klt functional-verification on
+# flow/functional-verification-ctrl-sdf.json -- the routed netlist with the
+# PDK's timing models (no FUNCTIONAL define, no UNIT_DELAY override) and
+# options.sdf on the committed post-route SDF, the same unmodified test_all
+# bench. Writes the report unmodified plus the input-digest companion to
+# sim/hyperram/records/. Needs Icarus >= 13 (-ginterconnect), which the runner
+# itself checks: scripts/setup-env.sh's major >= 12 floor is unchanged. Run
+# scripts/setup-env.sh first (cocotb + PDK; `make post-route-sdf` in the repo
+# root produces the SDF the request points at).
+sdf:
+	cd ../.. && python3 flow/post_route.py verify
+.PHONY: sdf

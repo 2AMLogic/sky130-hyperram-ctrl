@@ -3,7 +3,7 @@
 A HyperBus-class memory controller and its pad-level I/O timing on the SkyWater
 sky130 open PDK, testing whether the open flow can close DDR read capture at the pins.
 
-Status as of 2026-11-15, `main` @ `aacd7a7`.
+Status as of 2026-11-23, `main` @ `ae25a3b`.
 
 [`WORK_PLAN.md`](../WORK_PLAN.md) is the generated label-state view and
 [`WORK_LOG.md`](../WORK_LOG.md) the merge history; neither is restated here.
@@ -23,7 +23,7 @@ all graded against a **draft** spec, so every verdict is provisional.
 | 4 LVS clean | met, **stale** | `layout/lvs/records/report.json`, on the stale GDS |
 | 5 Full corner verification vs a ratified spec | unmet | no ratified spec (#2); no corner-complete timing record for the current netlist |
 | 6 Monte Carlo for statistical claims | unmet | no evidence; whether the spec makes a statistical claim is #2's call |
-| 7 Post-layout verification | unmet | no SDF or parasitic-annotated run; needs a fresh layout (#52) |
+| 7 Post-layout verification | unmet, **probed** | the SDF-annotated run exists and fails: all 43 benches on `hyperram_ctrl.routed.v` with the DEF+SPEF SDF at `tt_025C_1v80` fail from the first CA byte — post-route CK alignment/duty (#187); report `sim/hyperram/records/functional-verification-ctrl-sdf.report.json` |
 | 8 Characterization report | unmet | no report; needs items 5 and 7 |
 | 9 Testbenches shipped | met | `verification/ctrl/` (43 cocotb tests, one module per CT row, plus random traffic), `verification/hyperram_model/`, `evidence/item9.json` |
 | 10 Repo hygiene | met | `evidence/item10.json`, re-checked by `npm run check:ci` |
@@ -33,6 +33,14 @@ Also in the tree, outside the tier record:
 
 - The same 43 tests pass on the gate-level netlist with the PDK's cell models,
   zero delay (`make -C verification/ctrl GL=1`, #59, PR #60).
+- The SDF-annotated post-route run exists (#171): `klt sta` on the committed
+  DEF + SPEF wrote `layout/records/hyperram_ctrl.tt_025C_1v80.sdf`, and the
+  same benches with that SDF back-annotated on the routed netlist fail 43/43
+  from the first CA byte (`make -C verification/ctrl sdf`; `environment.sdf.annotated:
+  true`). The finding is the CK output path — the ICG enable opens CK one
+  clock before CA and the tap-chain/CTS delays skew CK duty to ~9/11 ns
+  half-periods — tracked as #187. The manifest cites the failing report, so
+  item 7 grades `unmet`/`check_failed`, not `no_evidence`.
 - The spec is drafted but unratified: `spec/target-spec.md` (20 rows), seven
   decision records, and the pad and clock interface tables with their gaps
   filed on the siblings (2AMLogic/sky130-io-ring#7, 2AMLogic/sky130-pll#332).
@@ -123,8 +131,12 @@ As of the header sha above; live label state is
   sibling (2AMLogic/sky130-io-ring#7) and the ngspice min/max pad-delay
   spread that question (a) left open. Done when `sim/` holds a per-corner
   setup and hold margin at the capturing flop against the row-12 figure.
-- **Item 7, post-layout verification.** After #52. Done when the GL benches run
-  with SDF from the fresh layout and the manifest cites the report.
+- **Item 7, post-layout verification.** The probe landed (#171): the SDF from
+  the committed DEF + SPEF exists in `layout/records/` with its producing STA
+  response, and the annotated bench run is recorded — it fails 43/43 from the
+  first CA byte, so item 7 stays `unmet` with the failing report cited. What
+  remains is the CK-path fix (#187); done when a re-run of
+  `make post-route-verify` passes (or its remainders are re-triaged narrower).
 - **Max-transition and max-capacitance violations.** After #52, on the fresh
   response. Done when each class is fixed or explained in `layout/README.md`.
 
@@ -148,8 +160,10 @@ As of the header sha above; live label state is
 
 - **#52** is held on 2AMLogic/2am#7142: the batch image runs place-and-route
   but lacks magic, netgen and the sky130 PDK for DRC, LVS and ERC.
-- **#2 ratification** is a human/Champion act (`spec/README.md`); items 5 to 8
-  wait on it, drafting under #2 does not. It also owes a decision record for
+- **#2 ratification** is a human/Champion act (`spec/README.md`); items 5, 6
+  and 8 wait on it, drafting under #2 does not. Item 7 no longer waits on it
+  either: the provisional SDF-annotated run exists (#171) and what it waits
+  on is the CK-path design iteration (#187). #2 also owes a decision record for
   the spec's gap **C3**: tCSM is not tabulated for the -40 to +125 °C
   *Extended* range this spec's corner set uses, the published bounds fall 4x
   over a +20 °C step (tightening with temperature), so the model's 1.00 us
