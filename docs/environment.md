@@ -33,19 +33,14 @@ Host tools are never installed by the script. `openroad` on the dispatch
 workers is a Docker wrapper; it needs access to the Docker daemon. A wrapper
 that is on `$PATH` but cannot run fails step 4 of the script.
 
-## Smoke flow
+## Cold-start check
 
-`make smoke` runs, on `rtl/smoke/smoke_counter.v` (not part of the design):
-
-1. `smoke-lint`: `verilator --lint-only -Wall` (warnings are fatal).
-2. `smoke-sim`: cocotb + Icarus (`verification/smoke/`).
-3. `smoke-synth`: `klt synthesize` to `sky130_fd_sc_hd`; netlist and stat
-   report in `sim/smoke/records/`.
-4. `smoke-sta`: `klt sta` on that netlist at `tt_025C_1v80`, `ss_100C_1v60`,
-   `ff_n40C_1v95` (20 ns clock, ideal clock, no wire load), failing unless
-   setup and hold slack are both non-negative.
-5. `smoke-record`: `sim/smoke/records/RECORD.md` with the PDK revision and
-   every tool version.
+The smoke counter the flow originally brought up on (`rtl/smoke/`) is gone
+(issue #114): the controller flow now exercises every step it did, on the
+real design. The cheapest post-setup probe is
+`make hyperram-lint hyperram-check` — verilator `--lint-only -Wall` (warnings fatal) on the controller RTL, then a
+re-synthesis compared against the committed netlist. Both need the
+`scripts/setup-env.sh` toolchain.
 
 `PDK=sky130A` is exported by the Makefile; without it `klt` may resolve
 another installed PDK variant (klayout-tools#3748).

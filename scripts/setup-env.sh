@@ -165,4 +165,4 @@ else echo "  ngspice:   MISSING"; missing=1; fi
 [ "${missing}" -eq 0 ] || fail "host tools missing or too old (this script does not install host tools; see docs/environment.md)."
 
 echo
-echo "environment ready. Run: make smoke"
+echo "environment ready. Run: make hyperram-lint hyperram-check"
