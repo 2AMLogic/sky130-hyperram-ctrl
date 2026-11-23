@@ -5,353 +5,351 @@
   "testbench": "test_all",
   "status": "fail",
   "test_count": 43,
-  "passed_count": 0,
-  "failed_count": 43,
+  "passed_count": 1,
+  "failed_count": 42,
   "skipped_count": 0,
   "tests": [
     {
       "name": "random_traffic_scoreboard",
       "status": "failed",
-      "sim_time_ns": 805580.0,
-      "real_time_s": 10.71303939819336,
+      "sim_time_ns": 805560.0,
+      "real_time_s": 11.678,
       "error_type": "AssertionError",
       "error_message": "transfer timed out: issued 5/24, acked 0"
     },
     {
       "name": "ca_is_six_bytes_and_decodes",
       "status": "failed",
-      "sim_time_ns": 5362.652000000002,
-      "real_time_s": 0.0642082691192627,
+      "sim_time_ns": 5342.652000000002,
+      "real_time_s": 0.054,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "ca_address_bits_walk",
       "status": "failed",
-      "sim_time_ns": 5362.652000000002,
-      "real_time_s": 0.06190681457519531,
+      "sim_time_ns": 5342.652000000002,
+      "real_time_s": 0.054,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "ca_register_space_bit",
       "status": "failed",
-      "sim_time_ns": 5362.652000000002,
-      "real_time_s": 0.060564517974853516,
+      "sim_time_ns": 5342.652000000002,
+      "real_time_s": 0.054,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "ca_spans_three_ck_cycles",
       "status": "failed",
-      "sim_time_ns": 5400.0,
-      "real_time_s": 0.06298422813415527,
+      "sim_time_ns": 5380.0,
+      "real_time_s": 0.051,
       "error_type": "AssertionError",
-      "error_message": "device-model violations:\n  tCK @ 826994.6 ns: half period 9.0 ns\n  tCK @ 827014.6 ns: half period 9.0 ns\n  burst_type @ 827025.6 ns: wrapped burst requested; only linear is modelled\n  tCK @ 827034.6 ns: half period 9.0 ns"
+      "error_message": "device-model violations:\n    tCK @ 826894.6 ns: half period 9.0 ns\n    tCK @ 826914.6 ns: half period 9.0 ns\n    burst_type @ 826925.6 ns: wrapped burst requested; only linear is modelled\n    tCK @ 826934.6 ns: half period 9.0 ns\nassert not [Violation(param='tCK', t_ns=826894.6, detail='half period 9.0 ns'), Violation(param='tCK', t_ns=826914.6, detail='hal...wrapped burst requested; only linear is modelled'), Violation(param='tCK', t_ns=826934.6, detail='half period 9.0 ns')]\n +  where [Violation(param='tCK', t_ns=826894.6, detail='half period 9.0 ns'), Violation(param='tCK', t_ns=826914.6, detail='hal...wrapped burst requested; only linear is modelled'), Violation(param='tCK', t_ns=826934.6, detail='half period 9.0 ns')] = <model.HyperRamModel object at 0x7c42a25b3490>.violations"
     },
     {
       "name": "variable_latency_normal",
       "status": "failed",
-      "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05648970603942871,
+      "sim_time_ns": 5402.652000000002,
+      "real_time_s": 0.059,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "doubling_decision_at_the_pins",
       "status": "failed",
-      "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05782294273376465,
+      "sim_time_ns": 5402.652000000002,
+      "real_time_s": 0.089,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "variable_latency_doubled_by_rwds",
       "status": "failed",
-      "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.06282448768615723,
+      "sim_time_ns": 5402.652000000002,
+      "real_time_s": 0.059,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "fixed_latency_configuration",
       "status": "failed",
-      "sim_time_ns": 5460.0,
-      "real_time_s": 0.06618332862854004,
+      "sim_time_ns": 5440.0,
+      "real_time_s": 0.056,
       "error_type": "AssertionError",
-      "error_message": null
+      "error_message": "assert False\n +  where False = <model.HyperRamModel object at 0x7c42a26fed50>.fixed_latency\n +    where <model.HyperRamModel object at 0x7c42a26fed50> = <hrbench.Bench object at 0x7c42a26fee50>.model"
     },
     {
       "name": "controller_latency_shorter_than_device_is_caught",
       "status": "failed",
-      "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05776262283325195,
+      "sim_time_ns": 5402.652000000002,
+      "real_time_s": 0.06,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "clamp_below_four",
       "status": "failed",
-      "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.058203935623168945,
+      "sim_time_ns": 5402.652000000002,
+      "real_time_s": 0.055,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "linear_bursts_of_many_lengths",
       "status": "failed",
-      "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05748462677001953,
+      "sim_time_ns": 5402.652000000002,
+      "real_time_s": 0.061,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "single_word_register_style_beat_at_odd_addresses",
       "status": "failed",
-      "sim_time_ns": 5362.652000000002,
-      "real_time_s": 0.056362152099609375,
+      "sim_time_ns": 5342.652000000002,
+      "real_time_s": 0.053,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "burst_is_one_transaction_when_it_fits",
       "status": "failed",
-      "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.0575406551361084,
+      "sim_time_ns": 5402.652000000002,
+      "real_time_s": 0.057,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "every_byte_lane_pattern",
       "status": "failed",
-      "sim_time_ns": 5362.652000000002,
-      "real_time_s": 0.056844234466552734,
+      "sim_time_ns": 5342.652000000002,
+      "real_time_s": 0.049,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "mask_inside_a_burst",
       "status": "failed",
-      "sim_time_ns": 5362.652000000002,
-      "real_time_s": 0.0573122501373291,
+      "sim_time_ns": 5342.652000000002,
+      "real_time_s": 0.05,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "register_writes_are_not_masked",
       "status": "failed",
-      "sim_time_ns": 5400.0,
-      "real_time_s": 0.05782604217529297,
+      "sim_time_ns": 5380.0,
+      "real_time_s": 0.052,
       "error_type": "AssertionError",
-      "error_message": null
+      "error_message": "assert 0 == 4660"
     },
     {
       "name": "read_id_and_config_registers",
       "status": "failed",
-      "sim_time_ns": 5362.652000000002,
-      "real_time_s": 0.06058907508850098,
+      "sim_time_ns": 5342.652000000002,
+      "real_time_s": 0.069,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "write_then_read_back_register",
       "status": "failed",
-      "sim_time_ns": 5400.0,
-      "real_time_s": 0.06297516822814941,
+      "sim_time_ns": 5380.0,
+      "real_time_s": 0.054,
       "error_type": "AssertionError",
-      "error_message": null
+      "error_message": "assert 0 == 36631"
     },
     {
       "name": "read_only_register_ignores_write",
       "status": "failed",
-      "sim_time_ns": 5582.652000000002,
-      "real_time_s": 0.06313061714172363,
+      "sim_time_ns": 5562.652000000002,
+      "real_time_s": 0.058,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "register_access_does_not_touch_memory",
       "status": "failed",
-      "sim_time_ns": 5362.652000000002,
-      "real_time_s": 0.05628824234008789,
+      "sim_time_ns": 5342.652000000002,
+      "real_time_s": 0.054,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "interval_is_honoured_and_pads_quiet",
       "status": "failed",
-      "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.057828664779663086,
+      "sim_time_ns": 5402.652000000002,
+      "real_time_s": 0.06,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "interval_is_a_register",
       "status": "failed",
       "sim_time_ns": 322.65200000000186,
-      "real_time_s": 0.01586771011352539,
+      "real_time_s": 0.011,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "too_short_interval_is_flagged_by_the_model",
       "status": "failed",
       "sim_time_ns": 322.65200000000186,
-      "real_time_s": 0.015183210372924805,
+      "real_time_s": 0.008,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "long_bursts_are_split_and_never_exceed_tcsm",
       "status": "failed",
-      "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.06256937980651855,
+      "sim_time_ns": 5402.652000000002,
+      "real_time_s": 0.056,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "margin_holds_across_tcsm_and_latency",
       "status": "failed",
-      "sim_time_ns": 5482.652000000002,
-      "real_time_s": 0.05976128578186035,
+      "sim_time_ns": 5462.652000000002,
+      "real_time_s": 0.056,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "margin_is_tight_not_loose",
       "status": "failed",
-      "sim_time_ns": 5482.652000000002,
-      "real_time_s": 0.05957961082458496,
+      "sim_time_ns": 5462.652000000002,
+      "real_time_s": 0.054,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "negative_control_limit_disabled_is_flagged",
       "status": "failed",
-      "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05802607536315918,
+      "sim_time_ns": 5402.652000000002,
+      "real_time_s": 0.052,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "budget_too_small_sets_status_bit",
       "status": "failed",
-      "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.057100534439086914,
+      "sim_time_ns": 5402.652000000002,
+      "real_time_s": 0.05,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "doubles_only_when_rwds_high",
       "status": "failed",
-      "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05751466751098633,
+      "sim_time_ns": 5402.652000000002,
+      "real_time_s": 0.051,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "sampling_is_independent_of_rwds_skew_after_ck",
       "status": "failed",
-      "sim_time_ns": 5482.652000000002,
-      "real_time_s": 0.07048225402832031,
+      "sim_time_ns": 5462.652000000002,
+      "real_time_s": 0.059,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "doubled_latency_read_returns_correct_data",
       "status": "failed",
-      "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05883526802062988,
+      "sim_time_ns": 5402.652000000002,
+      "real_time_s": 0.061,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "doubled_latency_write_is_correct",
       "status": "failed",
-      "sim_time_ns": 5422.651999999885,
-      "real_time_s": 0.058370113372802734,
+      "sim_time_ns": 5402.651999999885,
+      "real_time_s": 0.068,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "no_calibration_port_or_status_bit",
-      "status": "failed",
-      "sim_time_ns": 5385.0,
-      "real_time_s": 0.05451655387878418,
-      "error_type": "AssertionError",
-      "error_message": "cfg 4: 0x0024 has bits set outside documented field 0x000f"
+      "status": "passed",
+      "sim_time_ns": 5376.0,
+      "real_time_s": 0.059
     },
     {
       "name": "one_ack_per_accepted_beat_and_none_unasked",
       "status": "failed",
-      "sim_time_ns": 5522.652000000002,
-      "real_time_s": 0.061942338943481445,
+      "sim_time_ns": 5502.652000000002,
+      "real_time_s": 0.058,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "stall_back_pressures_and_data_is_not_lost",
       "status": "failed",
-      "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05765485763549805,
+      "sim_time_ns": 5402.652000000002,
+      "real_time_s": 0.055,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "pipelined_reads_overlap",
       "status": "failed",
-      "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05833792686462402,
+      "sim_time_ns": 5402.652000000002,
+      "real_time_s": 0.049,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "dropping_cyc_does_not_cancel_an_accepted_beat",
       "status": "failed",
-      "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05890321731567383,
+      "sim_time_ns": 5402.652000000002,
+      "real_time_s": 0.061,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "reads_see_earlier_writes_in_order",
       "status": "failed",
-      "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.062407493591308594,
+      "sim_time_ns": 5402.652000000002,
+      "real_time_s": 0.064,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "long_write_burst_with_random_host_gaps",
       "status": "failed",
-      "sim_time_ns": 5442.652000000002,
-      "real_time_s": 0.057530879974365234,
+      "sim_time_ns": 5422.652000000002,
+      "real_time_s": 0.056,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "long_read_burst_with_random_host_gaps",
       "status": "failed",
-      "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05739855766296387,
+      "sim_time_ns": 5402.652000000002,
+      "real_time_s": 0.049,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "burst_longer_than_cs_low_budget_loses_nothing",
       "status": "failed",
-      "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05774092674255371,
+      "sim_time_ns": 5402.652000000002,
+      "real_time_s": 0.05,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     },
     {
       "name": "non_sequential_beats_start_new_transactions",
       "status": "failed",
-      "sim_time_ns": 5422.652000000002,
-      "real_time_s": 0.05694222450256348,
+      "sim_time_ns": 5402.652000000002,
+      "real_time_s": 0.048,
       "error_type": "AssertionError",
-      "error_message": "DQ must be driven by the host during CA"
+      "error_message": "DQ must be driven by the host during CA\nassert None is not None"
     }
   ],
   "coverage": null,
@@ -360,28 +358,28 @@
     "engine": "icarus",
     "engine_version": "13.0",
     "tools": [],
-    "cocotb_version": "2.0.1",
+    "cocotb_version": "2.1.0",
     "results_xml": {
       "path": "flow/.klt/functional-verification/results_icarus.xml",
       "scope": "repo",
-      "sha256": "sha256:5068a05e26c870cb5d37f123e1ae8e898644ee60342831295089a2545b47ee73"
+      "sha256": "sha256:198022c81a47fa2f7f74053d14420a04ecf117575b5ed3699a0202c52bcd1ab4"
     },
     "test_log": {
       "path": "flow/.klt/functional-verification/test_icarus.log",
       "scope": "repo",
-      "sha256": "sha256:41ba4735b9afe32c600e53c2210c2d3535dadf3246a335dd412d59a7d2c84315"
+      "sha256": "sha256:7064d392a79a62716c3397d2af0e5df40357c789828a119931f24439d7595148"
     },
     "build_log": {
       "path": "flow/.klt/functional-verification/build_icarus.log",
       "scope": "repo",
       "sha256": "sha256:32d6de3225d3f08f0c91005c16e7243ed9d30ca69a886896b912472a4d51e5fb"
     },
-    "random_seed": 1795405540,
+    "random_seed": 1795429389,
     "source_defines": {},
     "env": {},
     "initial_state": null,
     "sdf": {
-      "file": "/home/ubuntu/GitHub/sky130-hyperram-ctrl/.loom/worktrees/issue-171/layout/records/hyperram_ctrl.tt_025C_1v80.sdf",
+      "file": "/home/ubuntu/GitHub/sky130-hyperram-ctrl/.loom/worktrees/issue-200/layout/records/hyperram_ctrl.tt_025C_1v80.sdf",
       "corner": "typ",
       "entries": "all",
       "annotated": true,
