@@ -24,9 +24,9 @@
 #   6c. the post-route STA records match the current requests, DEF and SPEF
 #       (self-tested first so `sta-postroute-note` cannot re-stamp stale inputs)
 #   7. the committed klt signoff record equals a fresh render of the manifest
-#       and no item in it is downgraded to unmet/stale_evidence (a stale
+#       and no item in it is downgraded to unmet/stale_evidence or unverifiable_provenance (a stale
 #       manifest content_hash pin re-rendered and committed would pass the
-#       byte-compare alone; issue #212)
+#       byte-compare alone; issues #212, #214)
 #   (the --help assertion for the two shell drivers runs as step 2b, beside
 #    the other tool-free gates; the delay-chain derivation unit check runs as
 #    step 3b; the tap-decode structural check runs as step 3c, self-tested
@@ -228,7 +228,8 @@ fi
 # re-rendered and committed passes the cmp above by comparing to itself
 # (issue #212). The reason token is the discriminator -- klt 0.9.2 defines
 # forty-eight `_REASON_*` tokens and the set grows release by release, so
-# this reject-lists stale_evidence alone,
+# this reject-lists the two downgrade tokens, stale_evidence and
+# unverifiable_provenance (issue #214), and nothing else,
 # self-tested first, over fixtures, because it is the only thing standing
 # between a silent T1 downgrade and a green CI. $RECORD is byte-equal to
 # $fresh here (the cmp above), so checking it checks both. Needs no klt
