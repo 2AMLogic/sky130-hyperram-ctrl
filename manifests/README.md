@@ -36,7 +36,7 @@
 runs (the `klt` on `$PATH` when its version is the pin, else `uvx`), and
 `scripts/klt.sh --pin` prints the pin. `scripts/check_ci.sh`,
 `layout/erc/run.sh`, `layout/lvs/run.sh`, the `Makefile` `drc` target and the
-flow runners (`flow/hyperram.py` and `flow/smoke.py`, through the shared
+flow runners (`flow/hyperram.py` and its siblings, through the shared
 `flow/klt_run.py` helper) call it; `scripts/setup-env.sh` and the install step
 of `.github/workflows/ci.yml` read the pin from it. Bump that one line and
 the signoff record together.
@@ -107,9 +107,9 @@ uvx --from klayout-tools==0.9.2 klt signoff \
     --format json > manifests/sky130-hyperram-ctrl.signoff.json
 ```
 
-`make smoke` is declared `local_only`: it needs the `scripts/setup-env.sh`
-toolchain, so `--check` on the CI runner skips it and reports its committed
-outcome.
+The controller cold-start check (`make hyperram-lint hyperram-check`) is
+declared `local_only`: it needs the `scripts/setup-env.sh` toolchain, so
+`--check` on the CI runner skips it and reports its committed outcome.
 
 ## Item-4 LVS
 

@@ -1,7 +1,7 @@
-# Toolchain smoke flow on rtl/smoke/ (NOT the design). `make smoke` runs lint,
-# the cocotb test, synthesis and three-corner STA, then writes the record.
-# `make hyperram-lint | hyperram-synth | hyperram-check | hyperram-sta` cover the
-# controller RTL and the pre-layout timing of its netlist;
+# Controller flow. `make hyperram-lint | hyperram-synth | hyperram-check |
+# hyperram-sta` cover the controller RTL and the pre-layout timing of its
+# netlist; after scripts/setup-env.sh, `make hyperram-lint hyperram-check` is
+# the cheapest cold-start probe of the toolchain on the real design;
 # `make layout | layout-check` place-and-route its netlist (layout/);
 # `make drc` runs klt drc on the routed GDS (T1 item 3);
 # `make delay-chain` runs the 45-corner ngspice RWDS delay-chain campaign on the
@@ -16,33 +16,6 @@ SHELL := /bin/bash
 VENV  := $(CURDIR)/.venv
 export PATH := $(VENV)/bin:$(PATH)
 export PDK ?= sky130A
-
-SMOKE_RTL := rtl/smoke/smoke_counter.v
-REC       := sim/smoke/records
-NETLIST   := $(REC)/smoke_counter.netlist.v
-
-.PHONY: smoke smoke-lint smoke-sim smoke-synth smoke-sta smoke-record
-
-smoke: smoke-lint smoke-sim smoke-synth smoke-sta smoke-record
-
-smoke-lint:
-	# warnings are fatal by default in verilator (no -Wno-fatal)
-	verilator --lint-only -Wall --top-module smoke_counter $(SMOKE_RTL)
-
-smoke-sim:
-	$(MAKE) -C verification/smoke
-
-smoke-synth:
-	python3 flow/smoke.py synth
-
-smoke-sta: $(NETLIST)
-	python3 flow/smoke.py sta
-
-$(NETLIST):
-	$(MAKE) smoke-synth
-
-smoke-record:
-	python3 flow/smoke.py record
 
 HR_DIR  := rtl/hyperram_ctrl
 HR_RTL  := $(HR_DIR)/hyperram_ctrl.v $(HR_DIR)/hr_cmd_fsm.v $(HR_DIR)/hr_dq_out.v $(HR_DIR)/hr_rd_capture.v $(HR_DIR)/hr_tap_delay.v
@@ -65,6 +38,18 @@ hyperram-check:
 # reported outside it. Not a prerequisite of anything.
 hyperram-sta:
 	python3 flow/hyperram.py sta
+
+# regenerate only the pre-layout STA prose from the committed sta.json (no
+# OpenROAD, no PDK); and the cheap freshness check that binds the committed
+# STA.md to that record byte-for-byte (CI runs this one; the STA itself is
+# local_only)
+hyperram-sta-note:
+	python3 flow/hyperram.py sta-note
+
+hyperram-sta-check:
+	python3 flow/hyperram.py sta-check
+
+.PHONY: hyperram-sta-note hyperram-sta-check
 
 # klt sta in def+spef mode on the routed DEF/SPEF at all 16 shipped corners with
 # BOTH clocks declared (clk primary, hb_rwds_i the RWDS strobe, propagated;
@@ -104,7 +89,7 @@ drc:
 # 5x3x3 decision-0004 corners submitted to the batch fleet through `klt sim`
 # (--wait-for-capacity 600; never a hand-run ngspice grid), the raw report
 # committed verbatim, and taps.csv / summary.csv / RECORD.md derived from it.
-# local_only like smoke/layout/drc: needs ngspice and the PDK, absent from CI.
+# local_only like layout/drc: needs ngspice and the PDK, absent from CI.
 delay-chain:
 	python3 flow/delay_chain.py sim
 

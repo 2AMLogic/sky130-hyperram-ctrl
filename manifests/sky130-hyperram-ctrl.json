@@ -20,11 +20,11 @@
     },
     "9": {
       "file": "evidence/item9.json",
-      "content_hash": "sha256:cc2aaf4222f472e6bfd4e51c84be82d5d40ac93b902b99167568e222f54b5893"
+      "content_hash": "sha256:2b97309cd6a43c0cf146b57a3fbdadc4890076b942f891edf04099cd2ccdab1b"
     },
     "10": {
       "file": "evidence/item10.json",
-      "content_hash": "sha256:d8c2d58bea0a67170fe2f7d5cbd426ce9f0002073d725d590de0ea5964bb9930"
+      "content_hash": "sha256:12390e7fecf8b4c36ffa910a4618d0be464d9dc062db7a84471cb26945515926"
     },
     "11": [
       {

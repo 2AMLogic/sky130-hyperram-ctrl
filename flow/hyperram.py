@@ -11,6 +11,17 @@
                       the pinned PDK ships, write the response to
                       sim/hyperram/records/sta.json and a note beside it, and fail
                       on negative slack only inside decision 0004's supply window
+  hyperram.py sta-note
+                      regenerate only sim/hyperram/records/STA.md from the
+                      committed sta.json + synth-stat.json blackbox list via
+                      the existing sta_note() (no klt, no OpenROAD, no PDK);
+                      refuses missing inputs or a non-ok record before
+                      touching the note
+  hyperram.py sta-check [--self-test]
+                      freshness gate for CI: the committed STA.md must equal
+                      a fresh render of the committed record byte-for-byte,
+                      exit 3 STALE otherwise; --self-test exercises the drift,
+                      refusal and repair cases over temp fixture trees
   hyperram.py layout  run `klt place-and-route` on layout/place-and-route.json
                       (the netlist above, 50 MHz, PDN + tapcells) and commit
                       the routed outputs to layout/records/ plus the T1 item 2
@@ -485,7 +496,7 @@ def sta_note(doc, cells):
     cc = [c["constraint_completeness"] for c in doc["corners"]]
     unclocked = sorted({c["unclocked_registers"]["count"] for c in cc})
     endpoints = sorted({c["unconstrained_endpoints"]["count"] for c in cc})
-    req = json.loads(STA_REQ.read_text())
+    req = json.loads(STA_REQ.read_text(encoding="utf-8"))
     prov = doc["provenance"]
 
     def rows(entries):
@@ -603,8 +614,7 @@ def sta_note(doc, cells):
 def sta():
     """`klt sta` on the committed netlist at every shipped liberty corner.
 
-    Mirrors flow/smoke.py's `sta` verb, with two differences the design (rather
-    than the smoke counter) forces:
+    Two things the design forces:
 
       * the gate is asymmetric -- graded inside decision 0004's supply window,
         reported outside it (see VMIN_V/VMAX_V);
@@ -652,6 +662,313 @@ def sta():
     if bad:
         sys.exit(f"FATAL: {bad} corner(s) inside {VMIN_V}-{VMAX_V} V failed; the record "
                  f"is written -- report it, do not relax the request")
+
+
+def sta_note_paths(root=None):
+    root = Path(REPO if root is None else root)
+    return (
+        root / "sim/hyperram/records/sta.json",
+        root / "sim/hyperram/records/STA.md",
+        root / "sim/hyperram/records/synth-stat.json",
+    )
+
+
+def sta_note_render(root=None):
+    """Read the committed pre-layout STA inputs and render the note text.
+
+    The one read-and-render path shared by `sta-note` and `sta-check`, so both
+    verbs and a live `sta` produce the same bytes: the committed sta.json plus
+    the committed synth-stat.json blackbox list through the existing
+    sta_note(). No klt, no OpenROAD, no PDK. Refuses, before any write, when
+    either input is missing or the record's status is not ok -- a note minted
+    from a broken record would be prose beside evidence that does not exist.
+    """
+    root = Path(REPO if root is None else root)
+    rec_p, _, stat_p = sta_note_paths(root)
+    if not rec_p.exists():
+        sys.exit(f"FATAL: {rel(rec_p, root)} missing; run `make hyperram-sta`")
+    if not stat_p.exists():
+        sys.exit(f"FATAL: {rel(stat_p, root)} missing; run `make hyperram-synth`")
+    doc = json.loads(rec_p.read_text(encoding="utf-8"))
+    if doc.get("status") != "ok":
+        sys.exit(f"FATAL: {rel(rec_p, root)} status is {doc.get('status')!r}, not 'ok';"
+                 " run `make hyperram-sta`")
+    cells = json.loads(stat_p.read_text(encoding="utf-8"))["blackbox_modules"]
+    return sta_note(doc, cells)
+
+
+def sta_note_bytes(root=None):
+    """The canonical on-disk form of the note: UTF-8, LF endings, regardless
+    of the host locale or platform newline convention. Both `sta-note` (write)
+    and `sta-check` (compare) use exactly these bytes."""
+    return sta_note_render(root).encode("utf-8")
+
+
+def sta_note_cmd(root=None):
+    """`sta-note`: regenerate only STA.md from the committed record.
+
+    The pre-layout twin of sta-postroute-note: re-renders the prose from
+    sim/hyperram/records/sta.json and the committed synth-stat.json blackbox
+    list without a `klt sta` run, so the note can be re-minted where OpenROAD
+    and PDK_ROOT are absent (CI, review worktrees). Whether sta.json itself
+    still matches the netlist it was minted from is not this verb's question.
+    """
+    root = Path(REPO if root is None else root)
+    _, note_p, _ = sta_note_paths(root)
+    # Render (and encode) fully before the output is opened, and write bytes:
+    # a render/encode failure must not truncate STA.md, and no host newline
+    # translation may change what sta-check compares against.
+    note_p.write_bytes(sta_note_bytes(root))
+    print(f"sta-note: rewrote {rel(note_p, root)} from the committed record")
+
+
+def sta_check(root=None):
+    """`sta-check`: freshness gate for CI, the pre-layout twin of
+    sta-postroute-check.
+
+    Binds the committed note to the record beside it, byte-for-byte: STA.md
+    must equal a fresh sta_note() render of the committed sta.json with the
+    committed blackbox list. This checks only the note<->record binding --
+    whether sta.json matches the netlist it came from is not answered here
+    (that needs OpenROAD + PDK and stays local_only with `make hyperram-sta`).
+    """
+    root = Path(REPO if root is None else root)
+    _, note_p, _ = sta_note_paths(root)
+    want = sta_note_bytes(root)
+    have = note_p.read_bytes() if note_p.exists() else None
+    if have != want:
+        how = "missing" if have is None else "differs from a fresh render of the committed record"
+        print(f"STALE: {rel(note_p, root)} {how};"
+              " run `python3 -I flow/hyperram.py sta-note`")
+        sys.exit(3)
+    print("pre-layout STA note is fresh")
+
+
+def sta_check_self_test():
+    """Offline regression suite for `sta-note` + `sta-check` (issue #208).
+
+    Verifies that a clean fixture passes, that a one-byte edit to STA.md (or a
+    CRLF rewrite -- the comparison is byte-for-byte, not line-by-line) or a
+    mutated sta.json without regenerating the note fails with exit 3, that
+    `sta-note` refuses missing inputs or a non-ok record without touching the
+    note, and that it repairs the drifted-note case -- including an end-to-end
+    CLI subprocess run of the exact repair path CI relies on.
+    """
+    corners = ["ss_100C_1v60", "tt_025C_1v80"]  # one outside, one inside the window
+    cells = ["sky130_fd_sc_hd__clkdlybuf4s50", "sky130_fd_sc_hd__dlygate4sd3_1"]
+
+    def make_fixture(tmp, *, with_runner=False):
+        root = Path(tmp)
+        rec_p, note_p, stat_p = sta_note_paths(root)
+        req_p = root / "flow/sta-hyperram.json"
+        for p in (rec_p, req_p):
+            p.parent.mkdir(parents=True, exist_ok=True)
+        if with_runner:
+            shutil.copyfile(Path(__file__).resolve(), root / "flow/hyperram.py")
+            shutil.copyfile(Path(__file__).resolve().parent / "klt_run.py", root / "flow/klt_run.py")
+        # sta_note() reads its own request; the fixture carries the committed
+        # one so in-process and CLI renders agree byte-for-byte.
+        req_p.write_bytes(STA_REQ.read_bytes())
+        stat_p.write_bytes((json.dumps({"blackbox_modules": cells}, indent=2) + "\n").encode("utf-8"))
+        doc = {
+            "engine": "openroad",
+            "engine_version": "test",
+            "hdl_toplevel": "hyperram_ctrl",
+            "status": "ok",
+            "verilog_path": {"path": "sim/hyperram/records/hyperram_ctrl.netlist.v",
+                             "scope": "repo"},
+            "geometry_source": "netlist_estimate",
+            "clock_mode": "ideal",
+            "wire_load_model": None,
+            "wire_load_mode": None,
+            "def_path": None,
+            "spef_path": None,
+            "provenance": {
+                "klt_version": "0.9.2",
+                "pdk": {"version": "open_pdks test"},
+                "input": {"content_hash": "sha256:" + "0" * 64, "role": "netlist"},
+            },
+            "corners": [
+                {
+                    "corner": name,
+                    "worst_slack_ns": 1.25,
+                    "worst_hold_slack_ns": 0.25,
+                    "setup_violation_count": 0,
+                    "total_negative_slack_ns": 0.0,
+                    "hold_violation_count": 0,
+                    "total_negative_hold_slack_ns": 0.0,
+                    "fmax_mhz": 53.3,
+                    "timing_status": "constrained",
+                    "constraint_completeness": {
+                        "status": "incomplete",
+                        "unclocked_registers": {"status": "ok", "count": 143},
+                        "unconstrained_endpoints": {"count": 341},
+                    },
+                }
+                for name in corners
+            ],
+        }
+        rec_p.write_bytes((json.dumps(doc, indent=2) + "\n").encode("utf-8"))
+        note_p.write_bytes(sta_note(doc, cells).encode("utf-8"))
+        return root
+
+    def call_quiet(fn, root):
+        out_buf, err_buf = io.StringIO(), io.StringIO()
+        old_out, old_err = sys.stdout, sys.stderr
+        sys.stdout, sys.stderr = out_buf, err_buf
+        try:
+            fn(root)
+            return 0, out_buf.getvalue() + err_buf.getvalue()
+        except SystemExit as exc:
+            code = exc.code if isinstance(exc.code, int) else 1
+            msg = exc.code if isinstance(exc.code, str) else ""
+            return code, out_buf.getvalue() + err_buf.getvalue() + msg
+        finally:
+            sys.stdout, sys.stderr = old_out, old_err
+
+    passed = 0
+
+    # 1. Clean copy passes; a one-byte note edit fails with exit 3 and the
+    #    remedy message; `sta-note` restores the exact rendered bytes.
+    with tempfile.TemporaryDirectory() as tmp:
+        root = make_fixture(tmp)
+        _, note_p, _ = sta_note_paths(root)
+        rc, out = call_quiet(sta_check, root)
+        assert rc == 0, f"clean fixture failed check (rc={rc}): {out}"
+        orig = note_p.read_bytes()
+        note_p.write_bytes(orig + b" ")
+        rc, out = call_quiet(sta_check, root)
+        assert rc == 3 and "differs from a fresh render" in out, \
+            f"one-byte note edit missed (rc={rc}): {out}"
+        assert "python3 -I flow/hyperram.py sta-note" in out, f"remedy missing: {out}"
+        rc, out = call_quiet(sta_note_cmd, root)
+        assert rc == 0, f"note regen failed (rc={rc}): {out}"
+        assert note_p.read_bytes() == orig, "sta-note did not restore the exact rendered bytes"
+        rc, out = call_quiet(sta_check, root)
+        assert rc == 0, f"check after note regen failed (rc={rc}): {out}"
+        passed += 1
+
+    # 2. A CRLF rewrite counts as stale: the binding is byte-for-byte, so a
+    #    line-ending change must not slip through a text-mode comparison.
+    with tempfile.TemporaryDirectory() as tmp:
+        root = make_fixture(tmp)
+        note_p = sta_note_paths(root)[1]
+        note_p.write_bytes(note_p.read_bytes().replace(b"\n", b"\r\n"))
+        rc, out = call_quiet(sta_check, root)
+        assert rc == 3 and "differs from a fresh render" in out, \
+            f"CRLF rewrite missed (rc={rc}): {out}"
+        passed += 1
+
+    # 3. Mutating sta.json without regenerating the note fails the check; after
+    #    `sta-note` the note follows the committed record (the record<->netlist
+    #    binding is local_only, not this gate's to answer).
+    with tempfile.TemporaryDirectory() as tmp:
+        root = make_fixture(tmp)
+        rec_p = sta_note_paths(root)[0]
+        doc = json.loads(rec_p.read_text(encoding="utf-8"))
+        doc["corners"][1]["worst_slack_ns"] = 0.75
+        rec_p.write_text(json.dumps(doc, indent=2) + "\n", encoding="utf-8")
+        rc, out = call_quiet(sta_check, root)
+        assert rc == 3 and "differs from a fresh render" in out, \
+            f"record drift missed (rc={rc}): {out}"
+        rc, out = call_quiet(sta_note_cmd, root)
+        assert rc == 0, f"note regen after record drift failed (rc={rc}): {out}"
+        rc, out = call_quiet(sta_check, root)
+        assert rc == 0, f"check after note regen failed (rc={rc}): {out}"
+        passed += 1
+
+    # 4..6. Missing synth-stat.json, missing sta.json, non-ok record: sta-note
+    #        refuses (exit 1, FATAL:) with the note untouched; sta-check
+    #        refuses the same way instead of minting a verdict.
+    def expect_refused(name, mutate, needle):
+        nonlocal passed
+        with tempfile.TemporaryDirectory() as tmp:
+            root = make_fixture(tmp)
+            note_p = sta_note_paths(root)[1]
+            mutate(root)
+            note_before = note_p.read_bytes()
+            rc_n, out_n = call_quiet(sta_note_cmd, root)
+            assert rc_n == 1, f"{name}: sta-note exited {rc_n}, expected 1: {out_n}"
+            assert "FATAL:" in out_n and needle in out_n, \
+                f"{name}: sta-note missed {needle!r}: {out_n}"
+            assert note_p.read_bytes() == note_before, f"{name}: sta-note modified STA.md"
+            rc_c, out_c = call_quiet(sta_check, root)
+            assert rc_c == 1, f"{name}: sta-check exited {rc_c}, expected 1: {out_c}"
+            assert "FATAL:" in out_c and needle in out_c, \
+                f"{name}: sta-check missed {needle!r}: {out_c}"
+            passed += 1
+
+    def drop_stat(root):
+        sta_note_paths(root)[2].unlink()
+
+    def drop_rec(root):
+        sta_note_paths(root)[0].unlink()
+
+    def break_status(root):
+        rec_p = sta_note_paths(root)[0]
+        doc = json.loads(rec_p.read_text(encoding="utf-8"))
+        doc["status"] = "error"
+        rec_p.write_text(json.dumps(doc, indent=2) + "\n", encoding="utf-8")
+
+    expect_refused("missing-synth-stat", drop_stat, "synth-stat.json missing")
+    expect_refused("missing-sta-json", drop_rec, "sta.json missing")
+    expect_refused("non-ok-record", break_status, "not 'ok'")
+
+    # 7. End-to-end CLI: the exact CI repair path as a subprocess -- check
+    #    exits 3 on a one-byte edit, sta-note repairs it, check exits 0.
+    with tempfile.TemporaryDirectory() as tmp:
+        root = make_fixture(tmp, with_runner=True)
+        note_p = sta_note_paths(root)[1]
+        orig = note_p.read_bytes()
+        note_p.write_bytes(orig + b" ")
+        runner = str(root / "flow/hyperram.py")
+        c1 = subprocess.run([sys.executable, "-I", runner, "sta-check"],
+                            capture_output=True, text=True)
+        assert c1.returncode == 3 and "differs from a fresh render" in c1.stdout, \
+            f"cli: pre-note check exited {c1.returncode}: {c1.stdout}{c1.stderr}"
+        n1 = subprocess.run([sys.executable, "-I", runner, "sta-note"],
+                            capture_output=True, text=True)
+        assert n1.returncode == 0, \
+            f"cli: sta-note exited {n1.returncode}: {n1.stdout}{n1.stderr}"
+        assert note_p.read_bytes() == orig, "cli: sta-note did not restore the exact bytes"
+        c2 = subprocess.run([sys.executable, "-I", runner, "sta-check"],
+                            capture_output=True, text=True)
+        assert c2.returncode == 0, \
+            f"cli: post-note check exited {c2.returncode}: {c2.stdout}{c2.stderr}"
+        passed += 1
+
+    # 8. Non-ASCII field under a non-UTF-8 locale: the repair command must
+    #    write the same UTF-8/LF bytes `sta-check` expects, and a failure must
+    #    never truncate the note. (The JSON record escapes the character; the
+    #    rendered note carries it raw.)
+    with tempfile.TemporaryDirectory() as tmp:
+        root = make_fixture(tmp, with_runner=True)
+        rec_p, note_p, _ = sta_note_paths(root)
+        doc = json.loads(rec_p.read_text(encoding="utf-8"))
+        doc["engine_version"] = "test \u00b1 1.0"
+        rec_p.write_bytes((json.dumps(doc, indent=2) + "\n").encode("utf-8"))
+        runner = str(root / "flow/hyperram.py")
+        env = dict(os.environ, LC_ALL="C", LANG="C", PYTHONUTF8="0",
+                   PYTHONCOERCECLOCALE="0")
+        env.pop("PYTHONIOENCODING", None)
+        # No "-I" here: it implies -E and would ignore PYTHONUTF8 /
+        # PYTHONCOERCECLOCALE, letting PEP 538 coerce the C locale to UTF-8 and
+        # leaving this case inert against a text-mode write.
+        n1 = subprocess.run([sys.executable, runner, "sta-note"],
+                            capture_output=True, env=env)
+        assert n1.returncode == 0, \
+            f"cli/C-locale: sta-note exited {n1.returncode}: {n1.stdout!r}{n1.stderr!r}"
+        got = note_p.read_bytes()
+        assert got, "cli/C-locale: sta-note left a zero-byte STA.md"
+        assert b"\r" not in got, "cli/C-locale: sta-note wrote CR bytes"
+        assert "\u00b1".encode("utf-8") in got, "cli/C-locale: non-ASCII field not written as UTF-8"
+        c1 = subprocess.run([sys.executable, runner, "sta-check"],
+                            capture_output=True, env=env)
+        assert c1.returncode == 0, \
+            f"cli/C-locale: sta-check exited {c1.returncode}: {c1.stdout!r}{c1.stderr!r}"
+        passed += 1
+
+    print(f"sta-check self-test: {passed}/{passed} cases passed")
 
 
 # klayout-tools issues the post-route record links. Filled from the tracker;
@@ -1465,6 +1782,7 @@ def sta_postroute_self_test():
 
 
 COMMANDS = {"synth": synth, "check": check, "sta": sta,
+            "sta-note": sta_note_cmd, "sta-check": sta_check,
             "sta-postroute": sta_postroute, "sta-postroute-note": sta_postroute_note_cmd,
             "sta-postroute-check": sta_postroute_check,
             "layout": layout, "layout-check": layout_check}
@@ -1472,6 +1790,8 @@ COMMANDS = {"synth": synth, "check": check, "sta": sta,
 if __name__ == "__main__":
     if sys.argv[1:] == ["sta-postroute-check", "--self-test"]:
         sta_postroute_self_test()
+    elif sys.argv[1:] == ["sta-check", "--self-test"]:
+        sta_check_self_test()
     elif len(sys.argv) != 2 or sys.argv[1] not in COMMANDS:
         sys.exit(__doc__)
     else:
