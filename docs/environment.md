@@ -14,13 +14,16 @@ named, so the script also checks its `top_gpiov2` liberty and LEF exist.
 
 ## Pinned versions
 
+Authoritative values live in `scripts/klt.sh` and `scripts/setup-env.sh`;
+`setup-env.sh` exits non-zero when a pin is not met.
+
 | Item | Pin | Where enforced |
 |---|---|---|
-| sky130A PDK (open_pdks) | `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7` | `ciel enable`; `sky130A/SOURCES` must name it |
-| ciel | `2.6.1` | pip into `.venv` |
-| klayout-tools (`klt`) | `0.9.2` | defined once in `scripts/klt.sh`; pip into `.venv` from `scripts/klt.sh --pin` |
-| Yosys (YoWASP wheel) | `0.68.0.0.post1208`, `yosys.wasm` sha256 `e37a7e65e3fa4efbbd64a9c1b0e906be16cdc6c4d5273109d17537f78449f38c` | hash checked, linked as `.venv/bin/yosys`; `flow/hyperram.py` also refuses to synthesize or compare when the yosys that answered is not this version (exit 4) |
-| cocotb | `2.0.1` | pip into `.venv` |
+| sky130A PDK (open_pdks) | `CIEL_SKY130_VERSION` in `scripts/setup-env.sh` | `ciel enable`; `sky130A/SOURCES` must name it |
+| ciel | `CIEL_VERSION` in `scripts/setup-env.sh` | pip into `.venv` |
+| klayout-tools (`klt`) | `scripts/klt.sh --pin` | defined once in `scripts/klt.sh`; pip into `.venv` from `scripts/klt.sh --pin` |
+| Yosys (YoWASP wheel) | `YOWASP_YOSYS_VERSION`, `YOWASP_YOSYS_WASM_SHA256` in `scripts/setup-env.sh` | hash checked, linked as `.venv/bin/yosys`; `flow/hyperram.py` also refuses to synthesize or compare when the yosys that answered is not this version (exit 4) |
+| cocotb | `COCOTB_VERSION` in `scripts/setup-env.sh` | pip into `.venv` |
 | Icarus Verilog | `>= 12` (record names the exact version) | host; checked, not installed |
 | Verilator | `>= 5` (lint only; record names the exact version) | host; checked, not installed |
 | OpenROAD | must run (`openroad -version`); `klt sta` records the engine version | host; checked, not installed |
