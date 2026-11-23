@@ -183,10 +183,13 @@ echo "== 6b/7 post-route SDF evidence is fresh =="
 # records them in a companion checksum file instead. This gate recomputes the
 # routed-netlist, SDF and raw-report digests from checkout-relative paths,
 # cross-checks the SDF against the producing klt sta response's
-# sdf.content_hash, and asserts the report's environment.sdf.annotated is
-# literal true. Needs no simulator, no PDK and no klt. Self-tested first, over
-# fixtures carrying exactly the drift and unbind cases, because it is the only
-# thing standing between a stale SDF run and a green CI.
+# sdf.content_hash, binds that response to the DEF it was produced from via
+# its provenance.input.content_hash, and asserts the report's
+# environment.sdf.annotated is literal true. The SPEF is not bound: the
+# response records no SPEF digest, so a re-generated SPEF is not caught here.
+# Needs no simulator, no PDK and no klt. Self-tested first, over fixtures
+# carrying exactly the drift and unbind cases, because it is the only thing
+# standing between a stale SDF run and a green CI.
 python3 -I scripts/check_sdf_evidence.py --self-test
 python3 -I scripts/check_sdf_evidence.py
 

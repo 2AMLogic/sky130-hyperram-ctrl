@@ -62,10 +62,6 @@ CHECKSUMS = REC / "functional-verification-ctrl-sdf.checksums.json"
 # population) in 13.0; scripts/setup-env.sh pins only major >= 12 for the other
 # targets, so this gate is local to the SDF leg rather than a silent floor rise.
 ICARUS_MIN_MAJOR = 13
-# The engine_log path keys place-and-route's publish() also drops: they name
-# the untracked scratch dir, which is machine-local and not evidence.
-ENGINE_LOG_PATH_KEYS = ("script_path", "metrics_path", "directory", "stdout_path",
-                        "stderr_path", "metadata_path")
 
 
 def rel(path):
@@ -142,15 +138,13 @@ def sdf():
     if sha256(SDF) != envelope["content_hash"]:
         sys.exit(f"FATAL: the committed {rel(SDF)} does not hash to the response's "
                  f"content_hash {envelope['content_hash']}")
-    # Point the envelope at the committed copy (the scratch dir is untracked)
-    # and drop the engine-log scratch paths, exactly the two normalizations
-    # flow/hyperram.py's publish() applies to place-and-route responses. The
-    # content_hash -- the bytes -- is untouched, and CI re-checks it.
+    # Point the envelope at the committed copy (the scratch dir is untracked);
+    # the content_hash -- the bytes -- is untouched, and CI re-checks it. The
+    # engine_log scratch paths are left exactly as klt wrote them: unlike
+    # place-and-route publish() (flow/hyperram.py), which drops them from its
+    # engine_logs list, a klt sta response carries a single engine_log dict,
+    # and flow/hyperram.py reads engine_log.script_path back off it.
     doc["sdf"] = {**envelope, "path": rel(SDF), "scope": "repo"}
-    for entry in doc.get("engine_logs") or []:
-        if isinstance(entry, dict):
-            for key in ENGINE_LOG_PATH_KEYS:
-                entry.pop(key, None)
     STA_REC.write_text(json.dumps(doc, indent=2) + "\n")
     print(f"sdf ok: {rel(SDF)} ({Path(SDF).stat().st_size} bytes, "
           f"{envelope['content_hash'][:19]}...) -> {rel(STA_REC)}")
