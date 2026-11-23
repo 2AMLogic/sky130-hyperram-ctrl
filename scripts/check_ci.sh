@@ -175,6 +175,14 @@ echo "== 6/7 DRC report is fresh =="
 # Item-11 ERC supply report: cheap re-hash of layout and spec (full re-run: layout/erc/run.sh)
 "${KLT[@]}" erc --check layout/records/erc.report.json
 
+echo "== 6b/7 post-route STA record is fresh =="
+# The multi-corner post-route STA itself is local_only (needs OpenROAD + PDK;
+# `make hyperram-sta-postroute`); CI re-derives only its input binding: the
+# DEF against each response's own provenance hash, and the DEF/SPEF/request
+# hashes against the marker line the runner appends to STA-postroute.md, the
+# way layout-check gates the place-and-route response (issue #172).
+python3 -I flow/hyperram.py sta-postroute-check
+
 echo "== 7/7 klt signoff record is fresh =="
 fresh="$(mktemp)"
 trap 'rm -f "$fresh"' EXIT

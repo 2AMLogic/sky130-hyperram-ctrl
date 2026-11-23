@@ -19,6 +19,25 @@
                       verify the committed response against the request
                       (netlist and liberty hashes) and the item-2 envelope
                       against the committed GDS; no OpenROAD run
+  hyperram.py sta-postroute
+                      run `klt sta` in def+spef mode on the routed DEF/SPEF at
+                      every shipped liberty corner with BOTH clocks declared
+                      (`clk` primary, `hb_rwds_i` the RWDS strobe, 20 ns each,
+                      propagated), twice: clocks left related, then in
+                      asynchronous clock_groups; write the responses to
+                      sim/hyperram/records/sta-postroute{,-async}.json and a
+                      generated STA-postroute.md beside them (issue #172).
+                      In-window negative slack is reported and linked to a
+                      design-iteration issue, not gated: the clock
+                      relationship is #2's to settle (C4), so both readings
+                      are provisional by construction
+  hyperram.py sta-postroute-note
+                      regenerate only STA-postroute.md from the committed
+                      responses (no OpenROAD run); used when an issue number
+                      baked into the prose changes
+  hyperram.py sta-postroute-check
+                      freshness gate for CI: request/DEF/SPEF hashes vs the
+                      committed records (no OpenROAD, no PDK)
 
 klt runs through scripts/klt.sh (the pin and the resolution rule), so it does
 not depend on $PATH; yosys and the PDK still do (scripts/setup-env.sh).
@@ -70,6 +89,25 @@ SCRATCH = LAYOUT / ".klt/place-and-route"
 RESPONSE = LREC / "place-and-route.response.json"
 AREA = LREC / "area.json"
 ITEM2 = REPO / "evidence/item2.json"
+# Post-route multi-corner STA (issue #172): def+spef mode over the routed
+# geometry, both clocks declared (the RWDS strobe is the second one), two
+# readings -- clocks left related (the committed sta-postroute.json) and in
+# asynchronous clock_groups (sta-postroute-async.json) -- because the
+# clk/hb_rwds_i relationship is spec ratification's to settle (#2, choice C4),
+# not this runner's.
+STAPR_REQ = REPO / "flow/sta-hyperram-postroute.json"
+STAPR_AREQ = REPO / "flow/sta-hyperram-postroute-async.json"
+STAPR_REC = REC / "sta-postroute.json"
+STAPR_AREC = REC / "sta-postroute-async.json"
+STAPR_NOTE = REC / "STA-postroute.md"
+RDEF = LREC / "hyperram_ctrl.def"
+RSPEF = LREC / "hyperram_ctrl.spef"
+# The strobe-domain capture logic is the u_cap/ hierarchy (hr_rd_capture and
+# its buffer); worst-path rows whose endpoint register sits under it are
+# attributed to the hb_rwds_i clock, every other row to clk. Stated in the
+# note whenever the per-clock split is printed.
+STROBE_HIER = "u_cap/"
+
 # klt names its outputs after hdl_toplevel in the scratch dir; the committed names
 ROUTED = {
     "hyperram_ctrl.gds": "hyperram_ctrl.gds",
@@ -607,7 +645,452 @@ def sta():
                  f"is written -- report it, do not relax the request")
 
 
+# klayout-tools issues the post-route record links. Filled from the tracker;
+# the note renders them, and a gap here is visible in the committed prose.
+KLT_ISSUE_PER_CLOCK_IO_DELAY = 7399   # DQ-vs-RWDS input delay: per-clock I/O delays
+KLT_ISSUE_SPEF_ESCAPE = 7401          # read_spef discards escaped bracket net names
+KLT_ISSUE_SPEF_DANGLING = 7367        # name-correlation counts dangling tie cells / power nets
+# Design findings from the first mint of this record (issue #172 step 7): one
+# bounded design-iteration issue per distinct negative in-window worst-path
+# row, keyed (side, startpoint, endpoint). sta_postroute() warns when the live
+# negative set drifts from these keys, so a new finding cannot ship silently.
+
+
+PR_FINDING_ISSUES = {
+    ("setup", "u_cap/_828_/Q", "_519_/D"): 184,
+    ("setup", "u_cap/_844_/Q", "_519_/D"): 184,
+    ("hold", "hb_rwds_i", "u_fsm/_2214_/D"): 185,
+}
+
+
+def klt_issue(n):
+    return f"klayout-tools#{n}" if n else "klayout-tools (issue not yet filed)"
+
+
+def pr_issue(key):
+    n = PR_FINDING_ISSUES.get(key)
+    return f"#{n}" if n else "no design-iteration issue filed yet"
+
+
+def sta_postroute_run(req_path):
+    """Run one `klt sta` postroute request and validate its response shape.
+
+    Structural only: status, corner coverage, the two clocks at 20 ns, the
+    propagated-clock mode, the routed geometry identity, and -- the acceptance
+    criterion the whole request exists for -- that no register is unclocked at
+    any corner, so the `u_cap/` capture flops really are timed off the strobe.
+    Nothing here grades slack (see sta_postroute for why not).
+    """
+    req = json.loads(Path(req_path).read_text())
+    want = list(req["pdk"]["corners"])
+    doc = klt_json("sta", str(req_path), env=pdk_env())
+    if doc.get("status") != "ok":
+        sys.exit(f"FATAL: klt sta {rel(req_path)} status is {doc.get('status')!r}, not 'ok'")
+    if doc.get("geometry_source") != "routed":
+        sys.exit(f"FATAL: {rel(req_path)}: geometry_source is {doc.get('geometry_source')!r},"
+                 " expected 'routed' (def mode on the committed DEF)")
+    if doc.get("clock_mode") != "propagated":
+        sys.exit(f"FATAL: {rel(req_path)}: clock_mode is {doc.get('clock_mode')!r},"
+                 " expected 'propagated'")
+    got = [c.get("corner") for c in doc.get("corners") or []]
+    if got != want:
+        sys.exit(f"FATAL: {rel(req_path)}: the response does not answer the request's "
+                 f"{len(want)} corners.\n  requested: {want}\n  answered:  {got}")
+    ct = doc.get("clock_targets") or {}
+    clocks = ct.get("clocks") or []
+    if ([c.get("port") for c in clocks] != ["clk", "hb_rwds_i"]
+            or any(c.get("period_ns") != 20.0 for c in clocks)):
+        sys.exit(f"FATAL: {rel(req_path)}: clock_targets.clocks is {json.dumps(clocks)},"
+                 " expected clk (primary) and hb_rwds_i, both at 20.0 ns")
+    want_groups = req.get("constraints", {}).get("clock_groups") or []
+    if (ct.get("clock_groups") or []) != want_groups:
+        sys.exit(f"FATAL: {rel(req_path)}: clock_targets.clock_groups is"
+                 f" {json.dumps(ct.get('clock_groups'))}, expected {json.dumps(want_groups)}")
+    for key, path in (("def_path", RDEF), ("spef_path", RSPEF)):
+        node = doc.get(key) or {}
+        if node.get("scope") != "repo" or node.get("path") != rel(path):
+            sys.exit(f"FATAL: {rel(req_path)}: {key} is {json.dumps(node)}, expected the"
+                     f" repo-scoped {rel(path)}")
+    for c in doc["corners"]:
+        ur = ((c.get("constraint_completeness") or {}).get("unclocked_registers") or {})
+        if ur.get("status") != "ok" or ur.get("count") != 0:
+            sys.exit(f"FATAL: {rel(req_path)}: corner {c.get('corner')} reports"
+                     f" {ur.get('count')} unclocked registers ({ur.get('sample')}); the"
+                     " hb_rwds_i clock declaration must reach every u_cap/ capture flop")
+    return doc
+
+
+def pr_domain(row):
+    """Which declared clock a worst_paths_by_group row belongs to, by capture
+    register: an endpoint under u_cap/ is captured by the strobe-delayed
+    rwds_d clock, every other endpoint by clk."""
+    return "hb_rwds_i" if (row.get("endpoint") or "").startswith(STROBE_HIER) else "clk"
+
+
+def pr_group_rows(corner):
+    """(setup, hold) worst_paths_by_group rows of one corner entry."""
+    wpg = corner.get("worst_paths_by_group") or {}
+    return list(wpg.get("setup") or []), list(wpg.get("hold") or [])
+
+
+def pr_domain_slack(corner, side):
+    """{domain: worst row} for one side, by the pr_domain attribution rule."""
+    rows = pr_group_rows(corner)[0 if side == "setup" else 1]
+    out = {}
+    for row in rows:
+        out.setdefault(pr_domain(row), row)
+    return out
+
+
+def pr_findings(doc):
+    """Distinct negative in-window worst-path rows, with the corners that
+    reported them: [(side, startpoint, endpoint, slack, [(corner, slack), ...])]."""
+    agg = {}
+    for c in doc["corners"]:
+        if not in_window(c["corner"]):
+            continue
+        for side, rows in zip(("setup", "hold"), pr_group_rows(c)):
+            for row in rows:
+                if (row.get("slack_ns") is not None and row["slack_ns"] < 0
+                        and row.get("startpoint") is not None):
+                    key = (side, row["startpoint"], row["endpoint"])
+                    if key not in agg:
+                        agg[key] = []
+                    agg[key].append((c["corner"], row["slack_ns"]))
+    return [(k[0], k[1], k[2], min(s for _, s in v), v) for k, v in sorted(agg.items())]
+
+
+def sta_postroute_note(doc, adoc):
+    """The prose beside the records, in the form of STA.md, generated from the
+    two responses so no number in it can drift from what it sits next to."""
+    req = json.loads(STAPR_REQ.read_text())
+    prov = doc["provenance"]
+    graded = [c for c in doc["corners"] if in_window(c["corner"])]
+    ungraded = [c for c in doc["corners"] if not in_window(c["corner"])]
+    sa = doc["corners"][0].get("spef_annotation") or {}
+    missing = sa.get("design_nets_missing_sample") or []
+    cp = doc["corners"][0].get("clock_propagation") or {}
+    cc0 = doc["corners"][0].get("constraint_completeness") or {}
+    ep_count = (cc0.get("unconstrained_endpoints") or {}).get("count")
+    all_constrained = all(c.get("timing_status") == "constrained"
+                          for c in doc["corners"] + adoc["corners"])
+
+    def rows(d, names):
+        return [f"| `{c['corner']}` | {corner_volts(c['corner']):.2f} | {c['worst_slack_ns']} "
+                f"| {c['worst_hold_slack_ns']} | {c['fmax_mhz']} | {c['timing_status']} |"
+                for c in d["corners"] if c["corner"] in names]
+
+
+    head = ["| corner | supply (V) | setup slack (ns) | hold slack (ns) | fmax (MHz) | status |",
+            "|---|---|---|---|---|---|"]
+    lines = [
+        "# Post-route multi-corner STA of the routed DEF + SPEF, RWDS strobe clock declared (issue #172)",
+        "",
+        "`make hyperram-sta-postroute` -> [`sta-postroute.json`](sta-postroute.json) (clocks left"
+        " **related**) and [`sta-postroute-async.json`](sta-postroute-async.json) (the same request"
+        " with `clk` and `hb_rwds_i` in asynchronous `clock_groups`), the unmodified `klt sta`"
+        " responses. Requests: [`flow/" + STAPR_REQ.name + "`](../../../flow/" + STAPR_REQ.name + ")"
+        " and [`flow/" + STAPR_AREQ.name + "`](../../../flow/" + STAPR_AREQ.name + ") --"
+        f" `def` + `spef` mode on `{rel(RDEF)}` and `{rel(RSPEF)}`, `constraints.propagated_clock:"
+        " true`, and `constraints.clocks` declaring `clk` (primary; target-spec row 1) **and**"
+        " `hb_rwds_i` at the same {p} ns, so the strobe propagates through the `hr_tap_delay`"
+        " chain to the `u_cap/` capture flops; all {n} shipped `sky130_fd_sc_hd` corners in one"
+        " round trip per reading.".format(p=req["constraints"]["clocks"][0]["period_ns"],
+                                          n=len(doc["corners"])),
+        "",
+        f"- DEF: `{rel(RDEF)}`, {sha256(RDEF)}.",
+        f"- SPEF: `{rel(RSPEF)}`, {sha256(RSPEF)}.",
+        f"- Engine: {doc['engine']} {doc['engine_version']}; klt {prov['klt_version']};"
+        f" PDK {prov['pdk']['version']}.",
+        f"- `{doc['hdl_toplevel']}`, status `{doc['status']}`, `geometry_source:"
+        f" {doc['geometry_source']}`, `clock_mode: {doc['clock_mode']}`, and"
+        f" `timing_status: {doc['corners'][0]['timing_status']}` at every corner of both"
+        " readings" + ("" if all_constrained else " (NOT so: see the status column below)")
+        + ".",
+        "",
+        "## What was assumed",
+        "",
+        "Read out of the responses, not asserted here:",
+        "",
+        f"- **Propagated clock** (`clock_mode: {json.dumps(doc['clock_mode'])}`) on both declared"
+        " clocks: hold/removal includes the clock-tree insertion delay and skew the DEF carries,"
+        " and, for the strobe, the `hr_tap_delay` chain it propagates through. The latency"
+        f" evidence block reports {cp.get('clock_sinks')} clock sinks and a worst network latency"
+        f" of {cp.get('max_network_latency_ns')} ns (`clock_sinks_sample:"
+        f" {', '.join(cp.get('clock_sinks_sample') or [])}`).",
+        f"- **Routed geometry, real parasitics to the extent the SPEF annotated** (`def_path` and"
+        f" `spef_path` name the committed `{rel(RDEF)}` / `{rel(RSPEF)}`). The SPEF session names"
+        f" {sa.get('design_nets_annotated')} of {sa.get('design_nets_total')} design nets"
+        f" (`annotation_complete: {json.dumps(sa.get('annotation_complete'))}`) -- the gaps are"
+        " named below.",
+        "- **Two clocks, relationship unsettled.** `clk` is primary; `hb_rwds_i` is declared as a"
+        " second clock at the same period so the capture domain is timed rather than unclocked."
+        " Whether the strobe domain is synchronous, asynchronous, or something phase-specific to"
+        " the read burst is decision **C4 in #2**, not this record's: the two responses are the"
+        " **related** reading (cross-domain paths timed as synchronous -- conservative) and the"
+        " **asynchronous** reading (they are not timed at all). **Every number below is"
+        " provisional on whichever of those two assumptions it sits beside, pending #2.**",
+        "- **No I/O delays.** The draft spec states no setup/hold figure for any port relative to"
+        " `clk` (its boundary figures -- tIS/tIH, tCSS, tCKD -- are HyperBus-pin-to-HyperBus-pin"
+        " numbers, not core-clock numbers), so none is guessed: every input and output is left"
+        " unconstrained and counted below. A scalar default is not an option either: the pinned"
+        " klt applies I/O delays relative to the primary clock only, would land one on"
+        " `hb_rwds_i` itself, and cannot express a DQ input delay relative to the strobe clock"
+        f" at all ({klt_issue(KLT_ISSUE_PER_CLOCK_IO_DELAY)}).",
+        "- **No false paths.** `constraints.false_path_from` is deliberately absent; hiding the"
+        " capture path is what this record exists not to do.",
+        "",
+        "## Corners inside the ratified supply window (graded)",
+        "",
+        "Decision 0004 puts the core supply at 1.8 V +/- 10 %, i.e."
+        f" {VMIN_V}-{VMAX_V} V. Unlike `make hyperram-sta`, this target does **not** fail on a"
+        f" negative slack at these {len(graded)} corners: under an unsettled clock relationship a"
+        " failing cross-domain path is a finding for the ratifier and a filed design-iteration"
+        " issue, not a gate to relax the request against. Each negative below is linked. The"
+        " `fmax (MHz)` column is OpenSTA's own extrapolation over the `clk` domain, reported as"
+        " the response carries it and graded by nothing here.",
+        "",
+        "**Related-clocks reading** (cross-domain paths timed as synchronous):",
+        "",
+        *head, *rows(doc, {c["corner"] for c in graded}),
+        "",
+        "**Asynchronous-clock-groups reading** (cross-domain paths not timed):",
+        "",
+        *head, *rows(adoc, {c["corner"] for c in graded}),
+        "",
+        "### Per-clock worst paths (in-window corners)",
+        "",
+        "The response reports one worst row per path group without naming the group; the split"
+        " below attributes each row by capture register -- an endpoint under `" + STROBE_HIER +
+        "` is the strobe (`hb_rwds_i`) domain, every other endpoint the `clk` domain -- with the"
+        " related reading's rows before the asynchronous reading's, setup before hold within"
+        " each:",
+        "",
+        "| corner | clock | side | worst path | slack (ns) |",
+        "|---|---|---|---|---|",
+    ]
+    for c in graded:
+        for d, tag in ((doc, "related"), (adoc, "async")):
+            entry = c if d is doc else next(x for x in adoc["corners"]
+                                            if x["corner"] == c["corner"])
+            for side in ("setup", "hold"):
+                for domain, row in sorted(pr_domain_slack(entry, side).items()):
+                    lines.append(f"| `{c['corner']}` | `{domain}` | {side} ({tag}) "
+                                 f"| `{row['startpoint']}` -> `{row['endpoint']}` "
+                                 f"| {row['slack_ns']} |")
+    by_path = {}
+    for tag, d in (("related", doc), ("async", adoc)):
+        for side, sp, ep, slack, per_corner in pr_findings(d):
+            by_path.setdefault((side, sp, ep), {}).setdefault(tag, []).extend(per_corner)
+    lines += [
+        "",
+        "## Findings (negative in-window slack)",
+        "",
+    ]
+    if by_path:
+        for (side, sp, ep), readings in sorted(by_path.items()):
+            worst_corner, worst_slack = min((row for rows in readings.values() for row in rows),
+                                            key=lambda r: r[1])
+            where = "; ".join(f"{tag} reading at {', '.join(f'`{c}` ({s})' for c, s in sorted(rows))}"
+                              for tag, rows in sorted(readings.items()))
+            lines.append(f"- **{side} {worst_slack} ns worst** (at `{worst_corner}`), `{sp}` ->"
+                         f" `{ep}` -- {where}. Design-iteration issue:"
+                         f" {pr_issue((side, sp, ep))}.")
+    else:
+        lines.append("- None: no in-window corner reports a negative setup or hold slack in"
+                     " either reading.")
+    lines += [
+        "",
+        "## Corners outside it (reported, not graded)",
+        "",
+        "The PDK ships liberty at supplies decision 0004's window excludes. These"
+        f" {len(ungraded)} corners are recorded and printed, and the target does not fail on"
+        f" them, exactly as `make hyperram-sta` reports them.",
+        "",
+        "**Related-clocks reading:**",
+        "",
+        *head, *rows(doc, {c["corner"] for c in ungraded}),
+        "",
+        "**Asynchronous-clock-groups reading:**",
+        "",
+        *head, *rows(adoc, {c["corner"] for c in ungraded}),
+        "",
+        "## What was not timed",
+        "",
+        f"`constraint_completeness` is `{cc0.get('status')}` and the target does not gate on it."
+        f" **Unclocked registers: 0 at every corner of both readings** -- declaring `hb_rwds_i`"
+        " clocks the 143 registers the pre-layout record left unclocked (every flop under"
+        f" `{STROBE_HIER}`, on `rwds_d`). {ep_count} endpoints remain unconstrained, all"
+        " boundary-condition gaps, in three classes:",
+        "",
+        "- **Outputs without an output delay** -- `wb_ack`, `wb_stall`, `wb_dat_r[31:0]`,"
+        " `cfg_rdata[15:0]`, `hb_ck`, `hb_cs_n`, `hb_reset_n`, `hb_dq_o[7:0]`, `hb_dq_oe`,"
+        " `hb_rwds_o`, `hb_rwds_oe`: the spec states no `clk`-referenced output budget (above).",
+        "- **The DQ capture inputs** -- `hb_dq_i[7:0]` and the `u_cap/` data pins they feed: the"
+        " one constraint that matters for read capture is the DQ-to-RWDS relationship, which the"
+        " pinned klt cannot express (I/O delays are primary-clock-only,"
+        f" {klt_issue(KLT_ISSUE_PER_CLOCK_IO_DELAY)}). **The DQ-versus-RWDS capture check itself"
+        " is therefore not in this record**; no local OpenSTA script or checker stands in for"
+        " it. Its SPICE halves are the delay-chain campaign (#99) and the pad timing (#98, the"
+        " I/O ring sibling).",
+        "- **Inputs without an input delay** -- `rst_n` and the `wb_*`/`cfg_*` ports: same absence"
+        " of a stated figure (the Wishbone rows are functional-only in the draft spec).",
+        "",
+        "### SPEF annotation gaps",
+        "",
+        f"The SPEF names {sa.get('design_nets_annotated')} of {sa.get('design_nets_total')}"
+        f" design nets; `annotation_complete` is `{json.dumps(sa.get('annotation_complete'))}`."
+        f" The response's `design_nets_missing_sample` names all"
+        f" {len(missing)} uncorrelated nets: {', '.join(f'`{n}`' for n in missing)}."
+        " Inspected against the committed DEF and routed netlist, the class is: `VDD` (a power"
+        " net, which a signal SPEF does not extract) and"
+        f" {len(missing) - (1 if 'VDD' in missing else 0)} nets that are each the output of a"
+        " `sky130_fd_sc_hd__conb_1` constant tie cell driving **no other pin** (e.g."
+        " `u_fsm/_0955_` is `u_fsm/_2216_`'s `HI` and nothing else) -- unrouted, unextracted,"
+        " on no timed path. That they still force `annotation_complete: false` is"
+        f" {klt_issue(KLT_ISSUE_SPEF_DANGLING)}. Separately, `read_spef` discarded"
+        f" {sa.get('reader_warning_count')} records with STA-1650/1648 warnings: every"
+        " backslash-escaped bus-bracket net name (`clknet_*dly[N]`, `u_cap/mem[N][M]`, ...) is"
+        " rejected by the reader while klt's own correlation un-escapes it, so those nets'"
+        " parasitics -- including the CK delay-chain clock nets -- are not in the timing:"
+        f" {klt_issue(KLT_ISSUE_SPEF_ESCAPE)}. The slack numbers above are real-parasitics"
+        " only to that extent; DEF/SPEF hashes in this note's header pin the inputs.",
+        "",
+        "## What this does not prove",
+        "",
+        "This is the **post-route, all-core, strobe-clocked** timing half of what T1 item 5 asks"
+        " a ratified spec to cite -- prepared so item 5 is one manifest edit away once #2"
+        " closes, and cited by **no** manifest item in this PR: which corners bind is the"
+        " ratifier's (C4), and the tiers doc makes a verdict against a draft spec provisional."
+        " **No spec row is called met here.** Not proven, each for the stated reason: read"
+        " capture at the pins and its margin (rows 11-12 -- the DQ/RWDS relationship is not"
+        " expressible here, above), the write path (row 14 -- needs the pads), timing at the"
+        " pins (row 19 -- pads and the core-to-pad seam are the I/O ring sibling's, compared by"
+        " name in the repo README). The manifest, `spec/` and decision 0004 are untouched by"
+        " this target.",
+        "",
+        "Also not here: a settled strobe-domain modelling choice (#2, C4); the SDF-annotated"
+        " bench run (#171); max-transition/max-capacitance repair (#173, open -- the DEF/SPEF"
+        " may regenerate under it, and the freshness gate will catch that); any claim about"
+        " 100 MHz.",
+        "",
+        sta_postroute_marker(),
+    ]
+    return "\n".join(lines) + "\n"
+
+
+def sta_postroute_marker():
+    """Machine-readable input binding appended to the note: the hashes the
+    freshness gate re-derives (the response binds the DEF itself via
+    provenance.input.content_hash; the marker is what binds the SPEF and the
+    two request documents)."""
+    return ("<!-- sta-postroute-inputs"
+            f" def={sha256(RDEF)} spef={sha256(RSPEF)}"
+            f" request={sha256(STAPR_REQ)} request-async={sha256(STAPR_AREQ)} -->")
+
+
+def sta_postroute():
+    """`klt sta` on the routed DEF + SPEF, both clocks declared, twice.
+
+    Mirrors `sta`'s order-of-operations discipline: validate the response
+    shape before anything is written, write the records and the note
+    unconditionally, then report. The gate differs from `sta` on purpose:
+    in-window negative slack is *not* a target failure here, because under an
+    unsettled clock relationship (step 2 of issue #172) a failing cross-domain
+    path is a finding for the ratifier -- filed as its own design-iteration
+    issue and linked in the note -- and a hard gate would only push toward
+    relaxing the period, the window or the corner list, which the issue
+    forbids. A *new* negative (one not in PR_FINDING_ISSUES) is warned about
+    loudly so it cannot ship silently.
+    """
+    for p in (RDEF, RSPEF):
+        if not p.exists():
+            sys.exit(f"FATAL: {rel(p)} missing; run `make layout`")
+    doc = sta_postroute_run(STAPR_REQ)
+    adoc = sta_postroute_run(STAPR_AREQ)
+
+    REC.mkdir(parents=True, exist_ok=True)
+    STAPR_REC.write_text(json.dumps(doc, indent=2) + "\n")
+    STAPR_AREC.write_text(json.dumps(adoc, indent=2) + "\n")
+    STAPR_NOTE.write_text(sta_postroute_note(doc, adoc))
+
+    print(f"sta-postroute: {len(doc['corners'])} corners x 2 readings -> "
+          f"{rel(STAPR_REC)}, {rel(STAPR_AREC)}, {rel(STAPR_NOTE)}")
+    for tag, d in (("related", doc), ("async   ", adoc)):
+        for c in d["corners"]:
+            setup, hold = c.get("worst_slack_ns"), c.get("worst_hold_slack_ns")
+            graded = in_window(c["corner"])
+            verdict = ("in " if graded else "out")
+            if graded and (setup is None or hold is None
+                          or setup < 0 or hold < 0
+                          or c.get("timing_status") != "constrained"):
+                verdict = "FINDING"
+            print(f"  [{tag}] {c['corner']:<14} {corner_volts(c['corner']):.2f}V {verdict:<4} "
+                  f"setup={setup:<10} hold={hold:<9} {c['timing_status']}")
+    live = {f[:3] for f in pr_findings(doc)} | {f[:3] for f in pr_findings(adoc)}
+    known = set(PR_FINDING_ISSUES)
+    if live - known:
+        print(f"WARNING: new in-window negative path(s) not in PR_FINDING_ISSUES -- file a "
+              f"bounded design-iteration issue for each and add it to flow/hyperram.py:\n"
+              f"  {sorted(live - known)}", file=sys.stderr)
+    if known - live:
+        print(f"WARNING: PR_FINDING_ISSUES names path(s) no longer negative in the fresh "
+              f"response; prune them: {sorted(known - live)}", file=sys.stderr)
+
+
+def sta_postroute_note_cmd():
+    """Regenerate only the note from the committed responses (no klt run)."""
+    doc = json.loads(STAPR_REC.read_text())
+    adoc = json.loads(STAPR_AREC.read_text())
+    STAPR_NOTE.write_text(sta_postroute_note(doc, adoc))
+    print(f"sta-postroute-note: rewrote {rel(STAPR_NOTE)} from the committed responses")
+
+
+def sta_postroute_check():
+    """Freshness gate for CI: no OpenROAD, no PDK, hashes and echoes only.
+
+    Binds the committed responses to their inputs three ways: the DEF against
+    klt's own `provenance.input.content_hash` in each response, the DEF/SPEF
+    and both request documents against the marker line the runner appends to
+    the note, and the corner/clock/clock-group echoes in each response against
+    its request document.
+    """
+    for p in (STAPR_REC, STAPR_AREC, STAPR_NOTE, STAPR_REQ, STAPR_AREQ, RDEF, RSPEF):
+        if not p.exists():
+            sys.exit(f"FATAL: {rel(p)} missing; run `make hyperram-sta-postroute`")
+    note = STAPR_NOTE.read_text()
+    marker = sta_postroute_marker()
+    if marker not in note:
+        print(f"STALE: {rel(STAPR_NOTE)} does not carry the input marker for the current"
+              f" request/DEF/SPEF; run `make hyperram-sta-postroute`")
+        sys.exit(3)
+    for rec, req_path in ((STAPR_REC, STAPR_REQ), (STAPR_AREC, STAPR_AREQ)):
+        doc = json.loads(rec.read_text())
+        req = json.loads(Path(req_path).read_text())
+        if doc.get("status") != "ok":
+            sys.exit(f"FATAL: {rel(rec)}: status is {doc.get('status')!r}")
+        if sha256(RDEF) != (doc.get("provenance") or {}).get("input", {}).get("content_hash"):
+            print(f"STALE: {rel(rec)} was minted against a different {rel(RDEF)};"
+                  " run `make hyperram-sta-postroute`")
+            sys.exit(3)
+        if [c.get("corner") for c in doc.get("corners") or []] != list(req["pdk"]["corners"]):
+            print(f"STALE: {rel(rec)} does not answer {rel(req_path)}'s corner list;"
+                  " run `make hyperram-sta-postroute`")
+            sys.exit(3)
+        ct = doc.get("clock_targets") or {}
+        if (ct.get("clocks") != req["constraints"]["clocks"]
+                or (ct.get("clock_groups") or []) != req["constraints"].get("clock_groups", [])
+                or doc.get("clock_mode") != ("propagated" if req["constraints"].get("propagated_clock")
+                                             else "ideal")):
+            print(f"STALE: {rel(rec)}'s clock echoes do not match {rel(req_path)};"
+                  " run `make hyperram-sta-postroute`")
+            sys.exit(3)
+    print("post-route STA record is fresh")
+
+
 COMMANDS = {"synth": synth, "check": check, "sta": sta,
+            "sta-postroute": sta_postroute, "sta-postroute-note": sta_postroute_note_cmd,
+            "sta-postroute-check": sta_postroute_check,
             "layout": layout, "layout-check": layout_check}
 
 if __name__ == "__main__":

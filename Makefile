@@ -62,6 +62,22 @@ hyperram-check:
 hyperram-sta:
 	python3 flow/hyperram.py sta
 
+# klt sta in def+spef mode on the routed DEF/SPEF at all 16 shipped corners with
+# BOTH clocks declared (clk primary, hb_rwds_i the RWDS strobe, propagated;
+# issue #172), run twice: clocks related, then asynchronous clock_groups --
+# both readings provisional pending #2 (C4). ~25 min per request; needs
+# OpenROAD + the pinned PDK (PDK_ROOT). Negative in-window slack is a filed
+# finding, not a gate. Not a prerequisite of anything.
+hyperram-sta-postroute:
+	python3 flow/hyperram.py sta-postroute
+
+# cheap freshness check: request/DEF/SPEF hashes vs the committed records
+# (CI runs this one; the STA itself is local_only)
+hyperram-sta-postroute-check:
+	python3 flow/hyperram.py sta-postroute-check
+
+.PHONY: hyperram-sta-postroute hyperram-sta-postroute-check
+
 .PHONY: layout layout-check
 
 # klt place-and-route (50 MHz, PDN + tapcells) on the committed netlist; ~25 min.
