@@ -118,5 +118,7 @@ From the committed response (`tt_025C_1v80` unless a corner is named):
 
 `layout/lvs/`: `extract.json` and `request.json` (the `klt extract` and
 `klt lvs` requests), `run.sh` (re-run, or `check` to re-hash), and `records/`
-(abstracted gate-level SPICE, extract response, LVS report). Details and
+(abstracted gate-level SPICE, extract response, LVS report). The extract
+response is klt's own with `dead_metal` emptied by `run.sh` (the count stays in
+the klt warning; the full list needs the ~8 min re-run). Details and
 warnings in `manifests/README.md` § "Item-4 LVS".
