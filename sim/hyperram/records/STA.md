@@ -20,31 +20,31 @@ Read out of the response, not asserted here:
 
 Decision 0004 puts the core supply at 1.8 V +/- 10 %, i.e. 1.62-1.98 V. `make hyperram-sta` fails on a negative setup or hold slack at any of these 8 corners.
 
-| corner | supply (V) | setup slack (ns) | hold slack (ns) | fmax (MHz) | status |
-|---|---|---|---|---|---|
-| `ff_100C_1v65` | 1.65 | 9.64408 | 0.27604 | 280.6 | constrained |
-| `ff_100C_1v95` | 1.95 | 9.72145 | 0.21974 | 364.291 | constrained |
-| `ff_n40C_1v65` | 1.65 | 9.61458 | 0.27562 | 250.445 | constrained |
-| `ff_n40C_1v76` | 1.76 | 9.66518 | 0.24213 | 293.449 | constrained |
-| `ff_n40C_1v95` | 1.95 | 9.72341 | 0.20407 | 364.402 | constrained |
-| `ss_n40C_1v76` | 1.76 | 9.24029 | 0.519 | 131.404 | constrained |
-| `tt_025C_1v80` | 1.80 | 9.55587 | 0.33121 | 221.529 | constrained |
-| `tt_100C_1v80` | 1.80 | 9.56054 | 0.33955 | 224.929 | constrained |
+| corner | supply (V) | worst setup (ns) | worst hold (ns) | setup viol. endpoints | setup TNS (ns) | hold viol. endpoints | hold TNS (ns) | fmax (MHz) | status |
+|---|---|---|---|---|---|---|---|---|---|
+| `ff_100C_1v65` | 1.65 | 9.64408 | 0.27604 | 0 | 0 | 0 | 0 | 280.6 | constrained |
+| `ff_100C_1v95` | 1.95 | 9.72145 | 0.21974 | 0 | 0 | 0 | 0 | 364.291 | constrained |
+| `ff_n40C_1v65` | 1.65 | 9.61458 | 0.27562 | 0 | 0 | 0 | 0 | 250.445 | constrained |
+| `ff_n40C_1v76` | 1.76 | 9.66518 | 0.24213 | 0 | 0 | 0 | 0 | 293.449 | constrained |
+| `ff_n40C_1v95` | 1.95 | 9.72341 | 0.20407 | 0 | 0 | 0 | 0 | 364.402 | constrained |
+| `ss_n40C_1v76` | 1.76 | 9.24029 | 0.519 | 0 | 0 | 0 | 0 | 131.404 | constrained |
+| `tt_025C_1v80` | 1.80 | 9.55587 | 0.33121 | 0 | 0 | 0 | 0 | 221.529 | constrained |
+| `tt_100C_1v80` | 1.80 | 9.56054 | 0.33955 | 0 | 0 | 0 | 0 | 224.929 | constrained |
 
 ## Corners outside it (reported, not graded)
 
 The PDK ships liberty at supplies decision 0004's window excludes. These 8 corners are recorded and printed, and the target does not fail on them. `ss_100C_1v60` and `ss_n40C_1v60` miss the 1.62 V floor by 20 mV; that is the window's arithmetic, not a judgement about those corners. The same decision's "all liberty corners" line does not reconcile with the window -- left as found, and #2 owns settling it.
 
-| corner | supply (V) | setup slack (ns) | hold slack (ns) | fmax (MHz) | status |
-|---|---|---|---|---|---|
-| `ff_n40C_1v56` | 1.56 | 9.55665 | 0.31153 | 214.746 | constrained |
-| `ss_100C_1v40` | 1.40 | 6.58385 | 0.98269 | 74.5371 | constrained |
-| `ss_100C_1v60` | 1.60 | 9.03149 | 0.67759 | 110.066 | constrained |
-| `ss_n40C_1v28` | 1.28 | -17.9418 | 2.00452 | 26.3561 | constrained |
-| `ss_n40C_1v35` | 1.35 | -5.52991 | 1.45077 | 39.1697 | constrained |
-| `ss_n40C_1v40` | 1.40 | -0.43424 | 1.19796 | 48.9375 | constrained |
-| `ss_n40C_1v44` | 1.44 | 2.56021 | 1.05445 | 57.3401 | constrained |
-| `ss_n40C_1v60` | 1.60 | 8.9227 | 0.69001 | 93.0207 | constrained |
+| corner | supply (V) | worst setup (ns) | worst hold (ns) | setup viol. endpoints | setup TNS (ns) | hold viol. endpoints | hold TNS (ns) | fmax (MHz) | status |
+|---|---|---|---|---|---|---|---|---|---|
+| `ff_n40C_1v56` | 1.56 | 9.55665 | 0.31153 | 0 | 0 | 0 | 0 | 214.746 | constrained |
+| `ss_100C_1v40` | 1.40 | 6.58385 | 0.98269 | 0 | 0 | 0 | 0 | 74.5371 | constrained |
+| `ss_100C_1v60` | 1.60 | 9.03149 | 0.67759 | 0 | 0 | 0 | 0 | 110.066 | constrained |
+| `ss_n40C_1v28` | 1.28 | -17.9418 | 2.00452 | 181 | -878.787 | 0 | 0 | 26.3561 | constrained |
+| `ss_n40C_1v35` | 1.35 | -5.52991 | 1.45077 | 21 | -64.3886 | 0 | 0 | 39.1697 | constrained |
+| `ss_n40C_1v40` | 1.40 | -0.43424 | 1.19796 | 2 | -0.73932 | 0 | 0 | 48.9375 | constrained |
+| `ss_n40C_1v44` | 1.44 | 2.56021 | 1.05445 | 0 | 0 | 0 | 0 | 57.3401 | constrained |
+| `ss_n40C_1v60` | 1.60 | 8.9227 | 0.69001 | 0 | 0 | 0 | 0 | 93.0207 | constrained |
 
 ## What was not timed
 
