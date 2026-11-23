@@ -65,7 +65,7 @@ Issues carrying `loom:curated`.
 
 ## Proposed (Architect / Hermit)
 
-- **#78**: Trim the 175k-line dead_metal list from the committed klt extract record *(hermit)* *(held)*
+- **#78**: Trim the 175k-line dead_metal list from the committed klt extract record *(hermit)* *(runner trims dead_metal; committed record trimmed by the next `fleet-regen-layout.sh` run)*
 
 ## Epics
 
