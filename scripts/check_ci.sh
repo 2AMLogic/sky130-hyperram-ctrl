@@ -227,7 +227,7 @@ echo "== 6c/8 post-route STA record is fresh =="
 # the way layout-check gates the place-and-route response (issue #172).
 # Self-tested first over fixture trees so `sta-postroute-note` cannot overwrite
 # stale SPEF or request provenance and mask a needed STA rerun.
-python3 -I flow/hyperram.py sta-postroute-check --self-test
+python3 -I flow/hyperram_selftest.py sta-postroute-check
 python3 -I flow/hyperram.py sta-postroute-check
 
 echo "== 7/8 pre-layout STA note is fresh =="
@@ -239,7 +239,7 @@ echo "== 7/8 pre-layout STA note is fresh =="
 # netlist it was minted from -- that binding needs the STA rerun and stays
 # local_only. Self-tested first over fixture trees, the way 6c gates the
 # post-route twin.
-python3 -I flow/hyperram.py sta-check --self-test
+python3 -I flow/hyperram_selftest.py sta-check
 python3 -I flow/hyperram.py sta-check
 
 echo "== 8/8 klt signoff record is fresh =="
