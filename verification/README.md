@@ -26,7 +26,7 @@ make -C verification        # model self-test + smoke test + controller benches
   ship hashed-as-absent and never execute (#93).
 - `../flow/functional-verification-ctrl.json` - the same benches as a
   `klt functional-verification` request (needs the `functional-verification`
-  extra: `uvx --from "klayout-tools[functional-verification]==0.8.0" klt
+  extra: `uvx --from "klayout-tools[functional-verification]==0.9.2" klt
   functional-verification flow/functional-verification-ctrl.json -o <dir>`),
   so item 5 can reuse them.
 - `../attest/item9.json` / `../evidence/item9.json` - the T1 item-9
@@ -111,7 +111,7 @@ real cell functions. Zero delay: no timing claim (SDF re-run is item 7).
   (absolute PDK model paths, since klt expands no variables; edit them if the
   PDK lives elsewhere). Its report is
   `sim/hyperram/records/functional-verification-ctrl-gl.report.json`, with the
-  `inputs` block (netlist sha256 `038c7e9a…`, PDK model hashes) added by hand.
+  `inputs` block (netlist sha256 `0f03005a…`, PDK model hashes) added by hand.
   Neither file is in `attest/item9.json`.
 
 ## What these benches do and do not claim

@@ -113,7 +113,7 @@ measurements/  silicon characterization (empty until tape-out)
 ## Reproduce
 
 Every `met` item in the tier record has a command below. Tools are pinned to
-`klayout-tools==0.8.0` (see the pin note further down). The full re-runs need
+`klayout-tools==0.9.2` (see the pin note further down). The full re-runs need
 the `./scripts/setup-env.sh` toolchain; the "cheap check" column only re-hashes
 the committed evidence and is what CI runs.
 
@@ -121,7 +121,7 @@ the committed evidence and is what CI runs.
 |---|---|---|---|
 | 1 | synthesized netlist (Yosys) | `make hyperram-synth` | `make hyperram-check` |
 | 2 | routed GDS (OpenROAD P&R) | `make layout` (~25 min; needs OpenROAD and the sky130A PDK) | `make layout-check` |
-| 3 | DRC | `make drc` (~1 min) | `uvx --from klayout-tools==0.8.0 klt drc --check layout/records/drc.report.json` |
+| 3 | DRC | `make drc` (~1 min) | `uvx --from klayout-tools==0.9.2 klt drc --check layout/records/drc.report.json` |
 | 4 | LVS | `layout/lvs/run.sh` (~8 min) | `layout/lvs/run.sh check` |
 | 11 | ERC (power delivery) | `layout/erc/run.sh` (~15 s) | `layout/erc/run.sh check` |
 | 10 | this README, license, CI | see attestation below | `npm run check:ci` |
@@ -132,8 +132,8 @@ npm run check:ci      # the CI gate: JSON validity, README links, item-10 attest
 ```
 
 This runs `scripts/check_ci.sh`, the same script `.github/workflows/ci.yml`
-runs. It uses `klt` pinned to `klayout-tools==0.8.0` (falling back to
-`uvx --from klayout-tools==0.8.0 klt` if the installed `klt` differs). The
+runs. It uses `klt` pinned to `klayout-tools==0.9.2` (falling back to
+`uvx --from klayout-tools==0.9.2 klt` if the installed `klt` differs). The
 tier verdict of record is `manifests/sky130-hyperram-ctrl.signoff.json`; see
 [manifests/README.md](manifests/README.md).
 
@@ -142,7 +142,7 @@ tool-produced envelope `evidence/item10.json`. CI re-checks it; after editing
 `README.md`, `LICENSE`, `.github/workflows/ci.yml` or the inventory, regenerate:
 
 ```
-uvx --from klayout-tools==0.8.0 klt signoff --attest 10 \
+uvx --from klayout-tools==0.9.2 klt signoff --attest 10 \
     --inventory attest/item10.json -o evidence/item10.json
 ```
 

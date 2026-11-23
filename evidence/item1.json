@@ -73,7 +73,7 @@
         "role": "derived",
         "path": "sim/hyperram/records/hyperram_ctrl.netlist.v",
         "passed": true,
-        "content_hash": "sha256:5ea579ba0640d6d73dc84e04e410a889b0588b313785f2697c4f4cfbc38a9f64"
+        "content_hash": "sha256:0f03005ab04a2fc45365680d543d13e1742a8e4288228c28eb279b0b94e463d7"
       },
       {
         "check": "command",
@@ -94,16 +94,84 @@
     ]
   },
   "provenance": {
-    "klt_version": "0.8.0",
+    "klt_version": "0.9.2",
     "klayout_version": null,
     "pdk": null,
     "deck": null,
     "input": {
-      "path": {
-        "path": "attest/item1.json",
-        "scope": "repo"
-      },
-      "content_hash": "sha256:fb4abbf736b1abdf5ca8a38e5f73390fc281addfa1fe4a7c1d3e745ed334e4f9"
+      "paths": [
+        {
+          "path": {
+            "path": "attest/item1.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:fb4abbf736b1abdf5ca8a38e5f73390fc281addfa1fe4a7c1d3e745ed334e4f9"
+        },
+        {
+          "path": {
+            "path": "flow/synthesize-hyperram.json",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:e1a9e9cc56a430f8e4ece38a819fc7c4d1c2eeac83003214c9664fdbb7ab3c49"
+        },
+        {
+          "path": {
+            "path": "rtl/hyperram_ctrl/hr_cmd_fsm.v",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:9d8d347b9497b68cb9e632b033b507ccc11dd97bc72262f3b8a20eb1aabe2dcd"
+        },
+        {
+          "path": {
+            "path": "rtl/hyperram_ctrl/hr_dq_out.v",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:7d64bb959fa25600679c796b3955ee8bd7d76683985ec2189eed90282afe4b53"
+        },
+        {
+          "path": {
+            "path": "rtl/hyperram_ctrl/hr_rd_capture.v",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:d48032b78b278e155472aed5afc26cadb6d9401a1bb1fb80a856f8efc7f5d337"
+        },
+        {
+          "path": {
+            "path": "rtl/hyperram_ctrl/hr_tap_delay.v",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:a6f6272732655095426d0d3df6fc87424ccdd27227aecfb1da5b29c0728e8029"
+        },
+        {
+          "path": {
+            "path": "rtl/hyperram_ctrl/hyperram_ctrl.v",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:ab9f1580785366e1d90915e15bd58635bb15f06b68c9ab40bf74d1e8e8c3dbfa"
+        },
+        {
+          "path": {
+            "path": "rtl/hyperram_ctrl/sim/sky130_cells_behav.v",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:d358d263ef7b4072a00e8315423832ebafc542fdfb6f614ca552536f66df0d38"
+        },
+        {
+          "path": {
+            "path": "rtl/hyperram_ctrl/synth/sky130_cells_bb.v",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:73f6e3049f91a1c66cfc48c4786c3879eac4de99d6120bdd80fe981c4b7c3e11"
+        },
+        {
+          "path": {
+            "path": "sim/hyperram/records/hyperram_ctrl.netlist.v",
+            "scope": "repo"
+          },
+          "content_hash": "sha256:0f03005ab04a2fc45365680d543d13e1742a8e4288228c28eb279b0b94e463d7"
+        }
+      ],
+      "content_hash": "sha256:6f1d7dff8e22b8025844f5ef194083fca8ccbbc0884ba3dedc8458fb4ef5df09"
     }
   }
 }

@@ -5,11 +5,13 @@
 # spec/target-spec.md open question (a): do the pinned PDK's sky130_fd_io
 # liberty views give OpenSTA arcs through the pad cells?
 #
-# The pinned klt 0.8.0's `klt sta` cannot drive this experiment (it offers
-# no way to load a second liberty for a macro cell -- see
-# sim/pad-sta/records/RECORD.md "Tool gap"), so this script drives
-# OpenROAD's embedded OpenSTA directly with one committed, self-contained
-# session script per configuration, exactly the fallback the issue names.
+# The pinned klt 0.8.0's `klt sta` could not drive this experiment (it
+# offered no way to load a second liberty for a macro cell -- see
+# sim/pad-sta/records/RECORD.md "Tool gap"); klt 0.9.2 can (macros[] is
+# honoured, and `klt-0.9.2-attempt/response-probe4-default.json` is a
+# complete run), but this script stays the record's reproduction path: it
+# regenerates the committed per-load session logs and the two
+# negative-control sessions, which the klt request schema does not express.
 #
 # Sessions written to sim/pad-sta/records/:
 #   opensta-tt-5pf.log   tt_tt_025C_1v80_3v30 pad + tt_025C_1v80 core, 5 pF

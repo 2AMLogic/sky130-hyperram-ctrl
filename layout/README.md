@@ -43,23 +43,30 @@ timing across the set; that is item 5.
 
 ## Records (`layout/records/`)
 
-> Regenerated for #101 on a batch-fleet heavy instance (2026-11-18,
-> `scripts/fleet-regen-layout.sh` with its new netlist phase, pinned klt 0.8.0 +
-> OpenROAD 26Q4-1310 + ciel-provisioned sky130A at open_pdks `f6eeac7dad085`):
-> these records now come from the post-tap-delay-refactor netlist (issue #101)
-> at `sha256:5ea579ba0640d6d73dc84e04e410a889b0588b313785f2697c4f4cfbc38a9f64`,
-> which `sim/hyperram/records/hyperram_ctrl.netlist.v` still is (`hyperram.py
-> check` re-synthesizes byte-for-byte; the regen job ran the check and re-minted
-> `evidence/item1.json` before place-and-route). They supersede the #52 records
-> (netlist `sha256:038c7e9a13aff7062aa1a0e5303707865c423f28995dc347cf0189c206409ca3`,
-> core 82 372.8 µm², worst setup slack -27.28 ns at `ss_n40C_1v28`, route DRC 0,
-> antenna 0, tapcells 1070), which are not edited in place — the superseded
-> numbers are quoted here and in PR #52.
+> Regenerated for #170 on a batch-fleet heavy instance (2026-11-21,
+> `scripts/fleet-regen-layout.sh`, pinned klt 0.9.2 + OpenROAD 26Q4-1310 +
+> ciel-provisioned sky130A at open_pdks `f6eeac7dad085`): same RTL and the same
+> pinned YoWASP Yosys, but klt 0.9.2 drives synthesis differently than the
+> 0.8.0 pin did, so the re-synthesized netlist is a different mapping of the
+> same design (2290 cells, 24 228.2 µm²) at
+> `sha256:0f03005ab04a2fc45365680d543d13e1742a8e4288228c28eb279b0b94e463d7`,
+> which `sim/hyperram/records/hyperram_ctrl.netlist.v` now is (`hyperram.py
+> check` re-synthesizes byte-for-byte at 0.9.2; the regen job ran the check and
+> re-minted `evidence/item1.json` before place-and-route, and the gate-level
+> bench suite re-ran 43/43 against the new netlist). They supersede the #101
+> records (netlist
+> `sha256:5ea579ba0640d6d73dc84e04e410a889b0588b313785f2697c4f4cfbc38a9f64`,
+> core 80 417.1 µm², worst setup slack -18.75 ns at `ss_n40C_1v28`, route DRC 0,
+> antenna 1, tapcells 1060), which are not edited in place — the superseded
+> numbers are quoted here and in the #101 records' commit (`2ff11a6`).
 >
-> The earlier regeneration banner, for #52 (2026-11-18, same script without the
-> netlist phase), recorded the post-`rd_flush`-fix netlist (#48, PR #51)
-> superseding the pre-#51 records (netlist
-> `sha256:c0f912a10e0dcc2d73e673b4bcf9a76fdac99a705e9dea63bffc3a5dd3d40d0f`,
+> The earlier regeneration banner, for #101 (2026-11-18, the same script at
+> klt 0.8.0), recorded the post-tap-delay-refactor netlist (issue #101)
+> superseding the #52 records (netlist
+> `sha256:038c7e9a13aff7062aa1a0e5303707865c423f28995dc347cf0189c206409ca3`,
+> core 82 372.8 µm², worst setup slack -27.28 ns at `ss_n40C_1v28`, route DRC 0,
+> antenna 0, tapcells 1070), which in turn superseded the pre-#51 records
+> (netlist `sha256:c0f912a10e0dcc2d73e673b4bcf9a76fdac99a705e9dea63bffc3a5dd3d40d0f`,
 > core 83 687.8 µm², worst setup slack -24.29 ns at `ss_n40C_1v28`).
 
 | File | What |
@@ -82,22 +89,22 @@ From the committed response (`tt_025C_1v80` unless a corner is named):
 
 - `power.pdn: true`, `power.tapcell_master: sky130_fd_sc_hd__tapvpwrvgnd_1`
   (1060 tapcells at a 14 µm distance; the #52 records had 1070).
-- Core area 80 417.1 µm² (0.0804 mm²) against row 17's ≤ 0.10 mm² budget (the
-  #52 records: 82 372.8 µm²). Row 17 is a proposal, so this is a number, not a
+- Core area 80 287 µm² (0.0803 mm²) against row 17's ≤ 0.10 mm² budget (the
+  #101 records: 80 417.1 µm²). Row 17 is a proposal, so this is a number, not a
   pass.
 - Route DRC (the router's own) 0; antenna violations 1 (the #52 records had 0).
   This is not `klt drc` (#16), which is clean on the routed GDS, and not LVS
   (#17), which matches; it is the router's own checker, reported as found.
-- Setup slack +9.54 ns at tt, hold +0.20 ns. Across the 16 corners the worst
-  setup slack is **-18.75 ns at `ss_n40C_1v28`** (the #52 records: -27.28 ns),
-  and negative at `v1p35` and `v1p40` at -40 °C (`v1p44` moved positive,
-  +1.87 ns; `ss_n40C_1v60` is +8.82 ns). The negative corners sit below the
-  1.8 V -10 % supply (1.62 V) of decision 0004, which the decision's corner
-  list does not reconcile. Left as found.
-- `max_transition_violation_count` 612 and `max_capacitance_violation_count`
-  22 against the library limits (the #52 records: 284 and 15). Not investigated
-  here.
-- The SPEF session names 2416 of 2434 design nets (`annotation_complete:
+- Setup slack +9.54 ns at tt, hold +0.21 ns. Across the 16 corners the worst
+  setup slack is **-21.21 ns at `ss_n40C_1v28`** (the #101 records: -18.75 ns),
+  and negative at `ss_n40C_1v35` and `ss_n40C_1v40` at -40 °C (`ss_n40C_1v44`
+  moved positive, +1.24 ns; `ss_n40C_1v60` is +8.45 ns). The negative corners
+  sit below the 1.8 V -10 % supply (1.62 V) of decision 0004, which the
+  decision's corner list does not reconcile. Left as found.
+- `max_transition_violation_count` 619 and `max_capacitance_violation_count`
+  22 against the library limits (the #101 records: 612 and 22). Not
+  investigated here.
+- The SPEF session names 2379 of 2397 design nets (`annotation_complete:
   false`), so its slack (+9.54 ns) is not a full real-parasitics measurement.
 - Pins are placed by the tool on arbitrary edges; no pad-facing pin plan exists
   (the pads belong to the I/O ring sibling).

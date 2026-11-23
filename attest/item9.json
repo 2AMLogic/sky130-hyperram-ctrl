@@ -43,7 +43,7 @@
     "tools": {
       "cocotb": "2.0.1",
       "icarus": "13.0",
-      "klayout-tools": "0.8.0",
+      "klayout-tools": "0.9.2",
       "yosys": "0.68.0.0.post1208"
     }
   }

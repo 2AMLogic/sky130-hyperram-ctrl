@@ -22,7 +22,7 @@
 #   infra/aws/repo-script-submit.py --source-dir <checkout> --commit <sha> \
 #     --repo 2AMLogic/sky130-hyperram-ctrl --issue 52 --image-profile heavy \
 #     --timeout 7200 --wait-for-capacity 600 \
-#     --pip klayout-tools==0.8.0 --pip ciel==2.6.1 \
+#     --pip klayout-tools==0.9.2 --pip ciel==2.6.1 \
 #     --script scripts/fleet-regen-layout.sh [--shard probe] \
 #     --output sim/hyperram/records --output evidence/item1.json \
 #     --output layout/records --output layout/lvs/records \
@@ -34,7 +34,7 @@
 # It deliberately does NOT call scripts/setup-env.sh: that script hard-fails on
 # missing iverilog/verilator/ngspice, which the layout flow never runs, and the
 # heavy image carries only the synthesis/P&R toolchain. What the flow needs is
-# the pinned klt (0.8.0), an OpenROAD that runs, and the pinned sky130A PDK --
+# the pinned klt (0.9.2), an OpenROAD that runs, and the pinned sky130A PDK --
 # provisioned here from the image's baked PDK when it matches the pin, else
 # fetched with ciel.
 set -euo pipefail
@@ -60,6 +60,7 @@ have() { command -v "$1" >/dev/null 2>&1; }
 ensure_klt() {
   if have klt && [ "$(klt --version 2>/dev/null | awk '{print $NF}')" = "${KLT_PIN}" ]; then
     log "klt $(klt --version) (on PATH)"
+    expose_klt_on_system_path
     return 0
   fi
   log "PATH klt is not the pin; building a local venv"
@@ -81,6 +82,25 @@ ensure_klt() {
   [ "$(klt --version 2>/dev/null | awk '{print $NF}')" = "${KLT_PIN}" ] \
     || { echo "FATAL: cannot put pinned klt ${KLT_PIN} on PATH" >&2; exit 4; }
   log "klt $(klt --version) (local venv)"
+  expose_klt_on_system_path
+}
+
+# 0.9.x `klt signoff --attest` runs inventory commands with klt's own venv
+# bin removed from $PATH (klayout-tools docs/cli/signoff.md; filed as
+# klayout-tools#6980), and the batch image carries no uvx and no system klt,
+# so scripts/klt.sh's resolution rule cannot see the pin from inside an
+# attest command (observed: item-1 freshness `exec: uvx: not found`, exit
+# 127). Expose the pinned klt on the system PATH for this instance only --
+# the attest subprocess keeps /usr/local/bin, finds the pinned klt, and the
+# freshness command re-runs at full strength instead of being skipped.
+expose_klt_on_system_path() {
+  local klt_bin
+  klt_bin="$(command -v klt)" || return 0
+  if [ -d /usr/local/bin ] && [ -w /usr/local/bin ] \
+     && [ "$(readlink -f /usr/local/bin/klt 2>/dev/null)" != "$(readlink -f "${klt_bin}")" ]; then
+    ln -sfn "${klt_bin}" /usr/local/bin/klt \
+      && log "pinned klt symlinked into /usr/local/bin (attest-command PATH)"
+  fi
 }
 
 # --- pinned yowasp-yosys on $PATH (synthesis / freshness) --------------------

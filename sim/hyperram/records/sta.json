@@ -12,10 +12,25 @@
   "geometry_source": "netlist_estimate",
   "wire_load_model": null,
   "wire_load_mode": null,
+  "macros": [],
   "clock_mode": "ideal",
+  "clock_targets": {
+    "clocks": [
+      {
+        "port": "clk",
+        "period_ns": 20.0
+      }
+    ],
+    "clock_groups": []
+  },
+  "clock_uncertainty": {
+    "applied": false
+  },
   "spef_path": null,
   "provenance": {
-    "klt_version": "0.8.0",
+    "klt_version": "0.9.2",
+    "klt_git_commit": "046ba74652fc096bd97071fc3237f7159dd40183",
+    "klt_reinstall_spec": "klayout-tools==0.9.2",
     "klayout_version": "0.30.13",
     "pdk": {
       "name": "sky130A",
@@ -24,7 +39,7 @@
     },
     "deck": null,
     "input": {
-      "content_hash": "sha256:5ea579ba0640d6d73dc84e04e410a889b0588b313785f2697c4f4cfbc38a9f64",
+      "content_hash": "sha256:0f03005ab04a2fc45365680d543d13e1742a8e4288228c28eb279b0b94e463d7",
       "role": "netlist"
     }
   },
@@ -32,13 +47,13 @@
     {
       "corner": "ff_100C_1v65",
       "engine_log": {
-        "invocation_id": "aace5976bfaf426fa176446027e1e814",
+        "invocation_id": "37f56a1d4c8c4fe78a7972d378449616",
         "script_name": "sta_hyperram_ctrl.netlist__ff_100C_1v65.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ff_100C_1v65.tcl",
           "scope": "repo"
         },
-        "script_sha256": "063baf05406c1f3d7aa2a584d59ec7da4a35c76b220f17efb2b559438c3a5646",
+        "script_sha256": "02264e9ce9a1152f71628fcb4d2f9b2cc48d794a67d6903daf0944f2dde56da7",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ff_100C_1v65_metrics.json",
           "scope": "repo"
@@ -46,19 +61,19 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/aace5976bfaf426fa176446027e1e814",
+          "path": "flow/.klt/sta/openroad-logs/37f56a1d4c8c4fe78a7972d378449616",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/aace5976bfaf426fa176446027e1e814/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/37f56a1d4c8c4fe78a7972d378449616/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/aace5976bfaf426fa176446027e1e814/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/37f56a1d4c8c4fe78a7972d378449616/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/aace5976bfaf426fa176446027e1e814/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/37f56a1d4c8c4fe78a7972d378449616/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
@@ -67,7 +82,7 @@
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.27604,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 271.845,
+      "fmax_mhz": 280.6,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -151,8 +166,30 @@
         "consistent_with_aggregate": true,
         "reason": null
       },
+      "worst_paths_by_group": {
+        "status": "ok",
+        "reason": null,
+        "setup": [
+          {
+            "check_type": "setup",
+            "engine_check_role": "setup",
+            "startpoint": "u_out/_40_/Q",
+            "endpoint": "u_out/_20_/D",
+            "slack_ns": 9.64408
+          }
+        ],
+        "hold": [
+          {
+            "check_type": "hold",
+            "engine_check_role": "hold",
+            "startpoint": "u_cap/_936_/Q",
+            "endpoint": "u_cap/_940_/D",
+            "slack_ns": 0.27604
+          }
+        ]
+      },
       "clock_skew_ns": 0.11876,
-      "estimated_power_mw": 1.1192,
+      "estimated_power_mw": 1.1103,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -168,21 +205,21 @@
         "content_hash": "sha256:913e67fc551be7e4e97fc031f3e72e5ef3251438ceeb44753f73b68df58f5650",
         "released": false,
         "path": {
-          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_100C_1v65.lib",
-          "scope": "repo"
+          "path": null,
+          "scope": "external"
         }
       }
     },
     {
       "corner": "ff_100C_1v95",
       "engine_log": {
-        "invocation_id": "82ac78a7db2048e3a45a465621aeac25",
+        "invocation_id": "a9b799ffa1ff46e3aeb3c069f017f42e",
         "script_name": "sta_hyperram_ctrl.netlist__ff_100C_1v95.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ff_100C_1v95.tcl",
           "scope": "repo"
         },
-        "script_sha256": "39a7643195873c71e86cc8db028e412026d8395d9eb8ef0f2bcf9892a04f4140",
+        "script_sha256": "d18a9357fe9b52a86c0c869f0b9101666208c601c96ad780b90f6274cc0e8d8a",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ff_100C_1v95_metrics.json",
           "scope": "repo"
@@ -190,19 +227,19 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/82ac78a7db2048e3a45a465621aeac25",
+          "path": "flow/.klt/sta/openroad-logs/a9b799ffa1ff46e3aeb3c069f017f42e",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/82ac78a7db2048e3a45a465621aeac25/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/a9b799ffa1ff46e3aeb3c069f017f42e/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/82ac78a7db2048e3a45a465621aeac25/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/a9b799ffa1ff46e3aeb3c069f017f42e/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/82ac78a7db2048e3a45a465621aeac25/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/a9b799ffa1ff46e3aeb3c069f017f42e/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
@@ -211,7 +248,7 @@
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.21974,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 349.256,
+      "fmax_mhz": 364.291,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -295,8 +332,30 @@
         "consistent_with_aggregate": true,
         "reason": null
       },
+      "worst_paths_by_group": {
+        "status": "ok",
+        "reason": null,
+        "setup": [
+          {
+            "check_type": "setup",
+            "engine_check_role": "setup",
+            "startpoint": "u_out/_40_/Q",
+            "endpoint": "u_out/_20_/D",
+            "slack_ns": 9.72145
+          }
+        ],
+        "hold": [
+          {
+            "check_type": "hold",
+            "engine_check_role": "hold",
+            "startpoint": "u_cap/_936_/Q",
+            "endpoint": "u_cap/_940_/D",
+            "slack_ns": 0.21974
+          }
+        ]
+      },
       "clock_skew_ns": 0.09675,
-      "estimated_power_mw": 1.6074,
+      "estimated_power_mw": 1.5955,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -312,21 +371,21 @@
         "content_hash": "sha256:15c9ccefec536ff35d694314af5812e7c03b4e5a356ec8ea28f2e40bbeec04e7",
         "released": false,
         "path": {
-          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_100C_1v95.lib",
-          "scope": "repo"
+          "path": null,
+          "scope": "external"
         }
       }
     },
     {
       "corner": "ff_n40C_1v56",
       "engine_log": {
-        "invocation_id": "ffbf611e60df45be811d1c0731e87a42",
+        "invocation_id": "b089805c6e3443d3bb9aafc8f7d36ebe",
         "script_name": "sta_hyperram_ctrl.netlist__ff_n40C_1v56.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ff_n40C_1v56.tcl",
           "scope": "repo"
         },
-        "script_sha256": "8070e7c6249f69ccf8753ab6bcf5c82867edcfdc5919cf4c45d52511623c584d",
+        "script_sha256": "833934f4cd600fc9da11620ad8ddaed043ab08806d6ffd3bf7614fc38d25380c",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ff_n40C_1v56_metrics.json",
           "scope": "repo"
@@ -334,19 +393,19 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/ffbf611e60df45be811d1c0731e87a42",
+          "path": "flow/.klt/sta/openroad-logs/b089805c6e3443d3bb9aafc8f7d36ebe",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/ffbf611e60df45be811d1c0731e87a42/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/b089805c6e3443d3bb9aafc8f7d36ebe/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/ffbf611e60df45be811d1c0731e87a42/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/b089805c6e3443d3bb9aafc8f7d36ebe/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/ffbf611e60df45be811d1c0731e87a42/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/b089805c6e3443d3bb9aafc8f7d36ebe/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
@@ -355,7 +414,7 @@
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.31153,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 221.297,
+      "fmax_mhz": 214.746,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -439,8 +498,30 @@
         "consistent_with_aggregate": true,
         "reason": null
       },
+      "worst_paths_by_group": {
+        "status": "ok",
+        "reason": null,
+        "setup": [
+          {
+            "check_type": "setup",
+            "engine_check_role": "setup",
+            "startpoint": "u_out/_40_/Q",
+            "endpoint": "u_out/_20_/D",
+            "slack_ns": 9.55665
+          }
+        ],
+        "hold": [
+          {
+            "check_type": "hold",
+            "engine_check_role": "hold",
+            "startpoint": "u_cap/_936_/Q",
+            "endpoint": "u_cap/_940_/D",
+            "slack_ns": 0.31153
+          }
+        ]
+      },
       "clock_skew_ns": 0.14685,
-      "estimated_power_mw": 0.9422,
+      "estimated_power_mw": 0.9349,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -456,21 +537,21 @@
         "content_hash": "sha256:d64f38f3e67f8adab818531901385dbd29c6a4805e6166f7166bcc3e9370ef88",
         "released": false,
         "path": {
-          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v56.lib",
-          "scope": "repo"
+          "path": null,
+          "scope": "external"
         }
       }
     },
     {
       "corner": "ff_n40C_1v65",
       "engine_log": {
-        "invocation_id": "f08c214ff7b9475688474f96801d898b",
+        "invocation_id": "5131879cb8f44ecf906d42d24383796f",
         "script_name": "sta_hyperram_ctrl.netlist__ff_n40C_1v65.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ff_n40C_1v65.tcl",
           "scope": "repo"
         },
-        "script_sha256": "d38d5dcb31d7e763e661042762f5d56eec679181a21190c88fe78785978fbb12",
+        "script_sha256": "203d752c6790e1ae79b5753fa0af940c6a0815ed1fa7f47c40cadbdc81ade12c",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ff_n40C_1v65_metrics.json",
           "scope": "repo"
@@ -478,19 +559,19 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/f08c214ff7b9475688474f96801d898b",
+          "path": "flow/.klt/sta/openroad-logs/5131879cb8f44ecf906d42d24383796f",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/f08c214ff7b9475688474f96801d898b/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/5131879cb8f44ecf906d42d24383796f/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/f08c214ff7b9475688474f96801d898b/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/5131879cb8f44ecf906d42d24383796f/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/f08c214ff7b9475688474f96801d898b/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/5131879cb8f44ecf906d42d24383796f/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
@@ -499,7 +580,7 @@
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.27562,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 256.342,
+      "fmax_mhz": 250.445,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -583,8 +664,30 @@
         "consistent_with_aggregate": true,
         "reason": null
       },
+      "worst_paths_by_group": {
+        "status": "ok",
+        "reason": null,
+        "setup": [
+          {
+            "check_type": "setup",
+            "engine_check_role": "setup",
+            "startpoint": "u_out/_40_/Q",
+            "endpoint": "u_out/_20_/D",
+            "slack_ns": 9.61458
+          }
+        ],
+        "hold": [
+          {
+            "check_type": "hold",
+            "engine_check_role": "hold",
+            "startpoint": "u_cap/_936_/Q",
+            "endpoint": "u_cap/_940_/D",
+            "slack_ns": 0.27562
+          }
+        ]
+      },
       "clock_skew_ns": 0.12977,
-      "estimated_power_mw": 1.0572,
+      "estimated_power_mw": 1.0491,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -600,21 +703,21 @@
         "content_hash": "sha256:dd777cb159bf2fc853773d74a3c3e8269b73869d25aae49d0f80f117df9631ee",
         "released": false,
         "path": {
-          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v65.lib",
-          "scope": "repo"
+          "path": null,
+          "scope": "external"
         }
       }
     },
     {
       "corner": "ff_n40C_1v76",
       "engine_log": {
-        "invocation_id": "0fe73b7c23b042379f1c7e688b11e2d2",
+        "invocation_id": "ed309fb463d44fce99780d6b224780d6",
         "script_name": "sta_hyperram_ctrl.netlist__ff_n40C_1v76.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ff_n40C_1v76.tcl",
           "scope": "repo"
         },
-        "script_sha256": "e8a3a9fdc489014492d36ca0b3f976fa1a6dba6d60b0fcb3a50da4c0b66065ca",
+        "script_sha256": "3c3df9db4fc4c82c17cfb50a5fee60b816b13269cdb69d12d164f5a3c0e1214d",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ff_n40C_1v76_metrics.json",
           "scope": "repo"
@@ -622,19 +725,19 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/0fe73b7c23b042379f1c7e688b11e2d2",
+          "path": "flow/.klt/sta/openroad-logs/ed309fb463d44fce99780d6b224780d6",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/0fe73b7c23b042379f1c7e688b11e2d2/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/ed309fb463d44fce99780d6b224780d6/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/0fe73b7c23b042379f1c7e688b11e2d2/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/ed309fb463d44fce99780d6b224780d6/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/0fe73b7c23b042379f1c7e688b11e2d2/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/ed309fb463d44fce99780d6b224780d6/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
@@ -643,7 +746,7 @@
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.24213,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 297.682,
+      "fmax_mhz": 293.449,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -727,8 +830,30 @@
         "consistent_with_aggregate": true,
         "reason": null
       },
+      "worst_paths_by_group": {
+        "status": "ok",
+        "reason": null,
+        "setup": [
+          {
+            "check_type": "setup",
+            "engine_check_role": "setup",
+            "startpoint": "u_out/_40_/Q",
+            "endpoint": "u_out/_20_/D",
+            "slack_ns": 9.66518
+          }
+        ],
+        "hold": [
+          {
+            "check_type": "hold",
+            "engine_check_role": "hold",
+            "startpoint": "u_cap/_936_/Q",
+            "endpoint": "u_cap/_940_/D",
+            "slack_ns": 0.24213
+          }
+        ]
+      },
       "clock_skew_ns": 0.11562,
-      "estimated_power_mw": 1.2092,
+      "estimated_power_mw": 1.1991,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -744,21 +869,21 @@
         "content_hash": "sha256:0f5b7ceef23114c3834870f86c2f90ea24d597622fcd5abd2916b1fb604e8a26",
         "released": false,
         "path": {
-          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v76.lib",
-          "scope": "repo"
+          "path": null,
+          "scope": "external"
         }
       }
     },
     {
       "corner": "ff_n40C_1v95",
       "engine_log": {
-        "invocation_id": "91545ce1ed3748a89204ee599005b76e",
+        "invocation_id": "585ffa3efab34b58a039533af29039c1",
         "script_name": "sta_hyperram_ctrl.netlist__ff_n40C_1v95.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ff_n40C_1v95.tcl",
           "scope": "repo"
         },
-        "script_sha256": "bfc81893dd22c231eeb4242cce6b32d955f65731e067283e4634cae43e53a736",
+        "script_sha256": "00577ed5fdee4096878be832f809efb132fa437233ebf69141885807b4e05d38",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ff_n40C_1v95_metrics.json",
           "scope": "repo"
@@ -766,19 +891,19 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/91545ce1ed3748a89204ee599005b76e",
+          "path": "flow/.klt/sta/openroad-logs/585ffa3efab34b58a039533af29039c1",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/91545ce1ed3748a89204ee599005b76e/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/585ffa3efab34b58a039533af29039c1/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/91545ce1ed3748a89204ee599005b76e/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/585ffa3efab34b58a039533af29039c1/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/91545ce1ed3748a89204ee599005b76e/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/585ffa3efab34b58a039533af29039c1/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
@@ -787,7 +912,7 @@
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.20407,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 363.35,
+      "fmax_mhz": 364.402,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -871,8 +996,30 @@
         "consistent_with_aggregate": true,
         "reason": null
       },
+      "worst_paths_by_group": {
+        "status": "ok",
+        "reason": null,
+        "setup": [
+          {
+            "check_type": "setup",
+            "engine_check_role": "setup",
+            "startpoint": "u_out/_40_/Q",
+            "endpoint": "u_out/_20_/D",
+            "slack_ns": 9.72341
+          }
+        ],
+        "hold": [
+          {
+            "check_type": "hold",
+            "engine_check_role": "hold",
+            "startpoint": "u_cap/_936_/Q",
+            "endpoint": "u_cap/_940_/D",
+            "slack_ns": 0.20407
+          }
+        ]
+      },
       "clock_skew_ns": 0.0981,
-      "estimated_power_mw": 1.4984,
+      "estimated_power_mw": 1.4859,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -888,21 +1035,21 @@
         "content_hash": "sha256:fb61d91c55a7f85b1989e8149d040b13ba5e7f5478f5bf0c3c16c5da30720139",
         "released": false,
         "path": {
-          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v95.lib",
-          "scope": "repo"
+          "path": null,
+          "scope": "external"
         }
       }
     },
     {
       "corner": "ss_100C_1v40",
       "engine_log": {
-        "invocation_id": "cde2107111ed4e3288e6c4c71ce687aa",
+        "invocation_id": "27b74f1772844306b374b6efa9ff23a7",
         "script_name": "sta_hyperram_ctrl.netlist__ss_100C_1v40.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ss_100C_1v40.tcl",
           "scope": "repo"
         },
-        "script_sha256": "73dfc992be807c87550c830eb5a05a0421ea8e9fddf4c13ee6d55f190daa797f",
+        "script_sha256": "11ba7d7082dad31674fa4ad5513e129930dccb83a0ff397340e5ed16b75e2783",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ss_100C_1v40_metrics.json",
           "scope": "repo"
@@ -910,28 +1057,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/cde2107111ed4e3288e6c4c71ce687aa",
+          "path": "flow/.klt/sta/openroad-logs/27b74f1772844306b374b6efa9ff23a7",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/cde2107111ed4e3288e6c4c71ce687aa/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/27b74f1772844306b374b6efa9ff23a7/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/cde2107111ed4e3288e6c4c71ce687aa/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/27b74f1772844306b374b6efa9ff23a7/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/cde2107111ed4e3288e6c4c71ce687aa/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/27b74f1772844306b374b6efa9ff23a7/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": 5.88001,
+      "worst_slack_ns": 6.58385,
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.98269,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 70.8216,
+      "fmax_mhz": 74.5371,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -1000,8 +1147,8 @@
         "check_type": "setup",
         "engine_check_role": "setup",
         "startpoint": "u_cap/_943_/Q",
-        "endpoint": "u_fsm/_2129_/D",
-        "slack_ns": 5.88001,
+        "endpoint": "u_fsm/_2208_/D",
+        "slack_ns": 6.58385,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -1015,8 +1162,30 @@
         "consistent_with_aggregate": true,
         "reason": null
       },
+      "worst_paths_by_group": {
+        "status": "ok",
+        "reason": null,
+        "setup": [
+          {
+            "check_type": "setup",
+            "engine_check_role": "setup",
+            "startpoint": "u_cap/_943_/Q",
+            "endpoint": "u_fsm/_2208_/D",
+            "slack_ns": 6.58385
+          }
+        ],
+        "hold": [
+          {
+            "check_type": "hold",
+            "engine_check_role": "hold",
+            "startpoint": "u_cap/_936_/Q",
+            "endpoint": "u_cap/_940_/D",
+            "slack_ns": 0.98269
+          }
+        ]
+      },
       "clock_skew_ns": 0.35547,
-      "estimated_power_mw": 0.7593,
+      "estimated_power_mw": 0.7523,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -1032,21 +1201,21 @@
         "content_hash": "sha256:88c8ce95b6a7f333bd9e618fc765c3005fbeccfca2727226bd821c0d16fcaac8",
         "released": false,
         "path": {
-          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_100C_1v40.lib",
-          "scope": "repo"
+          "path": null,
+          "scope": "external"
         }
       }
     },
     {
       "corner": "ss_100C_1v60",
       "engine_log": {
-        "invocation_id": "1ffba96d76b143c981d18cf8ee238f03",
+        "invocation_id": "4b6d6fd23a6440ceb774d5d3705bbb57",
         "script_name": "sta_hyperram_ctrl.netlist__ss_100C_1v60.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ss_100C_1v60.tcl",
           "scope": "repo"
         },
-        "script_sha256": "cfdf1f01937a51846d3701b33c6c242037d7eabdc5f6fecbb0477f5134e19407",
+        "script_sha256": "b75e4cc4f76a4ab0e17b15b49f44125277b148e46d1de5bcadd5740ccc6a661d",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ss_100C_1v60_metrics.json",
           "scope": "repo"
@@ -1054,19 +1223,19 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/1ffba96d76b143c981d18cf8ee238f03",
+          "path": "flow/.klt/sta/openroad-logs/4b6d6fd23a6440ceb774d5d3705bbb57",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/1ffba96d76b143c981d18cf8ee238f03/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/4b6d6fd23a6440ceb774d5d3705bbb57/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/1ffba96d76b143c981d18cf8ee238f03/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/4b6d6fd23a6440ceb774d5d3705bbb57/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/1ffba96d76b143c981d18cf8ee238f03/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/4b6d6fd23a6440ceb774d5d3705bbb57/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
@@ -1075,7 +1244,7 @@
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.67759,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 104.819,
+      "fmax_mhz": 110.066,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -1159,8 +1328,30 @@
         "consistent_with_aggregate": true,
         "reason": null
       },
+      "worst_paths_by_group": {
+        "status": "ok",
+        "reason": null,
+        "setup": [
+          {
+            "check_type": "setup",
+            "engine_check_role": "setup",
+            "startpoint": "u_out/_40_/Q",
+            "endpoint": "u_out/_20_/D",
+            "slack_ns": 9.03148
+          }
+        ],
+        "hold": [
+          {
+            "check_type": "hold",
+            "engine_check_role": "hold",
+            "startpoint": "u_cap/_936_/Q",
+            "endpoint": "u_cap/_940_/D",
+            "slack_ns": 0.67759
+          }
+        ]
+      },
       "clock_skew_ns": 0.25665,
-      "estimated_power_mw": 1.053,
+      "estimated_power_mw": 1.0431,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -1176,21 +1367,21 @@
         "content_hash": "sha256:9b24f0db3967ac67b4cae1f74bb480fd47922d18d0ed577e3c121739b412c361",
         "released": false,
         "path": {
-          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_100C_1v60.lib",
-          "scope": "repo"
+          "path": null,
+          "scope": "external"
         }
       }
     },
     {
       "corner": "ss_n40C_1v28",
       "engine_log": {
-        "invocation_id": "93bf2f91f016449998ab30acf1d64877",
+        "invocation_id": "4c362759fef94acf9a7a2f7233b5aae8",
         "script_name": "sta_hyperram_ctrl.netlist__ss_n40C_1v28.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ss_n40C_1v28.tcl",
           "scope": "repo"
         },
-        "script_sha256": "f1427a752e8225e6ef3a1cc625612857ab86535a82aa4a7103f3b3b5d96744ea",
+        "script_sha256": "5ea612c037a7ad8053cc0bd036f364b9f48ae271ff18d104c53d8e0037c50d40",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ss_n40C_1v28_metrics.json",
           "scope": "repo"
@@ -1198,28 +1389,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/93bf2f91f016449998ab30acf1d64877",
+          "path": "flow/.klt/sta/openroad-logs/4c362759fef94acf9a7a2f7233b5aae8",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/93bf2f91f016449998ab30acf1d64877/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/4c362759fef94acf9a7a2f7233b5aae8/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/93bf2f91f016449998ab30acf1d64877/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/4c362759fef94acf9a7a2f7233b5aae8/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/93bf2f91f016449998ab30acf1d64877/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/4c362759fef94acf9a7a2f7233b5aae8/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": -17.3491,
-      "total_negative_slack_ns": -1279.44,
+      "worst_slack_ns": -17.9418,
+      "total_negative_slack_ns": -878.787,
       "worst_hold_slack_ns": 2.00452,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 26.7744,
+      "fmax_mhz": 26.3561,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -1281,15 +1472,15 @@
         },
         "sample_limit": 20
       },
-      "setup_violation_count": 214,
+      "setup_violation_count": 181,
       "hold_violation_count": 0,
       "worst_setup_path": {
         "status": "ok",
         "check_type": "setup",
         "engine_check_role": "setup",
         "startpoint": "u_cap/_943_/Q",
-        "endpoint": "u_fsm/_2130_/D",
-        "slack_ns": -17.34906,
+        "endpoint": "u_fsm/_2048_/D",
+        "slack_ns": -17.94184,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -1303,8 +1494,30 @@
         "consistent_with_aggregate": true,
         "reason": null
       },
+      "worst_paths_by_group": {
+        "status": "ok",
+        "reason": null,
+        "setup": [
+          {
+            "check_type": "setup",
+            "engine_check_role": "setup",
+            "startpoint": "u_cap/_943_/Q",
+            "endpoint": "u_fsm/_2048_/D",
+            "slack_ns": -17.94184
+          }
+        ],
+        "hold": [
+          {
+            "check_type": "hold",
+            "engine_check_role": "hold",
+            "startpoint": "u_cap/_936_/Q",
+            "endpoint": "u_cap/_940_/D",
+            "slack_ns": 2.00452
+          }
+        ]
+      },
       "clock_skew_ns": 0.87127,
-      "estimated_power_mw": 0.4384,
+      "estimated_power_mw": 0.4324,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -1320,21 +1533,21 @@
         "content_hash": "sha256:afd8201328f73996b7c80bf13909674ba7b483ec413dea3fca74831cec712578",
         "released": false,
         "path": {
-          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_n40C_1v28.lib",
-          "scope": "repo"
+          "path": null,
+          "scope": "external"
         }
       }
     },
     {
       "corner": "ss_n40C_1v35",
       "engine_log": {
-        "invocation_id": "17886ec035d4438aacbc0ef7ba4138dc",
+        "invocation_id": "906b523efaf94dfeaae43459a32b03d2",
         "script_name": "sta_hyperram_ctrl.netlist__ss_n40C_1v35.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ss_n40C_1v35.tcl",
           "scope": "repo"
         },
-        "script_sha256": "e79ed63fd5b7c8fb627a668136b33b9b5ee9de591bfdc73c4c6ae92bc2537d7d",
+        "script_sha256": "2ee1c891480866f763bda3b9714ff28e47e1f98f5cc5366b36f0ae01ec6e13b8",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ss_n40C_1v35_metrics.json",
           "scope": "repo"
@@ -1342,28 +1555,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/17886ec035d4438aacbc0ef7ba4138dc",
+          "path": "flow/.klt/sta/openroad-logs/906b523efaf94dfeaae43459a32b03d2",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/17886ec035d4438aacbc0ef7ba4138dc/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/906b523efaf94dfeaae43459a32b03d2/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/17886ec035d4438aacbc0ef7ba4138dc/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/906b523efaf94dfeaae43459a32b03d2/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/17886ec035d4438aacbc0ef7ba4138dc/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/906b523efaf94dfeaae43459a32b03d2/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": -5.31591,
-      "total_negative_slack_ns": -62.0001,
+      "worst_slack_ns": -5.52991,
+      "total_negative_slack_ns": -64.3886,
       "worst_hold_slack_ns": 1.45077,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 39.5008,
+      "fmax_mhz": 39.1697,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -1432,8 +1645,8 @@
         "check_type": "setup",
         "engine_check_role": "setup",
         "startpoint": "u_cap/_943_/Q",
-        "endpoint": "u_fsm/_2129_/D",
-        "slack_ns": -5.31591,
+        "endpoint": "u_fsm/_2048_/D",
+        "slack_ns": -5.52991,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -1447,8 +1660,30 @@
         "consistent_with_aggregate": true,
         "reason": null
       },
+      "worst_paths_by_group": {
+        "status": "ok",
+        "reason": null,
+        "setup": [
+          {
+            "check_type": "setup",
+            "engine_check_role": "setup",
+            "startpoint": "u_cap/_943_/Q",
+            "endpoint": "u_fsm/_2048_/D",
+            "slack_ns": -5.52991
+          }
+        ],
+        "hold": [
+          {
+            "check_type": "hold",
+            "engine_check_role": "hold",
+            "startpoint": "u_cap/_936_/Q",
+            "endpoint": "u_cap/_940_/D",
+            "slack_ns": 1.45077
+          }
+        ]
+      },
       "clock_skew_ns": 0.62279,
-      "estimated_power_mw": 0.5516,
+      "estimated_power_mw": 0.5451,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -1464,21 +1699,21 @@
         "content_hash": "sha256:8fd5aefd2053feef0a9bd3a5a972680dd77ddb8dda744836611656f37f969855",
         "released": false,
         "path": {
-          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_n40C_1v35.lib",
-          "scope": "repo"
+          "path": null,
+          "scope": "external"
         }
       }
     },
     {
       "corner": "ss_n40C_1v40",
       "engine_log": {
-        "invocation_id": "9f45c876331a4d8990977e64f6b40a89",
+        "invocation_id": "7b8117daca814feaa41c8eb686e32570",
         "script_name": "sta_hyperram_ctrl.netlist__ss_n40C_1v40.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ss_n40C_1v40.tcl",
           "scope": "repo"
         },
-        "script_sha256": "1bdff20201d3a8f2ad5cb68335bf8c896b07658811c9107c8024c06d1b8f5f2b",
+        "script_sha256": "fee88d7f54d57963a071b1513d12e2bbe6746934a43000892625b094c27f256c",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ss_n40C_1v40_metrics.json",
           "scope": "repo"
@@ -1486,28 +1721,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/9f45c876331a4d8990977e64f6b40a89",
+          "path": "flow/.klt/sta/openroad-logs/7b8117daca814feaa41c8eb686e32570",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/9f45c876331a4d8990977e64f6b40a89/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/7b8117daca814feaa41c8eb686e32570/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/9f45c876331a4d8990977e64f6b40a89/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/7b8117daca814feaa41c8eb686e32570/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/9f45c876331a4d8990977e64f6b40a89/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/7b8117daca814feaa41c8eb686e32570/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": -0.36499,
-      "total_negative_slack_ns": -1.20775,
+      "worst_slack_ns": -0.43424,
+      "total_negative_slack_ns": -0.73932,
       "worst_hold_slack_ns": 1.19796,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 49.1039,
+      "fmax_mhz": 48.9375,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -1569,15 +1804,15 @@
         },
         "sample_limit": 20
       },
-      "setup_violation_count": 7,
+      "setup_violation_count": 2,
       "hold_violation_count": 0,
       "worst_setup_path": {
         "status": "ok",
         "check_type": "setup",
         "engine_check_role": "setup",
         "startpoint": "u_cap/_943_/Q",
-        "endpoint": "u_fsm/_2129_/D",
-        "slack_ns": -0.36499,
+        "endpoint": "u_fsm/_2048_/D",
+        "slack_ns": -0.43424,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -1591,8 +1826,30 @@
         "consistent_with_aggregate": true,
         "reason": null
       },
+      "worst_paths_by_group": {
+        "status": "ok",
+        "reason": null,
+        "setup": [
+          {
+            "check_type": "setup",
+            "engine_check_role": "setup",
+            "startpoint": "u_cap/_943_/Q",
+            "endpoint": "u_fsm/_2048_/D",
+            "slack_ns": -0.43424
+          }
+        ],
+        "hold": [
+          {
+            "check_type": "hold",
+            "engine_check_role": "hold",
+            "startpoint": "u_cap/_936_/Q",
+            "endpoint": "u_cap/_940_/D",
+            "slack_ns": 1.19796
+          }
+        ]
+      },
       "clock_skew_ns": 0.51467,
-      "estimated_power_mw": 0.6553,
+      "estimated_power_mw": 0.6485,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -1608,21 +1865,21 @@
         "content_hash": "sha256:2c6c61b165c313a6eb18d805431f981cebf9cf138cec39a67d01ea99f63a4717",
         "released": false,
         "path": {
-          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_n40C_1v40.lib",
-          "scope": "repo"
+          "path": null,
+          "scope": "external"
         }
       }
     },
     {
       "corner": "ss_n40C_1v44",
       "engine_log": {
-        "invocation_id": "58bc5d00ec3a4ca1965f2310174277a7",
+        "invocation_id": "70006c140955450b8efdc827141df87f",
         "script_name": "sta_hyperram_ctrl.netlist__ss_n40C_1v44.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ss_n40C_1v44.tcl",
           "scope": "repo"
         },
-        "script_sha256": "4ce5547d8226dae0f80c8256164e9d728c56ee8843bac5293e76de31c530fe7a",
+        "script_sha256": "4cf2c7f42f11f548a0b71400ad3950539f4a1eadd9c63b6a8aa693c7b4b6fff9",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ss_n40C_1v44_metrics.json",
           "scope": "repo"
@@ -1630,28 +1887,28 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/58bc5d00ec3a4ca1965f2310174277a7",
+          "path": "flow/.klt/sta/openroad-logs/70006c140955450b8efdc827141df87f",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/58bc5d00ec3a4ca1965f2310174277a7/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/70006c140955450b8efdc827141df87f/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/58bc5d00ec3a4ca1965f2310174277a7/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/70006c140955450b8efdc827141df87f/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/58bc5d00ec3a4ca1965f2310174277a7/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/70006c140955450b8efdc827141df87f/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
       },
-      "worst_slack_ns": 2.49099,
+      "worst_slack_ns": 2.56021,
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 1.05445,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 57.1134,
+      "fmax_mhz": 57.3401,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -1720,8 +1977,8 @@
         "check_type": "setup",
         "engine_check_role": "setup",
         "startpoint": "u_cap/_943_/Q",
-        "endpoint": "u_fsm/_2130_/D",
-        "slack_ns": 2.49099,
+        "endpoint": "u_fsm/_2048_/D",
+        "slack_ns": 2.56021,
         "consistent_with_aggregate": true,
         "reason": null
       },
@@ -1735,8 +1992,30 @@
         "consistent_with_aggregate": true,
         "reason": null
       },
+      "worst_paths_by_group": {
+        "status": "ok",
+        "reason": null,
+        "setup": [
+          {
+            "check_type": "setup",
+            "engine_check_role": "setup",
+            "startpoint": "u_cap/_943_/Q",
+            "endpoint": "u_fsm/_2048_/D",
+            "slack_ns": 2.56021
+          }
+        ],
+        "hold": [
+          {
+            "check_type": "hold",
+            "engine_check_role": "hold",
+            "startpoint": "u_cap/_936_/Q",
+            "endpoint": "u_cap/_940_/D",
+            "slack_ns": 1.05445
+          }
+        ]
+      },
       "clock_skew_ns": 0.45475,
-      "estimated_power_mw": 0.7439,
+      "estimated_power_mw": 0.7363,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -1752,21 +2031,21 @@
         "content_hash": "sha256:88814187f8226bb6e7ad394a1afef161eb1c4006ed1f095cc31ab0da7dae1f0f",
         "released": false,
         "path": {
-          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_n40C_1v44.lib",
-          "scope": "repo"
+          "path": null,
+          "scope": "external"
         }
       }
     },
     {
       "corner": "ss_n40C_1v60",
       "engine_log": {
-        "invocation_id": "0b8cd8809cdd4853bca9f66c62e08f43",
+        "invocation_id": "888744f23d6d4f18837ef57787a07635",
         "script_name": "sta_hyperram_ctrl.netlist__ss_n40C_1v60.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ss_n40C_1v60.tcl",
           "scope": "repo"
         },
-        "script_sha256": "590ab1d2f09fd13f2961a4333481a32b6d5d8ea848068ade27b64008195e8860",
+        "script_sha256": "b4017bc38c24fe8c192ee57acc019852ccf24d5bc439648b1d7db0448377a8f6",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ss_n40C_1v60_metrics.json",
           "scope": "repo"
@@ -1774,19 +2053,19 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/0b8cd8809cdd4853bca9f66c62e08f43",
+          "path": "flow/.klt/sta/openroad-logs/888744f23d6d4f18837ef57787a07635",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/0b8cd8809cdd4853bca9f66c62e08f43/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/888744f23d6d4f18837ef57787a07635/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/0b8cd8809cdd4853bca9f66c62e08f43/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/888744f23d6d4f18837ef57787a07635/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/0b8cd8809cdd4853bca9f66c62e08f43/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/888744f23d6d4f18837ef57787a07635/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
@@ -1795,7 +2074,7 @@
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.69001,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 92.1626,
+      "fmax_mhz": 93.0207,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -1879,8 +2158,30 @@
         "consistent_with_aggregate": true,
         "reason": null
       },
+      "worst_paths_by_group": {
+        "status": "ok",
+        "reason": null,
+        "setup": [
+          {
+            "check_type": "setup",
+            "engine_check_role": "setup",
+            "startpoint": "u_out/_40_/Q",
+            "endpoint": "u_out/_20_/D",
+            "slack_ns": 8.9227
+          }
+        ],
+        "hold": [
+          {
+            "check_type": "hold",
+            "engine_check_role": "hold",
+            "startpoint": "u_cap/_936_/Q",
+            "endpoint": "u_cap/_940_/D",
+            "slack_ns": 0.69001
+          }
+        ]
+      },
       "clock_skew_ns": 0.30032,
-      "estimated_power_mw": 0.9975,
+      "estimated_power_mw": 0.9879,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -1896,21 +2197,21 @@
         "content_hash": "sha256:23cba893b985a950a7951e3f29ae66ae6a639aaef75c1478e2306fb68d4a7ee5",
         "released": false,
         "path": {
-          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_n40C_1v60.lib",
-          "scope": "repo"
+          "path": null,
+          "scope": "external"
         }
       }
     },
     {
       "corner": "ss_n40C_1v76",
       "engine_log": {
-        "invocation_id": "92f2456be4b846ee8b042396330d3ea7",
+        "invocation_id": "44aac851e72444bb969f91ab41b6aa0f",
         "script_name": "sta_hyperram_ctrl.netlist__ss_n40C_1v76.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__ss_n40C_1v76.tcl",
           "scope": "repo"
         },
-        "script_sha256": "bc5cb85370a5849f14020ebb95865d0c6f3cca63fc700ebfc32da557d3fb09eb",
+        "script_sha256": "37a6ae5bc2dc991692272d724e2904522999d278846398373cf3e1fe662c4ab4",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__ss_n40C_1v76_metrics.json",
           "scope": "repo"
@@ -1918,19 +2219,19 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/92f2456be4b846ee8b042396330d3ea7",
+          "path": "flow/.klt/sta/openroad-logs/44aac851e72444bb969f91ab41b6aa0f",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/92f2456be4b846ee8b042396330d3ea7/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/44aac851e72444bb969f91ab41b6aa0f/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/92f2456be4b846ee8b042396330d3ea7/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/44aac851e72444bb969f91ab41b6aa0f/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/92f2456be4b846ee8b042396330d3ea7/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/44aac851e72444bb969f91ab41b6aa0f/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
@@ -1939,7 +2240,7 @@
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.519,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 128.852,
+      "fmax_mhz": 131.404,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -2023,8 +2324,30 @@
         "consistent_with_aggregate": true,
         "reason": null
       },
+      "worst_paths_by_group": {
+        "status": "ok",
+        "reason": null,
+        "setup": [
+          {
+            "check_type": "setup",
+            "engine_check_role": "setup",
+            "startpoint": "u_out/_40_/Q",
+            "endpoint": "u_out/_20_/D",
+            "slack_ns": 9.24029
+          }
+        ],
+        "hold": [
+          {
+            "check_type": "hold",
+            "engine_check_role": "hold",
+            "startpoint": "u_cap/_936_/Q",
+            "endpoint": "u_cap/_940_/D",
+            "slack_ns": 0.519
+          }
+        ]
+      },
       "clock_skew_ns": 0.22774,
-      "estimated_power_mw": 1.2208,
+      "estimated_power_mw": 1.209,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -2040,21 +2363,21 @@
         "content_hash": "sha256:f4f16d4f7040623afb60d0480a035e4128c5c1212361ae3bd13c3a52d9692a84",
         "released": false,
         "path": {
-          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_n40C_1v76.lib",
-          "scope": "repo"
+          "path": null,
+          "scope": "external"
         }
       }
     },
     {
       "corner": "tt_025C_1v80",
       "engine_log": {
-        "invocation_id": "80999762f1bb4ea68d09b707939f3700",
+        "invocation_id": "c7a7e7bf7d6440ed8ac61292b4861d22",
         "script_name": "sta_hyperram_ctrl.netlist__tt_025C_1v80.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__tt_025C_1v80.tcl",
           "scope": "repo"
         },
-        "script_sha256": "774f966dec9547e99e99ec412580bb5cdbf39998a461bdb60cfc9be609af119a",
+        "script_sha256": "9efa191c2eb77d18e03af02215ce194021b2e7c7b014f8d6836066c722e44152",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__tt_025C_1v80_metrics.json",
           "scope": "repo"
@@ -2062,19 +2385,19 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/80999762f1bb4ea68d09b707939f3700",
+          "path": "flow/.klt/sta/openroad-logs/c7a7e7bf7d6440ed8ac61292b4861d22",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/80999762f1bb4ea68d09b707939f3700/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/c7a7e7bf7d6440ed8ac61292b4861d22/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/80999762f1bb4ea68d09b707939f3700/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/c7a7e7bf7d6440ed8ac61292b4861d22/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/80999762f1bb4ea68d09b707939f3700/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/c7a7e7bf7d6440ed8ac61292b4861d22/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
@@ -2083,7 +2406,7 @@
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.33121,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 214.138,
+      "fmax_mhz": 221.529,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -2167,8 +2490,30 @@
         "consistent_with_aggregate": true,
         "reason": null
       },
+      "worst_paths_by_group": {
+        "status": "ok",
+        "reason": null,
+        "setup": [
+          {
+            "check_type": "setup",
+            "engine_check_role": "setup",
+            "startpoint": "u_out/_40_/Q",
+            "endpoint": "u_out/_20_/D",
+            "slack_ns": 9.55587
+          }
+        ],
+        "hold": [
+          {
+            "check_type": "hold",
+            "engine_check_role": "hold",
+            "startpoint": "u_cap/_936_/Q",
+            "endpoint": "u_cap/_940_/D",
+            "slack_ns": 0.33121
+          }
+        ]
+      },
       "clock_skew_ns": 0.14578,
-      "estimated_power_mw": 1.2995,
+      "estimated_power_mw": 1.2869,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -2184,21 +2529,21 @@
         "content_hash": "sha256:8e78e14442062dba34d414fca6490b2f6b96038d4510d1438ca44fee31487135",
         "released": false,
         "path": {
-          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib",
-          "scope": "repo"
+          "path": null,
+          "scope": "external"
         }
       }
     },
     {
       "corner": "tt_100C_1v80",
       "engine_log": {
-        "invocation_id": "856689b3c32147628d5b96362cf45172",
+        "invocation_id": "b78a8c07229047fcb416422365902c92",
         "script_name": "sta_hyperram_ctrl.netlist__tt_100C_1v80.tcl",
         "script_path": {
           "path": "flow/.klt/sta/sta_hyperram_ctrl.netlist__tt_100C_1v80.tcl",
           "scope": "repo"
         },
-        "script_sha256": "1b047a5b921654e08b613aa930086373d2a68bfec13393acf3aeb7c8f7b3696b",
+        "script_sha256": "a9e5d4ddf85a95820ef460cd8c4cbf89f27dfa88414bfdc0fbe2a4957d99187d",
         "metrics_path": {
           "path": "flow/.klt/sta/hyperram_ctrl.netlist__tt_100C_1v80_metrics.json",
           "scope": "repo"
@@ -2206,19 +2551,19 @@
         "outcome": "exited",
         "returncode": 0,
         "directory": {
-          "path": "flow/.klt/sta/openroad-logs/856689b3c32147628d5b96362cf45172",
+          "path": "flow/.klt/sta/openroad-logs/b78a8c07229047fcb416422365902c92",
           "scope": "repo"
         },
         "stdout_path": {
-          "path": "flow/.klt/sta/openroad-logs/856689b3c32147628d5b96362cf45172/stdout.log",
+          "path": "flow/.klt/sta/openroad-logs/b78a8c07229047fcb416422365902c92/stdout.log",
           "scope": "repo"
         },
         "stderr_path": {
-          "path": "flow/.klt/sta/openroad-logs/856689b3c32147628d5b96362cf45172/stderr.log",
+          "path": "flow/.klt/sta/openroad-logs/b78a8c07229047fcb416422365902c92/stderr.log",
           "scope": "repo"
         },
         "metadata_path": {
-          "path": "flow/.klt/sta/openroad-logs/856689b3c32147628d5b96362cf45172/invocation.json",
+          "path": "flow/.klt/sta/openroad-logs/b78a8c07229047fcb416422365902c92/invocation.json",
           "scope": "repo"
         },
         "retention_errors": []
@@ -2227,7 +2572,7 @@
       "total_negative_slack_ns": 0,
       "worst_hold_slack_ns": 0.33955,
       "total_negative_hold_slack_ns": 0,
-      "fmax_mhz": 215.878,
+      "fmax_mhz": 224.929,
       "timing_status": "constrained",
       "constraint_completeness": {
         "status": "incomplete",
@@ -2311,8 +2656,30 @@
         "consistent_with_aggregate": true,
         "reason": null
       },
+      "worst_paths_by_group": {
+        "status": "ok",
+        "reason": null,
+        "setup": [
+          {
+            "check_type": "setup",
+            "engine_check_role": "setup",
+            "startpoint": "u_out/_40_/Q",
+            "endpoint": "u_out/_20_/D",
+            "slack_ns": 9.56054
+          }
+        ],
+        "hold": [
+          {
+            "check_type": "hold",
+            "engine_check_role": "hold",
+            "startpoint": "u_cap/_936_/Q",
+            "endpoint": "u_cap/_940_/D",
+            "slack_ns": 0.33955
+          }
+        ]
+      },
       "clock_skew_ns": 0.14332,
-      "estimated_power_mw": 1.3367,
+      "estimated_power_mw": 1.3255,
       "power_basis": {
         "activity_source": "engine_default",
         "activity": null,
@@ -2328,8 +2695,8 @@
         "content_hash": "sha256:7c6b9fc62d7e83b8317cdca883d79107d8f2ff1061b04519fda7d3088560015b",
         "released": false,
         "path": {
-          "path": ".fleet-pdk/ciel/sky130/versions/f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_100C_1v80.lib",
-          "scope": "repo"
+          "path": null,
+          "scope": "external"
         }
       }
     }
