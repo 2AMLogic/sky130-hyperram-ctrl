@@ -23,7 +23,7 @@ all graded against a **draft** spec, so every verdict is provisional.
 | 4 LVS clean | met, **stale** | `layout/lvs/records/report.json`, on the stale GDS |
 | 5 Full corner verification vs a ratified spec | unmet | no ratified spec (#2); no corner-complete timing record for the current netlist |
 | 6 Monte Carlo for statistical claims | unmet | no evidence; whether the spec makes a statistical claim is #2's call |
-| 7 Post-layout verification | unmet, **probed** | the SDF-annotated run exists and fails: 39 of 43 benches on `hyperram_ctrl.routed.v` with the DEF+SPEF SDF at `tt_025C_1v80` fail — the bench samples on the annotated CK pin edge (#199), so the six CA bytes decode and the residuals are the ~9/11 ns annotated CK half-period vs the model's 20 ns placeholder (#2), the register configuration-read settle (#200) and host acknowledgement under annotation; #187 traced the typ CK/CA pins and found no fault in the CK launch path or the ICG (`sim/hyperram/records/CK-TRACE.md`); report `sim/hyperram/records/functional-verification-ctrl-sdf.report.json` |
+| 7 Post-layout verification | unmet, **probed** | the SDF-annotated run exists and fails: 39 of 43 benches on `hyperram_ctrl.routed.v` with the DEF+SPEF SDF at `tt_025C_1v80` fail — the bench samples on the annotated CK pin edge (#199), so the six CA bytes decode and the residuals are the ~9/11 ns annotated CK half-period vs the model's 20 ns placeholder (#2) and host acknowledgement under annotation — the register configuration-read settle race (#200) is fixed (#203, `no_calibration_port_or_status_bit` now passes); #187 traced the typ CK/CA pins and found no fault in the CK launch path or the ICG (`sim/hyperram/records/CK-TRACE.md`); report `sim/hyperram/records/functional-verification-ctrl-sdf.report.json` |
 | 8 Characterization report | unmet | no report; needs items 5 and 7 |
 | 9 Testbenches shipped | met | `verification/ctrl/` (43 cocotb tests, one module per CT row, plus random traffic), `verification/hyperram_model/`, `evidence/item9.json` |
 | 10 Repo hygiene | met | `evidence/item10.json`, re-checked by `npm run check:ci` |
@@ -51,8 +51,9 @@ Also in the tree, outside the tier record:
   failure it observed was the bench's +5 ns pad sample landing mid byte
   transition, which #199 then fixed. The residual signatures are the
   annotated CK duty (~9/11 ns half-periods, which the model's 20 ns tCK
-  placeholder flags; #2), the register configuration-read settle (#200),
-  and read host acknowledgement under annotation. The manifest cites the
+  placeholder flags; #2) and read host acknowledgement under annotation;
+  the register configuration-read settle race (#200) is fixed (#203,
+  `no_calibration_port_or_status_bit` now passes). The manifest cites the
   failing report, so item 7 grades `unmet`/`check_failed`, not `no_evidence`.
 - The spec is drafted but unratified: `spec/target-spec.md` (20 rows), seven
   decision records, and the pad and clock interface tables with their gaps
@@ -153,9 +154,12 @@ As of the header sha above; live label state is
   (`sim/hyperram/records/CK-TRACE.md`) and found no fault in the CK launch
   path or the ICG. What remains is the CK-duty interpretation and model
   limit (#2; the annotated half-periods measure ~8.9/9.0 ns against the 20 ns
-  placeholder), the register configuration-read settle (#200) and read host
-  acknowledgement under annotation; done when a re-run of
-  `make post-route-verify` passes (or its remainders are re-triaged narrower).
+  placeholder) and read host acknowledgement under annotation; the register
+  configuration-read settle race (#200) is fixed (#203 —
+  `no_calibration_port_or_status_bit` now passes, while
+  `read_id_and_config_registers` still fails, cause untraced); done when
+  a re-run of `make post-route-verify` passes (or its remainders are
+  re-triaged narrower).
   A `met` grade from that run carries a named assumption: Icarus drops every
   SDF TIMINGCHECK (504 entries in the landed report,
   `sim/hyperram/records/functional-verification-ctrl-sdf.report.json`, PR
