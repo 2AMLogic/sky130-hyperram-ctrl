@@ -117,10 +117,19 @@ post-route-verify:
 # evidence sim/hyperram/records/CK-TRACE.md is derived from; the run itself is
 # pass_marker-gated (TRACE_OK), never a functional verdict. local_only: needs
 # Icarus >= 13 + PDK.
+CK_PDK_ROOT = $(or $(PDK_ROOT),$(HOME)/.ciel)
+
+# The request files carry an @PDK_ROOT@ placeholder (never a host path); render
+# them against $(CK_PDK_ROOT) into flow/.klt/, re-anchoring the relative ../
+# source paths one directory down (the pinned klt has no --base-dir).
 ck-trace:
-	scripts/klt.sh functional-verification flow/functional-verification-ck-trace.json --format json --outdir flow/.klt/ck-trace > /dev/null
+	@mkdir -p flow/.klt/ck-trace
+	sed -e 's#@PDK_ROOT@#$(CK_PDK_ROOT)#' -e 's#"../#"../../#' flow/functional-verification-ck-trace.json > flow/.klt/ck-trace.request.json
+	scripts/klt.sh functional-verification flow/.klt/ck-trace.request.json --format json --outdir flow/.klt/ck-trace > /dev/null
 	@echo "transcript: flow/.klt/ck-trace/test_icarus.log"
 
 ck-trace-gl0:
-	scripts/klt.sh functional-verification flow/functional-verification-ck-trace-gl0.json --format json --outdir flow/.klt/ck-trace-gl0 > /dev/null
+	@mkdir -p flow/.klt/ck-trace-gl0
+	sed -e 's#@PDK_ROOT@#$(CK_PDK_ROOT)#' -e 's#"../#"../../#' flow/functional-verification-ck-trace-gl0.json > flow/.klt/ck-trace-gl0.request.json
+	scripts/klt.sh functional-verification flow/.klt/ck-trace-gl0.request.json --format json --outdir flow/.klt/ck-trace-gl0 > /dev/null
 	@echo "transcript: flow/.klt/ck-trace-gl0/test_icarus.log"

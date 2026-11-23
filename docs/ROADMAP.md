@@ -23,7 +23,7 @@ all graded against a **draft** spec, so every verdict is provisional.
 | 4 LVS clean | met, **stale** | `layout/lvs/records/report.json`, on the stale GDS |
 | 5 Full corner verification vs a ratified spec | unmet | no ratified spec (#2); no corner-complete timing record for the current netlist |
 | 6 Monte Carlo for statistical claims | unmet | no evidence; whether the spec makes a statistical claim is #2's call |
-| 7 Post-layout verification | unmet, **probed** | the SDF-annotated run exists and fails: all 43 benches on `hyperram_ctrl.routed.v` with the DEF+SPEF SDF at `tt_025C_1v80` fail from the first CA byte — post-route CK alignment/duty (#187); report `sim/hyperram/records/functional-verification-ctrl-sdf.report.json` |
+| 7 Post-layout verification | unmet, **probed** | the SDF-annotated run exists and fails: all 43 benches on `hyperram_ctrl.routed.v` with the DEF+SPEF SDF at `tt_025C_1v80` fail (37 with `DQ must be driven by the host during CA`, 6 with other messages) — #187 traced the typ pins: the CK launch path is not shown at fault and the 5 ns pad sample lands mid byte transition (`CK-TRACE.md`); report `sim/hyperram/records/functional-verification-ctrl-sdf.report.json` |
 | 8 Characterization report | unmet | no report; needs items 5 and 7 |
 | 9 Testbenches shipped | met | `verification/ctrl/` (43 cocotb tests, one module per CT row, plus random traffic), `verification/hyperram_model/`, `evidence/item9.json` |
 | 10 Repo hygiene | met | `evidence/item10.json`, re-checked by `npm run check:ci` |
@@ -36,20 +36,20 @@ Also in the tree, outside the tier record:
 - The SDF-annotated post-route run exists (#171): `klt sta` on the committed
   DEF + SPEF wrote `layout/records/hyperram_ctrl.tt_025C_1v80.sdf`, and the
   same benches with that SDF back-annotated on the routed netlist fail 43/43
-  from the first CA byte (`make -C verification/ctrl sdf`;
+  (37 `DQ must be driven by the host during CA`, 6 other messages) (`make -C verification/ctrl sdf`;
   `environment.sdf.annotated: true` — partial, though:
   `environment.sdf.partial: true`, 732 entries dropped in that report, 504
   `timingcheck` plus 208 + 20 zero-delay interconnect; see Next item 7).
   #187 traced the annotated pins
-  (`sim/hyperram/records/CK-TRACE.md`, `make ck-trace`) and refuted the CK
-  output path as the cause: the first CK edge rises with CA byte 0 already
-  driven, every edge sits inside its byte window, and the ICG opens on the
-  CA-launch edge — the "ICG opens one clock early" observation is a
-  zero-delay ordering race that annotation resolves the correct way. The
-  43/43 decomposes into the bench's zero-delay stand-in assumptions meeting
-  real annotation — the +5 ns pad-sample position (#199) and the 1 ns
-  cfg-read settle (#200) — plus the ~11/9 ns CK duty the model flags and #2
-  owns. Item 7 stays `unmet` with the failing report cited. The manifest
+  (`sim/hyperram/records/CK-TRACE.md`, `make ck-trace`) and found no
+  fault in the CK output path at the typ corner: the first CK edge rises with
+  CA byte 0 already driven, every observed edge sits inside its byte window,
+  and the ICG opens on the CA-launch edge; the single early CK pulse seen at
+  zero delay is not present when annotated. Observed: the bench's +5 ns pad
+  sample reads `40 01 01 00 00 00` instead of `60 00 01 00 00 00`. Hypotheses,
+  not shown by the trace: the sample position (#199) and the 1 ns cfg-read
+  settle (#200) account for the failures; the ~11/9 ns CK duty is flagged by
+  the model and #2 owns it. Item 7 stays `unmet` with the failing report cited. The manifest
   cites the failing report, so item 7 grades `unmet`/`check_failed`, not
   `no_evidence`.
 - The spec is drafted but unratified: `spec/target-spec.md` (20 rows), seven
@@ -143,13 +143,16 @@ As of the header sha above; live label state is
   spread that question (a) left open. Done when `sim/` holds a per-corner
   setup and hold margin at the capturing flop against the row-12 figure.
 - **Item 7, post-layout verification.** The probe landed (#171) and #187
-  traced the annotated CK/CA pins: the design's launch path meets the CA
-  contract (`sim/hyperram/records/CK-TRACE.md`), so the remaining 43/43 is
-  re-triaged narrower, not a design fix — the bench's +5 ns pad-sample
-  position (#199) and 1 ns cfg-read settle (#200) are what the annotated run
-  trips on, and the ~11/9 ns duty flag belongs to #2. Item 7 stays `unmet`
-  with the failing report cited; done when #199/#200 land and a re-run of
-  `make post-route-verify` passes (or its remainders are re-triaged narrower).
+  traced the annotated CK/CA pins at the typ corner
+  (`sim/hyperram/records/CK-TRACE.md`): no fault was found in the CK launch
+  path there, and the bench's +5 ns pad sample was observed landing mid byte
+  transition. Whether that sample position (#199) and the 1 ns cfg-read settle
+  (#200) account for the 43/43 is a hypothesis the record lists, not a
+  finding; three message-free assertions and a read-acknowledgement timeout
+  are not yet explained. The ~11/9 ns duty flag belongs to #2. Item 7 stays
+  `unmet` with the failing report cited; done when #199/#200 land and a re-run
+  of `make post-route-verify` passes (or its remainders are re-triaged
+  narrower).
   A `met` grade from that run carries a named assumption: Icarus drops every
   SDF TIMINGCHECK (504 entries in the landed report,
   `sim/hyperram/records/functional-verification-ctrl-sdf.report.json`, PR

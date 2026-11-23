@@ -5,9 +5,11 @@
 // 0x800) and one memory-space read at host address 0x155 on the routed
 // netlist, and $monitor-logs the pad pins plus the CK launch path internals
 // (ICG local clock, GCLK, first tap cells, selected tap net, output muxes).
-// Timestamps carry the run's effective time precision -- 1 ns for the
-// committed routed netlist, which carries no `timescale of its own -- so
-// sub-ns numbers in the record come from SDF typ sums, not the transcript.
+// Timestamps are $realtime in ns (this file's `timescale 1ns/1ps, inherited by
+// the routed netlist, which carries none of its own, so 1 ps precision). A
+// "CK5" line logs DQ and OE at each CK edge and again 5 ns later -- the
+// position the cocotb pad driver (hrbench._ck_mon) samples -- so the record
+// compares the two instants directly instead of inferring one from the other.
 // The transcript is the evidence `sim/hyperram/records/CK-TRACE.md` is
 // derived from; run it through `make ck-trace` (SDF-annotated) or
 // `make ck-trace-gl0` (zero-delay stand-ins, the PR #188 configuration).
@@ -57,10 +59,18 @@ module ck_trace_tb;
 
     initial $timeformat(-9, 3, " ns", 12);
     always @(*)
-        $monitor("EV %0t icgclk=%b rclk=%b ck_en=%b ck_g=%b dly1=%b dly8=%b m0=%b m1=%b CK=%b CS=%b OE=%b ROE=%b DQ=%h RWDS=%b tap=%b",
-                 $time, i_icg_clk, i_regsclk, dut.ck_en, i_ck_g,
+        $monitor("EV %0.3f icgclk=%b rclk=%b ck_en=%b ck_g=%b dly1=%b dly8=%b m0=%b m1=%b CK=%b CS=%b OE=%b ROE=%b DQ=%h RWDS=%b tap=%b",
+                 $realtime, i_icg_clk, i_regsclk, dut.ck_en, i_ck_g,
                  i_dly1, i_dly8, i_mux0, i_mux1, hb_ck, hb_cs_n,
                  hb_dq_oe, hb_rwds_oe, hb_dq_o, hb_rwds_o, dut.cfg_ck_tap);
+
+    always @(hb_ck) begin : ck5
+        reg [7:0] dq0; reg oe0; realtime t0;
+        t0 = $realtime; dq0 = hb_dq_o; oe0 = hb_dq_oe;
+        #5;
+        $display("CK5 edge=%b t=%0.3f DQ=%h OE=%b | t+5=%0.3f DQ=%h OE=%b",
+                 hb_ck, t0, dq0, oe0, $realtime, hb_dq_o, hb_dq_oe);
+    end
 
     task wait_ready_;
         integer i;
