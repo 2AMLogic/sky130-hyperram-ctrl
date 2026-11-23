@@ -14,8 +14,8 @@
 # layout/erc/run.sh, layout/lvs/run.sh, the Makefile `drc` target and the flow
 # runners (flow/hyperram.py and flow/smoke.py, through flow/klt_run.py) call
 # this script; scripts/setup-env.sh and .github/workflows/ci.yml read the pin
-# from `--pin`. Bumping klt means editing KLT_VERSION below, then the vendored
-# tier doc and the signoff record (see manifests/README.md).
+# from `--pin`. Bumping klt means editing KLT_VERSION below, then the
+# signoff record (see manifests/README.md).
 set -euo pipefail
 
 KLT_VERSION="0.9.2"

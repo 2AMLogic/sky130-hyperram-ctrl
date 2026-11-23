@@ -4,7 +4,7 @@ Roadmap generated from GitHub label state by the Guide triage role.
 Only the region between the markers is machine-generated.
 
 <!-- guide:plan-body:start -->
-_Generated: 2026-11-20T20:08:30Z (snapshot; compare against live labels)_
+_Generated: 2026-11-21T09:25:22Z (snapshot; compare against live labels)_
 ## Operator Attention: Merge-Risk-Hold Pileup
 
 Judge-approved PRs under a hold (`loom:blocked` or `loom:operator`) — only a human merge decision is missing.
@@ -16,12 +16,13 @@ _None._
 `loom:very-important` (one counts per workspace); every stage takes these first.
 
 - **#2**: Draft and ratify the target spec *(held)*
+- **#170**: Bump the klayout-tools pin 0.8.0 -> 0.9.2 and regenerate the records and signoff render under it
 
 ## Important
 
 `loom:important`; taken before unlabelled work.
 
-_None._
+- **#173**: Routed controller: 612 max-transition, 22 max-capacitance and 1 antenna violation are uninvestigated (and grew in the last regeneration)
 
 ## Ready
 
@@ -33,13 +34,14 @@ _None._
 
 Issues currently being built (`loom:building`).
 
-_None._
+- **#170**: Bump the klayout-tools pin 0.8.0 -> 0.9.2 and regenerate the records and signoff render under it
+- **#173**: Routed controller: 612 max-transition, 22 max-capacitance and 1 antenna violation are uninvestigated (and grew in the last regeneration)
 
 ## PRs Awaiting Review
 
 PRs waiting on Judge (`loom:review-requested`).
 
-_None._
+- **#175**: data: regenerate the layout-chain records and GL report at klt 0.9.2
 
 ## Approved (Awaiting Merge)
 
@@ -54,6 +56,7 @@ Issues carrying `loom:curated`.
 - **#2**: Draft and ratify the target spec *(curated)* *(held)*
 - **#5**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
 - **#170**: Bump the klayout-tools pin 0.8.0 -> 0.9.2 and regenerate the records and signoff render under it *(curated)*
+- **#173**: Routed controller: 612 max-transition, 22 max-capacitance and 1 antenna violation are uninvestigated (and grew in the last regeneration) *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -73,13 +76,13 @@ _None._
 | Bucket | Count |
 |------|-------|
 | Operator merge-risk holds | 0 |
-| Very important | 1 |
-| Important | 0 |
+| Very important | 2 |
+| Important | 1 |
 | Ready (`loom:issue`, net of holds/building/merge-pending) | 0 |
-| In Progress (`loom:building`) | 0 |
-| PRs awaiting review | 0 |
+| In Progress (`loom:building`) | 2 |
+| PRs awaiting review | 1 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 3 |
+| Curated | 4 |
 | Architect / Hermit proposals | 6 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
