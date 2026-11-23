@@ -40,7 +40,7 @@
 set -euo pipefail
 
 MODE="${1:-regen}"
-REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+REPO_ROOT="$(CDPATH='' cd -P -- "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
 cd "${REPO_ROOT}"
 
 KLT_PIN="$(scripts/klt.sh --pin)"
@@ -281,6 +281,12 @@ have openroad || { echo "FATAL: openroad not on PATH" >&2; exit 4; }
 openroad -version >/dev/null 2>&1 || { echo "FATAL: openroad on PATH but not runnable" >&2; exit 4; }
 log "openroad: $(openroad -version 2>&1 | head -1)"
 ensure_pdk
+# A verified PDK can still be repo-local, including through a symlink.
+pdk_root_physical="$(realpath -e -- "${PDK_ROOT}")"
+if [[ "${pdk_root_physical}/" == "${REPO_ROOT%/}/"* ]]; then
+  echo "FATAL: PDK_ROOT=${PDK_ROOT} is inside the repo (issue #142)" >&2
+  exit 4
+fi
 export PDK="${PDK:-sky130A}"
 ensure_yowasp_yosys
 
