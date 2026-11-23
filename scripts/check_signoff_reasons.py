@@ -1,27 +1,43 @@
 #!/usr/bin/env python3
-"""Assert no signoff-record item is graded `reason: "stale_evidence"`.
+"""Assert no signoff-record item is graded `stale_evidence` or `unverifiable_provenance`.
 
-Why this exists (issue #212). `klt signoff` legitimately exits 3 whenever any
-T1 item is unmet, so the `klt signoff record is fresh` gate in check_ci.sh
-accepts rc 0 or 3 and gates on bytes alone: a fresh render equal to the
-committed record passes. But a stale
-manifest pin -- an attested inventory or envelope regenerated without
-copying the new `provenance.input.content_hash` into the item's
-`evidence."N".content_hash` pin -- downgrades a previously-met T1 item to
-`unmet`/`stale_evidence`, and once that downgraded record is committed, the
-byte-compare compares the render to itself and CI stays green: a met T1 item
-silently dropped (`t1_met_count` 7 -> 6) with no failing check anywhere.
+Why this exists (issues #212, #214). `klt signoff` legitimately exits 3
+whenever any T1 item is unmet, so the `klt signoff record is fresh` gate in
+check_ci.sh accepts rc 0 or 3 and gates on bytes alone: a fresh render equal to
+the committed record passes. But a downgraded record, once committed, is
+compared to itself and CI stays green: a met T1 item silently dropped
+(`t1_met_count` 7 -> 6) with no failing check anywhere. Two reason tokens are
+such downgrade vectors:
 
-The reason token is the discriminator. klt 0.9.2 documents thirty unmet
-reasons (`no_evidence`, `check_failed`, `tier_not_supported`, `wrong_kind`,
-...) and the vocabulary grows release by release, so this check reject-lists
-exactly one token -- an allow-list would break CI on every new legitimate
-klt reason (issue #212 curation). `"stale_evidence"` is klt's "the check
-passed, but its provenance.input.content_hash does not match the manifest's
-pinned content_hash": the pin and the cited evidence disagree, which is
-never a legitimate resting state -- it is always a pin that must be
-refreshed (or an envelope that must be re-produced) before the record may
-be committed.
+  * `stale_evidence` -- the check passed, but the cited evidence's
+    provenance.input.content_hash (or, for a file-backed
+    `functional-verification` citation, the file's own bytes) does not match
+    the manifest's pinned `content_hash`. Always a pin that must be
+    refreshed (or an envelope re-produced) before the record is committed.
+  * `unverifiable_provenance` -- the pin cannot be compared at all: an
+    attested `present` member file, a bound `provenance.input.path`
+    artifact, or `layout/erc/supply-spec.json` was deleted, moved or is
+    unreadable (klt 0.9.2 signoff.py `_anchored_input_refusal` /
+    `_attested_checks_refusal`, signoff_power_delivery.py
+    `_erc_supply_spec_hash_reason`), or a command-backed
+    `functional-verification` citation pins a `content_hash`. In this repo
+    that drops currently-met items 1, 2, 9, 10 and 11 (measured 2026-11-23
+    against the pinned wheel: omitting LICENSE from item 10's tree grades it
+    unmet/unverifiable_provenance).
+
+The reason token is the discriminator. klt 0.9.2 defines forty-eight
+`_REASON_*` tokens and the vocabulary grows release by release, so this
+check reject-lists exactly these two -- an allow-list would break CI on
+every new legitimate klt reason (issue #212 curation).
+
+`unverifiable_provenance` is reject-listed on evidence (issue #214), not on
+the older claim that a passing `functional-verification` envelope always
+grades it: at klt 0.9.2 `signoff_evidence_pin.rehash_evidence_file` hashes a
+file-backed `functional-verification` citation's own bytes when the manifest
+pins `content_hash` (`content_hash_basis: "evidence_file"`), so this repo's
+item 7 (`sim/hyperram/records/functional-verification-ctrl-sdf.report.json`,
+file-backed and pinned) grades `met` on a matching pin and `stale_evidence`
+on a stale one -- never `unverifiable_provenance` while the file exists.
 
   scripts/check_signoff_reasons.py RECORD [RECORD ...]   check record(s) (the
   `klt signoff record is fresh` gate in check_ci.sh)
@@ -37,7 +53,7 @@ no PDK.
 A record whose `items` is missing or not a list fails closed -- a schema
 rename must not silently pass -- while an item with a null or absent
 `reason` (every met item) passes. Exit 0 when no checked item carries
-`stale_evidence`, 1 otherwise.
+`stale_evidence` or `unverifiable_provenance`, 1 otherwise.
 """
 
 import contextlib
@@ -48,26 +64,42 @@ import sys
 import tempfile
 
 REASON_STALE = "stale_evidence"
-REFRESH = (
-    "the cited evidence no longer matches the manifest's pinned"
-    " content_hash: re-run that item's attestation, copy the new"
-    " provenance.input.content_hash into its evidence.\"N\".content_hash pin"
-    " in the block manifest, then re-render the record (order per"
-    " manifests/README.md)"
-)
+REASON_UNVERIFIABLE = "unverifiable_provenance"
+REJECTED = (REASON_STALE, REASON_UNVERIFIABLE)
+REMEDY = {
+    REASON_STALE: (
+        "the cited evidence no longer matches the manifest's pinned"
+        " content_hash: re-run that item's attestation, copy the new"
+        " provenance.input.content_hash into its evidence.\"N\".content_hash pin"
+        " in the block manifest, then re-render the record (order per"
+        " manifests/README.md)"
+    ),
+    REASON_UNVERIFIABLE: (
+        "the pinned content_hash cannot be compared: restore the missing or"
+        " unreadable input (an attested `present` member file, the bound"
+        " provenance.input.path artifact, or layout/erc/supply-spec.json), or"
+        " drop a content_hash pin that cannot be verified, then re-render the"
+        " record (order per manifests/README.md)"
+    ),
+}
 
 
-def stale_items(record):
-    """The `items` entries of `record` graded `stale_evidence`, in order.
+def downgraded_items(record):
+    """The `items` entries of `record` graded with a rejected reason, in order.
 
     Raises ValueError when `items` is missing or not a list, so a schema
     rename fails closed instead of passing vacuously. An entry without a
-    `reason` key, or with `reason: null` (every met item), is not stale.
+    `reason` key, or with `reason: null` (every met item), is not rejected.
     """
     items = record.get("items") if isinstance(record, dict) else None
     if not isinstance(items, list):
         raise ValueError("record has no items[] array (schema change?)")
-    return [it for it in items if isinstance(it, dict) and it.get("reason") == REASON_STALE]
+    return [it for it in items if isinstance(it, dict) and it.get("reason") in REJECTED]
+
+
+def stale_items(record):
+    """The `items` entries graded `stale_evidence` alone, in order."""
+    return [it for it in downgraded_items(record) if it.get("reason") == REASON_STALE]
 
 
 def name_item(item):
@@ -84,25 +116,27 @@ def run_check(paths):
     for path in paths:
         record = json.loads(pathlib.Path(path).read_text())
         try:
-            stale = stale_items(record)
+            bad = downgraded_items(record)
         except ValueError as exc:
             print(f"::error file={path}::{exc}; cannot grade reasons")
             failed = True
             continue
-        if not stale:
+        if not bad:
             met = sum(1 for it in record["items"]
                       if isinstance(it, dict) and it.get("status") == "met")
-            print(f"ok {path}: no item carries reason {REASON_STALE}"
+            print(f"ok {path}: no item carries reason {' or '.join(REJECTED)}"
                   f" ({met} met of {len(record['items'])} items)")
             continue
         failed = True
         print(
-            f"::error file={path}::{len(stale)} item(s) were downgraded to"
-            f" unmet/{REASON_STALE} -- a met T1 item silently dropped:"
+            f"::error file={path}::{len(bad)} item(s) were downgraded to"
+            f" unmet/{'|'.join(REJECTED)} -- a met T1 item silently dropped:"
         )
-        for it in stale:
-            print(f"  {name_item(it)}")
-        print(f"Fix: {REFRESH}")
+        for it in bad:
+            print(f"  {name_item(it)}: {it.get('reason')}")
+        for reason in REJECTED:
+            if any(it.get("reason") == reason for it in bad):
+                print(f"Fix ({reason}): {REMEDY[reason]}")
     return 1 if failed else 0
 
 
@@ -146,21 +180,38 @@ MAIN_SHAPED = [
     item(None, "T2 — signoff-validated", "unmet", "tier_not_supported"),
 ]
 
-#: One fixture entry per documented unmet reason that can legitimately rest
-#: in a committed record -- every token klt 0.9.2 emits except
-#: stale_evidence. Pins the reject-list: a token klt adds later must pass
-#: here without an edit, which an allow-list would not.
+#: Every `_REASON_*` constant value the pinned klt 0.9.2 wheel defines,
+#: except the reject-listed stale_evidence and unverifiable_provenance -- derived, not transcribed
+#: (issue #214): run against the klayout_tools==0.9.2 wheel scripts/klt.sh
+#: resolves (uv cache, klayout_tools/*.py),
+#:
+#:   grep -rhoE '_REASON_[A-Z_]+ *= *"[a-z_]+"' . | sed 's/.*= "//;s/"//' \
+#:     | sort -u \
+#:     | grep -vE '^(stale_evidence|unverifiable_provenance)$'
+#:
+#: 46 tokens as of 2026-11-23. Pins the reject-list: each of these must
+#: pass, and a token klt adds later still passes without an edit (which an
+#: allow-list would not); re-derive when scripts/klt.sh's KLT_VERSION bumps.
 LEGITIMATE_REASONS = [
-    "no_evidence", "evidence_not_klt_native", "invalid_evidence",
-    "unreadable_evidence", "unrecognized_envelope", "envelope_version_skew",
-    "invalid_pointer", "command_timeout", "command_failed", "check_errored",
-    "check_failed", "unverifiable_provenance", "nothing_checked",
-    "no_limits_checked", "undersized_sample", "wrong_kind", "wrong_item",
-    "unanchored_evidence", "stale_artifact", "timing_margin_missing",
-    "ungradeable_by_build", "not_post_layout", "tier_not_supported",
-    "not_applicable_wrong_partition", "not_applicable_spec_unratified",
-    "not_applicable_statistical_row", "not_applicable_statement_incomplete",
-    "negative_control_not_detected", "partial_coverage",
+    "absent_input_layer", "check_errored", "check_failed",
+    "command_failed", "envelope_version_skew", "grid_not_representable",
+    "inapplicable_empty_checked_region", "invalid_evidence",
+    "invalid_pointer", "lef_power_pin_mismatch", "lef_power_pin_missing",
+    "lvs_did_not_pass", "lvs_supply_unproven",
+    "negative_control_not_detected", "no_applicable_geometry",
+    "no_edge_power_port", "no_evidence", "no_limits_checked", "no_pdn",
+    "no_tapcell_master", "not_applicable_spec_unratified",
+    "not_applicable_statement_incomplete",
+    "not_applicable_statistical_row", "not_applicable_wrong_partition",
+    "not_post_layout", "not_selected", "nothing_checked",
+    "partial_coverage", "power_delivery_parts_missing",
+    "power_port_interior_only", "power_port_layer_disallowed",
+    "power_port_unproven", "stale_artifact", "supply_not_continuous",
+    "supply_spec_disclosed_tool_limitation",
+    "supply_spec_disclosed_unexpressible", "supply_spec_incomplete",
+    "tier_not_supported", "timing_margin_missing", "unanchored_evidence",
+    "undersized_sample", "ungradeable_by_build", "unreadable_evidence",
+    "unrecognized_envelope", "wrong_item", "wrong_kind",
 ]
 
 
@@ -194,14 +245,35 @@ def self_test():
         record(got == [], "...and the same record passes once the pin is refreshed",
                f"got {got}")
 
-        # 3. Every other documented unmet reason passes: the reject-list is
-        #    stale_evidence alone, so a new klt token cannot break CI here.
+        # 3. Every other reason token klt 0.9.2 defines passes: the
+        #    reject-list is the two downgrade tokens alone, so a new klt token
+        #    cannot break CI here.
         others = [item(i + 100, f"reason probe {i}", "unmet", r)
                   for i, r in enumerate(LEGITIMATE_REASONS)]
-        got = stale_items({"items": others})
+        got = downgraded_items({"items": others})
         record(got == [],
-               f"all {len(LEGITIMATE_REASONS)} other documented unmet reasons pass",
+               f"all {len(LEGITIMATE_REASONS)} other klt 0.9.2 reason tokens pass",
                f"got {got}")
+
+        # 3b. The issue #214 vector: a met item downgraded to
+        #     unmet/unverifiable_provenance (deleted attested member file)
+        #     is caught, named, and carries its own remedy -- while
+        #     stale_items() still reports stale_evidence alone.
+        unver = MAIN_SHAPED[:1] + [
+            item(10, "Licence", "unmet", "unverifiable_provenance")
+        ] + MAIN_SHAPED[1:]
+        got = downgraded_items({"items": unver})
+        only_stale = stale_items({"items": unver})
+        bad = write("unverifiable.json", unver)
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            code = run_check([bad])
+        out = buf.getvalue()
+        record(len(got) == 1 and got[0].get("id") == 10 and only_stale == []
+               and code == 1 and "item 10 (Licence): unverifiable_provenance" in out
+               and "Fix (unverifiable_provenance)" in out,
+               "an unverifiable_provenance downgrade is reported with its own remedy",
+               f"got {got} exit {code} out {out.strip()}")
 
         # 4. An id-less entry (a T2-T4 ladder row) is still caught, and the
         #    report names it by title rather than crashing on the id.
