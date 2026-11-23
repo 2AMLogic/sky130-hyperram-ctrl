@@ -18,15 +18,13 @@
 # Exit 0: environment ready.  Exit 1: anything above failed.
 #
 # Usage: ./scripts/setup-env.sh [--pdk-root=/path]
-#
-# Pins are recorded in docs/environment.md; update both together.
 
 set -uo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${REPO_ROOT}" || exit 1
 
-# --- pinned versions -- keep in sync with docs/environment.md -------------
+# --- pinned versions ------------------------------------------------------
 # klt's pin is not repeated here: scripts/klt.sh is its only definition.
 KLT_VERSION="$("${REPO_ROOT}/scripts/klt.sh" --pin)" || exit 1
 COCOTB_VERSION="2.0.1"
