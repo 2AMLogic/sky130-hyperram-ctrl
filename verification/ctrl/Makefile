@@ -66,3 +66,13 @@ endif
 sdf:
 	cd ../.. && python3 flow/post_route.py verify
 .PHONY: sdf
+
+# The same aggregated bench with the pad driver sampling on the CK pin edge
+# itself (HRBENCH_SAMPLE_NS=0, the mode the SDF request selects) on the
+# zero-delay RTL, where DQ/RWDS change in the CK edge's own timestep: the
+# read-phase sync in hrbench's _ck_mon (issue #205) is what makes that sample
+# the settled byte, so this goes red from the first CA byte if the sync is
+# ever removed. 6 s.
+pin-edge:
+	$(MAKE) COCOTB_TEST_MODULES=test_all HRBENCH_SAMPLE_NS=0
+.PHONY: pin-edge
