@@ -23,7 +23,7 @@ all graded against a **draft** spec, so every verdict is provisional.
 | 4 LVS clean | met, **stale** | `layout/lvs/records/report.json`, on the stale GDS |
 | 5 Full corner verification vs a ratified spec | unmet | no ratified spec (#2); no corner-complete timing record for the current netlist |
 | 6 Monte Carlo for statistical claims | unmet | no evidence; whether the spec makes a statistical claim is #2's call |
-| 7 Post-layout verification | unmet, **probed** | the SDF-annotated run exists and fails: all 43 benches on `hyperram_ctrl.routed.v` with the DEF+SPEF SDF at `tt_025C_1v80` fail from the first CA byte — post-route CK alignment/duty (#187); report `sim/hyperram/records/functional-verification-ctrl-sdf.report.json` |
+| 7 Post-layout verification | unmet, **probed** | the SDF-annotated run exists and fails: 40 of 43 benches on `hyperram_ctrl.routed.v` with the DEF+SPEF SDF at `tt_025C_1v80` fail — the bench samples on the annotated CK pin edge (#199), so the six CA bytes decode and the residuals are the ~9/11 ns annotated CK half-period vs the model's 20 ns placeholder (#2), the register configuration-read settle (#200) and host acknowledgement under annotation; report `sim/hyperram/records/functional-verification-ctrl-sdf.report.json` |
 | 8 Characterization report | unmet | no report; needs items 5 and 7 |
 | 9 Testbenches shipped | met | `verification/ctrl/` (43 cocotb tests, one module per CT row, plus random traffic), `verification/hyperram_model/`, `evidence/item9.json` |
 | 10 Repo hygiene | met | `evidence/item10.json`, re-checked by `npm run check:ci` |
@@ -35,15 +35,20 @@ Also in the tree, outside the tier record:
   zero delay (`make -C verification/ctrl GL=1`, #59, PR #60).
 - The SDF-annotated post-route run exists (#171): `klt sta` on the committed
   DEF + SPEF wrote `layout/records/hyperram_ctrl.tt_025C_1v80.sdf`, and the
-  same benches with that SDF back-annotated on the routed netlist fail 43/43
-  from the first CA byte (`make -C verification/ctrl sdf`;
-  `environment.sdf.annotated: true` — partial, though:
+  same benches with that SDF back-annotated on the routed netlist fail 40/43
+  (`make -C verification/ctrl sdf`; the bench samples on the annotated CK
+  pin edge — #199 fixed the +5 ns stand-in offset double-counting the tap
+  delay, so the six CA bytes now decode and the probe transactions deliver
+  `60 00 01 00 00 00` (CR0 write) and `a0 00 00 55 00 02` (array read) to
+  the model; `environment.sdf.annotated: true` — partial, though:
   `environment.sdf.partial: true`, 732 entries dropped in that report, 504
   `timingcheck` plus 208 + 20 zero-delay interconnect; see Next item 7).
-  The finding is the CK output path — the ICG enable opens CK one
-  clock before CA and the tap-chain/CTS delays skew CK duty to ~9/11 ns
-  half-periods — tracked as #187. The manifest cites the failing report, so
-  item 7 grades `unmet`/`check_failed`, not `no_evidence`.
+  The residual signatures are the annotated CK duty — the ICG enable opens
+  CK one clock before CA and the tap-chain/CTS delays skew CK duty to ~9/11
+  ns half-periods, which the model's 20 ns tCK placeholder flags (#187,
+  #2) — the register configuration-read settle (#200), and read host
+  acknowledgement under annotation. The manifest cites the failing report,
+  so item 7 grades `unmet`/`check_failed`, not `no_evidence`.
 - The spec is drafted but unratified: `spec/target-spec.md` (20 rows), seven
   decision records, and the pad and clock interface tables with their gaps
   filed on the siblings (2AMLogic/sky130-io-ring#7, 2AMLogic/sky130-pll#332).
@@ -136,9 +141,13 @@ As of the header sha above; live label state is
   setup and hold margin at the capturing flop against the row-12 figure.
 - **Item 7, post-layout verification.** The probe landed (#171): the SDF from
   the committed DEF + SPEF exists in `layout/records/` with its producing STA
-  response, and the annotated bench run is recorded — it fails 43/43 from the
-  first CA byte, so item 7 stays `unmet` with the failing report cited. What
-  remains is the CK-path fix (#187); done when a re-run of
+  response, and the annotated bench run is recorded — it fails 40/43 now
+  that the bench samples on the annotated CK pin edge (#199) instead of
+  double-counting the tap-3 CK delay, so item 7 stays `unmet` with the
+  failing report cited. What remains is the CK-duty interpretation and model
+  limit (#2; the annotated half-periods measure ~8.9/9.0 ns against the 20 ns
+  placeholder), the register configuration-read settle (#200) and read host
+  acknowledgement under annotation; done when a re-run of
   `make post-route-verify` passes (or its remainders are re-triaged narrower).
   A `met` grade from that run carries a named assumption: Icarus drops every
   SDF TIMINGCHECK (504 entries in the landed report,
