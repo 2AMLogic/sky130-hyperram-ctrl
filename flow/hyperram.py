@@ -71,14 +71,12 @@ no yosys to run.
 """
 
 import hashlib
-import io
 import json
 import os
 import re
 import shutil
 import subprocess
 import sys
-import tempfile
 from pathlib import Path
 
 # flow/klt_run.py is the only way this runner reaches klt; `python3 -I` (how
