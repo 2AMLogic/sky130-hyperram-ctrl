@@ -18,6 +18,11 @@
                         sim/hyperram/records/functional-verification-ctrl-sdf.report.json
                         plus the input-digest companion
                         sim/hyperram/records/functional-verification-ctrl-sdf.checksums.json.
+                        Recorded results are append-only: the run a re-run
+                        replaces is kept verbatim under
+                        sim/hyperram/records/functional-verification-ctrl-sdf.runs/
+                        (issue #205), so the canonical path carries the latest
+                        run without losing the one it supersedes.
   post_route.py check   the no-simulator freshness gate scripts/check_sdf_evidence.py
                         runs in CI; same assertions, run by hand from here.
 
@@ -58,6 +63,7 @@ SCRATCH_SDF = REPO / "flow/.klt/sta/hyperram_ctrl.tt_025C_1v80.sdf"
 REC = REPO / "sim/hyperram/records"
 REPORT = REC / "functional-verification-ctrl-sdf.report.json"
 CHECKSUMS = REC / "functional-verification-ctrl-sdf.checksums.json"
+RUNS = REC / "functional-verification-ctrl-sdf.runs"
 # Icarus gained -ginterconnect (mandatory for a post-route SDF's INTERCONNECT
 # population) in 13.0; scripts/setup-env.sh pins only major >= 12 for the other
 # targets, so this gate is local to the SDF leg rather than a silent floor rise.
@@ -152,6 +158,29 @@ def sdf():
           f"setup slack {doc.get('worst_slack_ns')} ns, hold {doc.get('worst_hold_slack_ns')} ns")
 
 
+def _keep_superseded_run(new_report: str):
+    """Copy the run a fresh verify replaces, verbatim, under
+    functional-verification-ctrl-sdf.runs/<that report's sha256 prefix>/.
+
+    The canonical report/checksums pair carries the latest run; the pair it
+    replaces is the recorded result of the bench state that produced it, so
+    it is appended under a name bound to its own report digest instead of
+    being overwritten. The directory is history, not verdict evidence: the
+    gates read only the canonical pair, and an archived checksums file keeps
+    naming the canonical report path (its bytes are the run's own)."""
+    if not (REPORT.exists() and CHECKSUMS.exists()):
+        return
+    if REPORT.read_text() == new_report:
+        return
+    old = json.loads(CHECKSUMS.read_text())
+    digest = ((old.get("report") or {}).get("sha256") or sha256(REPORT)).removeprefix("sha256:")
+    keep = RUNS / digest[:12]
+    keep.mkdir(parents=True, exist_ok=True)
+    for path in (REPORT, CHECKSUMS):
+        shutil.copyfile(path, keep / path.name)
+    print(f"  superseded run kept verbatim -> {rel(keep)}/")
+
+
 def verify():
     require_icarus()
     for p in (STA_REC, SDF, ROUTED):
@@ -175,7 +204,9 @@ def verify():
         sys.exit("FATAL: the report's environment.sdf.annotated is not literal true; "
                  "the run was not an SDF-annotated one and is not item-7 evidence")
     REC.mkdir(parents=True, exist_ok=True)
-    REPORT.write_text(json.dumps(doc, indent=2) + "\n")
+    report_bytes = json.dumps(doc, indent=2) + "\n"
+    _keep_superseded_run(report_bytes)
+    REPORT.write_text(report_bytes)
     response = json.loads(STA_REC.read_text())
     CHECKSUMS.write_text(json.dumps({
         "note": "committer-written companion: klt 0.9.2's functional-verification "

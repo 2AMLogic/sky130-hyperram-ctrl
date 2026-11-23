@@ -18,6 +18,6 @@
   ],
   "report": {
     "path": "sim/hyperram/records/functional-verification-ctrl-sdf.report.json",
-    "sha256": "sha256:2eae6f6ae65d221df39ee3a34dcbeca9f16532fc968bfb7dd73bdc184158e7e9"
+    "sha256": "sha256:6c36ada90abd14fbcf6452fc60001d9460a04e8c27a4ecb52a6a79235268e597"
   }
 }
