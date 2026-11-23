@@ -27,7 +27,5 @@ jobs:
       - name: Install pinned klt
         run: pip install "klayout-tools==$(scripts/klt.sh --pin)"
 
-      # RTL lint and the cocotb smoke test are wired in with the toolchain
-      # skeleton (issue #3).
       - name: JSON, README links, klt signoff record
         run: scripts/check_ci.sh
