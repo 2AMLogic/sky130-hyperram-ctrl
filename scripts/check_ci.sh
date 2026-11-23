@@ -35,8 +35,7 @@
 #   (the --help assertion for the two shell drivers runs as step 2b, beside
 #    the other tool-free gates; the delay-chain derivation unit check runs as
 #    step 3b; the tap-decode structural check runs as step 3c, self-tested
-#    first; the PDK-root provenance check runs as step 3d, self-tested
-#    first; the fleet PDK_ROOT runtime guard fixture runs as step 3e; the
+#    first; the fleet PDK_ROOT runtime guard fixture runs as step 3d; the
 #    item-9 testbench attestation is checked as step 4b, and
 #    step 4c asserts that attestation declares every controller bench present
 #    on disk -- a bench the inventory omits is invisible to 4b rather than
@@ -126,31 +125,14 @@ echo "== 3c/8 tap-decode structural check =="
 python3 -I scripts/check_tap_decode.py --self-test
 python3 -I scripts/check_tap_decode.py
 
-echo "== 3d/8 PDK-root provenance check =="
-# ensure_pdk in scripts/fleet-regen-layout.sh fetches the pinned sky130A PDK
-# outside the repo root (issue #142): a PDK under ${REPO_ROOT} makes klt
-# record the liberty deck as repo-scoped evidence -- a path into a tree
-# .gitignore deliberately excludes, unresolvable in every checkout -- while
-# outside the repo the same field records scope "external". Every bench is
-# blind to the regression and it surfaces only when a fleet job runs the
-# regeneration end to end, by which time the wrong evidence is already
-# committed, so this is the structural guard: a pure read of the committed
-# script asserting every `export PDK_ROOT=` target in ensure_pdk is /opt/pdk,
-# a caller-supplied ${PDK_ROOT}, or rooted at ${TMPDIR:-/var/tmp}, and never
-# ${REPO_ROOT} (issue #155). It fails closed on a missing ensure_pdk or a
-# missing export -- a rename must not silently pass -- and is self-tested
-# first, over fixtures carrying exactly the regression. Needs no PDK, no
-# klt and no network.
-python3 -I scripts/check_pdk_root.py --self-test
-python3 -I scripts/check_pdk_root.py
-
-echo "== 3e/8 fleet PDK_ROOT runtime guard =="
+echo "== 3d/8 fleet PDK_ROOT runtime guard =="
 # The runtime PDK_ROOT guard in scripts/fleet-regen-layout.sh -- the
 # value-level assertion AFTER the ensure_pdk call, which rejects a
 # repo-local PDK even through a symlink (issue #142; guard landed with
-# issue #160 / PR #191) -- is covered by nothing else: step 3d parses only
-# the body of ensure_pdk, and the guard lives outside that function on
-# purpose, so it also covers the verified-PDK early return. This fixture
+# issue #160 / PR #191) -- is the one authoritative check of the effective
+# PDK_ROOT (the static checker that parsed ensure_pdk was removed, issue
+# #228), and it sits outside ensure_pdk on purpose, so it also covers the
+# verified-PDK early return. This fixture
 # runs the production fleet script itself in a throwaway checkout against
 # fixture PDK roots, with stub tools and no network: every repo-local
 # shape (at the checkout root, in a subdirectory, through a symlink, and

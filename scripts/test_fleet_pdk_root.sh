@@ -13,10 +13,9 @@
 #     exit 4
 #   fi
 #
-# scripts/check_pdk_root.py (CI step 3d) parses only the body of ensure_pdk,
-# and this guard lives outside that function on purpose, so it also covers
-# the verified-PDK early return -- which leaves it with no automated
-# coverage from either direction. Two silent weakenings must stay caught:
+# This guard is the one authoritative PDK_ROOT check (the static checker was
+# removed, issue #228), and it lives outside ensure_pdk on purpose, so it also
+# covers the verified-PDK early return. Two silent weakenings must stay caught:
 #
 #   1. REPO_ROOT (the `cd -P ... pwd -P` at the top of the fleet script)
 #      must stay physical: a logical REPO_ROOT lets a PDK reached through a
