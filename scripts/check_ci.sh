@@ -30,9 +30,6 @@
 #    step 4c asserts that attestation declares every controller bench present
 #    on disk -- a bench the inventory omits is invisible to 4b rather than
 #    drift)
-#
-# RTL lint and the cocotb smoke test are added with the toolchain skeleton
-# (issue #3), not here.
 set -euo pipefail
 
 BLOCK="sky130-hyperram-ctrl"
