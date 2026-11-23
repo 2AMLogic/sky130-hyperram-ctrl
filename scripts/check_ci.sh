@@ -24,6 +24,9 @@
 #   6c. the post-route STA records match the current requests, DEF and SPEF
 #       (self-tested first so `sta-postroute-note` cannot re-stamp stale inputs)
 #   7. the committed klt signoff record equals a fresh render of the manifest
+#       and no item in it is downgraded to unmet/stale_evidence (a stale
+#       manifest content_hash pin re-rendered and committed would pass the
+#       byte-compare alone; issue #212)
 #   (the --help assertion for the two shell drivers runs as step 2b, beside
 #    the other tool-free gates; the delay-chain derivation unit check runs as
 #    step 3b; the tap-decode structural check runs as step 3c, self-tested
@@ -219,4 +222,16 @@ if ! cmp -s "$fresh" "$RECORD"; then
   diff <(python3 -m json.tool "$fresh") <(python3 -m json.tool "$RECORD") || true
   exit 1
 fi
+# A record can be byte-fresh and still wrong: klt signoff downgrades a
+# previously-met T1 item to unmet/stale_evidence when the manifest's pinned
+# content_hash no longer matches the cited evidence, and a downgraded record
+# re-rendered and committed passes the cmp above by comparing to itself
+# (issue #212). The reason token is the discriminator -- klt 0.9.2 documents
+# thirty legitimate unmet reasons, so this reject-lists stale_evidence alone,
+# self-tested first, over fixtures, because it is the only thing standing
+# between a silent T1 downgrade and a green CI. $RECORD is byte-equal to
+# $fresh here (the cmp above), so checking it checks both. Needs no klt
+# beyond the render above, no PDK and no network.
+python3 -I scripts/check_signoff_reasons.py --self-test
+python3 -I scripts/check_signoff_reasons.py "$RECORD"
 echo "committed signoff record is fresh"
