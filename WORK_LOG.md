@@ -5,6 +5,10 @@ Maintained by the Guide triage role; entries are append-only.
 
 ### 2026-11-24
 
+- **PR #242**: fix: follow mux2 data nets in tap-decode checker, not instance order
+- **Issue #240** (closed): Remove the tap-decode checker's dependency on mux instance order
+- **PR #226**: docs(layout): record that per-pin library DRC rows are unretained; route structured rows upstream
+- **Issue #179** (closed): Retain and reconcile the P&R library-only pin rows for each routed corner
 - **PR #239**: ci: assert LEGITIMATE_REASONS matches the pinned klt wheel's reason tokens
 - **Issue #236** (closed): check_signoff_reasons.py: nothing mechanically asserts LEGITIMATE_REASONS still equals the pinned wheel's _REASON_* set
 - **PR #237**: docs(spec): note klt 0.9.2 macros[] support beside 0.8.0 pad-STA finding
