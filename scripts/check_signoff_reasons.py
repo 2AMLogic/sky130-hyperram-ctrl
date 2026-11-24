@@ -42,6 +42,10 @@ on a stale one -- never `unverifiable_provenance` while the file exists.
   scripts/check_signoff_reasons.py RECORD [RECORD ...]   check record(s) (the
   `klt signoff record is fresh` gate in check_ci.sh)
   scripts/check_signoff_reasons.py --self-test           check this checker, on fixtures
+  scripts/check_signoff_reasons.py --check-inventory DIR assert LEGITIMATE_REASONS equals
+  the `_REASON_*` tokens defined in DIR/*.py (the pinned klayout_tools package
+  directory) minus the reject-list; needs the klt wheel, so it is not part of
+  --self-test (issue #236)
 
 The self-test is here because this file is now the only thing standing
 between a stale-pin downgrade and a green CI, so "it catches the hole" is a
@@ -60,6 +64,7 @@ import contextlib
 import io
 import json
 import pathlib
+import re
 import sys
 import tempfile
 
@@ -140,11 +145,66 @@ def run_check(paths):
     return 1 if failed else 0
 
 
+REASON_DEF = re.compile(r'_REASON_[A-Z_]+ *= *"([a-z_]+)"')
+
+
+def wheel_reason_tokens(pkg_dir):
+    """The `_REASON_*` string values defined in `pkg_dir`/*.py, as a set.
+
+    Same extraction as the grep in the LEGITIMATE_REASONS comment. Raises
+    ValueError when the directory has no .py files or yields no tokens, so
+    a wrong path or a renamed constant fails closed instead of passing.
+    """
+    files = sorted(pathlib.Path(pkg_dir).glob("*.py"))
+    if not files:
+        raise ValueError(f"no *.py files in {pkg_dir}")
+    tokens = set()
+    for f in files:
+        tokens.update(REASON_DEF.findall(f.read_text()))
+    if not tokens:
+        raise ValueError(f"no _REASON_* tokens found in {pkg_dir} (constant renamed?)")
+    return tokens
+
+
+def inventory_diff(wheel_tokens, listed=None):
+    """(missing, extra): wheel tokens absent from the list, list tokens absent
+    from the wheel. The expected list is the wheel set minus REJECTED."""
+    listed = set(LEGITIMATE_REASONS if listed is None else listed)
+    expected = set(wheel_tokens) - set(REJECTED)
+    return sorted(expected - listed), sorted(listed - expected)
+
+
+def run_inventory(pkg_dir):
+    """Compare LEGITIMATE_REASONS to the wheel in `pkg_dir`; return the exit code."""
+    try:
+        tokens = wheel_reason_tokens(pkg_dir)
+    except (ValueError, OSError) as exc:
+        print(f"::error::cannot read the klt reason inventory: {exc}")
+        return 1
+    missing, extra = inventory_diff(tokens)
+    if not missing and not extra:
+        print(f"ok LEGITIMATE_REASONS ({len(LEGITIMATE_REASONS)}) + reject-list"
+              f" ({len(REJECTED)}) == {len(tokens)} wheel _REASON_* tokens")
+        return 0
+    print("::error::LEGITIMATE_REASONS has drifted from the pinned klt wheel's"
+          " _REASON_* tokens:")
+    if missing:
+        print(f"  in the wheel but not listed: {', '.join(missing)}")
+    if extra:
+        print(f"  listed but not in the wheel: {', '.join(extra)}")
+    print("Fix: re-derive LEGITIMATE_REASONS per the comment above it (or, for a"
+          " token that is a new downgrade vector, add it to REJECTED).")
+    return 1
+
+
 def main(argv):
     if argv == ["--self-test"]:
         return self_test()
+    if len(argv) == 2 and argv[0] == "--check-inventory":
+        return run_inventory(argv[1])
     if not argv:
-        print("usage: check_signoff_reasons.py RECORD [RECORD ...] | --self-test",
+        print("usage: check_signoff_reasons.py RECORD [RECORD ...] | --self-test"
+              " | --check-inventory PKG_DIR",
               file=sys.stderr)
         return 2
     return run_check(argv)
@@ -191,7 +251,10 @@ MAIN_SHAPED = [
 #:
 #: 46 tokens as of 2026-11-23. Pins the reject-list: each of these must
 #: pass, and a token klt adds later still passes without an edit (which an
-#: allow-list would not); re-derive when scripts/klt.sh's KLT_VERSION bumps.
+#: allow-list would not). The inventory is mechanically checked against the
+#: pinned wheel by `--check-inventory` (check_ci.sh step 8/8, issue #236): a
+#: KLT_VERSION bump that adds or drops a token fails there by name; re-derive
+#: this list when it does.
 LEGITIMATE_REASONS = [
     "absent_input_layer", "check_errored", "check_failed",
     "command_failed", "envelope_version_skew", "grid_not_representable",
@@ -329,6 +392,47 @@ def self_test():
                and "content_hash" in out and f"ok {good}" in out,
                "run_check names the stale item, prints the hint, passes the clean record",
                f"exit {code}, out: {out.strip()}")
+
+        # 9. The inventory comparison (issue #236), over a fixture package
+        #    directory -- no klt: equal, a wheel token the list lacks, a
+        #    listed token the wheel lacks, and fail-closed on empty input.
+        pkg = tmp / "pkg"
+        pkg.mkdir()
+        wheel = list(LEGITIMATE_REASONS) + list(REJECTED)
+        (pkg / "a.py").write_text("\n".join(
+            f'_REASON_{t.upper()} = "{t}"' for t in wheel[:10]))
+        (pkg / "b.py").write_text("\n".join(
+            f'_REASON_{t.upper()} = "{t}"' for t in wheel[10:]) + "\nOTHER = 'x'\n")
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            code = run_inventory(pkg)
+        record(code == 0, "inventory: list equal to wheel minus reject-list passes",
+               f"exit {code} out {buf.getvalue().strip()}")
+
+        (pkg / "c.py").write_text('_REASON_NEW_THING = "brand_new_token"\n')
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            code = run_inventory(pkg)
+        record(code == 1 and "in the wheel but not listed: brand_new_token" in buf.getvalue(),
+               "inventory: a wheel token missing from the list is named",
+               f"exit {code} out {buf.getvalue().strip()}")
+        (pkg / "c.py").unlink()
+
+        miss, extra = inventory_diff(set(wheel) - {"wrong_kind"})
+        record(miss == [] and extra == ["wrong_kind"],
+               "inventory: a listed token absent from the wheel is named",
+               f"missing {miss} extra {extra}")
+
+        empty = tmp / "empty"
+        empty.mkdir()
+        (empty / "x.py").write_text("X = 1\n")
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            code_empty = run_inventory(empty)
+            code_nodir = run_inventory(tmp / "does-not-exist")
+        record(code_empty == 1 and code_nodir == 1,
+               "inventory: zero tokens / missing directory fail closed",
+               f"exit {code_empty}/{code_nodir}")
 
     print(f"\n{'FAIL: ' + str(len(failures)) if failures else 'all ok'}"
           f" — check_signoff_reasons self-test")

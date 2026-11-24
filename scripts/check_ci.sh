@@ -256,4 +256,25 @@ fi
 # beyond the render above, no PDK and no network.
 python3 -I scripts/check_signoff_reasons.py --self-test
 python3 -I scripts/check_signoff_reasons.py "$RECORD"
+# LEGITIMATE_REASONS claims to be the pinned wheel's _REASON_* set minus the
+# reject-list (issue #236). Unlike the self-test this needs the klt wheel: it
+# is located import-first (the CI job pip-installs the pin, so no extra tool
+# and no network), falling back to uvx at the pin -- the same order
+# scripts/klt.sh uses -- and never installing anything host-wide. An
+# importable klayout_tools at any other version is ignored, not trusted. If
+# neither route finds the wheel this fails by name rather than skipping, and
+# the checker itself fails closed if the tokens cannot be found.
+KLT_PIN="$(scripts/klt.sh --pin)"
+KLT_LOCATE='import importlib.metadata as m,klayout_tools,os,sys
+if m.version("klayout-tools")!=sys.argv[1]: sys.exit(1)
+print(os.path.dirname(klayout_tools.__file__))'
+KLT_PKG_DIR="$(python3 -I -c "$KLT_LOCATE" "$KLT_PIN" 2>/dev/null || true)"
+if [ -z "$KLT_PKG_DIR" ] && command -v uvx >/dev/null 2>&1; then
+  KLT_PKG_DIR="$(uvx --from "klayout-tools==$KLT_PIN" python -I -c "$KLT_LOCATE" "$KLT_PIN" 2>/dev/null || true)"
+fi
+if [ -z "$KLT_PKG_DIR" ] || [ ! -d "$KLT_PKG_DIR" ]; then
+  echo "::error::cannot locate the klayout-tools==$KLT_PIN package (not importable at that version, and uvx unavailable or failed); LEGITIMATE_REASONS inventory check cannot run"
+  exit 1
+fi
+python3 -I scripts/check_signoff_reasons.py --check-inventory "$KLT_PKG_DIR"
 echo "committed signoff record is fresh"
