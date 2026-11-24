@@ -29,14 +29,15 @@
 #       note<->record binding -- the record's own binding to the netlist
 #       stays local_only)
 #   8. the committed klt signoff record equals a fresh render of the manifest
-#       and no item in it is downgraded to unmet/stale_evidence (a stale
+#       and no item in it is downgraded to unmet/stale_evidence or
+#       unmet/unverifiable_provenance (a stale
 #       manifest content_hash pin re-rendered and committed would pass the
-#       byte-compare alone; issue #212)
+#       byte-compare alone; issues #212, #214)
 #   (the --help assertion for the two shell drivers runs as step 2b, beside
 #    the other tool-free gates; the delay-chain derivation unit check runs as
 #    step 3b; the tap-decode structural check runs as step 3c, self-tested
-#    first; the PDK-root provenance check runs as step 3d, self-tested
-#    first; the item-9 testbench attestation is checked as step 4b, and
+#    first; the fleet PDK_ROOT runtime guard fixture runs as step 3d; the
+#    item-9 testbench attestation is checked as step 4b, and
 #    step 4c asserts that attestation declares every controller bench present
 #    on disk -- a bench the inventory omits is invisible to 4b rather than
 #    drift)
@@ -125,23 +126,25 @@ echo "== 3c/8 tap-decode structural check =="
 python3 -I scripts/check_tap_decode.py --self-test
 python3 -I scripts/check_tap_decode.py
 
-echo "== 3d/8 PDK-root provenance check =="
-# ensure_pdk in scripts/fleet-regen-layout.sh fetches the pinned sky130A PDK
-# outside the repo root (issue #142): a PDK under ${REPO_ROOT} makes klt
-# record the liberty deck as repo-scoped evidence -- a path into a tree
-# .gitignore deliberately excludes, unresolvable in every checkout -- while
-# outside the repo the same field records scope "external". Every bench is
-# blind to the regression and it surfaces only when a fleet job runs the
-# regeneration end to end, by which time the wrong evidence is already
-# committed, so this is the structural guard: a pure read of the committed
-# script asserting every `export PDK_ROOT=` target in ensure_pdk is /opt/pdk,
-# a caller-supplied ${PDK_ROOT}, or rooted at ${TMPDIR:-/var/tmp}, and never
-# ${REPO_ROOT} (issue #155). It fails closed on a missing ensure_pdk or a
-# missing export -- a rename must not silently pass -- and is self-tested
-# first, over fixtures carrying exactly the regression. Needs no PDK, no
-# klt and no network.
-python3 -I scripts/check_pdk_root.py --self-test
-python3 -I scripts/check_pdk_root.py
+echo "== 3d/8 fleet PDK_ROOT runtime guard =="
+# The runtime PDK_ROOT guard in scripts/fleet-regen-layout.sh -- the
+# value-level assertion AFTER the ensure_pdk call, which rejects a
+# repo-local PDK even through a symlink (issue #142; guard landed with
+# issue #160 / PR #191) -- is the one authoritative check of the effective
+# PDK_ROOT (the static checker that parsed ensure_pdk was removed, issue
+# #228), and it sits outside ensure_pdk on purpose, so it also covers the
+# verified-PDK early return. This fixture
+# runs the production fleet script itself in a throwaway checkout against
+# fixture PDK roots, with stub tools and no network: every repo-local
+# shape (at the checkout root, in a subdirectory, through a symlink, and
+# through a symlinked checkout) must exit 4 with the issue #142
+# diagnostic, and an external sibling sharing the checkout's name prefix
+# must reach ensure_yowasp_yosys, the first step after the guard. It is
+# built to fail on both silent weakenings: a logical (non -P) REPO_ROOT
+# and a guard relocated where ensure_pdk's early return skips it
+# (issue #193). Needs no PDK, no EDA tools, no klt beyond
+# scripts/klt.sh --pin and no network.
+scripts/test_fleet_pdk_root.sh
 
 echo "== 4/8 item-10 attestation is fresh =="
 # Hashes are raw bytes: any edit to README.md, LICENSE, ci.yml or
@@ -207,7 +210,7 @@ echo "== 6c/8 post-route STA record is fresh =="
 # the way layout-check gates the place-and-route response (issue #172).
 # Self-tested first over fixture trees so `sta-postroute-note` cannot overwrite
 # stale SPEF or request provenance and mask a needed STA rerun.
-python3 -I flow/hyperram.py sta-postroute-check --self-test
+python3 -I flow/hyperram_selftest.py sta-postroute-check
 python3 -I flow/hyperram.py sta-postroute-check
 
 echo "== 7/8 pre-layout STA note is fresh =="
@@ -219,7 +222,7 @@ echo "== 7/8 pre-layout STA note is fresh =="
 # netlist it was minted from -- that binding needs the STA rerun and stays
 # local_only. Self-tested first over fixture trees, the way 6c gates the
 # post-route twin.
-python3 -I flow/hyperram.py sta-check --self-test
+python3 -I flow/hyperram_selftest.py sta-check
 python3 -I flow/hyperram.py sta-check
 
 echo "== 8/8 klt signoff record is fresh =="
@@ -243,8 +246,10 @@ fi
 # previously-met T1 item to unmet/stale_evidence when the manifest's pinned
 # content_hash no longer matches the cited evidence, and a downgraded record
 # re-rendered and committed passes the cmp above by comparing to itself
-# (issue #212). The reason token is the discriminator -- klt 0.9.2 documents
-# thirty legitimate unmet reasons, so this reject-lists stale_evidence alone,
+# (issue #212). The reason token is the discriminator -- klt 0.9.2 defines
+# forty-eight `_REASON_*` tokens and the set grows release by release, so
+# this reject-lists the two downgrade tokens, stale_evidence and
+# unverifiable_provenance (issue #214), and nothing else,
 # self-tested first, over fixtures, because it is the only thing standing
 # between a silent T1 downgrade and a green CI. $RECORD is byte-equal to
 # $fresh here (the cmp above), so checking it checks both. Needs no klt

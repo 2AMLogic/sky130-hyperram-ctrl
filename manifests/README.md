@@ -134,7 +134,10 @@ cover transistor-level devices inside the cells (0 devices on both sides) or
 geometric rail continuity (`klt ring-check`, `klt power`). The report's content
 hash pins the extracted netlist; the GDS binding is in
 `layout/lvs/records/extract.response.json` (`provenance.input`, equal to the
-item-2 GDS hash).
+item-2 GDS hash). That record is runner output: `layout/lvs/run.sh` empties its
+`dead_metal` list (nothing reads it; the count stays in the klt warning below,
+the full list needs the ~8 min re-run), and `run.sh check` also runs
+`klt extract --check` on it.
 
 Warnings, as reported:
 
