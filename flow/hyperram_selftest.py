@@ -336,10 +336,14 @@ def sta_postroute_self_test():
     the note's provenance marker causes `sta-postroute-note` to refuse without
     touching the note and leaves `sta-postroute-check` failing with exit 3 --
     including end-to-end CLI subprocess runs for SPEF drift and a request whose
-    `spef` field points to a missing file. Last, that the `sta-postroute` /
+    `spef` field points to a missing file. Next, that the `sta-postroute` /
     `sta-postroute-note` producers (klt stood in) under a non-UTF-8 locale
     write a note carrying a non-ASCII field as UTF-8/LF bytes, and that the
-    gate accepts what they mint (issue #215).
+    gate accepts what they mint (issue #215). Last, the read side of the same
+    contract (issue #221): response records saved with literal non-ASCII UTF-8
+    and a note carrying the same character raw pass `sta-postroute-check` and
+    regenerate exactly under the C locale, and a CRLF-only rewrite of a fresh
+    note is STALE -- the note binding is byte-for-byte, not line-by-line.
     """
     corners = ["ss_n40C_1v28", "tt_025C_1v80"]
     clocks = [{"port": "clk", "period_ns": 20.0}, {"port": "hb_rwds_i", "period_ns": 20.0}]
@@ -612,11 +616,70 @@ def sta_postroute_self_test():
             f"cli/C-locale: sta-postroute-note exited {n1.returncode}: {n1.stdout!r}{n1.stderr!r}"
         assert note_p.read_bytes() == minted, \
             "cli/C-locale: sta-postroute-note did not restore the exact UTF-8/LF bytes"
-        c1 = subprocess.run([sys.executable, "-I", runner, "sta-postroute-check"],
-                            capture_output=True, text=True)
+        c1 = subprocess.run([sys.executable, runner, "sta-postroute-check"],
+                            capture_output=True, env=env)
         assert c1.returncode == 0, \
-            f"cli: sta-postroute-check rejected the minted record: " \
-            f"{c1.returncode}: {c1.stdout}{c1.stderr}"
+            f"cli/C-locale: sta-postroute-check rejected the minted record: " \
+            f"{c1.returncode}: {c1.stdout!r}{c1.stderr!r}"
+        passed += 1
+
+    # 11. The read side under the same locale (issue #221): response records
+    #     saved with literal non-ASCII UTF-8 (ensure_ascii=False) and a note
+    #     carrying the same character raw must pass `sta-postroute-check` and
+    #     regenerate exactly under the C locale -- no read on this path may go
+    #     through the host locale's preferred encoding.
+    with tempfile.TemporaryDirectory() as tmp:
+        root = make_fixture(tmp, with_runner=True)
+        rec_p, arec_p, note_p, req_p, areq_p, rdef_p, rspef_p = sta_postroute_paths(root)
+        docs = []
+        for rec_file in (rec_p, arec_p):
+            d = json.loads(rec_file.read_text(encoding="utf-8"))
+            d["engine_version"] = "test \u00b1 1.0"
+            rec_file.write_bytes((json.dumps(d, indent=2, ensure_ascii=False) + "\n").encode("utf-8"))
+            docs.append(d)
+        req = json.loads(req_p.read_text(encoding="utf-8"))
+        marker = format_sta_postroute_marker(sha256(rdef_p), sha256(rspef_p),
+                                             sha256(req_p), sha256(areq_p))
+        want = sta_postroute_note(docs[0], docs[1], req, marker=marker).encode("utf-8")
+        assert "\u00b1".encode("utf-8") in want, "fixture note carries no non-ASCII prose"
+        note_p.write_bytes(want)
+        runner = str(root / "flow/hyperram.py")
+        env = c_locale_env()
+        c1 = subprocess.run([sys.executable, runner, "sta-postroute-check"],
+                            capture_output=True, env=env)
+        assert c1.returncode == 0, \
+            f"cli/C-locale: check rejected literal-UTF-8 records: " \
+            f"{c1.returncode}: {c1.stdout!r}{c1.stderr!r}"
+        note_p.write_bytes(f"# stale prose heading\n\n{marker}\n".encode("utf-8"))
+        c2 = subprocess.run([sys.executable, runner, "sta-postroute-check"],
+                            capture_output=True, env=env)
+        assert c2.returncode == 3 and b"differs from a fresh render" in c2.stdout, \
+            f"cli/C-locale: prose drift missed (rc={c2.returncode}): {c2.stdout!r}{c2.stderr!r}"
+        n1 = subprocess.run([sys.executable, runner, "sta-postroute-note"],
+                            capture_output=True, env=env)
+        assert n1.returncode == 0, \
+            f"cli/C-locale: note regen exited {n1.returncode}: {n1.stdout!r}{n1.stderr!r}"
+        assert note_p.read_bytes() == want, \
+            "cli/C-locale: note regen did not restore the exact UTF-8/LF bytes"
+        passed += 1
+
+    # 12. A CRLF-only rewrite of a fresh note is STALE, not a pass (issue #221):
+    #     the note binding is byte-for-byte, so a line-ending change must not
+    #     slip through a text-mode comparison. The marker survives the rewrite
+    #     for `sta-postroute-note`, which restores the exact original bytes.
+    with tempfile.TemporaryDirectory() as tmp:
+        root = make_fixture(tmp)
+        note_p = sta_postroute_paths(root)[2]
+        orig = note_p.read_bytes()
+        note_p.write_bytes(orig.replace(b"\n", b"\r\n"))
+        rc, out = call_quiet(sta_postroute_check, root)
+        assert rc == 3 and "differs from a fresh render" in out, \
+            f"CRLF rewrite missed (rc={rc}): {out}"
+        rc, out = call_quiet(sta_postroute_note_cmd, root)
+        assert rc == 0, f"note regen after CRLF rewrite failed (rc={rc}): {out}"
+        assert note_p.read_bytes() == orig, "note regen did not restore the exact LF bytes"
+        rc, out = call_quiet(sta_postroute_check, root)
+        assert rc == 0, f"check after CRLF repair failed (rc={rc}): {out}"
         passed += 1
 
     print(f"sta-postroute-check self-test: {passed}/{passed} cases passed")

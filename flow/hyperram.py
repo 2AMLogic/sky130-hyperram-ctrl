@@ -631,8 +631,8 @@ def sta():
         sys.exit(f"FATAL: {rel(NETLIST)} missing; run `make hyperram-synth`")
     if not STAT.exists():
         sys.exit(f"FATAL: {rel(STAT)} missing; run `make hyperram-synth`")
-    cells = json.loads(STAT.read_text())["blackbox_modules"]
-    want = list(json.loads(STA_REQ.read_text())["pdk"]["corners"])
+    cells = json.loads(STAT.read_text(encoding="utf-8"))["blackbox_modules"]
+    want = list(json.loads(STA_REQ.read_text(encoding="utf-8"))["pdk"]["corners"])
 
     doc = klt_json("sta", str(STA_REQ), env=pdk_env())
     if doc.get("status") != "ok":
@@ -784,7 +784,7 @@ def sta_postroute_run(req_path):
     any corner, so the `u_cap/` capture flops really are timed off the strobe.
     Nothing here grades slack (see sta_postroute for why not).
     """
-    req = json.loads(Path(req_path).read_text())
+    req = json.loads(Path(req_path).read_text(encoding="utf-8"))
     want = list(req["pdk"]["corners"])
     doc = klt_json("sta", str(req_path), env=pdk_env())
     if doc.get("status") != "ok":
@@ -1164,14 +1164,14 @@ def sta_postroute():
         if not p.exists():
             sys.exit(f"FATAL: {rel(p)} missing; run `make layout`")
     for req_file in (STAPR_REQ, STAPR_AREQ):
-        req_chk = json.loads(req_file.read_text())
+        req_chk = json.loads(req_file.read_text(encoding="utf-8"))
         for req_key, target in (("def", RDEF), ("spef", RSPEF)):
             raw = req_chk.get(req_key)
             resolved = (req_file.parent / raw).resolve() if isinstance(raw, str) and raw else None
             if resolved != target.resolve():
                 sys.exit(f"FATAL: {rel(req_file)} {req_key}={raw!r} does not resolve to {rel(target)}")
     input_hashes = (sha256(RDEF), sha256(RSPEF), sha256(STAPR_REQ), sha256(STAPR_AREQ))
-    req_doc = json.loads(STAPR_REQ.read_text())
+    req_doc = json.loads(STAPR_REQ.read_text(encoding="utf-8"))
     doc = sta_postroute_run(STAPR_REQ)
     adoc = sta_postroute_run(STAPR_AREQ)
     if (sha256(RDEF), sha256(RSPEF), sha256(STAPR_REQ), sha256(STAPR_AREQ)) != input_hashes:
@@ -1226,7 +1226,11 @@ def sta_postroute_verify(root=None):
     for p in (rec_p, arec_p, note_p, req_p, areq_p, rdef_p, rspef_p):
         if not p.exists():
             sys.exit(f"FATAL: {rel(p, root)} missing; run `make hyperram-sta-postroute`")
-    note = note_p.read_text()
+    # UTF-8 explicitly, never the host locale's preferred encoding: the note
+    # may carry non-ASCII prose. Universal-newline translation stays on so a
+    # CRLF rewrite of the note keeps its marker parseable -- regeneration
+    # (sta-postroute-note) must be able to repair what the check flags.
+    note = note_p.read_text(encoding="utf-8")
     parsed = parse_sta_postroute_marker(note)
     if parsed is None:
         print(f"STALE: {rel(note_p, root)} does not carry the input marker for the current"
@@ -1243,8 +1247,8 @@ def sta_postroute_verify(root=None):
     docs = []
     reqs = []
     for rec, req_file in ((rec_p, req_p), (arec_p, areq_p)):
-        doc = json.loads(rec.read_text())
-        req = json.loads(req_file.read_text())
+        doc = json.loads(rec.read_text(encoding="utf-8"))
+        req = json.loads(req_file.read_text(encoding="utf-8"))
         if doc.get("status") != "ok":
             sys.exit(f"FATAL: {rel(rec, root)}: status is {doc.get('status')!r}")
         for req_key, doc_key, target in (("def", "def_path", rdef_p),
@@ -1304,11 +1308,12 @@ def sta_postroute_check(root=None):
     the DEF/SPEF and both request documents against the marker line minted by
     `sta-postroute`, the path/corner/clock/clock-group echoes in each response
     against its request document, and the note body against a fresh render from
-    the committed responses.
+    the committed responses -- byte-for-byte (UTF-8, LF), the shape
+    `sta-check` uses, so a line-ending change is STALE, not a pass.
     """
     _, _, note_p, *_ = sta_postroute_paths(root)
     doc, adoc, req, marker = sta_postroute_verify(root)
-    if note_p.read_text() != sta_postroute_note(doc, adoc, req, marker=marker):
+    if note_p.read_bytes() != sta_postroute_note(doc, adoc, req, marker=marker).encode("utf-8"):
         print(f"STALE: {rel(note_p, root)} differs from a fresh render of the committed"
               " responses; run `python3 -I flow/hyperram.py sta-postroute-note`")
         sys.exit(3)
