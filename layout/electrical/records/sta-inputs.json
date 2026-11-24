@@ -1,0 +1,35 @@
+{
+  "geometry": {
+    "def": {
+      "path": "layout/records/hyperram_ctrl.def",
+      "sha256": "sha256:cf7eb6c5021763aec3d753425386284d5fe0bfdc5c83df9c19edf1540df8be4d"
+    },
+    "spef": {
+      "path": "layout/records/hyperram_ctrl.spef",
+      "sha256": "sha256:f8d72e9d22153d8c6cdc0294f13db74bfde863888e9c39f90878bfc491c84117"
+    },
+    "routed_netlist": {
+      "path": "layout/records/hyperram_ctrl.routed.v",
+      "sha256": "sha256:0f256c9137a76cddfed7ce23667a3ab53dcc4cdb00fa2c6f9984fd80fad09452"
+    }
+  },
+  "files": {
+    "sta-response.json": "sha256:c4ad989823c48593322b4e23ae6a474984792f4dc2a632ef904729350545ed8c",
+    "opensta-ff_100C_1v65.log": "sha256:bfdece75e7c13f7bf616eb3cfec6c3ed277c7246c6fc88bf3b9196fca36e1fb7",
+    "opensta-ff_100C_1v95.log": "sha256:b4f83c4b976db1f3779fb91ecbad7185f34169c3dd54db94c69192bcf6410a3e",
+    "opensta-ff_n40C_1v56.log": "sha256:48741ff45cdb3edef3aba603a76242b5579480889761dba5bdff36de1fabeec4",
+    "opensta-ff_n40C_1v65.log": "sha256:940eeca0c72cc0a060740f4b23f7ca1ae0d77895f193366719503bee71adf400",
+    "opensta-ff_n40C_1v76.log": "sha256:27770c5177b5230d4ae13e9d325b9c82947d7c94ef6785c9f706c0acb26235a3",
+    "opensta-ff_n40C_1v95.log": "sha256:7aa60b73433ce3babec693e8bb8c130a80e8f5f5c7b47d4b4b2c946f5e1b0e38",
+    "opensta-ss_100C_1v40.log": "sha256:47baa28fcb0366d61dfb8378ea0e4fea57ca6bc6dd13ebe1130bca61000afc75",
+    "opensta-ss_100C_1v60.log": "sha256:698f808694855e071b6ad50a46cdaf07b63fb8ef81e61fafde0f0ed9a2c65e54",
+    "opensta-ss_n40C_1v28.log": "sha256:dfbd74f1d7a709c0f490b2c1e011752da140209ad6ada6312e6b0a1a88208179",
+    "opensta-ss_n40C_1v35.log": "sha256:740b386ae02b445bd637e37eba51fc61b52d5a5dc35c8f7ad9fc5a359c1b0212",
+    "opensta-ss_n40C_1v40.log": "sha256:246a2bcb606aea478c4db4dfd4e2a47d1d305e766f6703507377c8719fe5f079",
+    "opensta-ss_n40C_1v44.log": "sha256:201b6dbdcc86eeac77ac0290b1a97ffab3dcd3b584a7dbe598d143a74c2fd689",
+    "opensta-ss_n40C_1v60.log": "sha256:8d95e692c5838316b3ae35d06a5ec32f5e22f29680631f938467fabfedb9eba8",
+    "opensta-ss_n40C_1v76.log": "sha256:f275f19e1ff7a3d6f899558174f852d35aa6fa8fa46be87ff0149e5b9e445122",
+    "opensta-tt_025C_1v80.log": "sha256:45b83c39b1e1694331c3c8bcb12df3201aa045bcc1c27c9dd336c8a4240d2f34",
+    "opensta-tt_100C_1v80.log": "sha256:5a58c026b1cccfda6f1a149076d5cd84851f469deb9b666958a4888c2eed5b40"
+  }
+}

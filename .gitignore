@@ -129,9 +129,17 @@ fleet-probe.txt
 # klt sta scratch from sim/pad-sta (records/ holds the committed outputs)
 sim/pad-sta/.klt/
 
+# klt sta scratch from layout/electrical (records/ holds the committed
+# outputs: the per-corner engine stdout logs and the classification record)
+layout/electrical/.klt/
+
 # sim/pad-sta: committed OpenSTA evidence logs escape the *.log rule
 # (same append-only record trail as sim/*/corners above).
 !sim/pad-sta/records/**/*.log
+
+# layout/electrical: same exception -- the per-corner engine stdout logs are
+# the committed pin/limit/value evidence behind electrical-checks.json.
+!layout/electrical/records/*.log
 
 # Repo Skills Codex-side machine-local install metadata (never committed)
 .agents/skills/repo/.install-local.json
