@@ -290,6 +290,13 @@ fi
 export PDK="${PDK:-sky130A}"
 ensure_yowasp_yosys
 
+# Capture a reference using the same OpenROAD binary as the repaired route.
+# The checkout carries the baseline DEF, SPEF and routed netlist from a47a2b0.
+bash layout/electrical/run.sh check
+bash layout/electrical/run.sh
+bash layout/electrical/run.sh check
+mv layout/electrical/records layout/electrical/baseline
+
 # Clean the outputs this run owns, so a partial failure surfaces as missing
 # declared outputs (job exit 3) instead of silently re-collecting stale files.
 # Runs after the toolchain checks above, so an early failure cannot leave the
@@ -342,6 +349,8 @@ step attest-item1
 
 log "running make layout (klt place-and-route, ~25 min)"
 make layout
+# Keep the engine stdout keyed by invocation ID for the same-sweep pin counts.
+tar -czf pnr-engine-logs.tar.gz -C layout/.klt/place-and-route openroad-logs
 step layout
 log "running make drc"
 make drc
@@ -452,4 +461,24 @@ print(f"P&R: engine {r['engine']} {r.get('engine_version','')} "
       f"spef_worst_slack {r.get('spef_sta',{}).get('worst_slack_ns')}ns")
 PY
 
+log "measuring the constrained route at all 16 corners"
+bash layout/electrical/run.sh
+bash layout/electrical/run.sh check
+python3 -I layout/electrical/test_classify.py
+make hyperram-sta-postroute post-route-sdf
+make hyperram-sta-postroute-check
+python3 -I <<'PY_CHECK'
+import json
+from pathlib import Path
+
+area = json.loads(Path("layout/records/area.json").read_text())
+if area["within_row17_budget"] is not True:
+    raise SystemExit(f"Row 17 core area exceeded: {area['core_area_um2']} um2")
+
+signoff = json.loads(Path("manifests/sky130-hyperram-ctrl.signoff.json").read_text())
+met = {item["id"] for item in signoff["items"] if item["status"] == "met"}
+missing = {1, 2, 3, 4, 9, 10, 11} - met
+if missing:
+    raise SystemExit(f"Previously met signoff items now missing: {sorted(missing)}")
+PY_CHECK
 log "regen complete"
