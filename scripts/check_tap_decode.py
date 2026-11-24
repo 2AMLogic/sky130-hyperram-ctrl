@@ -109,10 +109,20 @@ def selected_depths(insts):
     if len(m4) != 2 or len(m2) != 1 or m2[0]["X"] != "out_sig":
         return None
     mux2 = m2[0]
+    # Resolve each mux2 data port to the mux4 whose X drives that net, so the
+    # verdict follows connectivity, not Verilog declaration order. Both mux4
+    # outputs must feed the final mux, one on each data port.
+    by_out = {}
+    for m in m4:
+        by_out.setdefault(m["X"], []).append(m)
+    lo, hi = by_out.get(mux2["A0"], []), by_out.get(mux2["A1"], [])
+    if len(lo) != 1 or len(hi) != 1 or lo[0] is hi[0]:
+        return None
+    m4_lo, m4_hi = lo[0], hi[0]
     picks = []
     for sel in range(8):
         m4_outs = []
-        for m in m4:
+        for m in (m4_lo, m4_hi):
             # sky130_fd_sc_hd__mux4: X = A[{S1,S0}] (00->A0 .. 11->A3)
             idx = (sel_bit(m["S1"], sel) << 1) | sel_bit(m["S0"], sel)
             m4_outs.append(m[f"A{idx}"])
@@ -191,18 +201,25 @@ def record(ok, name, detail=""):
         failures.append(name)
 
 
-def fixture_netlist(n_cells=16, depths=None, swap_selects=False):
+def fixture_netlist(
+    n_cells=16, depths=None, swap_selects=False, swap_mux2=False, swap_m4_decls=False
+):
     """A netlist-shaped hr_tap_delay module, yosys-formatted like the
     committed artifact. `depths` lists the 8 mux data inputs in the order
     (mux4_a A0..A3, mux4_b A0..A3); the committed decode is
-    [2, 10, 6, 14, 4, 12, 8, 16]."""
+    [2, 10, 6, 14, 4, 12, 8, 16]. `swap_mux2` exchanges the final mux2's A0/A1
+    connections (instance order kept); `swap_m4_decls` exchanges the two
+    complete mux4 declarations (wiring kept)."""
     if depths is None:
         depths = [2, 10, 6, 14, 4, 12, 8, 16]
     lines = [f"module {MODULE}(in_sig, tap_sel, out_sig);"]
     lines += ["  wire [16:0] dly;", "  wire [7:0] taps;"]
     a, b = depths[:4], depths[4:]
     s0, s1 = ("tap_sel[1]", "tap_sel[2]") if swap_selects else ("tap_sel[2]", "tap_sel[1]")
-    for tag, ports, x in (("_2_", a, "_0_"), ("_3_", b, "_1_")):
+    m4s = [("_2_", a, "_0_"), ("_3_", b, "_1_")]
+    if swap_m4_decls:
+        m4s.reverse()
+    for tag, ports, x in m4s:
         lines += [
             f"  sky130_fd_sc_hd__mux4_1 {tag} (",
             *[f"    .A{i}(dly[{d}])," for i, d in enumerate(ports)],
@@ -211,10 +228,11 @@ def fixture_netlist(n_cells=16, depths=None, swap_selects=False):
             f"    .X({x})",
             "  );",
         ]
+    a0, a1 = ("_1_", "_0_") if swap_mux2 else ("_0_", "_1_")
     lines += [
         "  sky130_fd_sc_hd__mux2_2 _4_ (",
-        "    .A0(_0_),",
-        "    .A1(_1_),",
+        f"    .A0({a0}),",
+        f"    .A1({a1}),",
         "    .S(tap_sel[0]),",
         "    .X(out_sig)",
         "  );",
@@ -257,6 +275,15 @@ def self_test():
     record(ok, "fixture: 15-cell off-by-one chain length fails")
     ok, _ = check_fixture("swapped selects", fixture_netlist(swap_selects=True), False)
     record(ok, "fixture: S0/S1 select wiring swap fails")
+    # Instance order has no electrical meaning: only wiring decides the verdict.
+    ok, _ = check_fixture(
+        "swapped mux2 data", fixture_netlist(swap_mux2=True), False
+    )
+    record(ok, "fixture: final mux2 A0/A1 swap (instance order kept) fails")
+    ok, _ = check_fixture(
+        "swapped mux4 decls", fixture_netlist(swap_m4_decls=True), True
+    )
+    record(ok, "fixture: mux4 declaration order exchanged (wiring kept) passes")
     # Fork, not count: still exactly 16 cells, but dly[3] feeds two of them.
     forked = good.replace(
         "  sky130_fd_sc_hd__dlygate4sd3_1 \\g_dly[5].u_dly (\n    .A(dly[5]),",
