@@ -3,8 +3,19 @@
 Chronological record of merged PRs and closed issues, newest first.
 Maintained by the Guide triage role; entries are append-only.
 
+### 2026-11-24
+
+- **PR #239**: ci: assert LEGITIMATE_REASONS matches the pinned klt wheel's reason tokens
+- **Issue #236** (closed): check_signoff_reasons.py: nothing mechanically asserts LEGITIMATE_REASONS still equals the pinned wheel's _REASON_* set
+- **PR #237**: docs(spec): note klt 0.9.2 macros[] support beside 0.8.0 pad-STA finding
+- **Issue #182** (closed): spec/target-spec.md:71 still says klt 0.8.0 cannot drive the pad-STA experiment (stale after the 0.9.2 pin bump)
+- **PR #225**: fix: decode STA gate inputs as UTF-8 and bind the post-route note by bytes
+- **Issue #221** (closed): The STA/STA-postroute gates still decode their inputs with the host locale (read side of #215)
+
 ### 2026-11-23
 
+- **PR #235**: feat(lvs): trim dead_metal in the extract runner and check the extract record
+- **Issue #78** (closed): Trim the 175k-line dead_metal list from the committed klt extract record
 - **PR #233**: refactor: move sta self-tests into flow/hyperram_selftest.py
 - **Issue #229** (closed): Split the two embedded self-tests (~580 lines) out of flow/hyperram.py
 - **PR #232**: chore: remove static PDK_ROOT checker, keep runtime guard
